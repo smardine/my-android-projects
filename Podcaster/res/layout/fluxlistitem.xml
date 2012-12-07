@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_color"
+    android:orientation="horizontal"
+    android:showDividers="middle" 
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <TextView
+        android:id="@+id/tvIdFlux"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01" />
+
+    <ImageView
+        android:id="@+id/ivVignetteFlux"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/vignette_du_flux" 
+        android:layout_weight="0.1"		
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"	 >
+
+        <TextView
+            android:id="@+id/tvTitreFlux"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:inputType="none"
+            android:text="@string/titre_du_flux" />
+
+        <TextView
+            android:id="@+id/tvDateDerniereSynchro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:inputType="none"
+            android:text="@string/date_au_format_jj_mmm" 
+            	>            
+        </TextView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivCategorieFlux"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.01"
+		android:textSize="16sp" 
+		android:textStyle="bold"
+        android:contentDescription="@string/image_de_la_categorie_audio_ou_video_"
+        android:src="@drawable/ic_launcher" />
+
+</LinearLayout>
