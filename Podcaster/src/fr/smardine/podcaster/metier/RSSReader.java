@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,13 +27,15 @@ import android.os.AsyncTask;
  * @author Fobec 2010
  */
 
-public class RSSReader extends AsyncTask<String, Void, String> {
+public class RSSReader extends AsyncTask<String, Void, List<String>> {
+
+	private final List<String> listeRetour = new ArrayList<String>();
 
 	/**
 	 * Parser le fichier XML
 	 * @param feedurl URL du flux RSS
 	 */
-	private void parse(String feedurl) {
+	private List<String> parse(String feedurl) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder();
@@ -56,6 +60,9 @@ public class RSSReader extends AsyncTask<String, Void, String> {
 			nodes = doc.getElementsByTagName("item");
 			for (int i = 0; i < nodes.getLength(); i++) {
 				element = (Element) nodes.item(i);
+
+				listeRetour.addAll(getAllChild(element));
+
 				System.out.println("Titre: " + readNode(element, "title"));
 				System.out.println("Lien: " + readNode(element, "link"));
 				System.out.println("Date: "
@@ -64,7 +71,8 @@ public class RSSReader extends AsyncTask<String, Void, String> {
 						+ readNode(element, "description"));
 				System.out.println();
 			} // for
-				// for
+
+			// for
 		} catch (SAXException ex) {
 			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null,
 					ex);
@@ -75,6 +83,7 @@ public class RSSReader extends AsyncTask<String, Void, String> {
 			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
+		return listeRetour;
 	}
 
 	/**
@@ -131,6 +140,27 @@ public class RSSReader extends AsyncTask<String, Void, String> {
 		return null;
 	}
 
+	public List<String> getAllChild(Node p_node) {
+		List<String> listeRetour = new ArrayList<String>();
+		NodeList listChild = p_node.getChildNodes();
+
+		if (listChild != null) {
+			for (int i = 0; i < listChild.getLength(); i++) {
+				Node child = listChild.item(i);
+				if (child != null) {
+					StringBuilder sb = new StringBuilder();
+					sb.append(child.getNodeName());
+					sb.append(child.getNodeValue());
+					sb.append(child.getTextContent());
+
+					listeRetour.add(sb.toString());
+
+				}
+			}
+		}
+		return listeRetour;
+	}
+
 	/**
 	 * Afficher une Date GML au format francais
 	 * @param gmtDate
@@ -161,8 +191,7 @@ public class RSSReader extends AsyncTask<String, Void, String> {
 	// }
 
 	@Override
-	protected String doInBackground(String... urls) {
-		parse(urls[0]);
-		return null;
+	protected List<String> doInBackground(String... urls) {
+		return parse(urls[0]);
 	}
 }
