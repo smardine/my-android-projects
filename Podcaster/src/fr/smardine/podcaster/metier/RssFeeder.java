@@ -24,5 +24,7 @@ public class RssFeeder {
 		// par des virgules
 		// "itunes:subtitle" => ??
 		// "itunes:summary" => résumé du flux
+
+		// http://www.vogella.com/articles/RSSFeed/article.html
 	}
 }
