@@ -1,7 +1,5 @@
 package fr.smardine.podcaster;
 
-import java.util.Date;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -13,11 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.mdl.MlCategorie;
-import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.mdl.MlParametre;
 import fr.smardine.podcaster.metier.RssFeeder;
 
 public class MainTabActivity extends FragmentActivity implements
@@ -80,8 +74,8 @@ public class MainTabActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, show the tab contents in the
 		// container view.
-		RssFeeder feeder = new RssFeeder();
-		feeder.Test();
+		// RssFeeder feeder = new RssFeeder();
+		// feeder.Test();
 
 		Fragment fragment = new DummySectionFragment();
 		Bundle args = new Bundle();
@@ -131,34 +125,9 @@ public class MainTabActivity extends FragmentActivity implements
 							.findViewById(R.id.listViewTab1);
 
 					// constitution d'un flux de test
-					MlListeFlux lstFlux = new MlListeFlux();
-					MlFlux unFlux = new MlFlux();
-					unFlux.setIdFlux(2);
-					unFlux.setCategorie(new MlCategorie());
-					unFlux.setDateDerniereSynchro(new Date());
-					unFlux.setListeEpisode(new MlListeEpisode());
-					unFlux.setParametres(new MlParametre());
-					unFlux.setTitre("Toto");
+					RssFeeder feeder = new RssFeeder();
 
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
-					lstFlux.add(unFlux);
+					MlListeFlux lstFlux = feeder.Test();
 
 					FluxListAdapter adpt = new FluxListAdapter(getActivity(),
 							lstFlux);

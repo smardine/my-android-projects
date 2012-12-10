@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.mdl;
 
+import java.net.URL;
 import java.util.Date;
 
 public class MlEpisode {
@@ -7,11 +8,14 @@ public class MlEpisode {
 	private int idEpisode;
 	private String titre;
 	private String description;
+	private URL link;
 	private EnStatutLecture statutLecture;
 	private EnStatutTelechargement statutTelechargement;
 	private Date duree;
+	private Date datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
+	private String guid;
 
 	public MlEpisode() {
 
@@ -59,6 +63,14 @@ public class MlEpisode {
 		this.description = description;
 	}
 
+	public void setLink(URL link) {
+		this.link = link;
+	}
+
+	public URL getLink() {
+		return link;
+	}
+
 	/**
 	 * @return the statutLecture
 	 */
@@ -102,6 +114,14 @@ public class MlEpisode {
 		this.duree = duree;
 	}
 
+	public void setDatePublication(Date datePublication) {
+		this.datePublication = datePublication;
+	}
+
+	public Date getDatePublication() {
+		return datePublication;
+	}
+
 	/**
 	 * @return the typeEpisode
 	 */
@@ -128,5 +148,13 @@ public class MlEpisode {
 	 */
 	public final void setCategorie(MlCategorie categorie) {
 		this.categorie = categorie;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
+
+	public String getGuid() {
+		return guid;
 	}
 }

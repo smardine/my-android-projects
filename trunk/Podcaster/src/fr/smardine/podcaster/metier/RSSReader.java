@@ -21,21 +21,25 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.os.AsyncTask;
+import fr.smardine.podcaster.mdl.MlEpisode;
+import fr.smardine.podcaster.mdl.MlFlux;
 
 /**
  * Parser un flux RSS
  * @author Fobec 2010
  */
 
-public class RSSReader extends AsyncTask<String, Void, List<String>> {
+public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 
-	private final List<String> listeRetour = new ArrayList<String>();
+	// private final List<String> listeRetour = new ArrayList<String>();
+	private MlFlux unFlux;
 
 	/**
 	 * Parser le fichier XML
 	 * @param feedurl URL du flux RSS
 	 */
-	private List<String> parse(String feedurl) {
+	private MlFlux parse(String feedurl) {
+		unFlux = new MlFlux();
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder();
@@ -48,28 +52,48 @@ public class RSSReader extends AsyncTask<String, Void, List<String>> {
 			 */
 			nodes = doc.getElementsByTagName("title");
 			Node node = doc.getDocumentElement();
+
+			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] {
+					EnBaliseRSS.Channel, EnBaliseRSS.Title }));// "channel|title"));
+			unFlux.setDateDernierePublication(GMTDateToFrench(this.readNode(
+					node, new EnBaliseRSS[] { EnBaliseRSS.Channel,
+							EnBaliseRSS.LastBuildDate })));// "channel|lastBuildDate"))));
+
 			System.out.println("Flux RSS: "
-					+ this.readNode(node, "channel|title"));
+					+ this.readNode(node, new EnBaliseRSS[] {
+							EnBaliseRSS.Channel, EnBaliseRSS.Title }));
 			System.out.println("Date de publication: "
-					+ GMTDateToFrench(this.readNode(node,
-							"channel|lastBuildDate")));
+					+ GMTDateToFrench(this.readNode(node, new EnBaliseRSS[] {
+							EnBaliseRSS.Channel, EnBaliseRSS.LastBuildDate })));
 			System.out.println();
 			/**
 			 * Elements du flux RSS
 			 **/
-			nodes = doc.getElementsByTagName("item");
+			nodes = doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 			for (int i = 0; i < nodes.getLength(); i++) {
 				element = (Element) nodes.item(i);
+				MlEpisode unEpisode = new MlEpisode();
+				unEpisode.setTitre(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Title }));
+				unEpisode.setLink(new URL(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Link })));
+				// unEpisode.setDatePublication(new
+				// Date(GMTDateToFrench(readNode(
+				// element, new EnBaliseRSS[] { EnBaliseRSS.PubDate }))));
+				unEpisode.setDescription(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Description }));
+				unEpisode.setGuid(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
+				unFlux.getListeEpisode().add(unEpisode);
+				// listeRetour.addAll(getAllChild(element));
 
-				listeRetour.addAll(getAllChild(element));
-
-				System.out.println("Titre: " + readNode(element, "title"));
-				System.out.println("Lien: " + readNode(element, "link"));
-				System.out.println("Date: "
-						+ GMTDateToFrench(readNode(element, "pubDate")));
-				System.out.println("Description: "
-						+ readNode(element, "description"));
-				System.out.println();
+				// System.out.println("Titre: " + readNode(element, "title"));
+				// System.out.println("Lien: " + readNode(element, "link"));
+				// System.out.println("Date: "
+				// + GMTDateToFrench(readNode(element, "pubDate")));
+				// System.out.println("Description: "
+				// + readNode(element, "description"));
+				// System.out.println();
 			} // for
 
 			// for
@@ -83,7 +107,7 @@ public class RSSReader extends AsyncTask<String, Void, List<String>> {
 			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
-		return listeRetour;
+		return unFlux;
 	}
 
 	/**
@@ -92,16 +116,16 @@ public class RSSReader extends AsyncTask<String, Void, List<String>> {
 	 * @param _path suite des noms des noeud sans espace séparer par des "|"
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	public String readNode(Node _node, String _path) {
+	public String readNode(Node _node, EnBaliseRSS[] _paths) {
 
-		String[] paths = _path.split("\\|");
+		// String[] paths = _path.split("\\|");
 		Node node = null;
 
-		if (paths != null && paths.length > 0) {
+		if (_paths != null && _paths.length > 0) {
 			node = _node;
 
-			for (int i = 0; i < paths.length; i++) {
-				node = getChildByName(node, paths[i].trim());
+			for (int i = 0; i < _paths.length; i++) {
+				node = getChildByName(node, _paths[i].toString().trim());
 			}
 		}
 
@@ -191,7 +215,8 @@ public class RSSReader extends AsyncTask<String, Void, List<String>> {
 	// }
 
 	@Override
-	protected List<String> doInBackground(String... urls) {
-		return parse(urls[0]);
+	protected MlFlux doInBackground(String... urls) {
+		parse(urls[0]);
+		return unFlux;
 	}
 }
