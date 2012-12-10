@@ -1,13 +1,39 @@
 package fr.smardine.podcaster.metier;
 
+import java.util.concurrent.ExecutionException;
+
+import fr.smardine.podcaster.mdl.MlListeFlux;
+
 public class RssFeeder {
 
-	public void Test() {
+	public MlListeFlux Test() {
 
-		final String feedUrl = "http://www.rtl.fr/podcast/laurent-gerra.xml";
+		final String[] feedUrl = new String[] {
+				"http://www.rtl.fr/podcast/laurent-gerra.xml",
+				"http://rss.feedsportal.com/c/808/f/413809/index.rss",
+				"http://www.europe1.fr/podcasts/revue-de-presque.xml",
+				"http://rss.feedsportal.com/c/808/f/413811/index.rss",
+				"http://rss.feedsportal.com/c/808/f/413810/index.rss",
+				"http://radiofrance-podcast.net/podcast09/rss_11549.xml" };
 		// "http://www.jeuxvideo.com/rss/itunes-le-cliq.xml";
 		RSSReader reader = new RSSReader();
-		reader.execute(feedUrl);
+
+		MlListeFlux listeRetour = new MlListeFlux();
+
+		for (String s : feedUrl) {
+			try {
+				listeRetour.add(reader.execute(s).get());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return listeRetour;
 
 		// balise commune aux podcast video et audio:
 		// "title" => le titre du flux

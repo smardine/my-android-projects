@@ -10,13 +10,14 @@ public class MlFlux {
 	private int idFlux;
 	private String titre;
 	private Date dateDerniereSynchro;
+	private String dateDernierePublication;
 	private ImageView vignette;
 	private MlParametre parametres;
 	private MlCategorie categorie;
 	private String url;
 
 	public MlFlux() {
-
+		listeEpisode = new MlListeEpisode();
 	}
 
 	/**
@@ -66,6 +67,20 @@ public class MlFlux {
 	 */
 	public final Date getDateDerniereSynchro() {
 		return dateDerniereSynchro;
+	}
+
+	/**
+	 * @param dateDernierePublication the dateDernierePublication to set
+	 */
+	public final void setDateDernierePublication(String dateDernierePublication) {
+		this.dateDernierePublication = dateDernierePublication;
+	}
+
+	/**
+	 * @return the dateDernierePublication
+	 */
+	public final String getDateDernierePublication() {
+		return dateDernierePublication;
 	}
 
 	/**
