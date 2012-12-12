@@ -17,15 +17,17 @@ public enum EnBaliseRSS {
 	// "itunes:subtitle" => ??
 	// "itunes:summary" => résumé du flux
 	Item("item"), //
-	Channel("channel"), //
-	LastBuildDate("lastBuildDate"), //
+
+	// LastBuildDate("lastBuildDate"), //
 	Title("title"), //
-	Link("link"), //
+
 	Description("description"), //
-	Enclosure("enclosre"), //
+	Channel("channel"), //
+	// Enclosure("enclosure"), //
 	PubDate("pubDate"), //
 	Guid("guid"), //
 	ItuneDuration("itunes:duration"), //
+	Link("link"), //
 	ItuneAuthor("itunes:Author"), //
 	ItuneSummary("itunes:summary");
 	private String name;

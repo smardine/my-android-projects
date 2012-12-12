@@ -56,15 +56,18 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] {
 					EnBaliseRSS.Channel, EnBaliseRSS.Title }));// "channel|title"));
 			unFlux.setDateDernierePublication(GMTDateToFrench(this.readNode(
-					node, new EnBaliseRSS[] { EnBaliseRSS.Channel,
-							EnBaliseRSS.LastBuildDate })));// "channel|lastBuildDate"))));
+					node, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));// "channel|lastBuildDate"))));
 
-			System.out.println("Flux RSS: "
-					+ this.readNode(node, new EnBaliseRSS[] {
-							EnBaliseRSS.Channel, EnBaliseRSS.Title }));
-			System.out.println("Date de publication: "
-					+ GMTDateToFrench(this.readNode(node, new EnBaliseRSS[] {
-							EnBaliseRSS.Channel, EnBaliseRSS.LastBuildDate })));
+			// System.out.println("Flux RSS: "
+			// + this.readNode(node, new EnBaliseRSS[] {
+			// EnBaliseRSS.Channel, EnBaliseRSS.Title }));
+			// System.out.println("Date de publication: "
+			// + GMTDateToFrench(this.readNode(node, new EnBaliseRSS[] {
+			// EnBaliseRSS.Channel, EnBaliseRSS.LastBuildDate })));
+			// List<String> lstChild = getAllChild(node);
+			// for (String s : lstChild) {
+			// System.out.println(s);
+			// }
 			System.out.println();
 			/**
 			 * Elements du flux RSS
@@ -75,8 +78,9 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 				MlEpisode unEpisode = new MlEpisode();
 				unEpisode.setTitre(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Title }));
-				unEpisode.setLink(new URL(readNode(element,
-						new EnBaliseRSS[] { EnBaliseRSS.Link })));
+				// unEpisode.setLink(new URL(readNode(element,
+				// new EnBaliseRSS[] { EnBaliseRSS.Link })));
+
 				// unEpisode.setDatePublication(new
 				// Date(GMTDateToFrench(readNode(
 				// element, new EnBaliseRSS[] { EnBaliseRSS.PubDate }))));
@@ -172,12 +176,15 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			for (int i = 0; i < listChild.getLength(); i++) {
 				Node child = listChild.item(i);
 				if (child != null) {
-					StringBuilder sb = new StringBuilder();
-					sb.append(child.getNodeName());
-					sb.append(child.getNodeValue());
-					sb.append(child.getTextContent());
+					if (!EnBaliseRSS.Item.toString()
+							.equals(child.getNodeName())) {
+						StringBuilder sb = new StringBuilder();
+						sb.append("Node name: " + child.getNodeName());
+						sb.append("Node value: " + child.getNodeValue());
+						sb.append("Text content: " + child.getTextContent());
 
-					listeRetour.add(sb.toString());
+						listeRetour.add(sb.toString());
+					}
 
 				}
 			}
@@ -199,8 +206,9 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 					"EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
 			return dfFrench.format(dfGMT.getCalendar().getTime());
 		} catch (ParseException ex) {
-			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null,
-					ex);
+			// Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE,
+			// null,
+			// ex);
 		}
 		return "";
 	}

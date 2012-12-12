@@ -2,6 +2,7 @@ package fr.smardine.podcaster.metier;
 
 import java.util.concurrent.ExecutionException;
 
+import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 
 public class RssFeeder {
@@ -10,19 +11,21 @@ public class RssFeeder {
 
 		final String[] feedUrl = new String[] {
 				"http://www.rtl.fr/podcast/laurent-gerra.xml",
-				"http://rss.feedsportal.com/c/808/f/413809/index.rss",
 				"http://www.europe1.fr/podcasts/revue-de-presque.xml",
 				"http://rss.feedsportal.com/c/808/f/413811/index.rss",
 				"http://rss.feedsportal.com/c/808/f/413810/index.rss",
-				"http://radiofrance-podcast.net/podcast09/rss_11549.xml" };
-		// "http://www.jeuxvideo.com/rss/itunes-le-cliq.xml";
-		RSSReader reader = new RSSReader();
+				"http://radiofrance-podcast.net/podcast09/rss_11549.xml",
+				"http://www.jeuxvideo.com/rss/itunes-le-cliq.xml",
+				"http://www.jeuxvideo.com/rss/itunes-le-cliq-hd.xml" };
 
 		MlListeFlux listeRetour = new MlListeFlux();
 
 		for (String s : feedUrl) {
 			try {
-				listeRetour.add(reader.execute(s).get());
+				RSSReader reader = new RSSReader();
+				reader.execute(s);
+				MlFlux unFlux = reader.get();
+				listeRetour.add(unFlux);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -32,6 +35,9 @@ public class RssFeeder {
 			}
 
 		}
+
+		// RSSReaderPossible reader = RSSReaderPossible.getInstance();
+		// reader.execute(new String[] { "Toto" });
 
 		return listeRetour;
 
