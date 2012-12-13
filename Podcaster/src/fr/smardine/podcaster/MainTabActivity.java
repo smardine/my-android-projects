@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.podcaster.metier.RssFeeder;
 
@@ -133,6 +136,16 @@ public class MainTabActivity extends FragmentActivity implements
 							lstFlux);
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
+					listView.setOnItemClickListener(new OnItemClickListener() {
+
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								int arg2, long arg3) {
+							System.out.println(((MlFlux) arg0
+									.getItemAtPosition(arg2)).getTitre());
+
+						}
+					});
 
 					return v;
 				case 2:

@@ -105,7 +105,7 @@ public class FluxListAdapter extends BaseAdapter {
 		// Application des données au element de la vue
 		holder.TvIdFlux.setText("" + unFlux.getIdFlux());
 		holder.TvTitreFlux.setText(unFlux.getTitre());
-		String dateStr = DateHelper.ddMMM(unFlux.getDateDerniereSynchro());
+		String dateStr = DateHelper.ddMMM(unFlux.getDateDernierePublication());
 		holder.TvDateDerniereSynchro.setText(dateStr);
 
 		// affichage des images
