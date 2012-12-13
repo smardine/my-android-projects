@@ -1,6 +1,5 @@
 package fr.smardine.podcaster.mdl;
 
-import java.net.URL;
 import java.util.Date;
 
 public class MlEpisode {
@@ -8,7 +7,7 @@ public class MlEpisode {
 	private int idEpisode;
 	private String titre;
 	private String description;
-	private URL link;
+	private String link;
 	private EnStatutLecture statutLecture;
 	private EnStatutTelechargement statutTelechargement;
 	private Date duree;
@@ -63,11 +62,11 @@ public class MlEpisode {
 		this.description = description;
 	}
 
-	public void setLink(URL link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
 
-	public URL getLink() {
+	public String getLink() {
 		return link;
 	}
 

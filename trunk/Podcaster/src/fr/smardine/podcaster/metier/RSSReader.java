@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -55,8 +56,9 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 
 			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] {
 					EnBaliseRSS.Channel, EnBaliseRSS.Title }));// "channel|title"));
-			unFlux.setDateDernierePublication(GMTDateToFrench(this.readNode(
-					node, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));// "channel|lastBuildDate"))));
+			// unFlux.setDateDernierePublication(GMTDateToFrench(this.readNode(
+			// node, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));//
+			// "channel|lastBuildDate"))));
 
 			// System.out.println("Flux RSS: "
 			// + this.readNode(node, new EnBaliseRSS[] {
@@ -78,12 +80,11 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 				MlEpisode unEpisode = new MlEpisode();
 				unEpisode.setTitre(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Title }));
-				// unEpisode.setLink(new URL(readNode(element,
-				// new EnBaliseRSS[] { EnBaliseRSS.Link })));
+				unEpisode.setLink(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
-				// unEpisode.setDatePublication(new
-				// Date(GMTDateToFrench(readNode(
-				// element, new EnBaliseRSS[] { EnBaliseRSS.PubDate }))));
+				unEpisode.setDatePublication(GMTDateToFrench(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
 				unEpisode.setDescription(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Description }));
 				unEpisode.setGuid(readNode(element,
@@ -197,20 +198,20 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * @param gmtDate
 	 * @return
 	 */
-	public String GMTDateToFrench(String gmtDate) {
+	public Date GMTDateToFrench(String gmtDate) {
 		try {
 			SimpleDateFormat dfGMT = new SimpleDateFormat(
 					"EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-			dfGMT.parse(gmtDate);
-			SimpleDateFormat dfFrench = new SimpleDateFormat(
-					"EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
-			return dfFrench.format(dfGMT.getCalendar().getTime());
+			return dfGMT.parse(gmtDate);
+			// SimpleDateFormat dfFrench = new SimpleDateFormat(
+			// "EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
+			// return dfFrench.format(dfGMT.getCalendar().getTime());
 		} catch (ParseException ex) {
 			// Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE,
 			// null,
 			// ex);
 		}
-		return "";
+		return null;
 	}
 
 	// /**
