@@ -83,12 +83,21 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 				unEpisode.setLink(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
+				unEpisode.setGuid(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
+				unEpisode.setDuree(readNode(element,
+						new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
 				unEpisode.setDatePublication(GMTDateToFrench(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
 				unEpisode.setDescription(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Description }));
 				unEpisode.setGuid(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
+
+				// this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Media
+				// });
+				// unFlux.setVignette(this.readNode(element,
+				// new EnBaliseRSS[] { EnBaliseRSS.Image }));
 				unFlux.getListeEpisode().add(unEpisode);
 				// listeRetour.addAll(getAllChild(element));
 

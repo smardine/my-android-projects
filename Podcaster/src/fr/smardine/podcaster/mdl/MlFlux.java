@@ -2,8 +2,6 @@ package fr.smardine.podcaster.mdl;
 
 import java.util.Date;
 
-import android.widget.ImageView;
-
 public class MlFlux {
 
 	private MlListeEpisode listeEpisode;
@@ -11,7 +9,7 @@ public class MlFlux {
 	private String titre;
 	private Date dateDerniereSynchro;
 	// private String dateDernierePublication;
-	private ImageView vignette;
+	private String vignetteUrl;
 	private MlParametre parametres;
 	private MlCategorie categorie;
 	private String url;
@@ -86,15 +84,15 @@ public class MlFlux {
 	/**
 	 * @return the vignette
 	 */
-	public final ImageView getVignette() {
-		return vignette;
+	public final String getVignette() {
+		return vignetteUrl;
 	}
 
 	/**
 	 * @param vignette the vignette to set
 	 */
-	public final void setVignette(ImageView vignette) {
-		this.vignette = vignette;
+	public final void setVignette(String vignetteUrl) {
+		this.vignetteUrl = vignetteUrl;
 	}
 
 	/**
