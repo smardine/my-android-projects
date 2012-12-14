@@ -10,7 +10,7 @@ public class MlEpisode {
 	private String link;
 	private EnStatutLecture statutLecture;
 	private EnStatutTelechargement statutTelechargement;
-	private Date duree;
+	private String duree;
 	private Date datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
@@ -102,14 +102,14 @@ public class MlEpisode {
 	/**
 	 * @return the duree
 	 */
-	public final Date getDuree() {
+	public final String getDuree() {
 		return duree;
 	}
 
 	/**
 	 * @param duree the duree to set
 	 */
-	public final void setDuree(Date duree) {
+	public final void setDuree(String duree) {
 		this.duree = duree;
 	}
 
