@@ -9,8 +9,9 @@
     <string name="ajouter_un_flux">Ajouter un flux</string>
     <string name="bouton_de_synchronisation">Bouton de synchronisation</string>
     <string name="bouton_d_apos_ajout_de_flux">Bouton d&amp;apos;ajout de flux</string>
-    <string name="title_tab2">Liste de lecture</string>
-    <string name="title_tab1">Flux</string>
+    <string name="title_tab3">Liste de lecture</string>
+    <string name="title_tab2">Les épisodes</string>
+    <string name="title_tab1">Les flux</string>
     <string name="title_activity_main_tab">MainActivity</string>
     <string name="title_activity_tab1">Tab1Activity</string>
     <string name="bouton_switch_type_vue">Bouton switch type vue</string>
