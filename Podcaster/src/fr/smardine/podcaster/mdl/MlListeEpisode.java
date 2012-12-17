@@ -1,8 +1,10 @@
 package fr.smardine.podcaster.mdl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MlListeEpisode extends ArrayList<MlEpisode> {
+public class MlListeEpisode extends ArrayList<MlEpisode> implements
+		Serializable {
 
 	/**
 	 * 

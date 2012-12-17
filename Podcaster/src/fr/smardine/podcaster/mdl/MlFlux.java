@@ -1,9 +1,14 @@
 package fr.smardine.podcaster.mdl;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MlFlux {
+public class MlFlux implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6060567456419685414L;
 	private MlListeEpisode listeEpisode;
 	private int idFlux;
 	private String titre;

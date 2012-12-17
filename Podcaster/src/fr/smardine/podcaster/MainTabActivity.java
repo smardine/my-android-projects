@@ -2,9 +2,9 @@ package fr.smardine.podcaster;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -12,12 +12,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import fr.smardine.podcaster.activity.FluxActivity;
+import fr.smardine.podcaster.activity.SuperActivity;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.helper.ActivityParam;
+import fr.smardine.podcaster.helper.SerialisableHelper;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.podcaster.metier.RssFeeder;
 
-public class MainTabActivity extends FragmentActivity implements
+public class MainTabActivity extends SuperActivity implements
 		ActionBar.TabListener {
 
 	/**
@@ -27,7 +31,7 @@ public class MainTabActivity extends FragmentActivity implements
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_tab);
 
@@ -99,11 +103,22 @@ public class MainTabActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
+	private void transfereMlFluxToActivity(MlFlux unFluxATransferer) {
+		Intent intent = new Intent(this, FluxActivity.class);
+		intent.putExtra(MlFlux.class.getCanonicalName(),
+				SerialisableHelper.serialize(unFluxATransferer));
+
+		intent.putExtra(ActivityParam.LaunchFromMainActivity, true);
+		startActivity(intent);
+		termineActivity();
+
+	}
+
 	/**
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
-	public static class DummySectionFragment extends Fragment {
+	public class DummySectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -139,10 +154,14 @@ public class MainTabActivity extends FragmentActivity implements
 					listView.setOnItemClickListener(new OnItemClickListener() {
 
 						@Override
-						public void onItemClick(AdapterView<?> arg0, View arg1,
-								int arg2, long arg3) {
-							System.out.println(((MlFlux) arg0
-									.getItemAtPosition(arg2)).getTitre());
+						public void onItemClick(AdapterView<?> p_adapterView,
+								View p_view, int p_position, long arg3) {
+							MlFlux leFluxClique = (MlFlux) p_adapterView
+									.getItemAtPosition(p_position);
+							// System.out.println(((MlFlux) p_adapterView
+							// .getItemAtPosition(p_position)).getTitre());
+
+							transfereMlFluxToActivity(leFluxClique);
 
 						}
 					});
