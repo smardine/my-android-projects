@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Tab1Activity" >
+
+    <ListView
+        android:id="@+id/listViewTabListeEpisode"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/footerLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/footerLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+        <ImageButton
+            android:id="@+id/imageButtonEpisode1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/bouton_switch_type_vue"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:id="@+id/imageButtonEpisode2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/bouton_lancer_synchro"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:id="@+id/imageButtonEpisode3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/bouton_ajout_de_flux"
+            android:src="@drawable/ic_launcher" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
