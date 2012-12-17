@@ -49,8 +49,8 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab2)
 				.setTabListener(this));
-		// actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
-		// .setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab3)
+				.setTabListener(this));
 	}
 
 	@Override

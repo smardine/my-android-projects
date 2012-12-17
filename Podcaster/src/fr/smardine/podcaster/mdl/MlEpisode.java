@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class MlEpisode implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8478705652165819479L;
 	private int idEpisode;
 	private String titre;
 	private String description;
