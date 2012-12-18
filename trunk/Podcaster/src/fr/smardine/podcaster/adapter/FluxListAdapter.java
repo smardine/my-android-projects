@@ -1,6 +1,14 @@
 package fr.smardine.podcaster.adapter;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +117,21 @@ public class FluxListAdapter extends BaseAdapter {
 		holder.TvDateDerniereSynchro.setText(dateStr);
 
 		// affichage des images
-		holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
-		holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);
+		//where imageUrl is what you pulled out from the rss feed
+		  Bitmap bitmap = null;
+		try {
+			bitmap = BitmapFactory.decodeStream((InputStream)new URL(unFlux.getVignette()).getContent());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  holder.VignetteFlux.setImageBitmap(bitmap); 
+		
+//		holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+//		holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);
 
 		return convertView;
 	}

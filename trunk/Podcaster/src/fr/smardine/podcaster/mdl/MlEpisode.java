@@ -19,6 +19,9 @@ public class MlEpisode implements Serializable {
 	private Date datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
+	/**
+	 * Contient l'url du media
+	 */
 	private String guid;
 
 	public MlEpisode() {
