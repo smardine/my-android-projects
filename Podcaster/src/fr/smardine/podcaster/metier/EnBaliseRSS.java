@@ -21,15 +21,17 @@ public enum EnBaliseRSS {
 	// LastBuildDate("lastBuildDate"), //
 	Title("title"), //
 	Image("image"), //
+	Url("url"),//
 	Description("description"), //
 	Channel("channel"), //
-	// Enclosure("enclosure"), //
+	Enclosure("enclosure"), //
 	PubDate("pubDate"), //
 	Guid("guid"), //
 	ItuneDuration("itunes:duration"), //
 	Link("link"), //
 	ItuneAuthor("itunes:Author"), //
-	ItuneSummary("itunes:summary"), Media("media");
+	ItuneSummary("itunes:summary"), Media("media"),
+	Type("type");
 	private String name;
 
 	EnBaliseRSS(String p_name) {

@@ -4,20 +4,8 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import fr.smardine.podcaster.activity.SuperActivity;
-import fr.smardine.podcaster.adapter.EpisodeListAdapter;
-import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.listener.ItemClickListenerTabListeFLux;
-import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.metier.RssFeeder;
 
 public class MainTabActivity extends SuperActivity implements
 		ActionBar.TabListener {
@@ -27,9 +15,11 @@ public class MainTabActivity extends SuperActivity implements
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	private static MlListeFlux listeFlux;
-	private static ActionBar actionBar;
-	public static OnItemClickListener itemclickListener;
+	
+//	private static MlListeFlux listeFlux;
+//	private static MlFlux fluxSelectionne;
+	
+	//public static OnItemClickListener itemclickListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +27,7 @@ public class MainTabActivity extends SuperActivity implements
 		setContentView(R.layout.activity_main_tab);
 
 		// Set up the action bar to show tabs.
-		actionBar = getActionBar();
+		ActionBar actionBar = getActionBar();
 
 		// si l'action bar est caché, il est impossible de naviguer avec des
 		// onglet
@@ -52,10 +42,12 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab3)
 				.setTabListener(this));
+		
+		ListeFluxSectionFragment.actionBar=actionBar;
 
-		if (itemclickListener == null) {
-			itemclickListener = new ItemClickListenerTabListeFLux(actionBar);
-		}
+//		if (itemclickListener == null) {
+//			itemclickListener = new ItemClickListenerTabListeFLux(actionBar);
+//		}
 	}
 
 	@Override
@@ -86,13 +78,19 @@ public class MainTabActivity extends SuperActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, show the tab contents in the
 		// container view.
-		// RssFeeder feeder = new RssFeeder();
-		// feeder.Test();
-
-		Fragment fragment = new DummySectionFragment();
+		
+		Fragment fragment = new ListeFluxSectionFragment();
 		Bundle args = new Bundle();
-		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
-				tab.getPosition() + 1);
+		args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER,tab.getPosition() + 1);
+		if (tab.getPosition()==0){
+			//quand on revient sur la premiere "tab" on reinitialise le flux selectionné
+			ListeFluxSectionFragment.fluxSelectionne=null;
+		}else if (tab.getPosition()==1){
+			//si on choisi la deuxieme "tab" (celle de liste d'épisode) on passe le flux selectionné en tant que parametre
+			//Pour que cela fonctionne, MlFlux implemente serializable, de meme que toutes ses proprietés
+			args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM, ListeFluxSectionFragment.fluxSelectionne);	
+		}
+		
 
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
@@ -120,97 +118,6 @@ public class MainTabActivity extends SuperActivity implements
 	//
 	// }
 
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				final Bundle savedInstanceState) {
-
-			int numeroDeTabActuel = getArguments().getInt(ARG_SECTION_NUMBER);
-
-			switch (numeroDeTabActuel) {
-				case 1:
-					View v = LayoutInflater.from(
-							getActivity().getApplicationContext()).inflate(
-							R.layout.activity_tab1, null);
-
-					ListView listView = (ListView) v
-							.findViewById(R.id.listViewTab1);
-
-					// constitution d'un flux de test
-					RssFeeder feeder = new RssFeeder();
-
-					listeFlux = feeder.Test();
-
-					FluxListAdapter adpt = new FluxListAdapter(getActivity(),
-							listeFlux);
-					// paramèter l'adapter sur la listview
-					listView.setAdapter(adpt);
-					listView.setOnItemClickListener(itemclickListener);
-					// listView.setOnItemClickListener(new OnItemClickListener()
-					// {
-					//
-					// @Override
-					// public void onItemClick(AdapterView<?> p_adapterView,
-					// View p_view, int p_position, long arg3) {
-					// MlFlux leFluxClique = (MlFlux) p_adapterView
-					// .getItemAtPosition(p_position);
-					// fluxSelectionne = leFluxClique;
-					// // En realité le numero de tab est en base 0
-					// // si on à 3 tab, la deuxieme aura le numero 1
-					// // 0,1,2
-					// actionBar.setSelectedNavigationItem(1);
-					//
-					// }
-					// });
-
-					return v;
-				case 2:
-					View v1 = LayoutInflater.from(
-							getActivity().getApplicationContext()).inflate(
-							R.layout.activity_liste_episodes, null);
-
-					ListView listViewEpisode = (ListView) v1
-							.findViewById(R.id.listViewTabListeEpisode);
-					MlListeEpisode listeEpisode = null;
-					MlFlux fluxSelectionne = ((ItemClickListenerTabListeFLux) itemclickListener)
-							.getFluxSelectionne();
-					if (fluxSelectionne == null) {
-						listeEpisode = listeFlux.GetAllEpisode();
-					} else {
-						listeEpisode = fluxSelectionne.getListeEpisode();
-					}
-					EpisodeListAdapter adptEpisode = new EpisodeListAdapter(
-							getActivity(), listeEpisode);
-					// paramèter l'adapter sur la listview
-					listViewEpisode.setAdapter(adptEpisode);
-
-					return v1;
-
-				default:
-					throw new RuntimeException(
-							"Il y a une erreur de programmation, le numero d'onglet n'est pas geré");
-			}
-
-			// TextView textView = new TextView(getActivity());
-			// textView.setGravity(Gravity.CENTER);
-			// textView.setText(Integer.toString(getArguments().getInt(
-			// ARG_SECTION_NUMBER)));
-			// int numeroDeTab = getArguments().getInt(ARG_SECTION_NUMBER);
-			// return textView;
-		}
-	}
+	
 
 }

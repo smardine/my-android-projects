@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.os.AsyncTask;
+import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
 
@@ -51,53 +52,47 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			/**
 			 * Titre et date du flux
 			 */
-			nodes = doc.getElementsByTagName("title");
+			//nodes = doc.getElementsByTagName("title");
 			Node node = doc.getDocumentElement();
-
+			
 			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] {
-					EnBaliseRSS.Channel, EnBaliseRSS.Title }));// "channel|title"));
-			// unFlux.setDateDernierePublication(GMTDateToFrench(this.readNode(
-			// node, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));//
-			// "channel|lastBuildDate"))));
-
-			// System.out.println("Flux RSS: "
-			// + this.readNode(node, new EnBaliseRSS[] {
-			// EnBaliseRSS.Channel, EnBaliseRSS.Title }));
-			// System.out.println("Date de publication: "
-			// + GMTDateToFrench(this.readNode(node, new EnBaliseRSS[] {
-			// EnBaliseRSS.Channel, EnBaliseRSS.LastBuildDate })));
-			// List<String> lstChild = getAllChild(node);
-			// for (String s : lstChild) {
-			// System.out.println(s);
-			// }
-			System.out.println();
+					EnBaliseRSS.Channel, EnBaliseRSS.Title }));
+			unFlux.setVignette(this.readNode(node,
+					 new EnBaliseRSS[] { EnBaliseRSS.Channel,EnBaliseRSS.Image,EnBaliseRSS.Url }));
+			
+			//System.out.println();
 			/**
 			 * Elements du flux RSS
 			 **/
+			//on recupere les tag nomé "item"
 			nodes = doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 			for (int i = 0; i < nodes.getLength(); i++) {
 				element = (Element) nodes.item(i);
 				MlEpisode unEpisode = new MlEpisode();
+				//comme on est deja sous "item", on peut ne passer que le tag "Title"
+				//on recupere le titre de l'episode
 				unEpisode.setTitre(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Title }));
+				//on recupere l'url du fichier xml qui contient la définition du flux rss
 				unEpisode.setLink(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
-				unEpisode.setGuid(readNode(element,
-						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
+				//on recupere la durée de l'element si audio ou video
 				unEpisode.setDuree(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
+				//on recupere la date de publication
 				unEpisode.setDatePublication(GMTDateToFrench(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
+				//on recupere la descritpion
 				unEpisode.setDescription(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Description }));
+				//on recupere l'url du fichier media (mp3, mp4...)
 				unEpisode.setGuid(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
-
-				// this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Media
-				// });
-				// unFlux.setVignette(this.readNode(element,
-				// new EnBaliseRSS[] { EnBaliseRSS.Image }));
+				String typeEpisode = readNodeValue(element,EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
+				if (unEpisode.getGuid().endsWith(".mp3")){
+					unEpisode.setTypeEpisode(EnTypeEpisode.Audio);
+				}
 				unFlux.getListeEpisode().add(unEpisode);
 				// listeRetour.addAll(getAllChild(element));
 
@@ -176,6 +171,31 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Méthode permettant de retourner ce que contient d'un noeud
+	 * @param _node le noeud principal
+	 * @param _path suite des noms des noeud sans espace séparer par des "|"
+	 * @return un string contenant le valeur du noeud voulut
+	 */
+	public String readNodeValue(Node _node, EnBaliseRSS _paths,String p_value) {
+
+		// String[] paths = _path.split("\\|");
+		Node node = null;
+
+		
+			node = _node;
+				node = getChildByName(node,_paths.toString().trim());
+				node.getNodeValue();
+			
+		
+
+		if (node != null) {
+			return node.getTextContent();
+		} else {
+			return "";
+		}
 	}
 
 	public List<String> getAllChild(Node p_node) {
