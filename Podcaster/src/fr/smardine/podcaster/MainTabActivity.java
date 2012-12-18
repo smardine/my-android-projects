@@ -2,22 +2,20 @@ package fr.smardine.podcaster;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import fr.smardine.podcaster.activity.FluxActivity;
 import fr.smardine.podcaster.activity.SuperActivity;
+import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.helper.ActivityParam;
-import fr.smardine.podcaster.helper.SerialisableHelper;
+import fr.smardine.podcaster.listener.ItemClickListenerTabListeFLux;
 import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.podcaster.metier.RssFeeder;
 
@@ -29,6 +27,9 @@ public class MainTabActivity extends SuperActivity implements
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	private static MlListeFlux listeFlux;
+	private static ActionBar actionBar;
+	public static OnItemClickListener itemclickListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class MainTabActivity extends SuperActivity implements
 		setContentView(R.layout.activity_main_tab);
 
 		// Set up the action bar to show tabs.
-		final ActionBar actionBar = getActionBar();
+		actionBar = getActionBar();
 
 		// si l'action bar est caché, il est impossible de naviguer avec des
 		// onglet
@@ -51,6 +52,10 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab3)
 				.setTabListener(this));
+
+		if (itemclickListener == null) {
+			itemclickListener = new ItemClickListenerTabListeFLux(actionBar);
+		}
 	}
 
 	@Override
@@ -88,6 +93,7 @@ public class MainTabActivity extends SuperActivity implements
 		Bundle args = new Bundle();
 		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
 				tab.getPosition() + 1);
+
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, fragment).commit();
@@ -103,22 +109,22 @@ public class MainTabActivity extends SuperActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
-	private void transfereMlFluxToActivity(MlFlux unFluxATransferer) {
-		Intent intent = new Intent(this, FluxActivity.class);
-		intent.putExtra(MlFlux.class.getCanonicalName(),
-				SerialisableHelper.serialize(unFluxATransferer));
-
-		intent.putExtra(ActivityParam.LaunchFromMainActivity, true);
-		startActivity(intent);
-		termineActivity();
-
-	}
+	// private void transfereMlFluxToActivity(MlFlux unFluxATransferer) {
+	// Intent intent = new Intent(this, FluxActivity.class);
+	// intent.putExtra(MlFlux.class.getCanonicalName(),
+	// SerialisableHelper.serialize(unFluxATransferer));
+	//
+	// intent.putExtra(ActivityParam.LaunchFromMainActivity, true);
+	// startActivity(intent);
+	// termineActivity();
+	//
+	// }
 
 	/**
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
-	public class DummySectionFragment extends Fragment {
+	public static class DummySectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -130,10 +136,11 @@ public class MainTabActivity extends SuperActivity implements
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
+				final Bundle savedInstanceState) {
 
-			int numeroDeTab = getArguments().getInt(ARG_SECTION_NUMBER);
-			switch (numeroDeTab) {
+			int numeroDeTabActuel = getArguments().getInt(ARG_SECTION_NUMBER);
+
+			switch (numeroDeTabActuel) {
 				case 1:
 					View v = LayoutInflater.from(
 							getActivity().getApplicationContext()).inflate(
@@ -145,29 +152,52 @@ public class MainTabActivity extends SuperActivity implements
 					// constitution d'un flux de test
 					RssFeeder feeder = new RssFeeder();
 
-					MlListeFlux lstFlux = feeder.Test();
+					listeFlux = feeder.Test();
 
 					FluxListAdapter adpt = new FluxListAdapter(getActivity(),
-							lstFlux);
+							listeFlux);
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
-					listView.setOnItemClickListener(new OnItemClickListener() {
-
-						@Override
-						public void onItemClick(AdapterView<?> p_adapterView,
-								View p_view, int p_position, long arg3) {
-							MlFlux leFluxClique = (MlFlux) p_adapterView
-									.getItemAtPosition(p_position);
-							// System.out.println(((MlFlux) p_adapterView
-							// .getItemAtPosition(p_position)).getTitre());
-
-							transfereMlFluxToActivity(leFluxClique);
-
-						}
-					});
+					listView.setOnItemClickListener(itemclickListener);
+					// listView.setOnItemClickListener(new OnItemClickListener()
+					// {
+					//
+					// @Override
+					// public void onItemClick(AdapterView<?> p_adapterView,
+					// View p_view, int p_position, long arg3) {
+					// MlFlux leFluxClique = (MlFlux) p_adapterView
+					// .getItemAtPosition(p_position);
+					// fluxSelectionne = leFluxClique;
+					// // En realité le numero de tab est en base 0
+					// // si on à 3 tab, la deuxieme aura le numero 1
+					// // 0,1,2
+					// actionBar.setSelectedNavigationItem(1);
+					//
+					// }
+					// });
 
 					return v;
 				case 2:
+					View v1 = LayoutInflater.from(
+							getActivity().getApplicationContext()).inflate(
+							R.layout.activity_liste_episodes, null);
+
+					ListView listViewEpisode = (ListView) v1
+							.findViewById(R.id.listViewTabListeEpisode);
+					MlListeEpisode listeEpisode = null;
+					MlFlux fluxSelectionne = ((ItemClickListenerTabListeFLux) itemclickListener)
+							.getFluxSelectionne();
+					if (fluxSelectionne == null) {
+						listeEpisode = listeFlux.GetAllEpisode();
+					} else {
+						listeEpisode = fluxSelectionne.getListeEpisode();
+					}
+					EpisodeListAdapter adptEpisode = new EpisodeListAdapter(
+							getActivity(), listeEpisode);
+					// paramèter l'adapter sur la listview
+					listViewEpisode.setAdapter(adptEpisode);
+
+					return v1;
 
 				default:
 					throw new RuntimeException(
