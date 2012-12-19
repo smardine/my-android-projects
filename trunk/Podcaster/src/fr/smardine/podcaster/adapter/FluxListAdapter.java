@@ -116,11 +116,17 @@ public class FluxListAdapter extends BaseAdapter {
 			Bitmap bitmap = BitmapFactory.decodeFile(unFlux
 					.getVignetteTelechargee().getAbsolutePath());
 
+			holder.VignetteFlux.setAdjustViewBounds(true);
 			holder.VignetteFlux.setImageBitmap(bitmap);
+			holder.VignetteFlux.setMaxHeight(150);
+			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 		} else {
 			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
 		}
+
+		// Gestion de l'affichage de l'image dans l'image view =
+		// >redimenssionnement:
 
 		// holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
 		// holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);

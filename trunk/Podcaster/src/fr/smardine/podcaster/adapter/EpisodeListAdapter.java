@@ -1,6 +1,8 @@
 package fr.smardine.podcaster.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,29 +19,29 @@ import fr.smardine.tools.date.DateHelper;
  */
 public class EpisodeListAdapter extends BaseAdapter {
 
-	private final MlListeEpisode lstFlux;
+	private final MlListeEpisode lstEpisodes;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
 
 	/**
 	 * @param p_ctx
-	 * @param p_lstFlux
+	 * @param p_lstEpisodes
 	 */
-	public EpisodeListAdapter(Context p_ctx, MlListeEpisode p_lstFlux) {
+	public EpisodeListAdapter(Context p_ctx, MlListeEpisode p_lstEpisodes) {
 		// paramètrer le layout en prenant celui du context
 		this.myInflater = LayoutInflater.from(p_ctx);
-		this.lstFlux = p_lstFlux;
+		this.lstEpisodes = p_lstEpisodes;
 
 	}
 
 	@Override
 	public int getCount() {
-		return this.lstFlux.size();
+		return this.lstEpisodes.size();
 	}
 
 	@Override
 	public Object getItem(int p_idx) {
-		return this.lstFlux.get(p_idx);
+		return this.lstEpisodes.get(p_idx);
 	}
 
 	@Override
@@ -101,7 +103,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		MlEpisode unEpisode = lstFlux.get(position);
+		MlEpisode unEpisode = lstEpisodes.get(position);
 		// Application des données au element de la vue
 		holder.TvIdFlux.setText("" + unEpisode.getIdEpisode());
 		holder.TvTitreFlux.setText(unEpisode.getTitre());
@@ -109,7 +111,19 @@ public class EpisodeListAdapter extends BaseAdapter {
 		holder.TvDateDerniereSynchro.setText(dateStr);
 
 		// affichage des images
-		holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+		// where imageUrl is what you pulled out from the rss feed
+		if (unEpisode.isVignetteTelechargee()) {
+			Bitmap bitmap = BitmapFactory.decodeFile(unEpisode
+					.getVignetteTelechargee().getAbsolutePath());
+
+			holder.VignetteFlux.setAdjustViewBounds(true);
+			holder.VignetteFlux.setImageBitmap(bitmap);
+			holder.VignetteFlux.setMaxHeight(150);
+			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+		} else {
+			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+		}
 		holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);
 
 		return convertView;

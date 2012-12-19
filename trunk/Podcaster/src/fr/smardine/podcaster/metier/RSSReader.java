@@ -100,8 +100,14 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 						EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
 				unEpisode.setTypeEpisode(EnTypeEpisode
 						.GetTypeEpisodeByName(typeEpisode));
-
-				unEpisode.setUrlImage(unFlux.getVignetteUrl());
+				if (unFlux.isVignetteTelechargee()) {
+					unEpisode.setVignetteTelechargee(unFlux
+							.getVignetteTelechargee());
+					unEpisode.setVignetteTelechargee(true);
+				} else {
+					unEpisode.setVignetteTelechargee(null);
+					unEpisode.setVignetteTelechargee(false);
+				}
 
 				unFlux.getListeEpisode().add(unEpisode);
 
