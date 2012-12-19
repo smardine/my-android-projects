@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.mdl;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +18,8 @@ public class MlFlux implements Serializable {
 	private String vignetteUrl;
 	private MlParametre parametres;
 	private MlCategorie categorie;
-	private String url;
+	private File vignetteTelechargee;
+	private boolean isVignetteTelechargee;
 
 	public MlFlux() {
 		listeEpisode = new MlListeEpisode();
@@ -89,14 +91,14 @@ public class MlFlux implements Serializable {
 	/**
 	 * @return the vignette
 	 */
-	public final String getVignette() {
+	public final String getVignetteUrl() {
 		return vignetteUrl;
 	}
 
 	/**
 	 * @param vignette the vignette to set
 	 */
-	public final void setVignette(String vignetteUrl) {
+	public final void setVignetteUrl(String vignetteUrl) {
 		this.vignetteUrl = vignetteUrl;
 	}
 
@@ -128,18 +130,20 @@ public class MlFlux implements Serializable {
 		this.categorie = categorie;
 	}
 
-	/**
-	 * @return the url
-	 */
-	public final String getUrl() {
-		return url;
+	public void setVignetteTelechargee(File vignetteTelechargee) {
+		this.vignetteTelechargee = vignetteTelechargee;
 	}
 
-	/**
-	 * @param url the url to set
-	 */
-	public final void setUrl(String url) {
-		this.url = url;
+	public File getVignetteTelechargee() {
+		return vignetteTelechargee;
+	}
+
+	public void setVignetteTelechargee(boolean isVignetteTelechargee) {
+		this.isVignetteTelechargee = isVignetteTelechargee;
+	}
+
+	public boolean isVignetteTelechargee() {
+		return isVignetteTelechargee;
 	}
 
 }

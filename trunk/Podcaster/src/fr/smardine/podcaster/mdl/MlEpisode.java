@@ -19,6 +19,7 @@ public class MlEpisode implements Serializable {
 	private Date datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
+	private String urlImage;
 	/**
 	 * Contient l'url du media
 	 */
@@ -163,5 +164,13 @@ public class MlEpisode implements Serializable {
 
 	public String getGuid() {
 		return guid;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
 	}
 }
