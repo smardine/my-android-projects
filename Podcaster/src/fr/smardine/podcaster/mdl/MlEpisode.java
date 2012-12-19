@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.mdl;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,7 +20,8 @@ public class MlEpisode implements Serializable {
 	private Date datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
-	private String urlImage;
+	private File vignetteTelechargee;
+	private boolean isVignetteTelechargee;
 	/**
 	 * Contient l'url du media
 	 */
@@ -166,11 +168,19 @@ public class MlEpisode implements Serializable {
 		return guid;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setVignetteTelechargee(File p_vignette) {
+		this.vignetteTelechargee = p_vignette;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public File getVignetteTelechargee() {
+		return vignetteTelechargee;
+	}
+
+	public void setVignetteTelechargee(boolean isVignetteTelechargee) {
+		this.isVignetteTelechargee = isVignetteTelechargee;
+	}
+
+	public boolean isVignetteTelechargee() {
+		return isVignetteTelechargee;
 	}
 }

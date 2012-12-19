@@ -29,57 +29,28 @@ public class DownloadHelper {
 			}
 
 			String urlFile = url.getFile();
-
-			new DefaultHttpClient()
-					.execute(new HttpGet(p_url))
-					.getEntity()
-					.writeTo(
-							new FileOutputStream(new File(directory, urlFile
-									.substring(urlFile.lastIndexOf("/")))));
+			String nomDuFichierLocal = urlFile.substring(urlFile
+					.lastIndexOf("/"));
+			File fichierLocal = new File(directory, nomDuFichierLocal);
+			if (!fichierLocal.exists()) {
+				new DefaultHttpClient().execute(new HttpGet(p_url)).getEntity()
+						.writeTo(new FileOutputStream(fichierLocal));
+			}
 			p_flux.setVignetteTelechargee(true);
-			p_flux.setVignetteTelechargee(new File(directory, urlFile
-					.substring(urlFile.lastIndexOf("/"))));
+			p_flux.setVignetteTelechargee(fichierLocal);
 
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+			p_flux.setVignetteTelechargee(false);
+			p_flux.setVignetteTelechargee(null);
 			Log.d("log_tag", "Error: " + e);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			p_flux.setVignetteTelechargee(false);
+			p_flux.setVignetteTelechargee(null);
 			Log.d("log_tag", "Error: " + e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			p_flux.setVignetteTelechargee(false);
+			p_flux.setVignetteTelechargee(null);
 			Log.d("log_tag", "Error: " + e);
 		}
-		// URL url = new URL(p_url);
-		// HttpURLConnection c = (HttpURLConnection) url.openConnection();
-		// c.setRequestMethod("GET");
-		// c.setDoOutput(true);
-		// c.connect();
-		//
-		// String PATH = Environment.getExternalStorageDirectory()
-		// + "/Podcaster/Podcast/" + p_flux.getTitre();
-		// Log.v("log_tag", "PATH: " + PATH);
-		// File file = new File(PATH);
-		// if (file.mkdirs()) {
-		//
-		// }
-		// String urlFile = url.getFile();
-		// File outputFile = new File(file, urlFile.substring(urlFile
-		// .lastIndexOf("/")));
-		// FileOutputStream fos = new FileOutputStream(outputFile);
-		//
-		// InputStream is = c.getInputStream();
-		//
-		// byte[] buffer = new byte[1024];
-		// int len1 = 0;
-		// while ((len1 = is.read(buffer)) != -1) {
-		// fos.write(buffer, 0, len1);
-		// }
-		// fos.close();
-		// is.close();
-		// } catch (IOException e) {
-		// Log.d("log_tag", "Error: " + e);
-		// }
 	}
-
 }
