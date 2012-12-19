@@ -9,8 +9,9 @@ public class RssFeeder {
 
 	public MlListeFlux Test() {
 
-		final String[] feedUrl = new String[] { "http://www.rtl.fr/podcast/laurent-gerra.xml" ,
-		 "http://www.europe1.fr/podcasts/revue-de-presque.xml"};
+		final String[] feedUrl = new String[] {
+				"http://www.rtl.fr/podcast/laurent-gerra.xml",
+				"http://www.europe1.fr/podcasts/revue-de-presque.xml" };
 		// "http://rss.feedsportal.com/c/808/f/413811/index.rss",
 		// "http://rss.feedsportal.com/c/808/f/413810/index.rss",
 		// "http://radiofrance-podcast.net/podcast09/rss_11549.xml",

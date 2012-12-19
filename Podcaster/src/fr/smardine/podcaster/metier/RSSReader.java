@@ -17,11 +17,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.os.AsyncTask;
+import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
@@ -40,6 +42,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * Parser le fichier XML
 	 * @param feedurl URL du flux RSS
 	 */
+
 	private MlFlux parse(String feedurl) {
 		unFlux = new MlFlux();
 		try {
@@ -52,60 +55,57 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			/**
 			 * Titre et date du flux
 			 */
-			//nodes = doc.getElementsByTagName("title");
+			// nodes = doc.getElementsByTagName("title");
 			Node node = doc.getDocumentElement();
-			
+
 			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] {
 					EnBaliseRSS.Channel, EnBaliseRSS.Title }));
-			unFlux.setVignette(this.readNode(node,
-					 new EnBaliseRSS[] { EnBaliseRSS.Channel,EnBaliseRSS.Image,EnBaliseRSS.Url }));
-			
-			//System.out.println();
+			unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] {
+					EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
+			DownloadHelper.DownloadFromUrl(unFlux.getVignetteUrl(), unFlux);
+			// System.out.println();
 			/**
 			 * Elements du flux RSS
 			 **/
-			//on recupere les tag nomé "item"
+			// on recupere les tag nomé "item"
 			nodes = doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 			for (int i = 0; i < nodes.getLength(); i++) {
 				element = (Element) nodes.item(i);
 				MlEpisode unEpisode = new MlEpisode();
-				//comme on est deja sous "item", on peut ne passer que le tag "Title"
-				//on recupere le titre de l'episode
+				// comme on est deja sous "item", on peut ne passer que le tag
+				// "Title"
+				// on recupere le titre de l'episode
 				unEpisode.setTitre(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Title }));
-				//on recupere l'url du fichier xml qui contient la définition du flux rss
+				// on recupere l'url du fichier xml qui contient la définition
+				// du flux rss
 				unEpisode.setLink(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
-				//on recupere la durée de l'element si audio ou video
+				// on recupere la durée de l'element si audio ou video
 				unEpisode.setDuree(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
-				//on recupere la date de publication
+				// on recupere la date de publication
 				unEpisode.setDatePublication(GMTDateToFrench(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
-				//on recupere la descritpion
+				// on recupere la descritpion
 				unEpisode.setDescription(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Description }));
-				//on recupere l'url du fichier media (mp3, mp4...)
+				// on recupere l'url du fichier media (mp3, mp4...)
 				unEpisode.setGuid(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Guid }));
-				String typeEpisode = readNodeValue(element,EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
-				if (unEpisode.getGuid().endsWith(".mp3")){
-					unEpisode.setTypeEpisode(EnTypeEpisode.Audio);
-				}
+
+				// on recupere le type d'episode
+				String typeEpisode = readNodeValue(element,
+						EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
+				unEpisode.setTypeEpisode(EnTypeEpisode
+						.GetTypeEpisodeByName(typeEpisode));
+
+				unEpisode.setUrlImage(unFlux.getVignetteUrl());
+
 				unFlux.getListeEpisode().add(unEpisode);
-				// listeRetour.addAll(getAllChild(element));
 
-				// System.out.println("Titre: " + readNode(element, "title"));
-				// System.out.println("Lien: " + readNode(element, "link"));
-				// System.out.println("Date: "
-				// + GMTDateToFrench(readNode(element, "pubDate")));
-				// System.out.println("Description: "
-				// + readNode(element, "description"));
-				// System.out.println();
-			} // for
-
-			// for
+			}
 		} catch (SAXException ex) {
 			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null,
 					ex);
@@ -127,7 +127,6 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 */
 	public String readNode(Node _node, EnBaliseRSS[] _paths) {
 
-		// String[] paths = _path.split("\\|");
 		Node node = null;
 
 		if (_paths != null && _paths.length > 0) {
@@ -172,30 +171,28 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Méthode permettant de retourner ce que contient d'un noeud
-	 * @param _node le noeud principal
+	 * @param p_node le noeud principal
 	 * @param _path suite des noms des noeud sans espace séparer par des "|"
+	 * @param p_value
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	public String readNodeValue(Node _node, EnBaliseRSS _paths,String p_value) {
+	public String readNodeValue(Node p_node, EnBaliseRSS p_path, String p_value) {
 
-		// String[] paths = _path.split("\\|");
 		Node node = null;
 
-		
-			node = _node;
-				node = getChildByName(node,_paths.toString().trim());
-				node.getNodeValue();
-			
-		
-
+		node = p_node;
+		node = getChildByName(node, p_path.toString().trim());
 		if (node != null) {
-			return node.getTextContent();
-		} else {
-			return "";
+			NamedNodeMap attributes = node.getAttributes();
+			node = attributes.getNamedItem(p_value);
+			if (node != null) {
+				return node.getTextContent();
+			}
 		}
+		return "";
 	}
 
 	public List<String> getAllChild(Node p_node) {
