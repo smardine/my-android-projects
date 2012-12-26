@@ -20,8 +20,17 @@
     <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
     <string name="vignette_du_flux">Vignette du flux</string>
-    <string name="titre_du_flux">titre du flux</string>
+    <string name="titre_du_flux">titre du flux tres long pour voir si ca le coupe ou pas</string>
     <string name="date_au_format_jj_mmm">Date au format jj MMM</string>
     <string name="image_de_la_categorie_audio_ou_video_">Image de la categorie (audio ou video)</string>
+    
+    <!-- Gestion des messages d'excection -->
+    
+    <string name="erreur_de_protocole_au_telechargement_d_un_fichier">Erreur de protocole au telechargement d\'un fichier</string>
+    <string name="fichier_non_trouve">Fichier non trouve</string>
+    <string name="IO_exception">I/O Exception</string>
+    <string name="mauvais_format_url">Url mal formatée</string>
+    <string name="interruption_de_la_tache">Interruption de la tache </string>
+    <string name="erreur_execution_tache">Erreur à l\'execution de la tache</string>
 
 </resources>

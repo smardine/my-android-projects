@@ -2,36 +2,46 @@ package fr.smardine.podcaster.metier;
 
 import java.util.concurrent.ExecutionException;
 
+import android.content.Context;
+import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 
 public class RssFeeder {
+	private final Context context;
+	private final String TAG = this.getClass().getSimpleName();
+
+	public RssFeeder(Context p_context) {
+		this.context = p_context;
+	}
 
 	public MlListeFlux Test() {
 
 		final String[] feedUrl = new String[] {
 				"http://www.rtl.fr/podcast/laurent-gerra.xml",
-				"http://www.europe1.fr/podcasts/revue-de-presque.xml" };
-		// "http://rss.feedsportal.com/c/808/f/413811/index.rss",
-		// "http://rss.feedsportal.com/c/808/f/413810/index.rss",
-		// "http://radiofrance-podcast.net/podcast09/rss_11549.xml",
-		// "http://www.jeuxvideo.com/rss/itunes-le-cliq.xml",
-		// "http://www.jeuxvideo.com/rss/itunes-le-cliq-hd.xml" };
+				"http://www.europe1.fr/podcasts/revue-de-presque.xml",
+				"http://www.jeuxvideo.com/rss/itunes-le-cliq.xml",// };
+				"http://rss.feedsportal.com/c/808/f/413811/index.rss",
+				"http://rss.feedsportal.com/c/808/f/413810/index.rss",
+				"http://radiofrance-podcast.net/podcast09/rss_11549.xml",
+
+				"http://www.jeuxvideo.com/rss/itunes-le-cliq-hd.xml" };
 
 		MlListeFlux listeRetour = new MlListeFlux();
 
 		for (String s : feedUrl) {
 			try {
-				RSSReader reader = new RSSReader();
+				RSSReader reader = new RSSReader(context);
 				reader.execute(s);
 				MlFlux unFlux = reader.get();
 				listeRetour.add(unFlux);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LogCatBuilder.WriteErrorToLog(context, TAG,
+						R.string.interruption_de_la_tache, e);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LogCatBuilder.WriteErrorToLog(context, TAG,
+						R.string.erreur_execution_tache, e);
 			}
 
 		}

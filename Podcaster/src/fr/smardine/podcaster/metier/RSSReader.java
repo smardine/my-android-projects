@@ -22,6 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
@@ -37,6 +38,11 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 
 	// private final List<String> listeRetour = new ArrayList<String>();
 	private MlFlux unFlux;
+	private final Context context;
+
+	public RSSReader(Context p_context) {
+		this.context = p_context;
+	}
 
 	/**
 	 * Parser le fichier XML
@@ -62,7 +68,8 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 					EnBaliseRSS.Channel, EnBaliseRSS.Title }));
 			unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] {
 					EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
-			DownloadHelper.DownloadFromUrl(unFlux.getVignetteUrl(), unFlux);
+			DownloadHelper.DownloadImageFluxFromUrl(context,
+					unFlux.getVignetteUrl(), unFlux);
 			// System.out.println();
 			/**
 			 * Elements du flux RSS

@@ -15,11 +15,6 @@ public class MainTabActivity extends SuperActivity implements
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	
-//	private static MlListeFlux listeFlux;
-//	private static MlFlux fluxSelectionne;
-	
-	//public static OnItemClickListener itemclickListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,12 +37,8 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab3)
 				.setTabListener(this));
-		
-		ListeFluxSectionFragment.actionBar=actionBar;
 
-//		if (itemclickListener == null) {
-//			itemclickListener = new ItemClickListenerTabListeFLux(actionBar);
-//		}
+		ListeFluxSectionFragment.actionBar = actionBar;
 	}
 
 	@Override
@@ -78,19 +69,24 @@ public class MainTabActivity extends SuperActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, show the tab contents in the
 		// container view.
-		
+
 		Fragment fragment = new ListeFluxSectionFragment();
+		ListeFluxSectionFragment.context = this.getApplicationContext();
 		Bundle args = new Bundle();
-		args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER,tab.getPosition() + 1);
-		if (tab.getPosition()==0){
-			//quand on revient sur la premiere "tab" on reinitialise le flux selectionné
-			ListeFluxSectionFragment.fluxSelectionne=null;
-		}else if (tab.getPosition()==1){
-			//si on choisi la deuxieme "tab" (celle de liste d'épisode) on passe le flux selectionné en tant que parametre
-			//Pour que cela fonctionne, MlFlux implemente serializable, de meme que toutes ses proprietés
-			args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM, ListeFluxSectionFragment.fluxSelectionne);	
+		args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER,
+				tab.getPosition() + 1);
+		if (tab.getPosition() == 0) {
+			// quand on revient sur la premiere "tab" on reinitialise le flux
+			// selectionné
+			ListeFluxSectionFragment.fluxSelectionne = null;
+		} else if (tab.getPosition() == 1) {
+			// si on choisi la deuxieme "tab" (celle de liste d'épisode) on
+			// passe le flux selectionné en tant que parametre
+			// Pour que cela fonctionne, MlFlux implemente serializable, de meme
+			// que toutes ses proprietés
+			args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM,
+					ListeFluxSectionFragment.fluxSelectionne);
 		}
-		
 
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
@@ -106,18 +102,5 @@ public class MainTabActivity extends SuperActivity implements
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
-
-	// private void transfereMlFluxToActivity(MlFlux unFluxATransferer) {
-	// Intent intent = new Intent(this, FluxActivity.class);
-	// intent.putExtra(MlFlux.class.getCanonicalName(),
-	// SerialisableHelper.serialize(unFluxATransferer));
-	//
-	// intent.putExtra(ActivityParam.LaunchFromMainActivity, true);
-	// startActivity(intent);
-	// termineActivity();
-	//
-	// }
-
-	
 
 }
