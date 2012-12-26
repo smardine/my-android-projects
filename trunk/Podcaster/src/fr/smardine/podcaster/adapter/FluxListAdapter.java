@@ -2,7 +2,6 @@ package fr.smardine.podcaster.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.helper.ImageHelper;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.tools.date.DateHelper;
@@ -61,8 +61,6 @@ public class FluxListAdapter extends BaseAdapter {
 	 * @author smardine
 	 */
 	public static class ViewHolder {
-		// TextView text01;
-		TextView TvIdFlux;
 		TextView TvTitreFlux;
 		TextView TvDateDerniereSynchro;
 		ImageView VignetteFlux;
@@ -84,8 +82,7 @@ public class FluxListAdapter extends BaseAdapter {
 			// listview
 			convertView = myInflater.inflate(R.layout.fluxlistitem, null);
 			holder = new ViewHolder();
-			holder.TvIdFlux = (TextView) convertView
-					.findViewById(R.id.tvIdFlux);
+
 			holder.TvTitreFlux = (TextView) convertView
 					.findViewById(R.id.tvTitreFlux);
 			holder.TvDateDerniereSynchro = (TextView) convertView
@@ -105,7 +102,6 @@ public class FluxListAdapter extends BaseAdapter {
 
 		MlFlux unFlux = lstFlux.get(position);
 		// Application des données au element de la vue
-		holder.TvIdFlux.setText("" + unFlux.getIdFlux());
 		holder.TvTitreFlux.setText(unFlux.getTitre());
 		String dateStr = DateHelper.ddMMM(unFlux.getDateDernierePublication());
 		holder.TvDateDerniereSynchro.setText(dateStr);
@@ -113,8 +109,8 @@ public class FluxListAdapter extends BaseAdapter {
 		// affichage des images
 		// where imageUrl is what you pulled out from the rss feed
 		if (unFlux.isVignetteTelechargee()) {
-			Bitmap bitmap = BitmapFactory.decodeFile(unFlux
-					.getVignetteTelechargee().getAbsolutePath());
+			Bitmap bitmap = ImageHelper.decodeBitmapFromFile(
+					unFlux.getVignetteTelechargee(), 100, 100);
 
 			holder.VignetteFlux.setAdjustViewBounds(true);
 			holder.VignetteFlux.setImageBitmap(bitmap);
@@ -123,6 +119,8 @@ public class FluxListAdapter extends BaseAdapter {
 
 		} else {
 			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+			// holder.VignetteFlux.getHeight();
+			// holder.VignetteFlux.getWidth();
 		}
 
 		// Gestion de l'affichage de l'image dans l'image view =

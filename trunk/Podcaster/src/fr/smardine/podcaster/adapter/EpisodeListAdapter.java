@@ -2,7 +2,6 @@ package fr.smardine.podcaster.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.helper.ImageHelper;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.tools.date.DateHelper;
@@ -61,8 +61,6 @@ public class EpisodeListAdapter extends BaseAdapter {
 	 * @author smardine
 	 */
 	public static class ViewHolder {
-		// TextView text01;
-		TextView TvIdFlux;
 		TextView TvTitreFlux;
 		TextView TvDateDerniereSynchro;
 		ImageView VignetteFlux;
@@ -84,8 +82,6 @@ public class EpisodeListAdapter extends BaseAdapter {
 			// listview
 			convertView = myInflater.inflate(R.layout.fluxlistitem, null);
 			holder = new ViewHolder();
-			holder.TvIdFlux = (TextView) convertView
-					.findViewById(R.id.tvIdFlux);
 			holder.TvTitreFlux = (TextView) convertView
 					.findViewById(R.id.tvTitreFlux);
 			holder.TvDateDerniereSynchro = (TextView) convertView
@@ -105,7 +101,6 @@ public class EpisodeListAdapter extends BaseAdapter {
 
 		MlEpisode unEpisode = lstEpisodes.get(position);
 		// Application des données au element de la vue
-		holder.TvIdFlux.setText("" + unEpisode.getIdEpisode());
 		holder.TvTitreFlux.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(unEpisode.getDatePublication());
 		holder.TvDateDerniereSynchro.setText(dateStr);
@@ -113,8 +108,8 @@ public class EpisodeListAdapter extends BaseAdapter {
 		// affichage des images
 		// where imageUrl is what you pulled out from the rss feed
 		if (unEpisode.isVignetteTelechargee()) {
-			Bitmap bitmap = BitmapFactory.decodeFile(unEpisode
-					.getVignetteTelechargee().getAbsolutePath());
+			Bitmap bitmap = ImageHelper.decodeBitmapFromFile(
+					unEpisode.getVignetteTelechargee(), 100, 100);// BitmapFactory.decodeFile(.getAbsolutePath());
 
 			holder.VignetteFlux.setAdjustViewBounds(true);
 			holder.VignetteFlux.setImageBitmap(bitmap);

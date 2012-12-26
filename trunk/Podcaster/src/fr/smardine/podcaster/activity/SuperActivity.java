@@ -1,13 +1,7 @@
 package fr.smardine.podcaster.activity;
 
-import fr.smardine.podcaster.R;
-import fr.smardine.podcaster.adapter.EpisodeListAdapter;
-import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.metier.RssFeeder;
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,9 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
+import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.adapter.EpisodeListAdapter;
+import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.mdl.MlListeEpisode;
+import fr.smardine.podcaster.mdl.MlListeFlux;
+import fr.smardine.podcaster.metier.RssFeeder;
 
 public class SuperActivity extends FragmentActivity {
 
@@ -87,9 +88,9 @@ public class SuperActivity extends FragmentActivity {
 	 * @param message
 	 */
 	public void popUp(String message) {
-		 Toast.makeText(this, message, 1).show();
+		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 	}
-	
+
 	/**
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
@@ -101,13 +102,13 @@ public class SuperActivity extends FragmentActivity {
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		public static final String SELECTED_FLUX_ITEM = "selected_flux_item";
-		public static MlListeFlux listeFlux=null;
+		public static MlListeFlux listeFlux = null;
 		public static MlFlux fluxSelectionne;
 		public static ActionBar actionBar;
+		public static Context context;
 
 		public ListeFluxSectionFragment() {
 		}
-		
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,7 +126,7 @@ public class SuperActivity extends FragmentActivity {
 							.findViewById(R.id.listViewTab1);
 
 					// constitution d'un flux de test
-					RssFeeder feeder = new RssFeeder();
+					RssFeeder feeder = new RssFeeder(context);
 
 					listeFlux = feeder.Test();
 
@@ -133,24 +134,22 @@ public class SuperActivity extends FragmentActivity {
 							listeFlux);
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
-					//listView.setOnItemClickListener(itemclickListener);
-					 listView.setOnItemClickListener(new OnItemClickListener()
-					 {
-						
+					// listView.setOnItemClickListener(itemclickListener);
+					listView.setOnItemClickListener(new OnItemClickListener() {
 
 						@Override
 						public void onItemClick(AdapterView<?> p_adapterView,
-								 View p_view, int p_position, long arg3) {
-							 MlFlux leFluxClique = (MlFlux) p_adapterView
-									 .getItemAtPosition(p_position);
-									 fluxSelectionne = leFluxClique;
-									 // En realité le numero de tab est en base 0
-									 // si on à 3 tab, la deuxieme aura le numero 1
-									 // 0,1,2
-									 actionBar.setSelectedNavigationItem(1);
-							
+								View p_view, int p_position, long arg3) {
+							MlFlux leFluxClique = (MlFlux) p_adapterView
+									.getItemAtPosition(p_position);
+							fluxSelectionne = leFluxClique;
+							// En realité le numero de tab est en base 0
+							// si on à 3 tab, la deuxieme aura le numero 1
+							// 0,1,2
+							actionBar.setSelectedNavigationItem(1);
+
 						}
-					 });
+					});
 
 					return v;
 				case 2:
@@ -161,9 +160,10 @@ public class SuperActivity extends FragmentActivity {
 					ListView listViewEpisode = (ListView) v1
 							.findViewById(R.id.listViewTabListeEpisode);
 					MlListeEpisode listeEpisode = null;
-					MlFlux fluxSelectionne = (MlFlux) getArguments().getSerializable(SELECTED_FLUX_ITEM); 
-//							((ItemClickListenerTabListeFLux) itemclickListener)
-//							.getFluxSelectionne();
+					MlFlux fluxSelectionne = (MlFlux) getArguments()
+							.getSerializable(SELECTED_FLUX_ITEM);
+					// ((ItemClickListenerTabListeFLux) itemclickListener)
+					// .getFluxSelectionne();
 					if (fluxSelectionne == null) {
 						listeEpisode = listeFlux.GetAllEpisode();
 					} else {
