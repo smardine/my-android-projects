@@ -13,7 +13,7 @@ public class MlEpisode implements Serializable {
 	private int idEpisode;
 	private String titre;
 	private String description;
-	private String link;
+	private String urlEpisode;
 	private EnStatutLecture statutLecture;
 	private EnStatutTelechargement statutTelechargement;
 	private String duree;
@@ -22,6 +22,7 @@ public class MlEpisode implements Serializable {
 	private MlCategorie categorie;
 	private File vignetteTelechargee;
 	private boolean isVignetteTelechargee;
+	private boolean isEpisodeTelecharge;
 	/**
 	 * Contient l'url du media
 	 */
@@ -73,12 +74,12 @@ public class MlEpisode implements Serializable {
 		this.description = description;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public void setUrlEpisode(String link) {
+		this.urlEpisode = link;
 	}
 
-	public String getLink() {
-		return link;
+	public String getUrlEpisode() {
+		return urlEpisode;
 	}
 
 	/**
@@ -182,5 +183,13 @@ public class MlEpisode implements Serializable {
 
 	public boolean isVignetteTelechargee() {
 		return isVignetteTelechargee;
+	}
+
+	public void setEpisodeTelecharge(boolean isEpisodeTelecharge) {
+		this.isEpisodeTelecharge = isEpisodeTelecharge;
+	}
+
+	public boolean isEpisodeTelecharge() {
+		return isEpisodeTelecharge;
 	}
 }
