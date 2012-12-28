@@ -14,11 +14,12 @@ public class MlFlux implements Serializable {
 	private int idFlux;
 	private String titre;
 	private Date dateDerniereSynchro;
-	// private String dateDernierePublication;
+	private File vignetteTelechargee;
 	private String vignetteUrl;
 	private MlParametre parametres;
 	private MlCategorie categorie;
-	private File vignetteTelechargee;
+	private String fluxUrl;
+
 	private boolean isVignetteTelechargee;
 
 	public MlFlux() {
@@ -144,6 +145,14 @@ public class MlFlux implements Serializable {
 
 	public boolean isVignetteTelechargee() {
 		return isVignetteTelechargee;
+	}
+
+	public void setFluxUrl(String fluxUrl) {
+		this.fluxUrl = fluxUrl;
+	}
+
+	public String getFluxUrl() {
+		return fluxUrl;
 	}
 
 }

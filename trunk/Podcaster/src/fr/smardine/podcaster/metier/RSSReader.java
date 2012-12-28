@@ -86,7 +86,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 						new EnBaliseRSS[] { EnBaliseRSS.Title }));
 				// on recupere l'url du fichier xml qui contient la définition
 				// du flux rss
-				unEpisode.setLink(readNode(element,
+				unEpisode.setUrlEpisode(readNode(element,
 						new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
 				// on recupere la durée de l'element si audio ou video
