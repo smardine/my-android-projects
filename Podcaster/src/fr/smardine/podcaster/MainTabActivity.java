@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import fr.smardine.podcaster.activity.SuperActivity;
+import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 
 public class MainTabActivity extends SuperActivity implements
 		ActionBar.TabListener {
@@ -39,6 +40,11 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 
 		ListeFluxSectionFragment.actionBar = actionBar;
+		
+		AccesTableFlux tableFlux = new AccesTableFlux(getBaseContext());
+		
+		
+		int nbDenregistrement = tableFlux.getNbEnregistrement();
 	}
 
 	@Override

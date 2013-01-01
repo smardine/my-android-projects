@@ -125,31 +125,31 @@ public class SuperActivity extends FragmentActivity {
 					ListView listView = (ListView) v
 							.findViewById(R.id.listViewTab1);
 
-					// constitution d'un flux de test
-					RssFeeder feeder = new RssFeeder(context);
-
-					listeFlux = feeder.Test();
-
-					FluxListAdapter adpt = new FluxListAdapter(getActivity(),
-							listeFlux);
-					// paramèter l'adapter sur la listview
-					listView.setAdapter(adpt);
-					// listView.setOnItemClickListener(itemclickListener);
-					listView.setOnItemClickListener(new OnItemClickListener() {
-
-						@Override
-						public void onItemClick(AdapterView<?> p_adapterView,
-								View p_view, int p_position, long arg3) {
-							MlFlux leFluxClique = (MlFlux) p_adapterView
-									.getItemAtPosition(p_position);
-							fluxSelectionne = leFluxClique;
-							// En realité le numero de tab est en base 0
-							// si on à 3 tab, la deuxieme aura le numero 1
-							// 0,1,2
-							actionBar.setSelectedNavigationItem(1);
-
-						}
-					});
+//					// constitution d'un flux de test
+//					RssFeeder feeder = new RssFeeder(context);
+//
+//					listeFlux = feeder.Test();
+//
+//					FluxListAdapter adpt = new FluxListAdapter(getActivity(),
+//							listeFlux);
+//					// paramèter l'adapter sur la listview
+//					listView.setAdapter(adpt);
+//					
+//					listView.setOnItemClickListener(new OnItemClickListener() {
+//
+//						@Override
+//						public void onItemClick(AdapterView<?> p_adapterView,
+//								View p_view, int p_position, long arg3) {
+//							MlFlux leFluxClique = (MlFlux) p_adapterView
+//									.getItemAtPosition(p_position);
+//							fluxSelectionne = leFluxClique;
+//							// En realité le numero de tab est en base 0
+//							// si on à 3 tab, la deuxieme aura le numero 1
+//							// 0,1,2
+//							actionBar.setSelectedNavigationItem(1);
+//
+//						}
+//					});
 
 					return v;
 				case 2:

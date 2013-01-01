@@ -19,6 +19,13 @@ public class AccesTableFlux {
 		this.ctx = p_ctx;
 		requeteFact = new RequeteFactory(p_ctx);
 	}
+	
+	/**
+	 * @return obtenir le nombre d'enregistrement dans la table
+	 */
+	public int getNbEnregistrement() {
+		return requeteFact.getNombreEnregistrement(EnTable.FLUX);
+	}
 
 	// /**
 	// * @param p_note
