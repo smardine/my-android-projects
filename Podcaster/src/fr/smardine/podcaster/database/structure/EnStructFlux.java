@@ -18,7 +18,7 @@ public enum EnStructFlux implements IStructureTable {
 
 	ID_PARAMETRE("ID_PARAMETRE", EnTypeChampsSQLite.INTEGER, null), //
 
-	ID_CATEGORIE("ID_CATEGORIE", EnTypeChampsSQLite.VARCHAR, 250), //
+	ID_CATEGORIE("ID_CATEGORIE", EnTypeChampsSQLite.INTEGER, null), //
 
 	URL("URL", EnTypeChampsSQLite.VARCHAR, null);
 

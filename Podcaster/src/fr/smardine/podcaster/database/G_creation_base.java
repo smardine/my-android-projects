@@ -64,9 +64,12 @@ public class G_creation_base {
 		creationtable.add(createTable(EnTable.FLUX, EnStructFlux.values()));
 		creationtable
 				.add(createTable(EnTable.EPISODE, EnStructEpisode.values()));
-		creationtable.add("INSERT INTO "+EnTable.FLUX+" (TITRE_FLUX, DATE_DERNIERE_SYNCHRO, VIGNETTE_URL, VIGNETTE, ID_PARAMETRE, ID_CATEGORIE, URL) "+
-					"values " +
-					"(Laurent Gerra, 01/01/2012,null,null,-1,-1,http://www.rtl.fr/podcast/laurent-gerra.xml");
+		creationtable
+				.add("INSERT INTO "
+						+ EnTable.FLUX
+						+ " (TITRE_FLUX, DATE_DERNIERE_SYNCHRO, VIGNETTE_URL, VIGNETTE, ID_PARAMETRE, ID_CATEGORIE, URL) "
+						+ "values "
+						+ "('Laurent Gerra', '01/01/2012',null,null,0,0,'http://www.rtl.fr/podcast/laurent-gerra.xml')");
 		return creationtable;
 	}
 
@@ -81,8 +84,7 @@ public class G_creation_base {
 				sb.append(unChamp.getNomChamp() + " "
 						+ unChamp.getTypeChamp().name()
 						+ " PRIMARY KEY AUTOINCREMENT  NOT NULL  UNIQUE , ");
-			}
-			else if (i == listeChamp.length - 1) {
+			} else if (i == listeChamp.length - 1) {
 				sb.append(unChamp.getNomChamp() + " "
 						+ unChamp.getTypeChamp().name() + ")");
 			} else {
