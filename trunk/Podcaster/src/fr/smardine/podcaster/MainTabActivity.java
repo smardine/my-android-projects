@@ -2,13 +2,12 @@ package fr.smardine.podcaster;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.widget.Button;
 import fr.smardine.podcaster.activity.SuperActivity;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
-import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 
 public class MainTabActivity extends SuperActivity implements
 		ActionBar.TabListener {
@@ -18,15 +17,12 @@ public class MainTabActivity extends SuperActivity implements
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	Context ctx = MainTabActivity.this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_tab);
-
-		Button boutonAjouteFlux = (Button) findViewById(R.id.imageButton3);
-		boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(
-				getBaseContext()));
 
 		// Set up the action bar to show tabs.
 		ActionBar actionBar = getActionBar();
@@ -89,6 +85,7 @@ public class MainTabActivity extends SuperActivity implements
 		if (tab.getPosition() == 0) {
 			// quand on revient sur la premiere "tab" on reinitialise le flux
 			// selectionné
+
 			ListeFluxSectionFragment.fluxSelectionne = null;
 		} else if (tab.getPosition() == 1) {
 			// si on choisi la deuxieme "tab" (celle de liste d'épisode) on
