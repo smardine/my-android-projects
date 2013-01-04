@@ -1,6 +1,5 @@
 package fr.smardine.podcaster.database.structure;
 
-
 /**
  * @author smardine
  */
@@ -27,5 +26,8 @@ public interface IStructureTable {
 	String name();
 
 	IStructureTable[] getListeChamp();
+
+	@Override
+	String toString();
 
 }

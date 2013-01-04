@@ -53,4 +53,9 @@ public enum EnStructFlux implements IStructureTable {
 		return values();
 	}
 
+	@Override
+	public String toString() {
+		return nomChamp;
+	}
+
 }
