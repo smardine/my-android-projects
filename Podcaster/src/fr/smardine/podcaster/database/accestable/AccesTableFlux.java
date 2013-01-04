@@ -1,8 +1,11 @@
 package fr.smardine.podcaster.database.accestable;
 
+import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.podcaster.database.RequeteFactory;
+import fr.smardine.podcaster.database.structure.EnStructFlux;
 import fr.smardine.podcaster.database.structure.EnTable;
+import fr.smardine.podcaster.mdl.MlFlux;
 
 /**
  * @author smardine Acces a la table des Notes enregistré en base
@@ -19,12 +22,24 @@ public class AccesTableFlux {
 		this.ctx = p_ctx;
 		requeteFact = new RequeteFactory(p_ctx);
 	}
-	
+
 	/**
 	 * @return obtenir le nombre d'enregistrement dans la table
 	 */
 	public int getNbEnregistrement() {
 		return requeteFact.getNombreEnregistrement(EnTable.FLUX);
+	}
+
+	public void createFlux(MlFlux p_flux) {
+		ContentValues content = new ContentValues();
+		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux
+				.getDateDerniereSynchro().toString());
+		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
+		content.put(EnStructFlux.VIGNETTE_URL.toString(),
+				p_flux.getVignetteUrl());
+		content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
+		requeteFact.insertDansTable(EnTable.FLUX, content);
+
 	}
 
 	// /**

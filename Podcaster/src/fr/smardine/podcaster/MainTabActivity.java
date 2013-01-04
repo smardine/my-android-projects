@@ -5,8 +5,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.widget.Button;
 import fr.smardine.podcaster.activity.SuperActivity;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
+import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 
 public class MainTabActivity extends SuperActivity implements
 		ActionBar.TabListener {
@@ -21,6 +23,10 @@ public class MainTabActivity extends SuperActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_tab);
+
+		Button boutonAjouteFlux = (Button) findViewById(R.id.imageButton3);
+		boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(
+				getBaseContext()));
 
 		// Set up the action bar to show tabs.
 		ActionBar actionBar = getActionBar();
@@ -40,10 +46,9 @@ public class MainTabActivity extends SuperActivity implements
 				.setTabListener(this));
 
 		ListeFluxSectionFragment.actionBar = actionBar;
-		
+
 		AccesTableFlux tableFlux = new AccesTableFlux(getBaseContext());
-		
-		
+
 		int nbDenregistrement = tableFlux.getNbEnregistrement();
 	}
 
