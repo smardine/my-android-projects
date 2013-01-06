@@ -25,8 +25,7 @@ public class MlEpisode implements Serializable {
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
 	private File vignetteTelechargee;
-	private boolean isVignetteTelechargee;
-	private boolean isEpisodeTelecharge;
+
 	/**
 	 * Contient l'url du media
 	 */
@@ -188,20 +187,8 @@ public class MlEpisode implements Serializable {
 		return vignetteTelechargee;
 	}
 
-	public void setVignetteTelechargee(boolean isVignetteTelechargee) {
-		this.isVignetteTelechargee = isVignetteTelechargee;
-	}
-
 	public boolean isVignetteTelechargee() {
-		return isVignetteTelechargee;
-	}
-
-	public void setEpisodeTelecharge(boolean isEpisodeTelecharge) {
-		this.isEpisodeTelecharge = isEpisodeTelecharge;
-	}
-
-	public boolean isEpisodeTelecharge() {
-		return isEpisodeTelecharge;
+		return vignetteTelechargee != null && vignetteTelechargee.exists();
 	}
 
 	/**

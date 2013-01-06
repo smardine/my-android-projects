@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.database.accestable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +41,7 @@ public class AccesTableFlux {
 		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro().toString());
 		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
 		content.put(EnStructFlux.VIGNETTE_URL.toString(), p_flux.getVignetteUrl());
+		content.put(EnStructFlux.VIGNETTE_FILE.toString(), p_flux.getVignetteTelechargee().getAbsolutePath());
 		content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
 		requeteFact.insertDansTable(EnTable.FLUX, content);
 
@@ -164,6 +166,12 @@ public class AccesTableFlux {
 					unFlux.setDateDerniereSynchro(new Date(Date.parse((String) unEnregistrement.get(i))));
 				} else if (i == 3) {
 					unFlux.setVignetteUrl((String) unEnregistrement.get(i));
+				} else if (i == 4) {
+					unFlux.setVignetteTelechargee(new File((String) unEnregistrement.get(i)));
+				} else if (i == 5) {
+					// triaiter l'id parametre plus tard
+				} else if (i == 6) {
+					// traiter l'id categorie plus tard
 				} else if (i == 7) {
 					unFlux.setFluxUrl((String) unEnregistrement.get(i));
 				}

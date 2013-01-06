@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.database.accestable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,13 +19,11 @@ import fr.smardine.podcaster.mdl.MlListeEpisode;
 public class AccesTableEpisode {
 
 	private final RequeteFactory requeteFact;
-	private final Context ctx;
 
 	/**
 	 * @param p_ctx le contexte
 	 */
 	public AccesTableEpisode(Context p_ctx) {
-		this.ctx = p_ctx;
 		requeteFact = new RequeteFactory(p_ctx);
 	}
 
@@ -48,6 +47,7 @@ public class AccesTableEpisode {
 		content.put(EnStructEpisode.TYPE_EPISODE.toString(), p_episode.getTypeEpisode().name());
 		content.put(EnStructEpisode.GUID.toString(), p_episode.getGuid());
 		// content.put(EnStructEpisode.ID_CATEGORIE.toString(),p_episode.getCategorie().getIdCategorie());
+		content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
 		requeteFact.insertDansTable(EnTable.EPISODE, content);
 
 	}
@@ -184,6 +184,8 @@ public class AccesTableEpisode {
 					unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName((String) unEnregistrement.get(i)));
 				} else if (i == 11) {
 					// traiter l'id categorie plus tard
+				} else if (i == 12) {
+					unEpisode.setVignetteTelechargee(new File((String) unEnregistrement.get(i)));
 				}
 			}
 

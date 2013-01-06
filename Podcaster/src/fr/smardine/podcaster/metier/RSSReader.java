@@ -101,10 +101,8 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 				unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName(typeEpisode));
 				if (unFlux.isVignetteTelechargee()) {
 					unEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
-					unEpisode.setVignetteTelechargee(true);
 				} else {
 					unEpisode.setVignetteTelechargee(null);
-					unEpisode.setVignetteTelechargee(false);
 				}
 
 				// on determine le statu de lecture

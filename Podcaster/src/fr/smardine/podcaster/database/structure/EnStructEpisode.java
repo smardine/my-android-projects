@@ -23,7 +23,9 @@ public enum EnStructEpisode implements IStructureTable {
 
 	TYPE_EPISODE("TYPE_EPISODE", EnTypeChampsSQLite.VARCHAR, 250), //
 
-	ID_CATEGORIE("ID_CATEGORIE", EnTypeChampsSQLite.INTEGER, null);
+	ID_CATEGORIE("ID_CATEGORIE", EnTypeChampsSQLite.INTEGER, null), //
+
+	VIGNETTE_TELECHARGEE("VIGNETTE_TELECHARGEE", EnTypeChampsSQLite.VARCHAR, null);
 
 	private final String nomChamp;
 	private final EnTypeChampsSQLite typeClass;
