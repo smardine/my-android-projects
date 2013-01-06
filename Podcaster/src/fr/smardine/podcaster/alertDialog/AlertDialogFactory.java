@@ -63,28 +63,28 @@ public class AlertDialogFactory {
 
 	}
 
-	/**
-	 * Construit une dialogBox avec deux boutons (oui et Non) plus du texte, un
-	 * titre et une icone
-	 * @param p_type - le type d'alert dialog que l'on construit
-	 * @param p_marqueAEnvoyer - eventuellement la marque à "pusher" vers le
-	 *        site
-	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
-	 *         l'ecran
-	 */
-	public AlertDialog.Builder getOuiNonDialog(EnTypeAlertDialogOuiNon p_type,
-			String p_marqueAEnvoyer) {
-		ad = new AlertDialog.Builder(ctx);
-		ad.setTitle(p_type.getTitre());
-		ad.setIcon(R.drawable.ad_attention);
-		ad.setMessage(p_type.getMessage());
-
-		AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(
-				p_marqueAEnvoyer, ctx);
-		ad.setPositiveButton(p_type.getTxtOkBtton(), ouinonClickListener);
-		ad.setNegativeButton(p_type.getTxtCancelButton(), null);
-		return ad;
-	}
+//	/**
+//	 * Construit une dialogBox avec deux boutons (oui et Non) plus du texte, un
+//	 * titre et une icone
+//	 * @param p_type - le type d'alert dialog que l'on construit
+//	 * @param p_marqueAEnvoyer - eventuellement la marque à "pusher" vers le
+//	 *        site
+//	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
+//	 *         l'ecran
+//	 */
+//	public AlertDialog.Builder getOuiNonDialog(EnTypeAlertDialogOuiNon p_type,
+//			String p_marqueAEnvoyer) {
+//		ad = new AlertDialog.Builder(ctx);
+//		ad.setTitle(p_type.getTitre());
+//		ad.setIcon(R.drawable.ad_attention);
+//		ad.setMessage(p_type.getMessage());
+//
+//		AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(
+//				p_marqueAEnvoyer, ctx);
+//		ad.setPositiveButton(p_type.getTxtOkBtton(), ouinonClickListener);
+//		ad.setNegativeButton(p_type.getTxtCancelButton(), null);
+//		return ad;
+//	}
 
 	/**
 	 * Construit une dialogBox avec deux boutons (Choisir et Annuler) ,une liste

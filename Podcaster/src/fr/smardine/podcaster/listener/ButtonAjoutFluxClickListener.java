@@ -5,6 +5,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogOuiNonClickListener;
 
@@ -12,10 +13,12 @@ public class ButtonAjoutFluxClickListener implements OnClickListener {
 
 	private final Context context;
 	private final View view;
+	private ListView listView;
 
-	public ButtonAjoutFluxClickListener(Context baseContext, View p_view) {
+	public ButtonAjoutFluxClickListener(Context baseContext, View p_view, ListView p_listView) {
 		this.context = baseContext;
 		this.view = p_view;
+		this.listView = p_listView;
 	}
 
 	@Override
@@ -28,10 +31,10 @@ public class ButtonAjoutFluxClickListener implements OnClickListener {
 		ad.setMessage("http://www.rtl.fr/podcast/laurent-gerra.xml");
 
 		AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(
-				"http://www.rtl.fr/podcast/laurent-gerra.xml", this.context);
+				"http://www.rtl.fr/podcast/laurent-gerra.xml", this.context, this.listView);
 		ad.setPositiveButton("Ok", ouinonClickListener);
 		ad.setNegativeButton("Annuler", null);
-		ad.setView(this.view);
+		// ad.setView(this.view);
 		ad.show();
 
 	}

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
+import android.content.Context;
+import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
+
 public class MlEpisode implements Serializable {
 
 	/**
@@ -11,6 +14,7 @@ public class MlEpisode implements Serializable {
 	 */
 	private static final long serialVersionUID = 8478705652165819479L;
 	private int idEpisode;
+	private int idFluxParent;
 	private String titre;
 	private String description;
 	private String urlEpisode;
@@ -44,6 +48,14 @@ public class MlEpisode implements Serializable {
 	 */
 	public final void setIdEpisode(int idEpisode) {
 		this.idEpisode = idEpisode;
+	}
+
+	public int getIdFluxParent() {
+		return idFluxParent;
+	}
+
+	public void setIdFluxParent(int idFluxParent) {
+		this.idFluxParent = idFluxParent;
 	}
 
 	/**
@@ -106,8 +118,7 @@ public class MlEpisode implements Serializable {
 	/**
 	 * @param statutTelechargement the statutTelechargement to set
 	 */
-	public final void setStatutTelechargement(
-			EnStatutTelechargement statutTelechargement) {
+	public final void setStatutTelechargement(EnStatutTelechargement statutTelechargement) {
 		this.statutTelechargement = statutTelechargement;
 	}
 
@@ -191,5 +202,61 @@ public class MlEpisode implements Serializable {
 
 	public boolean isEpisodeTelecharge() {
 		return isEpisodeTelecharge;
+	}
+
+	/**
+	 * Positionne le statut de lecture d'une episode {@link EnStatutLecture} Si l'episode est deja connu en base (basé sur la date de
+	 * publication, le titre et la durée) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le statut est
+	 * "NonLu"
+	 * @param p_context
+	 */
+	public void positionneStatutLecture(Context p_context) {
+		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
+		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+		for (MlEpisode unEpisode : listeEnbase) {
+			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
+					&& unEpisode.getDuree().equals(this.duree)) {
+				this.statutLecture = unEpisode.getStatutLecture();
+				return;
+			}
+		}
+		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionné à "NonLu"
+		this.statutLecture = EnStatutLecture.NonLu;
+	}
+
+	/**
+	 * /** Positionne le statut de telechargement d'une episode {@link EnStatutTelechargement} Si l'episode est deja connu en base (basé sur
+	 * la date de publication, le titre et la durée) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le
+	 * statut est "streaming"
+	 * @param p_context
+	 */
+
+	public void positionneStatutTelechargement(Context p_context) {
+		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
+		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+		for (MlEpisode unEpisode : listeEnbase) {
+			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
+					&& unEpisode.getDuree().equals(this.duree)) {
+				this.statutTelechargement = unEpisode.getStatutTelechargement();
+				return;
+			}
+		}
+		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionné à "streaming"
+		this.statutTelechargement = EnStatutTelechargement.Streaming;
+
+	}
+
+	public boolean isNouveau(Context p_context) {
+		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
+		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+		for (MlEpisode unEpisode : listeEnbase) {
+			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
+					&& unEpisode.getDuree().equals(this.duree)) {
+				return false;
+			}
+		}
+		// on a parcouru tous les episode sans trouver de reference en bdd
+		// L'episode est un nouveau
+		return true;
 	}
 }

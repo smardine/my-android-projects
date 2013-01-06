@@ -7,15 +7,16 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.podcaster.database.RequeteFactory;
-import fr.smardine.podcaster.database.structure.EnStructFlux;
+import fr.smardine.podcaster.database.structure.EnStructEpisode;
 import fr.smardine.podcaster.database.structure.EnTable;
-import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeFlux;
+import fr.smardine.podcaster.mdl.EnStatutLecture;
+import fr.smardine.podcaster.mdl.EnStatutTelechargement;
+import fr.smardine.podcaster.mdl.EnTypeEpisode;
+import fr.smardine.podcaster.mdl.MlEpisode;
+import fr.smardine.podcaster.mdl.MlListeEpisode;
+import fr.smardine.tools.date.DateHelper;
 
-/**
- * @author smardine Acces a la table des Notes enregistré en base
- */
-public class AccesTableFlux {
+public class AccesTableEpisode {
 
 	private final RequeteFactory requeteFact;
 	private final Context ctx;
@@ -23,7 +24,7 @@ public class AccesTableFlux {
 	/**
 	 * @param p_ctx le contexte
 	 */
-	public AccesTableFlux(Context p_ctx) {
+	public AccesTableEpisode(Context p_ctx) {
 		this.ctx = p_ctx;
 		requeteFact = new RequeteFactory(p_ctx);
 	}
@@ -32,19 +33,23 @@ public class AccesTableFlux {
 	 * @return obtenir le nombre d'enregistrement dans la table
 	 */
 	public int getNbEnregistrement() {
-		return requeteFact.getNombreEnregistrement(EnTable.FLUX);
+		return requeteFact.getNombreEnregistrement(EnTable.EPISODE);
 	}
 
-	public void createFlux(MlFlux p_flux) {
+	public void createEpisode(MlEpisode p_episode) {
 		ContentValues content = new ContentValues();
-		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro().toString());
-		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
-		content.put(EnStructFlux.VIGNETTE_URL.toString(), p_flux.getVignetteUrl());
-		content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
-		requeteFact.insertDansTable(EnTable.FLUX, content);
-
-		p_flux.setIdFlux(Integer.parseInt(requeteFact.get1Champ("SELECT MAX (" + EnStructFlux.ID_FLUX.toString() + ") FROM "
-				+ EnTable.FLUX.toString())));
+		content.put(EnStructEpisode.ID_FLUX.toString(), p_episode.getIdFluxParent());
+		content.put(EnStructEpisode.TITRE.toString(), p_episode.getTitre());
+		content.put(EnStructEpisode.DESCRIPTION.toString(), p_episode.getDescription());
+		content.put(EnStructEpisode.URL.toString(), p_episode.getUrlEpisode());
+		content.put(EnStructEpisode.STATUT_LECTURE.toString(), p_episode.getStatutLecture().name());
+		content.put(EnStructEpisode.STATUT_TELECHARGEMENT.toString(), p_episode.getStatutTelechargement().name());
+		content.put(EnStructEpisode.DUREE.toString(), p_episode.getDuree());
+		content.put(EnStructEpisode.DATE_PUBLICATION.toString(), DateHelper.ddMMM(p_episode.getDatePublication()));
+		content.put(EnStructEpisode.TYPE_EPISODE.toString(), p_episode.getTypeEpisode().name());
+		content.put(EnStructEpisode.GUID.toString(), p_episode.getGuid());
+		// content.put(EnStructEpisode.ID_CATEGORIE.toString(),p_episode.getCategorie().getIdCategorie());
+		requeteFact.insertDansTable(EnTable.EPISODE, content);
 
 	}
 
@@ -145,34 +150,44 @@ public class AccesTableFlux {
 	 * 
 	 */
 	public void deleteTable() {
-		requeteFact.deleteTable(EnTable.FLUX, "1", null);
+		requeteFact.deleteTable(EnTable.EPISODE, "1", null);
 
 	}
 
-	public MlListeFlux getListeDesFlux() {
-		MlListeFlux lstRetour = new MlListeFlux();
-		AccesTableEpisode tableEpisode = new AccesTableEpisode(ctx);
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.FLUX, EnStructFlux.class, null);
+	public MlListeEpisode getListeDesEpisodeParIdFlux(int p_idFlux) {
+		MlListeEpisode lstRetour = new MlListeEpisode();
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.EPISODE, EnStructEpisode.class,
+				EnStructEpisode.ID_FLUX.toString() + "=" + p_idFlux);
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
-			MlFlux unFlux = new MlFlux();
+			MlEpisode unEpisode = new MlEpisode();
 			for (int i = 0; i < unEnregistrement.size(); i++) {
 				if (i == 0) {
-					unFlux.setIdFlux((Integer) unEnregistrement.get(i));
+					unEpisode.setIdEpisode((Integer) unEnregistrement.get(i));
 				} else if (i == 1) {
-					unFlux.setTitre((String) unEnregistrement.get(i));
+					unEpisode.setIdFluxParent((Integer) unEnregistrement.get(i));
 				} else if (i == 2) {
-					unFlux.setDateDerniereSynchro(new Date(Date.parse((String) unEnregistrement.get(i))));
+					unEpisode.setTitre((String) unEnregistrement.get(i));
 				} else if (i == 3) {
-					unFlux.setVignetteUrl((String) unEnregistrement.get(i));
+					unEpisode.setDescription((String) unEnregistrement.get(i));
+				} else if (i == 4) {
+					unEpisode.setUrlEpisode((String) unEnregistrement.get(i));
+				} else if (i == 5) {
+					unEpisode.setStatutLecture(EnStatutLecture.GetStatutLectureByName((String) unEnregistrement.get(i)));
+				} else if (i == 6) {
+					unEpisode.setStatutTelechargement(EnStatutTelechargement.valueOf((String) unEnregistrement.get(i)));
 				} else if (i == 7) {
-					unFlux.setFluxUrl((String) unEnregistrement.get(i));
+					unEpisode.setDuree((String) unEnregistrement.get(i));
+				} else if (i == 8) {
+					unEpisode.setDatePublication(new Date(Date.parse((String) unEnregistrement.get(i))));
+				} else if (i == 9) {
+					unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName((String) unEnregistrement.get(i)));
 				}
 			}
 
-			unFlux.setListeEpisode(tableEpisode.getListeDesEpisodeParIdFlux(unFlux.getIdFlux()));
-			lstRetour.add(unFlux);
+			lstRetour.add(unEpisode);
 		}
 		return lstRetour;
 
 	}
+
 }
