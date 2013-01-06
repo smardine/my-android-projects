@@ -20,8 +20,6 @@ public class MlFlux implements Serializable {
 	private MlCategorie categorie;
 	private String fluxUrl;
 
-	private boolean isVignetteTelechargee;
-
 	public MlFlux() {
 		listeEpisode = new MlListeEpisode();
 	}
@@ -139,12 +137,8 @@ public class MlFlux implements Serializable {
 		return vignetteTelechargee;
 	}
 
-	public void setVignetteTelechargee(boolean isVignetteTelechargee) {
-		this.isVignetteTelechargee = isVignetteTelechargee;
-	}
-
 	public boolean isVignetteTelechargee() {
-		return isVignetteTelechargee;
+		return vignetteTelechargee != null && vignetteTelechargee.exists();
 	}
 
 	public void setFluxUrl(String fluxUrl) {

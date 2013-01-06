@@ -9,12 +9,11 @@ public enum EnStructFlux implements IStructureTable {
 
 	TITRE("TITRE_FLUX", EnTypeChampsSQLite.VARCHAR, 250), //
 
-	DATE_DERNIERE_SYNCHRO("DATE_DERNIERE_SYNCHRO", EnTypeChampsSQLite.DATE,
-			null), //
+	DATE_DERNIERE_SYNCHRO("DATE_DERNIERE_SYNCHRO", EnTypeChampsSQLite.DATE, null), //
 
 	VIGNETTE_URL("VIGNETTE_URL", EnTypeChampsSQLite.VARCHAR, null),
 
-	VIGNETTE_FILE("VIGNETTE", EnTypeChampsSQLite.BLOB, null), //
+	VIGNETTE_FILE("VIGNETTE_FILE", EnTypeChampsSQLite.VARCHAR, null), //
 
 	ID_PARAMETRE("ID_PARAMETRE", EnTypeChampsSQLite.INTEGER, null), //
 
@@ -26,8 +25,7 @@ public enum EnStructFlux implements IStructureTable {
 	private final EnTypeChampsSQLite typeClass;
 	private final Integer tailleMax;
 
-	EnStructFlux(String p_nomChamp, EnTypeChampsSQLite p_typeClass,
-			Integer p_tailleMax) {
+	EnStructFlux(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax) {
 		this.nomChamp = p_nomChamp;
 		this.typeClass = p_typeClass;
 		this.tailleMax = p_tailleMax;
