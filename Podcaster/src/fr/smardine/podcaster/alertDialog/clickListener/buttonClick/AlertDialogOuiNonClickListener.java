@@ -57,8 +57,10 @@ public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener
 		for (MlEpisode unEpisode : unFlux.getListeEpisode()) {
 			tableEpisode.createEpisode(unEpisode);
 		}
-		MlListeFlux listeFlux = new MlListeFlux();
-		listeFlux.add(unFlux);
+
+		// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
+		MlListeFlux listeFlux = new AccesTableFlux(this.ctx).getListeDesFlux();
+
 		FluxListAdapter adpt = new FluxListAdapter(ctx, listeFlux);
 		// paramèter l'adapter sur la listview
 		listView.setAdapter(adpt);
