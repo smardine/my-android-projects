@@ -67,6 +67,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
 			DownloadHelper.DownloadImageFluxFromUrl(context, unFlux.getVignetteUrl(), unFlux);
 			unFlux.setDateDerniereSynchro(new Date());
+			unFlux.setFluxUrl(feedurl);
 			// System.out.println();
 
 			/**

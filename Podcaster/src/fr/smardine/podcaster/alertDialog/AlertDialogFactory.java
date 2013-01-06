@@ -3,16 +3,10 @@ package fr.smardine.podcaster.alertDialog;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
-import fr.smardine.podcaster.R;
-import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogAttentionClickListener;
-import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogOuiNonClickListener;
 import fr.smardine.podcaster.alertDialog.type.EnTypeAlertDialogAide;
-import fr.smardine.podcaster.alertDialog.type.EnTypeAlertDialogAttention;
-import fr.smardine.podcaster.alertDialog.type.EnTypeAlertDialogOuiNon;
 
 /**
- * Classe generale permettant de contruire les DialogBox en fonction d'un type
- * souhaité
+ * Classe generale permettant de contruire les DialogBox en fonction d'un type souhaité
  * @author smardine
  */
 public class AlertDialogFactory {
@@ -38,21 +32,20 @@ public class AlertDialogFactory {
 	/**
 	 * Construit une boite de dialogue prevenant l'utilisateur d'un probleme.
 	 * @param p_type - le type d'alert dialog que l'on construit
-	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
-	 *         l'ecran
+	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à l'ecran
 	 */
-	public AlertDialog.Builder getAttentionDialog(
-			EnTypeAlertDialogAttention p_type) {
-		ad = new AlertDialog.Builder(ctx);
-		ad.setTitle(p_type.getTitre());
-		ad.setIcon(R.drawable.ad_attention);
-		ad.setMessage(p_type.getMessage());
-
-		AlertDialogAttentionClickListener attentionClickListener = new AlertDialogAttentionClickListener(
-				this.ctx, p_type);
-		ad.setPositiveButton(p_type.getTxtOkBtton(), attentionClickListener);
-		return ad;
-	}
+	// public AlertDialog.Builder getAttentionDialog(
+	// EnTypeAlertDialogAttention p_type) {
+	// ad = new AlertDialog.Builder(ctx);
+	// ad.setTitle(p_type.getTitre());
+	// ad.setIcon(R.drawable.ad_attention);
+	// ad.setMessage(p_type.getMessage());
+	//
+	// AlertDialogAttentionClickListener attentionClickListener = new AlertDialogAttentionClickListener(
+	// this.ctx, p_type);
+	// ad.setPositiveButton(p_type.getTxtOkBtton(), attentionClickListener);
+	// return ad;
+	// }
 
 	public AlertDialog.Builder getAideDialog(EnTypeAlertDialogAide p_type) {
 		ad = new AlertDialog.Builder(ctx);
@@ -63,35 +56,33 @@ public class AlertDialogFactory {
 
 	}
 
-//	/**
-//	 * Construit une dialogBox avec deux boutons (oui et Non) plus du texte, un
-//	 * titre et une icone
-//	 * @param p_type - le type d'alert dialog que l'on construit
-//	 * @param p_marqueAEnvoyer - eventuellement la marque à "pusher" vers le
-//	 *        site
-//	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
-//	 *         l'ecran
-//	 */
-//	public AlertDialog.Builder getOuiNonDialog(EnTypeAlertDialogOuiNon p_type,
-//			String p_marqueAEnvoyer) {
-//		ad = new AlertDialog.Builder(ctx);
-//		ad.setTitle(p_type.getTitre());
-//		ad.setIcon(R.drawable.ad_attention);
-//		ad.setMessage(p_type.getMessage());
-//
-//		AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(
-//				p_marqueAEnvoyer, ctx);
-//		ad.setPositiveButton(p_type.getTxtOkBtton(), ouinonClickListener);
-//		ad.setNegativeButton(p_type.getTxtCancelButton(), null);
-//		return ad;
-//	}
+	// /**
+	// * Construit une dialogBox avec deux boutons (oui et Non) plus du texte, un
+	// * titre et une icone
+	// * @param p_type - le type d'alert dialog que l'on construit
+	// * @param p_marqueAEnvoyer - eventuellement la marque à "pusher" vers le
+	// * site
+	// * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
+	// * l'ecran
+	// */
+	// public AlertDialog.Builder getOuiNonDialog(EnTypeAlertDialogOuiNon p_type,
+	// String p_marqueAEnvoyer) {
+	// ad = new AlertDialog.Builder(ctx);
+	// ad.setTitle(p_type.getTitre());
+	// ad.setIcon(R.drawable.ad_attention);
+	// ad.setMessage(p_type.getMessage());
+	//
+	// AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(
+	// p_marqueAEnvoyer, ctx);
+	// ad.setPositiveButton(p_type.getTxtOkBtton(), ouinonClickListener);
+	// ad.setNegativeButton(p_type.getTxtCancelButton(), null);
+	// return ad;
+	// }
 
 	/**
-	 * Construit une dialogBox avec deux boutons (Choisir et Annuler) ,une liste
-	 * d'element cliquable, un titre mais pas d'icone
+	 * Construit une dialogBox avec deux boutons (Choisir et Annuler) ,une liste d'element cliquable, un titre mais pas d'icone
 	 * @param p_type - le type d'alert dialog que l'on construit
-	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
-	 *         l'ecran
+	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à l'ecran
 	 */
 	// public AlertDialog.Builder getChoixCatDialog(
 	// EnTypeAlertDialogChoixCat p_type) {

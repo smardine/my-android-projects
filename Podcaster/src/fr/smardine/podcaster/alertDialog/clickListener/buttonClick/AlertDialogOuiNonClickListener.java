@@ -55,6 +55,7 @@ public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener
 		tableFlux.createFlux(unFlux);
 		AccesTableEpisode tableEpisode = new AccesTableEpisode(this.ctx);
 		for (MlEpisode unEpisode : unFlux.getListeEpisode()) {
+			unEpisode.setIdFluxParent(unFlux.getIdFlux());
 			tableEpisode.createEpisode(unEpisode);
 		}
 

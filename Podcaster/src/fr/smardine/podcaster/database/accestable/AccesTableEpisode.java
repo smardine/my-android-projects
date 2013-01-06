@@ -14,7 +14,6 @@ import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.tools.date.DateHelper;
 
 public class AccesTableEpisode {
 
@@ -45,7 +44,7 @@ public class AccesTableEpisode {
 		content.put(EnStructEpisode.STATUT_LECTURE.toString(), p_episode.getStatutLecture().name());
 		content.put(EnStructEpisode.STATUT_TELECHARGEMENT.toString(), p_episode.getStatutTelechargement().name());
 		content.put(EnStructEpisode.DUREE.toString(), p_episode.getDuree());
-		content.put(EnStructEpisode.DATE_PUBLICATION.toString(), DateHelper.ddMMM(p_episode.getDatePublication()));
+		content.put(EnStructEpisode.DATE_PUBLICATION.toString(), p_episode.getDatePublication().toString());
 		content.put(EnStructEpisode.TYPE_EPISODE.toString(), p_episode.getTypeEpisode().name());
 		content.put(EnStructEpisode.GUID.toString(), p_episode.getGuid());
 		// content.put(EnStructEpisode.ID_CATEGORIE.toString(),p_episode.getCategorie().getIdCategorie());
@@ -178,9 +177,13 @@ public class AccesTableEpisode {
 				} else if (i == 7) {
 					unEpisode.setDuree((String) unEnregistrement.get(i));
 				} else if (i == 8) {
-					unEpisode.setDatePublication(new Date(Date.parse((String) unEnregistrement.get(i))));
+					unEpisode.setGuid((String) unEnregistrement.get(i));
 				} else if (i == 9) {
+					unEpisode.setDatePublication(new Date(Date.parse((String) unEnregistrement.get(i))));
+				} else if (i == 10) {
 					unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName((String) unEnregistrement.get(i)));
+				} else if (i == 11) {
+					// traiter l'id categorie plus tard
 				}
 			}
 
