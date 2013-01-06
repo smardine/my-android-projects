@@ -126,7 +126,8 @@ public class RequeteFactory {
 					case LONG:
 						lstIntermediaire.add(c.getLong(idxColumn));
 						break;
-					case VARCHAR:
+					case VARCHAR:						
+					case DATE:
 						lstIntermediaire.add(c.getString(idxColumn));
 						break;
 				}

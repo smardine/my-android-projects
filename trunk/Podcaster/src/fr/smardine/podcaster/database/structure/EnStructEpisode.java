@@ -3,6 +3,8 @@ package fr.smardine.podcaster.database.structure;
 public enum EnStructEpisode implements IStructureTable {
 	ID_EPISODE("ID_EPISODE", EnTypeChampsSQLite.INTEGER, null), //
 
+	ID_FLUX("ID_FLUX", EnTypeChampsSQLite.INTEGER, null), //
+
 	TITRE("TITRE_EPISODE", EnTypeChampsSQLite.VARCHAR, 250), //
 
 	DESCRIPTION("DESCRIPTION", EnTypeChampsSQLite.VARCHAR, 250), //
@@ -11,10 +13,11 @@ public enum EnStructEpisode implements IStructureTable {
 
 	STATUT_LECTURE("STATUT_LECTURE", EnTypeChampsSQLite.VARCHAR, 250), //
 
-	STATUT_TEELCHARGEMENT("STATUT_TELECHARGEMENT", EnTypeChampsSQLite.VARCHAR,
-			250), //
+	STATUT_TELECHARGEMENT("STATUT_TELECHARGEMENT", EnTypeChampsSQLite.VARCHAR, 250), //
 
 	DUREE("DUREE", EnTypeChampsSQLite.DATE, null), //
+
+	GUID("GUID", EnTypeChampsSQLite.VARCHAR, null), //
 
 	DATE_PUBLICATION("DATE_PUBLICATION", EnTypeChampsSQLite.DATE, null), //
 
@@ -26,8 +29,7 @@ public enum EnStructEpisode implements IStructureTable {
 	private final EnTypeChampsSQLite typeClass;
 	private final Integer tailleMax;
 
-	EnStructEpisode(String p_nomChamp, EnTypeChampsSQLite p_typeClass,
-			Integer p_tailleMax) {
+	EnStructEpisode(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax) {
 		this.nomChamp = p_nomChamp;
 		this.typeClass = p_typeClass;
 		this.tailleMax = p_tailleMax;
@@ -46,6 +48,11 @@ public enum EnStructEpisode implements IStructureTable {
 	@Override
 	public Integer getTailleMax() {
 		return tailleMax;
+	}
+
+	@Override
+	public String toString() {
+		return nomChamp;
 	}
 
 	@Override

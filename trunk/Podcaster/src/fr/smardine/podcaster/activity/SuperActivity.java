@@ -8,11 +8,15 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
+import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
@@ -119,6 +123,9 @@ public class SuperActivity extends FragmentActivity {
 					View v = LayoutInflater.from(
 							getActivity().getApplicationContext()).inflate(
 							R.layout.activity_tab1, null);
+					
+					ListView listView = (ListView) v
+							.findViewById(R.id.listViewTab1);
 
 					ImageButton boutonAjouteFlux = (ImageButton) v
 							.findViewById(R.id.imageButton3);
@@ -127,37 +134,41 @@ public class SuperActivity extends FragmentActivity {
 							R.layout.fluxlistitem, null);
 					boutonAjouteFlux
 							.setOnClickListener(new ButtonAjoutFluxClickListener(
-									this.getActivity(), v1));
-
-					ListView listView = (ListView) v
-							.findViewById(R.id.listViewTab1);
+									this.getActivity(), v1,listView));
+					AccesTableFlux tableFlux = new AccesTableFlux(context);
+					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
+//					ListView listView = (ListView) v
+//							.findViewById(R.id.listViewTab1);
 
 					// // constitution d'un flux de test
 					// RssFeeder feeder = new RssFeeder(context);
 					//
 					// listeFlux = feeder.Test();
 					//
-					// FluxListAdapter adpt = new FluxListAdapter(getActivity(),
-					// listeFlux);
-					// // paramèter l'adapter sur la listview
-					// listView.setAdapter(adpt);
-					//
-					// listView.setOnItemClickListener(new OnItemClickListener()
-					// {
-					//
-					// @Override
-					// public void onItemClick(AdapterView<?> p_adapterView,
-					// View p_view, int p_position, long arg3) {
-					// MlFlux leFluxClique = (MlFlux) p_adapterView
-					// .getItemAtPosition(p_position);
-					// fluxSelectionne = leFluxClique;
-					// // En realité le numero de tab est en base 0
-					// // si on à 3 tab, la deuxieme aura le numero 1
-					// // 0,1,2
-					// actionBar.setSelectedNavigationItem(1);
-					//
-					// }
-					// });
+					 FluxListAdapter adpt = new FluxListAdapter(getActivity(),
+							 listeFluxEnBase);
+					 this.listeFlux=listeFluxEnBase;
+					 // paramèter l'adapter sur la listview
+					 listView.setAdapter(adpt);
+					
+					 listView.setOnItemClickListener(new OnItemClickListener()
+					 {
+					
+					 @Override
+					 public void onItemClick(AdapterView<?> p_adapterView,
+					 View p_view, int p_position, long arg3) {
+					 MlFlux leFluxClique = (MlFlux) p_adapterView
+					 .getItemAtPosition(p_position);
+					 fluxSelectionne = leFluxClique;
+					 // En realité le numero de tab est en base 0
+					 // si on à 3 tab, la deuxieme aura le numero 1
+					 // 0,1,2
+					 actionBar.setSelectedNavigationItem(1);
+					
+					 }
+
+					
+					 });
 
 					return v;
 				case 2:
