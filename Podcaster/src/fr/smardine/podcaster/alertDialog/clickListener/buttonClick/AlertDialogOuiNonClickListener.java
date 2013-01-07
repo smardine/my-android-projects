@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.alertDialog.clickListener.buttonClick;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
@@ -21,42 +22,46 @@ import fr.smardine.podcaster.metier.RSSReader;
  */
 public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener, OnClickListener {
 
-	private final String fluxUrl;
 	private final Context ctx;
 	private ListView listView;
+	private List<String> listeUrl;
 
 	/**
 	 * Constructeur
+	 * @param urlsChecked
 	 * @param listView
 	 * @param p_type - le type d'alertDialog concerné
 	 * @param p_marque - eventuellement la marque à "pusher" vers le site
 	 */
-	public AlertDialogOuiNonClickListener(String p_fluxUrl, Context p_ctx, ListView p_listView) {
-		this.fluxUrl = p_fluxUrl;
+	public AlertDialogOuiNonClickListener(Context p_ctx, ListView p_listView, List<String> urlsChecked) {
 		this.ctx = p_ctx;
 		this.listView = p_listView;
+		this.listeUrl = urlsChecked;
 	}
 
 	@Override
 	public void onClick(DialogInterface p_arg0, int p_arg1) {
 		AccesTableFlux tableFlux = new AccesTableFlux(this.ctx);
-		RSSReader reader = new RSSReader(ctx);
-		reader.execute(fluxUrl);
-		MlFlux unFlux = null;
-		try {
-			unFlux = reader.get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		tableFlux.createFlux(unFlux);
-		AccesTableEpisode tableEpisode = new AccesTableEpisode(this.ctx);
-		for (MlEpisode unEpisode : unFlux.getListeEpisode()) {
-			unEpisode.setIdFluxParent(unFlux.getIdFlux());
-			tableEpisode.createEpisode(unEpisode);
+
+		for (String uneUrl : this.listeUrl) {
+			RSSReader reader = new RSSReader(ctx);
+			reader.execute(uneUrl);
+			MlFlux unFlux = null;
+			try {
+				unFlux = reader.get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tableFlux.createFlux(unFlux);
+			AccesTableEpisode tableEpisode = new AccesTableEpisode(this.ctx);
+			for (MlEpisode unEpisode : unFlux.getListeEpisode()) {
+				unEpisode.setIdFluxParent(unFlux.getIdFlux());
+				tableEpisode.createEpisode(unEpisode);
+			}
 		}
 
 		// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
