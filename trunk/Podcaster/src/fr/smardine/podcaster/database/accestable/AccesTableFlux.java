@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.podcaster.database.RequeteFactory;
+import fr.smardine.podcaster.database.structure.EnStructEpisode;
 import fr.smardine.podcaster.database.structure.EnStructFlux;
 import fr.smardine.podcaster.database.structure.EnTable;
 import fr.smardine.podcaster.mdl.MlFlux;
@@ -181,6 +182,15 @@ public class AccesTableFlux {
 			lstRetour.add(unFlux);
 		}
 		return lstRetour;
+
+	}
+
+	public void deleteFluxEtEpisode(MlFlux fluxSelectionne) {
+		String scriptDeleteEpisodes = "DELETE FROM " + EnTable.EPISODE + " WHERE " + EnStructEpisode.ID_FLUX.getNomChamp() + "="
+				+ fluxSelectionne.getIdFlux();
+		String scriptDeleteFlux = "DELETE FROM " + EnTable.FLUX + " WHERE " + EnStructFlux.ID_FLUX.getNomChamp() + "="
+				+ fluxSelectionne.getIdFlux();
+		// requeteFact.deleteTable(p_table, p_whereClause, p_whereArgs)
 
 	}
 }

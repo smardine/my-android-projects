@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
@@ -123,14 +128,7 @@ public class SuperActivity extends FragmentActivity {
 					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), v1, listView));
 					AccesTableFlux tableFlux = new AccesTableFlux(context);
 					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
-					// ListView listView = (ListView) v
-					// .findViewById(R.id.listViewTab1);
 
-					// // constitution d'un flux de test
-					// RssFeeder feeder = new RssFeeder(context);
-					//
-					// listeFlux = feeder.Test();
-					//
 					FluxListAdapter adpt = new FluxListAdapter(getActivity(), listeFluxEnBase);
 					this.listeFlux = listeFluxEnBase;
 					// paramèter l'adapter sur la listview
@@ -149,6 +147,34 @@ public class SuperActivity extends FragmentActivity {
 
 						}
 
+					});
+
+					listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+						@Override
+						public boolean onItemLongClick(AdapterView<?> p_adapterView, View p_view, int p_position, long arg3) {
+							MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
+							fluxSelectionne = leFluxClique;
+							PopupMenu popup = new PopupMenu(context, p_view);
+							MenuInflater inflater = popup.getMenuInflater();
+							inflater.inflate(R.menu.menu_long_click_flux, popup.getMenu());
+							popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+								@Override
+								public boolean onMenuItemClick(MenuItem p_item) {
+									switch (p_item.getItemId()) {
+										case R.id.menu_suppr_flux:
+											AccesTableFlux tableFlux = new AccesTableFlux(context);
+											tableFlux.deleteFluxEtEpisode(fluxSelectionne);
+											return true;
+										default:
+											return false;
+									}
+								}
+							});
+							popup.show();
+							return true;
+						}
 					});
 
 					return v;

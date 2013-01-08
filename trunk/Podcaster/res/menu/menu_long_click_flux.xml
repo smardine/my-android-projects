@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_suppr_flux"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/menu_suppr_flux"/>
+    <item
+        android:id="@+id/menu_maj_flux"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:title="@string/menu_maj_flux">
+    </item>
+
+</menu>
