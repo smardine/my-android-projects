@@ -1,5 +1,6 @@
 package fr.smardine.podcaster.adapter;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.helper.BitmapCache;
 import fr.smardine.podcaster.helper.ImageHelper;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
@@ -22,6 +24,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 	private final MlListeEpisode lstEpisodes;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
+	private BitmapCache cache;
 
 	/**
 	 * @param p_ctx
@@ -31,6 +34,15 @@ public class EpisodeListAdapter extends BaseAdapter {
 		// paramètrer le layout en prenant celui du context
 		this.myInflater = LayoutInflater.from(p_ctx);
 		this.lstEpisodes = p_lstEpisodes;
+
+		// Initialisation du cache pour les images
+		// Get memory class of this device, exceeding this amount will throw an
+		// OutOfMemory exception.
+		final int memClass = ((ActivityManager) p_ctx.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+
+		// Use 1/8th of the available memory for this memory cache.
+		final int cacheSize = 1024 * 1024 * memClass / 8;
+		cache = new BitmapCache(cacheSize);
 
 	}
 
@@ -50,12 +62,9 @@ public class EpisodeListAdapter extends BaseAdapter {
 	}
 
 	/*
-	 * astuce pour fluidifier au mieux l'affichage de la listview mémoriser le
-	 * contenu des composants visuels qui sont présents dans une ligne de la
-	 * listview La classe peut être déclarée dans un autre module pour être
-	 * réutilisée
-	 * @see android.widget.Adapter#getView(int, android.view.View,
-	 * android.view.ViewGroup)
+	 * astuce pour fluidifier au mieux l'affichage de la listview mémoriser le contenu des composants visuels qui sont présents dans une
+	 * ligne de la listview La classe peut être déclarée dans un autre module pour être réutilisée
+	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	/**
 	 * @author smardine
@@ -68,10 +77,8 @@ public class EpisodeListAdapter extends BaseAdapter {
 	}
 
 	/*
-	 * cette méthode est appelée à chaque fois que la listview doit afficher une
-	 * ligne
-	 * @see android.widget.Adapter#getView(int, android.view.View,
-	 * android.view.ViewGroup)
+	 * cette méthode est appelée à chaque fois que la listview doit afficher une ligne
+	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -82,14 +89,10 @@ public class EpisodeListAdapter extends BaseAdapter {
 			// listview
 			convertView = myInflater.inflate(R.layout.fluxlistitem, null);
 			holder = new ViewHolder();
-			holder.TvTitreFlux = (TextView) convertView
-					.findViewById(R.id.tvTitreFlux);
-			holder.TvDateDerniereSynchro = (TextView) convertView
-					.findViewById(R.id.tvDateDerniereSynchro);
-			holder.VignetteFlux = (ImageView) convertView
-					.findViewById(R.id.ivVignetteFlux);
-			holder.ImdCatFlux = (ImageView) convertView
-					.findViewById(R.id.ivCategorieFlux);
+			holder.TvTitreFlux = (TextView) convertView.findViewById(R.id.tvTitreFlux);
+			holder.TvDateDerniereSynchro = (TextView) convertView.findViewById(R.id.tvDateDerniereSynchro);
+			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
+			holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
@@ -108,11 +111,17 @@ public class EpisodeListAdapter extends BaseAdapter {
 		// affichage des images
 		// where imageUrl is what you pulled out from the rss feed
 		if (unEpisode.isVignetteTelechargee()) {
-			Bitmap bitmap = ImageHelper.decodeBitmapFromFile(
-					unEpisode.getVignetteTelechargee(), 100, 100);// BitmapFactory.decodeFile(.getAbsolutePath());
-
+			Bitmap bitmapFromCache = cache.getBitmapFromMemCache(unEpisode.getVignetteTelechargee().getAbsolutePath());
+			if (bitmapFromCache != null) {
+				// si le bitmap est deja en cache, on l'utilise,
+				holder.VignetteFlux.setImageBitmap(bitmapFromCache);
+			} else {
+				// sinon on decode le fichier, est on push le bitmap en cache.
+				Bitmap bitmapFromFile = ImageHelper.decodeBitmapFromFile(unEpisode.getVignetteTelechargee(), 100, 100);
+				cache.addBitmapToMemoryCache(unEpisode.getVignetteTelechargee().getAbsolutePath(), bitmapFromFile);
+				holder.VignetteFlux.setImageBitmap(bitmapFromFile);
+			}
 			holder.VignetteFlux.setAdjustViewBounds(true);
-			holder.VignetteFlux.setImageBitmap(bitmap);
 			holder.VignetteFlux.setMaxHeight(150);
 			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
