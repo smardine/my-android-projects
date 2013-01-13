@@ -125,12 +125,13 @@ public class SuperActivity extends FragmentActivity {
 
 					ImageButton boutonAjouteFlux = (ImageButton) v.findViewById(R.id.imageButton3);
 					View v1 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fluxlistitem, null);
+
 					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), v1, listView));
 					AccesTableFlux tableFlux = new AccesTableFlux(context);
 					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
 
 					FluxListAdapter adpt = new FluxListAdapter(getActivity(), listeFluxEnBase);
-					this.listeFlux = listeFluxEnBase;
+					ListeFluxSectionFragment.listeFlux = listeFluxEnBase;
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
 

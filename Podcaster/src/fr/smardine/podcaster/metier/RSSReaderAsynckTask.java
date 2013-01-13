@@ -22,26 +22,85 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ListView;
+import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
+import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.mdl.MlListeFlux;
 
 /**
- * Parser un flux RSS
- * @author Fobec 2010
+ * Parser une liste de flux RSS avec une barre de progression
  */
 
-public class RSSReader extends AsyncTask<String, Void, MlFlux> {
+public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 
-	// private final List<String> listeRetour = new ArrayList<String>();
-	private MlFlux unFlux;
+	// private MlFlux unFlux;
 	private final Context context;
+	private List<String> listeFlux;
+	private ProgressDialog progressDialog;
+	private ListView listeView;
+	private AccesTableFlux tableFlux;
+	private AccesTableEpisode tableEpisode;
 
-	public RSSReader(Context p_context) {
+	/**
+	 * Constructeur
+	 * @param p_context
+	 * @param p_listeFlux
+	 * @param p_progressDialog
+	 * @param p_listView
+	 */
+	public RSSReaderAsynckTask(Context p_context, List<String> p_listeFlux, ProgressDialog p_progressDialog, ListView p_listView) {
 		this.context = p_context;
+		this.listeFlux = p_listeFlux;
+		this.progressDialog = p_progressDialog;
+		this.listeView = p_listView;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		tableFlux = new AccesTableFlux(this.context);
+		tableEpisode = new AccesTableEpisode(this.context);
+	}
+
+	@Override
+	protected Void doInBackground(Void... params) {
+
+		for (String uneUrl : listeFlux) {
+			// progressDialog.incrementProgressBy(10);
+			// handler.sendMessage(handler.obtainMessage());
+			MlFlux fluxParse = parse(uneUrl);
+			if (fluxParse != null) {
+				tableFlux.createFlux(fluxParse);
+				for (MlEpisode uneEpisode : fluxParse.getListeEpisode()) {
+					uneEpisode.setIdFluxParent(fluxParse.getIdFlux());
+					uneEpisode.setVignetteTelechargee(fluxParse.getVignetteTelechargee());
+					tableEpisode.createEpisode(uneEpisode);
+				}
+
+			}
+
+		}
+
+		progressDialog.dismiss();
+		return null;
+
+	}
+
+	@Override
+	protected void onPostExecute(Void result) {
+		// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
+		MlListeFlux listeFlux = new AccesTableFlux(this.context).getListeDesFlux();
+
+		FluxListAdapter adpt = new FluxListAdapter(this.context, listeFlux);
+		// paramèter l'adapter sur la listview
+		this.listeView.setAdapter(adpt);
 	}
 
 	/**
@@ -50,7 +109,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 */
 
 	private MlFlux parse(String feedurl) {
-		unFlux = new MlFlux();
+		MlFlux unFlux = new MlFlux();
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			URL url = new URL(feedurl);
@@ -75,7 +134,15 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 			 **/
 			// on recupere les tag nommé "item"
 			nodes = doc.getElementsByTagName(EnBaliseRSS.Item.toString());
+
+			// mise a jour de la progressDialog
+			// this.progressDialog.setMessage(unFlux.getTitre());
+			this.progressDialog.setMax(nodes.getLength());
+
 			for (int i = 0; i < nodes.getLength(); i++) {
+
+				this.progressDialog.setProgress(i + 1);
+
 				element = (Element) nodes.item(i);
 				MlEpisode unEpisode = new MlEpisode();
 				// comme on est deja sous "item", on peut ne passer que le tag
@@ -116,11 +183,14 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 
 			}
 		} catch (SAXException ex) {
-			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
 		} catch (IOException ex) {
-			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
 		} catch (ParserConfigurationException ex) {
-			Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
 		}
 		return unFlux;
 	}
@@ -131,7 +201,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * @param _path suite des noms des noeud sans espace séparer par des "|"
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	public String readNode(Node _node, EnBaliseRSS[] _paths) {
+	private String readNode(Node _node, EnBaliseRSS[] _paths) {
 
 		Node node = null;
 
@@ -156,7 +226,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * @param _name nom du noeud fils
 	 * @return le noeud fils
 	 */
-	public Node getChildByName(Node _node, String _name) {
+	private Node getChildByName(Node _node, String _name) {
 		if (_node == null) {
 			return null;
 		}
@@ -183,7 +253,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * @param p_value
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	public String readNodeValue(Node p_node, EnBaliseRSS p_path, String p_value) {
+	private String readNodeValue(Node p_node, EnBaliseRSS p_path, String p_value) {
 
 		Node node = null;
 
@@ -199,7 +269,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 		return "";
 	}
 
-	public List<String> getAllChild(Node p_node) {
+	private List<String> getAllChild(Node p_node) {
 		List<String> listeRetour = new ArrayList<String>();
 		NodeList listChild = p_node.getChildNodes();
 
@@ -227,7 +297,7 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	 * @param gmtDate
 	 * @return
 	 */
-	public Date GMTDateToFrench(String gmtDate) {
+	private Date GMTDateToFrench(String gmtDate) {
 		try {
 			SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
 			return dfGMT.parse(gmtDate);
@@ -251,9 +321,4 @@ public class RSSReader extends AsyncTask<String, Void, MlFlux> {
 	// reader.parse("http://fobec.com/CMS/fobec.xml");
 	// }
 
-	@Override
-	protected MlFlux doInBackground(String... urls) {
-		parse(urls[0]);
-		return unFlux;
-	}
 }

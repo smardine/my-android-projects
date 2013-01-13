@@ -70,7 +70,12 @@ public class MlFlux implements Serializable {
 	 * @return the dateDernierePublication
 	 */
 	public final Date getDateDernierePublication() {
-		return this.listeEpisode.get(0).getDatePublication();
+		if (this.listeEpisode != null && this.listeEpisode.size() > 0) {
+			return this.listeEpisode.get(0).getDatePublication();
+		} else {
+			return this.getDateDerniereSynchro();
+		}
+
 	}
 
 	/**
