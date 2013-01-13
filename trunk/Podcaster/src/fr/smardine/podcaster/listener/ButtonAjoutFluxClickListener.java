@@ -17,13 +17,16 @@ import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogOu
 public class ButtonAjoutFluxClickListener implements OnClickListener {
 
 	private final Context context;
-	private final View view;
+	// private final View view;
 	private ListView listView;
+
+	// private Handler handle;
 
 	public ButtonAjoutFluxClickListener(Context baseContext, View p_view, ListView p_listView) {
 		this.context = baseContext;
-		this.view = p_view;
+		// this.view = p_view;
 		this.listView = p_listView;
+
 	}
 
 	@Override

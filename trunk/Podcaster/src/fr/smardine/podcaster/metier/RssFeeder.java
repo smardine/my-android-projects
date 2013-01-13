@@ -18,12 +18,10 @@ public class RssFeeder {
 
 	public MlListeFlux Test() {
 
-		final String[] feedUrl = new String[] {
-				"http://www.rtl.fr/podcast/laurent-gerra.xml",
+		final String[] feedUrl = new String[] { "http://www.rtl.fr/podcast/laurent-gerra.xml",
 				"http://www.europe1.fr/podcasts/revue-de-presque.xml",
 				"http://www.jeuxvideo.com/rss/itunes-le-cliq.xml",// };
-				"http://rss.feedsportal.com/c/808/f/413811/index.rss",
-				"http://rss.feedsportal.com/c/808/f/413810/index.rss",
+				"http://rss.feedsportal.com/c/808/f/413811/index.rss", "http://rss.feedsportal.com/c/808/f/413810/index.rss",
 				"http://radiofrance-podcast.net/podcast09/rss_11549.xml",
 
 				"http://www.jeuxvideo.com/rss/itunes-le-cliq-hd.xml" };
@@ -32,16 +30,14 @@ public class RssFeeder {
 
 		for (String s : feedUrl) {
 			try {
-				RSSReader reader = new RSSReader(context);
+				RSSReaderAsynckTask reader = new RSSReaderAsynckTask(context);
 				reader.execute(s);
 				MlFlux unFlux = reader.get();
 				listeRetour.add(unFlux);
 			} catch (InterruptedException e) {
-				LogCatBuilder.WriteErrorToLog(context, TAG,
-						R.string.interruption_de_la_tache, e);
+				LogCatBuilder.WriteErrorToLog(context, TAG, R.string.interruption_de_la_tache, e);
 			} catch (ExecutionException e) {
-				LogCatBuilder.WriteErrorToLog(context, TAG,
-						R.string.erreur_execution_tache, e);
+				LogCatBuilder.WriteErrorToLog(context, TAG, R.string.erreur_execution_tache, e);
 			}
 
 		}
