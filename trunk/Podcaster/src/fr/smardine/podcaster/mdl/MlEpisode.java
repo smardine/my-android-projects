@@ -25,6 +25,7 @@ public class MlEpisode implements Serializable {
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
 	private File vignetteTelechargee;
+	private String vignetteUrl;
 
 	/**
 	 * Contient l'url du media
@@ -189,6 +190,20 @@ public class MlEpisode implements Serializable {
 
 	public boolean isVignetteTelechargee() {
 		return vignetteTelechargee != null && vignetteTelechargee.exists();
+	}
+
+	/**
+	 * @return the vignetteUrl
+	 */
+	public String getVignetteUrl() {
+		return vignetteUrl;
+	}
+
+	/**
+	 * @param vignetteUrl the vignetteUrl to set
+	 */
+	public void setVignetteUrl(String vignetteUrl) {
+		this.vignetteUrl = vignetteUrl;
 	}
 
 	/**
