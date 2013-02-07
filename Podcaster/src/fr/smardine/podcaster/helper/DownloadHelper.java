@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.util.Log;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
+import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
 
 public class DownloadHelper {
@@ -47,6 +48,37 @@ public class DownloadHelper {
 		} catch (MalformedURLException e) {
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.mauvais_format_url, e);
 			p_flux.setVignetteTelechargee(null);
+			return false;
+		}
+	}
+
+	public static boolean DownloadImageEpisodeFromUrl(Context p_context, String p_url, MlFlux p_flux, MlEpisode p_episode) {
+		String TAG = "DownloadHelper.DownloadImageFluxFromUrl";
+		URL url;
+		try {
+			url = new URL(p_url);
+
+			String PATH = Environment.getExternalStorageDirectory() + "/Podcaster/Podcast/" + p_flux.getTitre();
+			Log.v("log_tag", "PATH: " + PATH);
+			File directory = new File(PATH);
+			if (directory.mkdirs()) {
+
+			}
+
+			String urlFile = url.getFile();
+			String nomDuFichierLocal = urlFile.substring(urlFile.lastIndexOf("/"));
+			File fichierLocal = new File(directory, nomDuFichierLocal);
+
+			if (DownloadFile(p_context, p_url, fichierLocal, false)) {
+				p_episode.setVignetteTelechargee(fichierLocal);
+				return true;
+			} else {
+				p_episode.setVignetteTelechargee(null);
+				return false;
+			}
+		} catch (MalformedURLException e) {
+			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.mauvais_format_url, e);
+			p_episode.setVignetteTelechargee(null);
 			return false;
 		}
 	}

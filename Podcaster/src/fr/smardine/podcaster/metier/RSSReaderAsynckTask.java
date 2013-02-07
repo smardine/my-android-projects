@@ -166,6 +166,13 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 				// on recupere le type d'episode
 				String typeEpisode = readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
 				unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName(typeEpisode));
+
+				// String urlImage = this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url });
+
+				// if (urlImage != null) {
+				// unEpisode.setVignetteUrl(urlImage);
+				// DownloadHelper.DownloadImageEpisodeFromUrl(context, unEpisode.getVignetteUrl(), unFlux, unEpisode);
+				// } else
 				if (unFlux.isVignetteTelechargee()) {
 					unEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
 				} else {
@@ -236,6 +243,7 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 			for (int i = 0; i < listChild.getLength(); i++) {
 				Node child = listChild.item(i);
 				if (child != null) {
+					System.out.println(child.getNodeName());
 					if ((child.getNodeName() != null && (_name.equals(child.getNodeName())))
 							|| (child.getLocalName() != null && (_name.equals(child.getLocalName())))) {
 						return child;
