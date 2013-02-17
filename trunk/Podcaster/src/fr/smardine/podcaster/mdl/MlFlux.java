@@ -154,4 +154,12 @@ public class MlFlux implements Serializable {
 		return fluxUrl;
 	}
 
+	public EnTypeEpisode getTypeEpisodes() {
+		if (this.listeEpisode != null && this.listeEpisode.size() > 0) {
+			return this.listeEpisode.get(0).getTypeEpisode();
+		} else {
+			return EnTypeEpisode.Text;
+		}
+	}
+
 }

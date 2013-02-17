@@ -178,7 +178,7 @@ public class AccesTableFlux {
 				}
 			}
 
-			unFlux.setListeEpisode(tableEpisode.getListeDesEpisodeParIdFlux(unFlux.getIdFlux()));
+			unFlux.setListeEpisode(tableEpisode.getListeDesEpisodeParIdFlux(unFlux));
 			lstRetour.add(unFlux);
 		}
 		return lstRetour;

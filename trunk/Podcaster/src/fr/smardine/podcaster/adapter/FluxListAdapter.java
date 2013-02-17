@@ -130,6 +130,19 @@ public class FluxListAdapter extends BaseAdapter {
 		} else {
 			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
 		}
+		// determination de la categorie du flux
+		switch (unFlux.getTypeEpisodes()) {
+			case Audio:
+				holder.ImdCatFlux.setImageResource(R.drawable.audio);
+				break;
+			case Video:
+				holder.ImdCatFlux.setImageResource(R.drawable.video);
+				break;
+			case Text:
+				holder.ImdCatFlux.setImageResource(R.drawable.txt);
+				break;
+		}
+
 		return convertView;
 	}
 }

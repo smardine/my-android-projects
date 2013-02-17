@@ -54,7 +54,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0.01"
         android:contentDescription="@string/image_de_la_categorie_audio_ou_video_"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/audio"
         android:textSize="16sp"
         android:textStyle="bold" />
 
