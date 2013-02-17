@@ -23,6 +23,7 @@ import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
+import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
@@ -195,6 +196,10 @@ public class SuperActivity extends FragmentActivity {
 					EpisodeListAdapter adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
 					// paramèter l'adapter sur la listview
 					listViewEpisode.setAdapter(adptEpisode);
+
+					ImageButton boutonMajFlux = (ImageButton) v2.findViewById(R.id.imageButtonEpisode3);
+
+					boutonMajFlux.setOnClickListener(new ButtonMajFluxClickListener(this.getActivity(), v2, listViewEpisode));
 
 					return v2;
 

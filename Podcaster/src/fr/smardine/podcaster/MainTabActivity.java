@@ -43,7 +43,7 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 
 		AccesTableFlux tableFlux = new AccesTableFlux(getBaseContext());
 
-		int nbDenregistrement = tableFlux.getNbEnregistrement();
+		tableFlux.getNbEnregistrement();
 
 	}
 

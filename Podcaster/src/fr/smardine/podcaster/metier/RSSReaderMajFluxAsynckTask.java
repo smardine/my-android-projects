@@ -25,27 +25,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ListView;
-import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
-import fr.smardine.podcaster.database.accestable.AccesTableFlux;
-import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeFlux;
+import fr.smardine.podcaster.mdl.MlListeEpisode;
 
 /**
  * Parser une liste de flux RSS avec une barre de progression
  */
 
-public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
+public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 
 	// private MlFlux unFlux;
 	private final Context context;
-	private List<String> listeFlux;
+	private List<MlFlux> listeFlux;
 	private ProgressDialog progressDialog;
 	private ListView listeView;
-	private AccesTableFlux tableFlux;
 	private AccesTableEpisode tableEpisode;
 
 	/**
@@ -55,7 +52,7 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 	 * @param p_progressDialog
 	 * @param p_listView
 	 */
-	public RSSReaderAsynckTask(Context p_context, List<String> p_listeFlux, ProgressDialog p_progressDialog, ListView p_listView) {
+	public RSSReaderMajFluxAsynckTask(Context p_context, List<MlFlux> p_listeFlux, ProgressDialog p_progressDialog, ListView p_listView) {
 		this.context = p_context;
 		this.listeFlux = p_listeFlux;
 		this.progressDialog = p_progressDialog;
@@ -64,25 +61,25 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected void onPreExecute() {
-		tableFlux = new AccesTableFlux(this.context);
+		// tableFlux = new AccesTableFlux(this.context);
 		tableEpisode = new AccesTableEpisode(this.context);
 	}
 
 	@Override
 	protected Void doInBackground(Void... params) {
 
-		for (String uneUrl : listeFlux) {
-			MlFlux fluxParse = parse(uneUrl);
+		for (MlFlux unFlux : listeFlux) {
+			MlFlux fluxParse = parse(unFlux);
 			if (fluxParse != null) {
-				tableFlux.createFlux(fluxParse);
 				for (MlEpisode uneEpisode : fluxParse.getListeEpisode()) {
-					uneEpisode.setIdFluxParent(fluxParse.getIdFlux());
-					uneEpisode.setVignetteTelechargee(fluxParse.getVignetteTelechargee());
-					tableEpisode.createEpisode(uneEpisode);
+					if (uneEpisode.isNouveau()) {
+						uneEpisode.setIdFluxParent(fluxParse.getIdFlux());
+						uneEpisode.setVignetteTelechargee(fluxParse.getVignetteTelechargee());
+						tableEpisode.createEpisode(uneEpisode);
+					}
 				}
 			}
 		}
-
 		progressDialog.dismiss();
 		return null;
 
@@ -91,11 +88,20 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
-		MlListeFlux listeFlux = tableFlux.getListeDesFlux();
+		MlListeEpisode listeEpisode = new MlListeEpisode();
+		for (MlFlux unFlux : this.listeFlux) {
+			listeEpisode.addAll(tableEpisode.getListeDesEpisodeParIdFlux(unFlux));
+		}
 
-		FluxListAdapter adpt = new FluxListAdapter(this.context, listeFlux);
+		EpisodeListAdapter adpt = new EpisodeListAdapter(this.context, listeEpisode);
 		// paramèter l'adapter sur la listview
 		this.listeView.setAdapter(adpt);
+	}
+
+	@Override
+	protected void onProgressUpdate(String... prog) {
+		// À chaque avancement du téléchargement, on met à jour la boîte de dialogue
+		this.progressDialog.setMessage(prog[0]);
 	}
 
 	/**
@@ -103,11 +109,11 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 	 * @param feedurl URL du flux RSS
 	 */
 
-	private MlFlux parse(String feedurl) {
-		MlFlux unFlux = new MlFlux();
+	private MlFlux parse(MlFlux p_flux) {
+
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			URL url = new URL(feedurl);
+			URL url = new URL(p_flux.getFluxUrl());
 			Document doc = builder.parse(url.openStream());
 			NodeList nodes = null;
 			Element element = null;
@@ -115,15 +121,15 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 			 * Titre et date du flux
 			 */
 			// nodes = doc.getElementsByTagName("title");
-			Node node = doc.getDocumentElement();
+			// Node node = doc.getDocumentElement();
 
-			unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Title }));
-			unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
-			DownloadHelper.DownloadImageFluxFromUrl(context, unFlux.getVignetteUrl(), unFlux);
-			unFlux.setDateDerniereSynchro(new Date());
-			unFlux.setFluxUrl(feedurl);
+			// unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Title }));
+			// unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
+			// DownloadHelper.DownloadImageFluxFromUrl(context, unFlux.getVignetteUrl(), unFlux);
+			p_flux.setDateDerniereSynchro(new Date());
+			// unFlux.setFluxUrl(feedurl);
 			// System.out.println();
-
+			publishProgress(p_flux.getTitre());
 			/**
 			 * Elements du flux RSS
 			 **/
@@ -139,11 +145,13 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 				this.progressDialog.setProgress(i + 1);
 
 				element = (Element) nodes.item(i);
-				MlEpisode unEpisode = new MlEpisode(unFlux);
+				MlEpisode unEpisode = new MlEpisode(p_flux);
 				// comme on est deja sous "item", on peut ne passer que le tag
 				// "Title"
 				// on recupere le titre de l'episode
 				unEpisode.setTitre(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Title }));
+				publishProgress(unEpisode.getTitre());
+
 				// on recupere la descritpion
 				unEpisode.setDescription(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Description }));
 				// on recupere l'url du fichier xml qui contient la définition
@@ -168,8 +176,8 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 				// unEpisode.setVignetteUrl(urlImage);
 				// DownloadHelper.DownloadImageEpisodeFromUrl(context, unEpisode.getVignetteUrl(), unFlux, unEpisode);
 				// } else
-				if (unFlux.isVignetteTelechargee()) {
-					unEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
+				if (p_flux.isVignetteTelechargee()) {
+					unEpisode.setVignetteTelechargee(p_flux.getVignetteTelechargee());
 				} else {
 					unEpisode.setVignetteTelechargee(null);
 				}
@@ -180,21 +188,21 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, Void, Void> {
 				// on determine le statut de telechargement
 				unEpisode.positionneStatutTelechargement();
 				if (unEpisode.isNouveau()) {
-					unFlux.getListeEpisode().add(unEpisode);
+					p_flux.getListeEpisode().add(unEpisode);
 				}
 
 			}
 		} catch (SAXException ex) {
-			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		} catch (IOException ex) {
-			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		} catch (ParserConfigurationException ex) {
-			Logger.getLogger(RSSReaderAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}
-		return unFlux;
+		return p_flux;
 	}
 
 	/**

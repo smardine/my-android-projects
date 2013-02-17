@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
-import android.content.Context;
-import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
-
 public class MlEpisode implements Serializable {
 
 	/**
@@ -26,14 +23,15 @@ public class MlEpisode implements Serializable {
 	private MlCategorie categorie;
 	private File vignetteTelechargee;
 	private String vignetteUrl;
+	private final MlFlux fluxParent;
 
 	/**
 	 * Contient l'url du media
 	 */
 	private String guid;
 
-	public MlEpisode() {
-
+	public MlEpisode(MlFlux p_fluxParent) {
+		this.fluxParent = p_fluxParent;
 	}
 
 	/**
@@ -212,9 +210,8 @@ public class MlEpisode implements Serializable {
 	 * "NonLu"
 	 * @param p_context
 	 */
-	public void positionneStatutLecture(Context p_context) {
-		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
-		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+	public void positionneStatutLecture() {
+		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 		for (MlEpisode unEpisode : listeEnbase) {
 			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
 					&& unEpisode.getDuree().equals(this.duree)) {
@@ -233,9 +230,9 @@ public class MlEpisode implements Serializable {
 	 * @param p_context
 	 */
 
-	public void positionneStatutTelechargement(Context p_context) {
-		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
-		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+	public void positionneStatutTelechargement() {
+
+		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 		for (MlEpisode unEpisode : listeEnbase) {
 			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
 					&& unEpisode.getDuree().equals(this.duree)) {
@@ -248,9 +245,9 @@ public class MlEpisode implements Serializable {
 
 	}
 
-	public boolean isNouveau(Context p_context) {
-		AccesTableEpisode tableEpisode = new AccesTableEpisode(p_context);
-		MlListeEpisode listeEnbase = tableEpisode.getListeDesEpisodeParIdFlux(idFluxParent);
+	public boolean isNouveau() {
+		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
+
 		for (MlEpisode unEpisode : listeEnbase) {
 			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
 					&& unEpisode.getDuree().equals(this.duree)) {
@@ -260,5 +257,12 @@ public class MlEpisode implements Serializable {
 		// on a parcouru tous les episode sans trouver de reference en bdd
 		// L'episode est un nouveau
 		return true;
+	}
+
+	/**
+	 * @return the fluxParent
+	 */
+	public MlFlux getFluxParent() {
+		return fluxParent;
 	}
 }

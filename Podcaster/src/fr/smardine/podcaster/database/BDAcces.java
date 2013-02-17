@@ -1,7 +1,5 @@
 package fr.smardine.podcaster.database;
 
-import java.util.List;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -59,19 +57,18 @@ public class BDAcces {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-					+ newVersion + ", which will destroy all old data");
+			Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 			// G_maj_base maj = new G_maj_base();
 			// LanceMiseAJour(db, maj.getVersionx(oldVersion));
 
 		}
 
-		private void LanceMiseAJour(SQLiteDatabase p_db,
-				List<String> p_lstScripts) {
-			for (String s : p_lstScripts) {
-				p_db.execSQL(s);
-			}
-		}
+		// private void LanceMiseAJour(SQLiteDatabase p_db,
+		// List<String> p_lstScripts) {
+		// for (String s : p_lstScripts) {
+		// p_db.execSQL(s);
+		// }
+		// }
 	}
 
 	/**

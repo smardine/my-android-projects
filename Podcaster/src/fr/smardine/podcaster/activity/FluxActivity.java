@@ -40,8 +40,8 @@ public class FluxActivity extends Activity {
 					int p_position, long arg3) {
 				MlEpisode unEpisodeCLique = (MlEpisode) p_adapterView
 						.getItemAtPosition(p_position);
-				System.out.println(((MlEpisode) p_adapterView
-						.getItemAtPosition(p_position)).getTitre());
+//				System.out.println(((MlEpisode) p_adapterView
+//						.getItemAtPosition(p_position)).getTitre());
 
 			}
 		});

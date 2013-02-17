@@ -14,6 +14,7 @@ import fr.smardine.podcaster.mdl.EnStatutLecture;
 import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
+import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
 
 public class AccesTableEpisode {
@@ -153,12 +154,12 @@ public class AccesTableEpisode {
 
 	}
 
-	public MlListeEpisode getListeDesEpisodeParIdFlux(int p_idFlux) {
+	public MlListeEpisode getListeDesEpisodeParIdFlux(MlFlux p_flux) {
 		MlListeEpisode lstRetour = new MlListeEpisode();
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.EPISODE, EnStructEpisode.class,
-				EnStructEpisode.ID_FLUX.toString() + "=" + p_idFlux);
+				EnStructEpisode.ID_FLUX.toString() + "=" + p_flux.getIdFlux());
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
-			MlEpisode unEpisode = new MlEpisode();
+			MlEpisode unEpisode = new MlEpisode(p_flux);
 			for (int i = 0; i < unEnregistrement.size(); i++) {
 				if (i == 0) {
 					unEpisode.setIdEpisode((Integer) unEnregistrement.get(i));
