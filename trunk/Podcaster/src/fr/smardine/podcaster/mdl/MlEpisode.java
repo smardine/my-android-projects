@@ -29,6 +29,11 @@ public class MlEpisode implements Serializable {
 	 * Contient l'url du media
 	 */
 	private String guid;
+	private boolean statutNouveau;
+
+	public boolean isStatutNouveau() {
+		return statutNouveau;
+	}
 
 	public MlEpisode(MlFlux p_fluxParent) {
 		this.fluxParent = p_fluxParent;
@@ -249,8 +254,8 @@ public class MlEpisode implements Serializable {
 		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 
 		for (MlEpisode unEpisode : listeEnbase) {
-			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
-					&& unEpisode.getDuree().equals(this.duree)) {
+			if ((unEpisode.datePublication.compareTo(this.datePublication) == 0) && (unEpisode.getTitre().equals(this.titre))
+					&& (unEpisode.getDuree().equals(this.duree))) {
 				return false;
 			}
 		}
@@ -264,5 +269,10 @@ public class MlEpisode implements Serializable {
 	 */
 	public MlFlux getFluxParent() {
 		return fluxParent;
+	}
+
+	public void setStatutNouveau(boolean b) {
+		this.statutNouveau = b;
+
 	}
 }

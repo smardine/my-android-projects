@@ -72,7 +72,7 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 			MlFlux fluxParse = parse(unFlux);
 			if (fluxParse != null) {
 				for (MlEpisode uneEpisode : fluxParse.getListeEpisode()) {
-					if (uneEpisode.isNouveau()) {
+					if (uneEpisode.isStatutNouveau()) {
 						uneEpisode.setIdFluxParent(fluxParse.getIdFlux());
 						uneEpisode.setVignetteTelechargee(fluxParse.getVignetteTelechargee());
 						tableEpisode.createEpisode(uneEpisode);
@@ -188,6 +188,7 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 				// on determine le statut de telechargement
 				unEpisode.positionneStatutTelechargement();
 				if (unEpisode.isNouveau()) {
+					unEpisode.setStatutNouveau(true);
 					p_flux.getListeEpisode().add(unEpisode);
 				}
 

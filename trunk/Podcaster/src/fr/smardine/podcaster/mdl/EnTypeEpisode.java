@@ -14,9 +14,10 @@ public enum EnTypeEpisode {
 	 * @return
 	 */
 	public static EnTypeEpisode GetTypeEpisodeByName(String p_name) {
-		for (EnTypeEpisode unType : EnTypeEpisode.values()) {
-			if (unType.lib.equals(p_name)) {
-				return unType;
+		EnTypeEpisode[] tabType = EnTypeEpisode.values();
+		for (int i = 0; i < tabType.length; i++) {
+			if (tabType[i].lib.equals(p_name)) {
+				return tabType[i];
 			}
 		}
 		// si ce n'est ni audio, ni video, ce sera du text, html ou non
