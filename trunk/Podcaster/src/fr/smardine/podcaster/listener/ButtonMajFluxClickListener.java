@@ -8,9 +8,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import fr.smardine.podcaster.asynctask.RSSReaderMajFluxAsynckTask;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.metier.RSSReaderMajFluxAsynckTask;
 
 public class ButtonMajFluxClickListener implements OnClickListener {
 
