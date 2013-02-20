@@ -6,9 +6,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import fr.smardine.podcaster.activity.SuperActivity;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.helper.BitmapCache;
+import fr.smardine.podcaster.helper.SauvegardeRestaurationBdd;
 
 public class MainTabActivity extends SuperActivity implements ActionBar.TabListener {
 
@@ -65,6 +68,16 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main_tab, menu);
+		menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				SauvegardeRestaurationBdd save = new SauvegardeRestaurationBdd(getApplicationContext());
+				save.lanceSauvegardeSurCarteSD();
+				return true;
+			}
+		});
+
 		return true;
 	}
 
