@@ -151,13 +151,12 @@ public class AccesTableEpisode {
 	 */
 	public void deleteTable() {
 		requeteFact.deleteTable(EnTable.EPISODE, "1", null);
-
 	}
 
 	public MlListeEpisode getListeDesEpisodeParIdFlux(MlFlux p_flux) {
 		MlListeEpisode lstRetour = new MlListeEpisode();
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.EPISODE, EnStructEpisode.class,
-				EnStructEpisode.ID_FLUX.toString() + "=" + p_flux.getIdFlux());
+				EnStructEpisode.ID_FLUX.toString() + "=" + p_flux.getIdFlux() + " ORDER BY " + EnStructEpisode.DATE_PUBLICATION.toString());
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 			MlEpisode unEpisode = new MlEpisode(p_flux);
 			for (int i = 0; i < unEnregistrement.size(); i++) {

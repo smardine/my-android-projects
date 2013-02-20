@@ -21,6 +21,7 @@ import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
@@ -121,13 +122,12 @@ public class SuperActivity extends FragmentActivity {
 			switch (numeroDeTabActuel) {
 				case 1:
 					View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_tab1, null);
-
 					ListView listView = (ListView) v.findViewById(R.id.listViewTab1);
 
 					ImageButton boutonAjouteFlux = (ImageButton) v.findViewById(R.id.imageButton3);
-					View v1 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fluxlistitem, null);
+					View viewFluxListItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fluxlistitem, null);
 
-					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), v1, listView));
+					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), viewFluxListItem, listView));
 					AccesTableFlux tableFlux = new AccesTableFlux(context);
 					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
 
@@ -182,24 +182,26 @@ public class SuperActivity extends FragmentActivity {
 					return v;
 				case 2:
 					View v2 = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_liste_episodes, null);
-
 					ListView listViewEpisode = (ListView) v2.findViewById(R.id.listViewTabListeEpisode);
+
+					ImageButton boutonMajFlux = (ImageButton) v2.findViewById(R.id.imageButtonEpisode3);
+					View viewEpisodeListeItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(
+							R.layout.episodelistitem, null);
+
 					MlListeEpisode listeEpisode = null;
 					MlFlux fluxSelectionne = (MlFlux) getArguments().getSerializable(SELECTED_FLUX_ITEM);
-					// ((ItemClickListenerTabListeFLux) itemclickListener)
-					// .getFluxSelectionne();
+
 					if (fluxSelectionne == null) {
 						listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 					} else {
-						listeEpisode = fluxSelectionne.getListeEpisode();
+						listeEpisode = new AccesTableEpisode(context).getListeDesEpisodeParIdFlux(fluxSelectionne);
 					}
 					EpisodeListAdapter adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
 					// paramèter l'adapter sur la listview
 					listViewEpisode.setAdapter(adptEpisode);
 
-					ImageButton boutonMajFlux = (ImageButton) v2.findViewById(R.id.imageButtonEpisode3);
-
-					boutonMajFlux.setOnClickListener(new ButtonMajFluxClickListener(this.getActivity(), v2, listViewEpisode));
+					boutonMajFlux.setOnClickListener(new ButtonMajFluxClickListener(this.getActivity(), viewEpisodeListeItem,
+							listViewEpisode));
 
 					return v2;
 

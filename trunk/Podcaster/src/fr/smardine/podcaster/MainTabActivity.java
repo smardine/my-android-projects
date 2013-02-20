@@ -80,7 +80,6 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 		if (tab.getPosition() == 0) {
 			// quand on revient sur la premiere "tab" on reinitialise le flux
 			// selectionné
-
 			ListeFluxSectionFragment.fluxSelectionne = null;
 		} else if (tab.getPosition() == 1) {
 			// si on choisi la deuxieme "tab" (celle de liste d'épisode) on
@@ -89,7 +88,6 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 			// que toutes ses proprietés
 			args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM, ListeFluxSectionFragment.fluxSelectionne);
 		}
-
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
 	}
