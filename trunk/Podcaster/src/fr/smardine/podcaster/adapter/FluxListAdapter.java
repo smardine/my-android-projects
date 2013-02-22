@@ -128,7 +128,7 @@ public class FluxListAdapter extends BaseAdapter {
 			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 		} else {
-			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+			holder.VignetteFlux.setImageResource(R.drawable.rss_std);
 		}
 		// determination de la categorie du flux
 		switch (unFlux.getTypeEpisodes()) {

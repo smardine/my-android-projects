@@ -2,7 +2,6 @@ package fr.smardine.podcaster.database.accestable;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -44,11 +43,14 @@ public class AccesTableEpisode {
 		content.put(EnStructEpisode.STATUT_LECTURE.toString(), p_episode.getStatutLecture().name());
 		content.put(EnStructEpisode.STATUT_TELECHARGEMENT.toString(), p_episode.getStatutTelechargement().name());
 		content.put(EnStructEpisode.DUREE.toString(), p_episode.getDuree());
-		content.put(EnStructEpisode.DATE_PUBLICATION.toString(), p_episode.getDatePublication().toString());
+		content.put(EnStructEpisode.DATE_PUBLICATION.toString(), p_episode.getDatePublication());
 		content.put(EnStructEpisode.TYPE_EPISODE.toString(), p_episode.getTypeEpisode().name());
 		content.put(EnStructEpisode.GUID.toString(), p_episode.getGuid());
 		// content.put(EnStructEpisode.ID_CATEGORIE.toString(),p_episode.getCategorie().getIdCategorie());
-		content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
+		if (p_episode.getVignetteTelechargee() != null) {
+			content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
+		}
+
 		requeteFact.insertDansTable(EnTable.EPISODE, content);
 
 	}
@@ -156,7 +158,8 @@ public class AccesTableEpisode {
 	public MlListeEpisode getListeDesEpisodeParIdFlux(MlFlux p_flux) {
 		MlListeEpisode lstRetour = new MlListeEpisode();
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.EPISODE, EnStructEpisode.class,
-				EnStructEpisode.ID_FLUX.toString() + "=" + p_flux.getIdFlux() + " ORDER BY " + EnStructEpisode.DATE_PUBLICATION.toString());
+				EnStructEpisode.ID_FLUX.toString() + "=" + p_flux.getIdFlux() + " ORDER BY " + EnStructEpisode.DATE_PUBLICATION.toString()
+						+ " DESC");
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 			MlEpisode unEpisode = new MlEpisode(p_flux);
 			for (int i = 0; i < unEnregistrement.size(); i++) {
@@ -179,13 +182,16 @@ public class AccesTableEpisode {
 				} else if (i == 8) {
 					unEpisode.setGuid((String) unEnregistrement.get(i));
 				} else if (i == 9) {
-					unEpisode.setDatePublication(new Date(Date.parse((String) unEnregistrement.get(i))));
+					unEpisode.setDatePublication((Long) unEnregistrement.get(i));
 				} else if (i == 10) {
 					unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName((String) unEnregistrement.get(i)));
 				} else if (i == 11) {
 					// traiter l'id categorie plus tard
 				} else if (i == 12) {
-					unEpisode.setVignetteTelechargee(new File((String) unEnregistrement.get(i)));
+					String filePath = (String) unEnregistrement.get(i);
+					if (filePath != null && !("").equals(filePath)) {
+						unEpisode.setVignetteTelechargee(new File(filePath));
+					}
 				}
 			}
 
@@ -194,5 +200,4 @@ public class AccesTableEpisode {
 		return lstRetour;
 
 	}
-
 }

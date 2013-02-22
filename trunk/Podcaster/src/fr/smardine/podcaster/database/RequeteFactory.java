@@ -34,8 +34,7 @@ public class RequeteFactory {
 
 	/**
 	 * @param p_requete
-	 * @return 1 champ la quete doit etre de type SELECT UNCHAMP FROM UNETABLE
-	 *         [where...]
+	 * @return 1 champ la quete doit etre de type SELECT UNCHAMP FROM UNETABLE [where...]
 	 */
 	public String get1Champ(String p_requete) {
 		String result = "";
@@ -58,8 +57,7 @@ public class RequeteFactory {
 	 */
 	public int getNombreEnregistrement(EnTable p_table) {
 		bdAcces.open();
-		Cursor objCursor = bdAcces.getMdb().query(p_table.getNomTable(), null,
-				null, null, null, null, null);
+		Cursor objCursor = bdAcces.getMdb().query(p_table.getNomTable(), null, null, null, null, null, null);
 		int iNbChamp = objCursor.getCount();
 		objCursor.close();
 		bdAcces.close();
@@ -88,8 +86,7 @@ public class RequeteFactory {
 
 	}
 
-	private String construitRequeteFromStructuretable(
-			IStructureTable[] p_sctructureTable) {
+	private String construitRequeteFromStructuretable(IStructureTable[] p_sctructureTable) {
 		String requete = "Select ";
 		for (int i = 0; i < p_sctructureTable.length; i++) {
 			if (i == 0) {
@@ -101,8 +98,7 @@ public class RequeteFactory {
 		return requete;
 	}
 
-	public List<ArrayList<Object>> getListeDeChampBis(EnTable p_table,
-			Class<? extends IStructureTable> class1, String p_whereClause) {
+	public List<ArrayList<Object>> getListeDeChampBis(EnTable p_table, Class<? extends IStructureTable> class1, String p_whereClause) {
 
 		IStructureTable[] lstChamp = class1.getEnumConstants();
 		StringBuilder sb = new StringBuilder();
@@ -126,8 +122,7 @@ public class RequeteFactory {
 					case LONG:
 						lstIntermediaire.add(c.getLong(idxColumn));
 						break;
-					case VARCHAR:						
-					case DATE:
+					case VARCHAR:
 						lstIntermediaire.add(c.getString(idxColumn));
 						break;
 				}
@@ -147,11 +142,9 @@ public class RequeteFactory {
 	 * @param p_whereArgs
 	 * @return le nombre d'enregistrement affecté
 	 */
-	public int majTable(EnTable p_table, ContentValues p_modifiedValue,
-			String p_whereClause, String[] p_whereArgs) {
+	public int majTable(EnTable p_table, ContentValues p_modifiedValue, String p_whereClause, String[] p_whereArgs) {
 		bdAcces.open();
-		int nb = bdAcces.getMdb().update(p_table.getNomTable(),
-				p_modifiedValue, p_whereClause, p_whereArgs);
+		int nb = bdAcces.getMdb().update(p_table.getNomTable(), p_modifiedValue, p_whereClause, p_whereArgs);
 		bdAcces.close();
 		return nb;
 	}
@@ -162,11 +155,9 @@ public class RequeteFactory {
 	 * @param p_whereArgs
 	 * @return le nombre de ligne suprrimée(s)
 	 */
-	public int deleteTable(EnTable p_table, String p_whereClause,
-			String[] p_whereArgs) {
+	public int deleteTable(EnTable p_table, String p_whereClause, String[] p_whereArgs) {
 		bdAcces.open();
-		int nb = bdAcces.getMdb().delete(p_table.getNomTable(), p_whereClause,
-				p_whereArgs);
+		int nb = bdAcces.getMdb().delete(p_table.getNomTable(), p_whereClause, p_whereArgs);
 		bdAcces.close();
 		return nb;
 	}
@@ -178,8 +169,7 @@ public class RequeteFactory {
 	 */
 	public boolean insertDansTable(EnTable p_table, ContentValues p_values) {
 		bdAcces.open();
-		long RowNumber = bdAcces.getMdb().insert(p_table.getNomTable(), null,
-				p_values);
+		long RowNumber = bdAcces.getMdb().insert(p_table.getNomTable(), null, p_values);
 		if (RowNumber == -1) {
 			bdAcces.close();
 			return false;

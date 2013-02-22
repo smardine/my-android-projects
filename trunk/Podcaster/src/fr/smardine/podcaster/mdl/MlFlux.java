@@ -13,7 +13,7 @@ public class MlFlux implements Serializable {
 	private MlListeEpisode listeEpisode;
 	private int idFlux;
 	private String titre;
-	private Date dateDerniereSynchro;
+	private long dateDerniereSynchro;
 	private File vignetteTelechargee;
 	private String vignetteUrl;
 	private MlParametre parametres;
@@ -71,9 +71,9 @@ public class MlFlux implements Serializable {
 	 */
 	public final Date getDateDernierePublication() {
 		if (this.listeEpisode != null && this.listeEpisode.size() > 0) {
-			return this.listeEpisode.get(0).getDatePublication();
+			return new Date(this.listeEpisode.get(0).getDatePublication());
 		} else {
-			return this.getDateDerniereSynchro();
+			return new Date(this.getDateDerniereSynchro());
 		}
 
 	}
@@ -81,14 +81,14 @@ public class MlFlux implements Serializable {
 	/**
 	 * @return the dateDerniereSynchro
 	 */
-	public final Date getDateDerniereSynchro() {
+	public final long getDateDerniereSynchro() {
 		return dateDerniereSynchro;
 	}
 
 	/**
 	 * @param dateDerniereSynchro the dateDerniereSynchro to set
 	 */
-	public final void setDateDerniereSynchro(Date dateDerniereSynchro) {
+	public final void setDateDerniereSynchro(long dateDerniereSynchro) {
 		this.dateDerniereSynchro = dateDerniereSynchro;
 	}
 

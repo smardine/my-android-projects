@@ -2,7 +2,6 @@ package fr.smardine.podcaster.mdl;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 
 public class MlEpisode implements Serializable {
 
@@ -18,7 +17,7 @@ public class MlEpisode implements Serializable {
 	private EnStatutLecture statutLecture;
 	private EnStatutTelechargement statutTelechargement;
 	private String duree;
-	private Date datePublication;
+	private long datePublication;
 	private EnTypeEpisode typeEpisode;
 	private MlCategorie categorie;
 	private File vignetteTelechargee;
@@ -136,14 +135,19 @@ public class MlEpisode implements Serializable {
 	 * @param duree the duree to set
 	 */
 	public final void setDuree(String duree) {
-		this.duree = duree;
+		if (duree == null || duree.equals("")) {
+			this.duree = "00:00:00";
+		} else {
+			this.duree = duree;
+		}
+
 	}
 
-	public void setDatePublication(Date datePublication) {
+	public void setDatePublication(long datePublication) {
 		this.datePublication = datePublication;
 	}
 
-	public Date getDatePublication() {
+	public long getDatePublication() {
 		return datePublication;
 	}
 
@@ -218,7 +222,7 @@ public class MlEpisode implements Serializable {
 	public void positionneStatutLecture() {
 		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 		for (MlEpisode unEpisode : listeEnbase) {
-			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
+			if (unEpisode.datePublication == this.datePublication && unEpisode.getTitre().equals(this.titre)
 					&& unEpisode.getDuree().equals(this.duree)) {
 				this.statutLecture = unEpisode.getStatutLecture();
 				return;
@@ -239,7 +243,7 @@ public class MlEpisode implements Serializable {
 
 		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 		for (MlEpisode unEpisode : listeEnbase) {
-			if (unEpisode.datePublication.compareTo(this.datePublication) == 0 && unEpisode.getTitre().equals(this.titre)
+			if (unEpisode.datePublication == this.datePublication && unEpisode.getTitre().equals(this.titre)
 					&& unEpisode.getDuree().equals(this.duree)) {
 				this.statutTelechargement = unEpisode.getStatutTelechargement();
 				return;
@@ -254,8 +258,8 @@ public class MlEpisode implements Serializable {
 		MlListeEpisode listeEnbase = this.fluxParent.getListeEpisode();
 
 		for (MlEpisode unEpisode : listeEnbase) {
-			if ((unEpisode.datePublication.compareTo(this.datePublication) == 0) && (unEpisode.getTitre().equals(this.titre))
-					&& (unEpisode.getDuree().equals(this.duree))) {
+			if (unEpisode.datePublication == this.datePublication && unEpisode.getTitre().equals(this.titre)
+					&& unEpisode.getDuree().equals(this.duree)) {
 				return false;
 			}
 		}

@@ -15,11 +15,11 @@ public enum EnStructEpisode implements IStructureTable {
 
 	STATUT_TELECHARGEMENT("STATUT_TELECHARGEMENT", EnTypeChampsSQLite.VARCHAR, 250), //
 
-	DUREE("DUREE", EnTypeChampsSQLite.DATE, null), //
+	DUREE("DUREE", EnTypeChampsSQLite.VARCHAR, null), //
 
 	GUID("GUID", EnTypeChampsSQLite.VARCHAR, null), //
 
-	DATE_PUBLICATION("DATE_PUBLICATION", EnTypeChampsSQLite.DATE, null), //
+	DATE_PUBLICATION("DATE_PUBLICATION", EnTypeChampsSQLite.LONG, null), //
 
 	TYPE_EPISODE("TYPE_EPISODE", EnTypeChampsSQLite.VARCHAR, 250), //
 
