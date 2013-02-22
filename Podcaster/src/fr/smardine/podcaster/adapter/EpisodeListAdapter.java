@@ -1,5 +1,7 @@
 package fr.smardine.podcaster.adapter;
 
+import java.util.Date;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -105,7 +107,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 		MlEpisode unEpisode = lstEpisodes.get(position);
 		// Application des données au element de la vue
 		holder.TvTitreFlux.setText(unEpisode.getTitre());
-		String dateStr = DateHelper.ddMMM(unEpisode.getDatePublication());
+		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
 		holder.TvDateDerniereSynchro.setText(dateStr);
 
 		// affichage des images
@@ -126,7 +128,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 		} else {
-			holder.VignetteFlux.setImageResource(R.drawable.ic_launcher);
+			holder.VignetteFlux.setImageResource(R.drawable.rss_std);
 		}
 		holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);
 

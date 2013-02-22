@@ -16,11 +16,15 @@ public enum EnTypeEpisode {
 	public static EnTypeEpisode GetTypeEpisodeByName(String p_name) {
 		EnTypeEpisode[] tabType = EnTypeEpisode.values();
 		for (int i = 0; i < tabType.length; i++) {
-			if (tabType[i].lib.equals(p_name)) {
+			if (tabType[i].name().equals(p_name) || tabType[i].getLib().equals(p_name)) {
 				return tabType[i];
 			}
 		}
 		// si ce n'est ni audio, ni video, ce sera du text, html ou non
 		return Text;
+	}
+
+	public String getLib() {
+		return this.lib;
 	}
 }

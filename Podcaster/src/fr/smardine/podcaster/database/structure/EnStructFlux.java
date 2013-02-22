@@ -9,7 +9,7 @@ public enum EnStructFlux implements IStructureTable {
 
 	TITRE("TITRE_FLUX", EnTypeChampsSQLite.VARCHAR, 250), //
 
-	DATE_DERNIERE_SYNCHRO("DATE_DERNIERE_SYNCHRO", EnTypeChampsSQLite.DATE, null), //
+	DATE_DERNIERE_SYNCHRO("DATE_DERNIERE_SYNCHRO", EnTypeChampsSQLite.LONG, null), //
 
 	VIGNETTE_URL("VIGNETTE_URL", EnTypeChampsSQLite.VARCHAR, null),
 

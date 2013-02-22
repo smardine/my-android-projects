@@ -1,9 +1,7 @@
 package fr.smardine.podcaster.database.accestable;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,7 +12,6 @@ import fr.smardine.podcaster.database.structure.EnStructFlux;
 import fr.smardine.podcaster.database.structure.EnTable;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.tools.date.DateHelper;
 
 /**
  * @author smardine Acces a la table des Notes enregistré en base
@@ -41,10 +38,13 @@ public class AccesTableFlux {
 
 	public void createFlux(MlFlux p_flux) {
 		ContentValues content = new ContentValues();
-		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), DateHelper.ddMMyyyyHHmmSS(p_flux.getDateDerniereSynchro()));
+		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro());
 		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
 		content.put(EnStructFlux.VIGNETTE_URL.toString(), p_flux.getVignetteUrl());
-		content.put(EnStructFlux.VIGNETTE_FILE.toString(), p_flux.getVignetteTelechargee().getAbsolutePath());
+		if (p_flux.getVignetteTelechargee() != null) {
+			content.put(EnStructFlux.VIGNETTE_FILE.toString(), p_flux.getVignetteTelechargee().getAbsolutePath());
+		}
+
 		content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
 		requeteFact.insertDansTable(EnTable.FLUX, content);
 
@@ -166,13 +166,15 @@ public class AccesTableFlux {
 				} else if (i == 1) {
 					unFlux.setTitre((String) unEnregistrement.get(i));
 				} else if (i == 2) {
-					DateFormat dfGMT = DateHelper.ddMMYYYYHHmmSS;
-					Date englishFormat = new Date(Date.parse(dfGMT.format((String) unEnregistrement.get(i))));
-					unFlux.setDateDerniereSynchro(englishFormat);
+					unFlux.setDateDerniereSynchro((Long) unEnregistrement.get(i));
 				} else if (i == 3) {
 					unFlux.setVignetteUrl((String) unEnregistrement.get(i));
 				} else if (i == 4) {
-					unFlux.setVignetteTelechargee(new File((String) unEnregistrement.get(i)));
+					String filePath = (String) unEnregistrement.get(i);
+					if (filePath != null && !("").equals(filePath)) {
+						unFlux.setVignetteTelechargee(new File(filePath));
+					}
+
 				} else if (i == 5) {
 					// triaiter l'id parametre plus tard
 				} else if (i == 6) {

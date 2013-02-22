@@ -40,7 +40,7 @@ public class ButtonAjoutFluxClickListener implements OnClickListener {
 				"http://www.europe1.fr/podcasts/revue-de-presque.xml",
 				"http://www.jeuxvideo.com/rss/itunes-le-cliq.xml",// };
 				"http://rss.feedsportal.com/c/808/f/413811/index.rss", "http://rss.feedsportal.com/c/808/f/413810/index.rss",
-				"http://radiofrance-podcast.net/podcast09/rss_11549.xml", "http://www.jeuxvideo.com/rss/itunes-le-cliq-hd.xml" };
+				"http://radiofrance-podcast.net/podcast09/rss_11549.xml", "http://www.sesam-vitale.fr/__xml/rss.xml" };
 		ad.setMultiChoiceItems(listeDurls, new boolean[7], new OnMultiChoiceClickListener() {
 
 			@Override
