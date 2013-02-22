@@ -1,6 +1,7 @@
 package fr.smardine.podcaster.database.accestable;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import fr.smardine.podcaster.database.structure.EnStructFlux;
 import fr.smardine.podcaster.database.structure.EnTable;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
+import fr.smardine.tools.date.DateHelper;
 
 /**
  * @author smardine Acces a la table des Notes enregistré en base
@@ -39,7 +41,7 @@ public class AccesTableFlux {
 
 	public void createFlux(MlFlux p_flux) {
 		ContentValues content = new ContentValues();
-		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro().toString());
+		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), DateHelper.ddMMyyyyHHmmSS(p_flux.getDateDerniereSynchro()));
 		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
 		content.put(EnStructFlux.VIGNETTE_URL.toString(), p_flux.getVignetteUrl());
 		content.put(EnStructFlux.VIGNETTE_FILE.toString(), p_flux.getVignetteTelechargee().getAbsolutePath());
@@ -164,7 +166,9 @@ public class AccesTableFlux {
 				} else if (i == 1) {
 					unFlux.setTitre((String) unEnregistrement.get(i));
 				} else if (i == 2) {
-					unFlux.setDateDerniereSynchro(new Date(Date.parse((String) unEnregistrement.get(i))));
+					DateFormat dfGMT = DateHelper.ddMMYYYYHHmmSS;
+					Date englishFormat = new Date(Date.parse(dfGMT.format((String) unEnregistrement.get(i))));
+					unFlux.setDateDerniereSynchro(englishFormat);
 				} else if (i == 3) {
 					unFlux.setVignetteUrl((String) unEnregistrement.get(i));
 				} else if (i == 4) {

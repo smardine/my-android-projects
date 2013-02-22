@@ -3,10 +3,7 @@ package fr.smardine.podcaster.metier;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -92,8 +89,8 @@ public class RssParserMetier {
 			URL url = new URL(p_url);
 			return builder.parse(url.openStream());
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
+			return null;
 		} catch (MalformedURLException e) {
 			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
 			return null;
@@ -104,27 +101,43 @@ public class RssParserMetier {
 			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		}
-		return null;
 	}
 
-	/**
-	 * Afficher une Date GML au format francais
-	 * @param gmtDate
-	 * @return
-	 */
-	private Date GMTDateToFrench(String gmtDate) {
-		try {
-			SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-			return dfGMT.parse(gmtDate);
-			// SimpleDateFormat dfFrench = new SimpleDateFormat(
-			// "EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
-			// return dfFrench.format(dfGMT.getCalendar().getTime());
-		} catch (ParseException ex) {
-			// Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE,
-			// null,
-			// ex);
-		}
-		return null;
+	// /**
+	// * Afficher une Date GML au format francais
+	// * @param gmtDate
+	// * @return
+	// */
+	// private Date GMTDateToFrench(String gmtDate) {
+	// try {
+	// SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+	// // return dfGMT.parse(gmtDate);
+	// SimpleDateFormat dfFrench = new SimpleDateFormat("EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
+	// return dfFrench.format(dfGMT.getCalendar().getTime());
+	// } catch (ParseException ex) {
+	// // Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE,
+	// // null,
+	// // ex);
+	// }
+	// return null;
+	// }
+
+	private Date GmtDateToSql(String gmtDate) {
+		// SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+		// String englishFormat = dfGMT.format(Date.parse(gmtDate));
+		return new Date(Date.parse(gmtDate));
+
+		// SimpleDateFormat dfFrench = new SimpleDateFormat("EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
+		// SimpleDateFormat dfFrench = new SimpleDateFormat("EEE, dd MMMM yyyy HH:mm:ss", Locale.FRANCE);
+		// SimpleDateFormat dfFrench2 = new SimpleDateFormat("dd MM yyyy HH:mm:ss", Locale.FRANCE);
+		// String frenchFormat = dfFrench.format(dfGMT.getCalendar().getTime());
+		// String frenchFormat2 = dfFrench2.format(dateEnglaise);
+		//
+		// Date dateFrancaise = new Date(Date.parse(frenchFormat));
+		// dateFrancaise = new Date(Date.parse(frenchFormat2));
+		//
+		// return new Date();
+
 	}
 
 	/**
@@ -233,7 +246,7 @@ public class RssParserMetier {
 			// on recupere la durée de l'element si audio ou video
 			unEpisode.setDuree(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
 			// on recupere la date de publication
-			unEpisode.setDatePublication(GMTDateToFrench(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
+			unEpisode.setDatePublication(GmtDateToSql(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
 
 			// on recupere l'url du fichier media (mp3, mp4...)
 			unEpisode.setGuid(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Guid }));
