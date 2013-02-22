@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Podcaster</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="masquer_les_lus">Masquer les lus</string>
+    <string name="btSynchro">Synchro</string>
+    <string name="ajouter_un_flux">Ajouter un flux</string>
+    <string name="bouton_de_synchronisation">Bouton de synchronisation</string>
+    <string name="bouton_d_apos_ajout_de_flux">Bouton d&amp;apos;ajout de flux</string>
+    <string name="title_tab3">Liste de lecture</string>
+    <string name="title_tab2">Les épisodes</string>
+    <string name="title_tab1">Les flux</string>
+    <string name="title_activity_main_tab">MainActivity</string>
+    <string name="title_activity_tab1">Tab1Activity</string>
+    <string name="bouton_switch_type_vue">Bouton switch type vue</string>
+    <string name="bouton_lancer_synchro">Bouton lancer synchro</string>
+    <string name="bouton_ajout_de_flux">Bouton ajout de flux</string>
+    <color name="app_color">#FFFFFF</color>
+    <color name="text_color">#000000</color>
+    <string name="vignette_du_flux">Vignette du flux</string>
+    <string name="titre_du_flux">titre du flux tres long pour voir si ca le coupe ou pas</string>
+    <string name="date_au_format_jj_mmm">Date au format jj MMM</string>
+    <string name="image_de_la_categorie_audio_ou_video_">Image de la categorie (audio ou video)</string>
+    
+    <!-- Gestion des messages d'excection -->
+    
+    <string name="erreur_de_protocole_au_telechargement_d_un_fichier">Erreur de protocole au telechargement d\'un fichier</string>
+    <string name="fichier_non_trouve">Fichier non trouve</string>
+    <string name="IO_exception">I/O Exception</string>
+    <string name="mauvais_format_url">Url mal formatée</string>
+    <string name="interruption_de_la_tache">Interruption de la tache </string>
+    <string name="erreur_execution_tache">Erreur à l\'execution de la tache</string>
+    
+    <!-- Menu de la page principale -->
+	<string name="menu_settings">Settings</string>
+	<string name="menu_suppr_flux">Supprimer le flux et ses épisodes</string>
+	<string name="menu_maj_flux">Mettre à jour le flux</string>
+</resources>
