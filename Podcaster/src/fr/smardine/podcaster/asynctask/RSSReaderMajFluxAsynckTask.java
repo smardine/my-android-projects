@@ -1,6 +1,9 @@
 package fr.smardine.podcaster.asynctask;
 
+import java.util.Calendar;
 import java.util.List;
+
+import org.w3c.dom.Document;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -47,9 +50,8 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
-		RssParserMetier parserMetier = new RssParserMetier();
 		for (MlFlux unFlux : listeFlux) {
-			parserMetier.majUnFlux(unFlux);
+			this.majUnFlux(unFlux);
 			if (unFlux != null) {
 				for (MlEpisode uneEpisode : unFlux.getListeEpisode()) {
 					if (uneEpisode.isStatutNouveau()) {
@@ -82,6 +84,25 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 	protected void onProgressUpdate(String... prog) {
 		// À chaque avancement du téléchargement, on met à jour la boîte de dialogue
 		this.progressDialog.setMessage(prog[0]);
+	}
+
+	/**
+	 * Mettre un jour un Flux
+	 * @param p_flux
+	 */
+	private void majUnFlux(MlFlux p_flux) {
+
+		Document doc = RssParserMetier.OuvrirUrl(p_flux.getFluxUrl());
+		if (doc != null) {
+			p_flux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
+			// this.progressDialog.setTitle("Maj " + p_flux.getTitre());
+			/**
+			 * Elements du flux RSS
+			 **/
+
+			RssParserMetier.parcourirNodeListeEtValoriseListeEpisode(p_flux, doc);
+		}
+
 	}
 
 }
