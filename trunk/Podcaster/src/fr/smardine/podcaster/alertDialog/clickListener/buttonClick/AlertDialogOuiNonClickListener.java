@@ -2,7 +2,6 @@ package fr.smardine.podcaster.alertDialog.clickListener.buttonClick;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -38,14 +37,14 @@ public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener
 	@Override
 	public void onClick(DialogInterface p_arg0, int p_arg1) {
 
-		ProgressDialog myPd_bar = new ProgressDialog(ctx);
-		myPd_bar.setMessage("Loading....");
-		myPd_bar.setTitle("Synchro en cours..");
-		myPd_bar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		myPd_bar.setProgress(0);
-		myPd_bar.setMax(100);
-		myPd_bar.show();
-		RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(this.ctx, this.listeUrl, myPd_bar, this.listView);
+		// ProgressDialog myPd_bar = new ProgressDialog(ctx);
+		// myPd_bar.setMessage("Loading....");
+		// myPd_bar.setTitle("Synchro en cours..");
+		// myPd_bar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		// myPd_bar.setProgress(0);
+		// myPd_bar.setMax(100);
+		// myPd_bar.show();
+		RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(this.ctx, this.listeUrl, this.listView);
 		runnableReaderAsynck.execute();
 
 	}

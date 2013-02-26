@@ -30,44 +30,51 @@ import fr.smardine.podcaster.mdl.MlFlux;
 
 public class RssParserMetier {
 
-	public RssParserMetier() {
+	private RssParserMetier() {
 
 	}
 
-	/**
-	 * Parser (construire) unFlux à partir d'une URL
-	 * @param p_context
-	 * @param p_urlAParser
-	 * @return Le flux construit, avec sa liste d'episode
-	 */
-	public MlFlux parseUnFlux(Context p_context, String p_urlAParser) {
-		MlFlux unFlux = new MlFlux();
-		Document doc = OuvrirUrl(p_urlAParser);
-		Node node = doc.getDocumentElement();
+	// /**
+	// * Parser (construire) unFlux à partir d'une URL
+	// * @param p_context
+	// * @param p_progressDialog
+	// * @param p_urlAParser
+	// * @return Le flux construit, avec sa liste d'episode
+	// */
+	// public MlFlux parseUnFlux(Context p_context, String p_urlAParser) {
+	// MlFlux unFlux = new MlFlux();
+	// Document doc = OuvrirUrl(p_urlAParser);
+	// if (doc != null) {
+	// Node node = doc.getDocumentElement();
+	//
+	// contruitEnteteFlux(node, unFlux, p_context, p_urlAParser);
+	//
+	// parcourirNodeListeEtValoriseListeEpisode(unFlux, doc);
+	//
+	// return unFlux;
+	// }
+	// return null;
+	//
+	// }
 
-		contruitEnteteFlux(node, unFlux, p_context, p_urlAParser);
-
-		parcourirNodeListeEtValoriseListeEpisode(unFlux, doc);
-
-		return unFlux;
-	}
-
-	/**
-	 * Mettre un jour un Flux
-	 * @param p_flux
-	 */
-	public void majUnFlux(MlFlux p_flux) {
-
-		Document doc = OuvrirUrl(p_flux.getFluxUrl());
-
-		p_flux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
-
-		/**
-		 * Elements du flux RSS
-		 **/
-
-		parcourirNodeListeEtValoriseListeEpisode(p_flux, doc);
-	}
+	// /**
+	// * Mettre un jour un Flux
+	// * @param p_flux
+	// */
+	// public void majUnFlux(MlFlux p_flux) {
+	//
+	// Document doc = OuvrirUrl(p_flux.getFluxUrl());
+	// if (doc != null) {
+	// p_flux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
+	// // this.progressDialog.setTitle("Maj " + p_flux.getTitre());
+	// /**
+	// * Elements du flux RSS
+	// **/
+	//
+	// parcourirNodeListeEtValoriseListeEpisode(p_flux, doc, this.progressDialog);
+	// }
+	//
+	// }
 
 	/**
 	 * Construire l'entete d'un flux
@@ -76,16 +83,16 @@ public class RssParserMetier {
 	 * @param p_context
 	 * @param p_urlAParser
 	 */
-	private void contruitEnteteFlux(Node node, MlFlux unFlux, Context p_context, String p_urlAParser) {
-		unFlux.setTitre(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Title }));
-		unFlux.setVignetteUrl(this.readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
+	public static void contruitEnteteFlux(Node node, MlFlux unFlux, Context p_context, String p_urlAParser) {
+		unFlux.setTitre(readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Title }));
+		unFlux.setVignetteUrl(readNode(node, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url }));
 		DownloadHelper.DownloadImageFluxFromUrl(p_context, unFlux.getVignetteUrl(), unFlux);
 		unFlux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
 		unFlux.setFluxUrl(p_urlAParser);
 
 	}
 
-	private Document OuvrirUrl(String p_url) {
+	public static Document OuvrirUrl(String p_url) {
 		DocumentBuilder builder;
 		try {
 			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -104,7 +111,6 @@ public class RssParserMetier {
 			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		}
-
 	}
 
 	/*
@@ -112,7 +118,7 @@ public class RssParserMetier {
 	 * @param gmtDate
 	 * @return
 	 */
-	private long GMTDateToFrench(String gmtDate) {
+	private static long GMTDateToFrench(String gmtDate) {
 		try {
 			SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
 			return dfGMT.parse(gmtDate).getTime();
@@ -131,7 +137,7 @@ public class RssParserMetier {
 	 * @param _path suite des noms des noeud sans espace séparer par des "|"
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	private String readNode(Node _node, EnBaliseRSS[] _paths) {
+	private static String readNode(Node _node, EnBaliseRSS[] _paths) {
 
 		Node node = null;
 
@@ -156,7 +162,7 @@ public class RssParserMetier {
 	 * @param _name nom du noeud fils
 	 * @return le noeud fils
 	 */
-	private Node getChildByName(Node _node, String _name) {
+	private static Node getChildByName(Node _node, String _name) {
 		if (_node == null) {
 			return null;
 		}
@@ -184,7 +190,7 @@ public class RssParserMetier {
 	 * @param p_value
 	 * @return un string contenant le valeur du noeud voulut
 	 */
-	private String readNodeValue(Node p_node, EnBaliseRSS p_path, String p_value) {
+	private static String readNodeValue(Node p_node, EnBaliseRSS p_path, String p_value) {
 
 		Node node = null;
 
@@ -207,12 +213,12 @@ public class RssParserMetier {
 	 * @param p_fluxParent
 	 * @param p_doc
 	 */
-	private void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc) {
+	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc) {
 		// on recupere les tag nommé "item"
 		NodeList nodes = p_doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 
 		for (int i = 0; i < nodes.getLength(); i++) {
-			// this.progressDialog.setProgress(i + 1);
+			// p_progressDialog.setProgress(i + 1);
 
 			Element element = (Element) nodes.item(i);
 			MlEpisode unEpisode = new MlEpisode(p_fluxParent);
@@ -221,7 +227,7 @@ public class RssParserMetier {
 			// on recupere le titre de l'episode
 			unEpisode.setTitre(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Title }));
 			// publishProgress(unEpisode.getTitre());
-
+			// p_progressDialog.setMessage(unEpisode.getTitre());
 			// on recupere la descritpion
 			unEpisode.setDescription(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Description }));
 			// on recupere l'url du fichier xml qui contient la définition

@@ -1,5 +1,8 @@
 package fr.smardine.podcaster.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
+import fr.smardine.podcaster.asynctask.RSSReaderAsynckTask;
 import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
@@ -122,12 +127,14 @@ public class SuperActivity extends FragmentActivity {
 			switch (numeroDeTabActuel) {
 				case 1:
 					View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_tab1, null);
-					ListView listView = (ListView) v.findViewById(R.id.listViewTab1);
+					final ListView listView = (ListView) v.findViewById(R.id.listViewTab1);
 
 					ImageButton boutonAjouteFlux = (ImageButton) v.findViewById(R.id.imageButton3);
+					ImageButton boutonMajListeFlux = (ImageButton) v.findViewById(R.id.imageButton2);
 					View viewFluxListItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fluxlistitem, null);
 
 					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), viewFluxListItem, listView));
+
 					AccesTableFlux tableFlux = new AccesTableFlux(context);
 					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
 
@@ -149,6 +156,21 @@ public class SuperActivity extends FragmentActivity {
 
 						}
 
+					});
+
+					boutonMajListeFlux.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// Construction de la liste des flux
+							List<String> listeUrl = new ArrayList<String>();
+							for (MlFlux mlFlux : ListeFluxSectionFragment.listeFlux) {
+								listeUrl.add(mlFlux.getFluxUrl());
+							}
+
+							RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(getActivity(), listeUrl, listView);
+							runnableReaderAsynck.execute();
+						}
 					});
 
 					listView.setOnItemLongClickListener(new OnItemLongClickListener() {
