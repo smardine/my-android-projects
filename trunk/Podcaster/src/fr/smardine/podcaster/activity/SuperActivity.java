@@ -32,6 +32,7 @@ import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
+import fr.smardine.podcaster.thread.MajFluxProgressDialog;
 
 public class SuperActivity extends FragmentActivity {
 
@@ -162,11 +163,12 @@ public class SuperActivity extends FragmentActivity {
 						@Override
 						public void onClick(View v) {
 							// Construction de la liste des flux
-							List<String> listeUrl = new ArrayList<String>();
-							for (MlFlux mlFlux : ListeFluxSectionFragment.listeFlux) {
-								listeUrl.add(mlFlux.getFluxUrl());
-							}
-
+							// List<String> listeUrl = new ArrayList<String>();
+							// for (MlFlux mlFlux : ListeFluxSectionFragment.listeFlux) {
+							// listeUrl.add(mlFlux.getFluxUrl());
+							// }
+							MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
+							majFlux.synchroMajFluxProgressDialog(context, ListeFluxSectionFragment.listeFlux, listView);
 							// RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(getActivity(), listeUrl, listView);
 							// runnableReaderAsynck.execute();
 						}
@@ -176,7 +178,7 @@ public class SuperActivity extends FragmentActivity {
 
 						@Override
 						public boolean onItemLongClick(AdapterView<?> p_adapterView, View p_view, int p_position, long arg3) {
-							MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
+							final MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
 							fluxSelectionne = leFluxClique;
 							PopupMenu popup = new PopupMenu(context, p_view);
 							MenuInflater inflater = popup.getMenuInflater();
@@ -189,6 +191,12 @@ public class SuperActivity extends FragmentActivity {
 										case R.id.menu_suppr_flux:
 											AccesTableFlux tableFlux = new AccesTableFlux(context);
 											tableFlux.deleteFluxEtEpisode(fluxSelectionne);
+											return true;
+										case R.id.menu_maj_flux:
+											MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
+											List<MlFlux> lst = new ArrayList<MlFlux>();
+											lst.add(leFluxClique);
+											majFlux.synchroMajFluxProgressDialog(context, lst, listView);
 											return true;
 										default:
 											return false;

@@ -6,8 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import android.content.Context;
-import android.os.Handler;
-import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.thread.EnMethodType;
 import fr.smardine.podcaster.thread.EnThreadExecResult;
@@ -15,10 +13,8 @@ import fr.smardine.podcaster.thread.HandlerMajFluxProgressDialog;
 
 public class MajOuCreateFluxBuilder {
 
-	// private Object owner;
-	// private EnMethodType method;
 	private Context context;
-	private Handler progressDialogHandler;
+	private HandlerMajFluxProgressDialog progressDialogHandler;
 	private final String STOP_SYNCHRO = "<< STOP SYNCHRO >>";
 
 	/**
@@ -30,9 +26,7 @@ public class MajOuCreateFluxBuilder {
 	 * @param p_progressDialogHandler moteur lié à la boite de dialogue de progression
 	 * @param p_owner
 	 */
-	public MajOuCreateFluxBuilder(Context p_context, Handler p_progressDialogHandler, Object p_owner) {
-		// owner = p_owner;
-		// method = p_method;
+	public MajOuCreateFluxBuilder(Context p_context, HandlerMajFluxProgressDialog p_progressDialogHandler, Object p_owner) {
 		context = p_context;
 		progressDialogHandler = p_progressDialogHandler;
 	}
@@ -55,13 +49,14 @@ public class MajOuCreateFluxBuilder {
 				case CREATE_FLUX:
 					Node node = document.getDocumentElement();
 					RssParserMetier.contruitEnteteFlux(node, p_flux, context, p_flux.getFluxUrl());
-					progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
-							context.getString(R.string.s_telechargeTournees, (Object) null)));
+					progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.CHANGE_TITRE.getCode(),
+							p_flux.getTitre()));
+
 					RssParserMetier.parcourirNodeListeEtValoriseListeEpisode(p_flux, document, progressDialogHandler);
 					break;
 
 				case MAJ_FLUX:
-					progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
+					progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.CHANGE_TITRE.getCode(),
 							p_flux.getTitre()));
 					p_flux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
 					RssParserMetier.parcourirNodeListeEtValoriseListeEpisode(p_flux, document, progressDialogHandler);
@@ -70,7 +65,7 @@ public class MajOuCreateFluxBuilder {
 					progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ERROR.getCode()));
 			}
 		} else {
-			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ERROR.getCode()));
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.SUCCESS_BUTEMPTY.getCode()));
 		}
 	}
 

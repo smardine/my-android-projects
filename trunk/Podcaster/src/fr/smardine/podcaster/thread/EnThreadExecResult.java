@@ -1,6 +1,7 @@
 package fr.smardine.podcaster.thread;
 
 public enum EnThreadExecResult {
+	CHANGE_TITRE(-1, "en_threadexecresult_changetitre"), //
 	ENCOURS(0, "en_threadexecresult_indefini"), //
 	SUCCESS(1, "en_threadexecresult_ok"), //
 	ERROR(2, "en_threadexecresult_error"), //
@@ -35,11 +36,8 @@ public enum EnThreadExecResult {
 	}
 
 	/**
-	 * exemple de mise en oeuvre int resID =
-	 * this.getResources().getIdentifier(EnSynchroType
-	 * .PLANTRA.getResStringName(), StringHelper.RES_STRING,
-	 * this.getPackageName()); String essai =
-	 * this.getResources().getText(resID).toString();
+	 * exemple de mise en oeuvre int resID = this.getResources().getIdentifier(EnSynchroType .PLANTRA.getResStringName(),
+	 * StringHelper.RES_STRING, this.getPackageName()); String essai = this.getResources().getText(resID).toString();
 	 * @return le 'name' de la ressource chaine déclarée dans string.xml
 	 */
 	public String getResStringName() {

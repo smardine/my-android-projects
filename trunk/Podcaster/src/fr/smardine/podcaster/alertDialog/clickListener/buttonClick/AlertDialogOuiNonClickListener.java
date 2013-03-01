@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.alertDialog.IAlertDialogClickListener;
-import fr.smardine.podcaster.asynctask.RSSReaderAsynckTask;
+import fr.smardine.podcaster.thread.MajFluxProgressDialog;
 
 /**
  * Gestion des evenements lors du click sur le bouton Oui sur une boite de dialogue "Oui/Non"
@@ -44,8 +44,12 @@ public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener
 		// myPd_bar.setProgress(0);
 		// myPd_bar.setMax(100);
 		// myPd_bar.show();
-		RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(this.ctx, this.listeUrl, this.listView);
-		runnableReaderAsynck.execute();
+
+		MajFluxProgressDialog maj = new MajFluxProgressDialog();
+		maj.synchroCreateFluxProgressDialog(this.ctx, listeUrl, listView);
+
+		// RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(this.ctx, this.listeUrl, this.listView);
+		// runnableReaderAsynck.execute();
 
 	}
 
