@@ -10,10 +10,15 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ListView;
 import android.widget.Toast;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.adapter.EpisodeListAdapter;
+import fr.smardine.podcaster.adapter.FluxListAdapter;
 import fr.smardine.podcaster.helper.log.EnNiveauLog;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
+import fr.smardine.podcaster.mdl.MlListeEpisode;
+import fr.smardine.podcaster.mdl.MlListeFlux;
 
 /**
  * @author smardine
@@ -22,9 +27,11 @@ public class HandlerMajFluxProgressDialog extends Handler {
 	private final String TAG = this.getClass().getSimpleName();
 	private final Context context;
 	private ProgressDialog myProgressDialog;
-
 	private final EnMethodType methode;
-	private final String dateEtatSynchro;
+	private final ListView listView;
+	private MlListeFlux listeFlux;
+	private MlListeEpisode listeEpisodes;
+	// private final String dateEtatSynchro;
 	private static Boolean arreterAnalyseMemorise = false;
 
 	private void setArreterAnalyseMemorise(boolean p_value) {
@@ -35,10 +42,11 @@ public class HandlerMajFluxProgressDialog extends Handler {
 		return arreterAnalyseMemorise;
 	}
 
-	public HandlerMajFluxProgressDialog(Context p_context, EnMethodType p_method, String p_dateEtatSynchro, boolean p_arreterAnalyseMemoire) {
+	public HandlerMajFluxProgressDialog(Context p_context, EnMethodType p_method, ListView p_listView, boolean p_arreterAnalyseMemoire) {
 		this.context = p_context;
 		this.methode = p_method;
-		this.dateEtatSynchro = p_dateEtatSynchro;
+		this.listView = p_listView;
+		// this.dateEtatSynchro = p_dateEtatSynchro;
 		setArreterAnalyseMemorise(p_arreterAnalyseMemoire);
 		initProgressDialog(p_context);
 	}
@@ -86,25 +94,38 @@ public class HandlerMajFluxProgressDialog extends Handler {
 		myProgressDialog.show();
 	}
 
+	public void ValoriserListeFlux(MlListeFlux p_listeFlux) {
+		this.listeFlux = p_listeFlux;
+	}
+
+	public void ValoriserListeEpisode(MlListeEpisode p_listeEpisode) {
+		this.listeEpisodes = p_listeEpisode;
+	}
+
 	@Override
 	public void handleMessage(Message msg) {
 		String info = "";
 		EnThreadExecResult threadExecResult = EnThreadExecResult.fromCode(msg.what);
 		switch (threadExecResult) {
+			case CHANGE_TITRE:// -1
+				myProgressDialog.setTitle("" + msg.obj);
+				break;
 			case ENCOURS: // 0:
 				myProgressDialog.setMessage("" + msg.obj);
 				break;
 			case SUCCESS: // 1:
+				metAjourLaListeEnFonctionDuMode();
 			case STOP: // 3:
 				if (!arreterAnalyseMemorise) { // 1
-					memoriseDateSynchro(dateEtatSynchro);
+					// memoriseDateSynchro(dateEtatSynchro);
 					info = context.getString(R.string.s_analyseMemoriseTermine, (Object) null);
 					Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
 				}
 				myProgressDialog.dismiss(); // 1 et 3
+
 				break;
 			case SUCCESS_BUTEMPTY: // 4:
-				memoriseDateSynchro(dateEtatSynchro);
+				// memoriseDateSynchro(dateEtatSynchro);
 				info = context.getString(R.string.s_analyseTermineVide, (Object) null);
 				Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
 				myProgressDialog.dismiss(); // 4
@@ -125,17 +146,29 @@ public class HandlerMajFluxProgressDialog extends Handler {
 		}
 	}
 
-	/**
-	 * Synchronisation terminée alors mémoriser la date de cette dernière synchro
-	 * @param p_xmlInfo
-	 */
-	private void memoriseDateSynchro(String p_dateEtatSynchro) {
-		if (p_dateEtatSynchro != null) {
-			// PrefsEquinox prefs = new PrefsEquinox(context);
-			// prefs.setdate_synchro(p_dateEtatSynchro);
-			// prefs.closeEquinoxPrefs();
+	private void metAjourLaListeEnFonctionDuMode() {
+		if (methode == EnMethodType.MAJ_FLUX) {
+			EpisodeListAdapter adpt = new EpisodeListAdapter(this.context, this.listeEpisodes);
+			this.listView.setAdapter(adpt);
+		} else if (methode == EnMethodType.CREATE_FLUX) {
+			FluxListAdapter adpt = new FluxListAdapter(this.context, listeFlux);
+			// paramèter l'adapter sur la listview
+			this.listView.setAdapter(adpt);
 		}
+
 	}
+
+	// /**
+	// * Synchronisation terminée alors mémoriser la date de cette dernière synchro
+	// * @param p_xmlInfo
+	// */
+	// private void memoriseDateSynchro(String p_dateEtatSynchro) {
+	// if (p_dateEtatSynchro != null) {
+	// // PrefsEquinox prefs = new PrefsEquinox(context);
+	// // prefs.setdate_synchro(p_dateEtatSynchro);
+	// // prefs.closeEquinoxPrefs();
+	// }
+	// }
 
 	/**
 	 * Grace au context passé à cet objet métier, aller directement dans la vue des tournées.

@@ -5,33 +5,38 @@ import java.util.List;
 import android.content.Context;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
+import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
-import fr.smardine.podcaster.mdl.MlListeEpisode;
+import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.podcaster.metier.MajOuCreateFluxBuilder;
 
-public class ThreadExecutionMajFlux extends Thread {
+public class ThreadExecutionCreateFlux extends Thread {
 
 	private final String TAG = this.getClass().getSimpleName();
 	private final Context context;
 	// private final EnParserType type;
-	// private final EnMethodType method;
+	// //private final EnMethodType method;
 	private final HandlerMajFluxProgressDialog progressDialogHandler;
 
-	private final List<MlFlux> listeFlux;
-
+	private final List<String> listeUrl;
+	// private final ListView listeView;
+	private AccesTableFlux tableFlux;
 	private AccesTableEpisode tableEpisode;
 
-	public ThreadExecutionMajFlux(Context p_context, HandlerMajFluxProgressDialog p_handler, List<MlFlux> p_listeFlux) {
+	public ThreadExecutionCreateFlux(Context p_context, HandlerMajFluxProgressDialog p_handler, List<String> p_listeUrl) {
 		this.context = p_context;
-
+		// this.type = p_type;
 		// this.method = p_methode;
 		this.progressDialogHandler = p_handler;
-
-		this.listeFlux = p_listeFlux;
-
+		// this.numeroClient = p_numeroClient;
+		// this.motdepasse = p_motDePasse;
+		// this.context = p_context;
+		this.listeUrl = p_listeUrl;
+		// this.listeView = p_listView;
 		tableEpisode = new AccesTableEpisode(this.context);
+		tableFlux = new AccesTableFlux(this.context);
 
 	}
 
@@ -41,27 +46,25 @@ public class ThreadExecutionMajFlux extends Thread {
 
 			MajOuCreateFluxBuilder builder = new MajOuCreateFluxBuilder(context, progressDialogHandler, this);
 
-			for (MlFlux unFlux : listeFlux) {
-				builder.doMajOuCreateFlux(unFlux, EnMethodType.MAJ_FLUX);
+			for (String uneUrl : listeUrl) {
+				MlFlux unFlux = new MlFlux();
+				unFlux.setFluxUrl(uneUrl);
+				builder.doMajOuCreateFlux(unFlux, EnMethodType.CREATE_FLUX);
 				progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
 						"Enregistrement en base"));
-
 				if (unFlux != null) {
+					tableFlux.insertFlux(unFlux);
 					for (MlEpisode uneEpisode : unFlux.getListeEpisode()) {
-						if (uneEpisode.isStatutNouveau()) {
-							uneEpisode.setIdFluxParent(unFlux.getIdFlux());
-							uneEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
-							tableEpisode.createEpisode(uneEpisode);
-						}
+						uneEpisode.setIdFluxParent(unFlux.getIdFlux());
+						uneEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
+						tableEpisode.createEpisode(uneEpisode);
 					}
 				}
 			}
 
-			MlListeEpisode listeEpisode = new MlListeEpisode();
-			for (MlFlux unFlux : this.listeFlux) {
-				listeEpisode.addAll(tableEpisode.getListeDesEpisodeParIdFlux(unFlux));
-			}
-			progressDialogHandler.ValoriserListeEpisode(listeEpisode);
+			// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
+			MlListeFlux listeFlux = tableFlux.getListeDesFlux();
+			progressDialogHandler.ValoriserListeFlux(listeFlux);
 
 			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.SUCCESS.getCode(),
 					context.getString(R.string.s_analyseMemoriseTermine, (Object) null)));

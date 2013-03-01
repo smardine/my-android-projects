@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.thread.EnMethodType;
 import fr.smardine.podcaster.thread.MajFluxProgressDialog;
 
 public class ButtonMajFluxClickListener implements OnClickListener {
@@ -57,7 +56,7 @@ public class ButtonMajFluxClickListener implements OnClickListener {
 		// myPd_bar.show();
 
 		MajFluxProgressDialog maj = new MajFluxProgressDialog();
-		maj.synchroMajFluxProgressDialog(context, EnMethodType.MAJ_FLUX, listeFluxAMettreAJour, listView);
+		maj.synchroMajFluxProgressDialog(context, listeFluxAMettreAJour, listView);
 
 		// RSSReaderMajFluxAsynckTask majtask = new RSSReaderMajFluxAsynckTask(this.context, listeFluxAMettreAJour, myPd_bar,
 		// this.listView);

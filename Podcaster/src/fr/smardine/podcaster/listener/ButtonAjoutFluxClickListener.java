@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogOuiNonClickListener;
 
 public class ButtonAjoutFluxClickListener implements OnClickListener {
 
@@ -47,13 +48,14 @@ public class ButtonAjoutFluxClickListener implements OnClickListener {
 				urlsChecked.add(listeDurls[which].toString());
 			}
 		});
+
 		// ad.setPositiveButton("ok", ouinon)
-		// AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(this.context, this.listView,
-		// urlsChecked);
-		// ad.setPositiveButton("Ok", ouinonClickListener);
-		// ad.setNegativeButton("Annuler", null);
-		// // ad.setView(this.view);
-		// ad.show();
+		AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(this.context, this.listView, urlsChecked);
+		ad.setPositiveButton("Ok", ouinonClickListener);
+
+		ad.setNegativeButton("Annuler", null);
+		// ad.setView(this.view);
+		ad.show();
 
 	}
 }
