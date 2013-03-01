@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">Podcaster</string>
     <string name="hello_world">Hello world!</string>
@@ -37,4 +37,26 @@
 	<string name="menu_settings">Settings</string>
 	<string name="menu_suppr_flux">Supprimer le flux et ses épisodes</string>
 	<string name="menu_maj_flux">Mettre à jour le flux</string>
+	
+    <string name="b_cacher">Cacher</string>
+    <string name="b_annuler">Annuler</string>
+	<string name="progress_maj_flux">Mise à jour du flux</string>
+	<string name="progress_create_flux">Création du flux</string>
+	<string name="s_analyseMemoriseHide">Cacher la progression</string>
+	<string name="info_synchrocancelmanuel">SYNCHRO >> Arrêt manuel</string>
+	<string name="s_analyseMemoriseTermine">Synchronisation terminée</string>
+	<string name="s_analyseTermineVide">Synchronisation terminée : pas d\'informations utiles</string>
+	<string name="s_analyseMemoriseError">Erreur rencontrée au cours de la synchronisation</string>
+    <string name="s_analyseError">Erreur rencontrée au cours de l\'analyse des données de synchronisation</string>
+    <string name="info_synchrostart">SYNCHRO >> Start</string>
+    <string name="s_telechargeTournees">téléchargement..déchiffrement..décompression des tournées</string>
+    <string name="app_errGrave">Erreur grave</string>
+    <string name="info_databasecreate">Création de la base %s</string>
+    <string name="info_databaseupdate">Mise à jour de la base <xliff:g id="arg1">%s</xliff:g> passage de version <xliff:g id="arg2">%s</xliff:g> à la version <xliff:g id="arg3">%s</xliff:g></string>
+    <string name="info_databaseupgrade">onUpgrade %s</string>
+    <string name="error_databaseupgrade">onUpgrade %s erreur</string>
+    <string name="error_databaseopen">>> open ERROR:</string>
+    <string name="error_databaseclose">>> close ERROR:</string>
+    <string name="error_databasetruncate">>> truncate ERROR:</string>
+    <string name="error_databasetourneesclear">>> effacerLesTournees ERROR:</string>
 </resources>
