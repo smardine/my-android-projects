@@ -35,6 +35,18 @@ public class AccesTableEpisode {
 	}
 
 	public void createEpisode(MlEpisode p_episode) {
+		ContentValues content = createValuesForMlEpisode(p_episode);
+		requeteFact.insertDansTable(EnTable.EPISODE, content);
+	}
+
+	public void majEpisode(MlEpisode p_episode) {
+		ContentValues modifiedValue = createValuesForMlEpisode(p_episode);
+		String whereClause = EnStructEpisode.ID_EPISODE.getNomChamp() + "=?";
+		String[] whereArgs = { "" + p_episode.getIdEpisode() };
+		requeteFact.majTable(EnTable.FLUX, modifiedValue, whereClause, whereArgs);
+	}
+
+	private ContentValues createValuesForMlEpisode(MlEpisode p_episode) {
 		ContentValues content = new ContentValues();
 		content.put(EnStructEpisode.ID_FLUX.toString(), p_episode.getIdFluxParent());
 		content.put(EnStructEpisode.TITRE.toString(), p_episode.getTitre());
@@ -50,9 +62,7 @@ public class AccesTableEpisode {
 		if (p_episode.getVignetteTelechargee() != null) {
 			content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
 		}
-
-		requeteFact.insertDansTable(EnTable.EPISODE, content);
-
+		return content;
 	}
 
 	// /**

@@ -64,7 +64,7 @@ public class RSSReaderAsynckTask extends AsyncTask<Void, MlFlux, Void> {
 		for (String uneUrl : listeFlux) {
 			MlFlux fluxParse = this.parseUnFlux(this.context, uneUrl);
 			if (fluxParse != null) {
-				tableFlux.createFlux(fluxParse);
+				tableFlux.insertFlux(fluxParse);
 				for (MlEpisode uneEpisode : fluxParse.getListeEpisode()) {
 					uneEpisode.setIdFluxParent(fluxParse.getIdFlux());
 					uneEpisode.setVignetteTelechargee(fluxParse.getVignetteTelechargee());

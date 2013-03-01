@@ -25,7 +25,6 @@ import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.asynctask.RSSReaderAsynckTask;
 import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
@@ -168,8 +167,8 @@ public class SuperActivity extends FragmentActivity {
 								listeUrl.add(mlFlux.getFluxUrl());
 							}
 
-							RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(getActivity(), listeUrl, listView);
-							runnableReaderAsynck.execute();
+							// RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(getActivity(), listeUrl, listView);
+							// runnableReaderAsynck.execute();
 						}
 					});
 

@@ -22,11 +22,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
-import fr.smardine.podcaster.asynctask.RSSReaderMajFluxAsynckTask;
+import android.os.Handler;
 import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.thread.EnThreadExecResult;
 
 public class RssParserMetier {
 
@@ -99,16 +100,16 @@ public class RssParserMetier {
 			URL url = new URL(p_url);
 			return builder.parse(url.openStream());
 		} catch (ParserConfigurationException e) {
-			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(RssParserMetier.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		} catch (MalformedURLException e) {
-			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(RssParserMetier.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		} catch (SAXException e) {
-			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(RssParserMetier.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		} catch (IOException e) {
-			Logger.getLogger(RSSReaderMajFluxAsynckTask.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(RssParserMetier.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		}
 	}
@@ -212,8 +213,9 @@ public class RssParserMetier {
 	 * parent
 	 * @param p_fluxParent
 	 * @param p_doc
+	 * @param progressDialogHandler
 	 */
-	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc) {
+	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc, Handler progressDialogHandler) {
 		// on recupere les tag nommé "item"
 		NodeList nodes = p_doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 
@@ -226,6 +228,8 @@ public class RssParserMetier {
 			// "Title"
 			// on recupere le titre de l'episode
 			unEpisode.setTitre(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Title }));
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
+					unEpisode.getTitre()));
 			// publishProgress(unEpisode.getTitre());
 			// p_progressDialog.setMessage(unEpisode.getTitre());
 			// on recupere la descritpion
