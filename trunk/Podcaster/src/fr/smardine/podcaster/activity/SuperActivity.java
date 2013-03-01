@@ -126,6 +126,7 @@ public class SuperActivity extends FragmentActivity {
 
 			switch (numeroDeTabActuel) {
 				case 1:
+
 					View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_tab1, null);
 					final ListView listView = (ListView) v.findViewById(R.id.listViewTab1);
 
