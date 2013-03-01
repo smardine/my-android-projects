@@ -36,7 +36,36 @@ public class AccesTableFlux {
 		return requeteFact.getNombreEnregistrement(EnTable.FLUX);
 	}
 
-	public void createFlux(MlFlux p_flux) {
+	public void insertFlux(MlFlux p_flux) {
+		ContentValues content = createContentValueForMlFlux(p_flux);
+		// content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro());
+		// content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
+		// content.put(EnStructFlux.VIGNETTE_URL.toString(), p_flux.getVignetteUrl());
+		// if (p_flux.getVignetteTelechargee() != null) {
+		// content.put(EnStructFlux.VIGNETTE_FILE.toString(), p_flux.getVignetteTelechargee().getAbsolutePath());
+		// }
+		//
+		// content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
+		requeteFact.insertDansTable(EnTable.FLUX, content);
+
+		p_flux.setIdFlux(Integer.parseInt(requeteFact.get1Champ("SELECT MAX (" + EnStructFlux.ID_FLUX.toString() + ") FROM "
+				+ EnTable.FLUX.toString())));
+
+	}
+
+	public void majFlux(MlFlux p_flux) {
+		ContentValues modifiedValue = createContentValueForMlFlux(p_flux);
+		String whereClause = EnStructFlux.ID_FLUX.getNomChamp() + "=?";
+		String[] whereArgs = { "" + p_flux.getIdFlux() };
+		requeteFact.majTable(EnTable.FLUX, modifiedValue, whereClause, whereArgs);
+	}
+
+	/**
+	 * Creation des content Value, utilisaé a la fois pour l'insertion et la maj en bdd
+	 * @param p_flux
+	 * @return
+	 */
+	private ContentValues createContentValueForMlFlux(MlFlux p_flux) {
 		ContentValues content = new ContentValues();
 		content.put(EnStructFlux.DATE_DERNIERE_SYNCHRO.toString(), p_flux.getDateDerniereSynchro());
 		content.put(EnStructFlux.TITRE.toString(), p_flux.getTitre());
@@ -46,11 +75,7 @@ public class AccesTableFlux {
 		}
 
 		content.put(EnStructFlux.URL.toString(), p_flux.getFluxUrl());
-		requeteFact.insertDansTable(EnTable.FLUX, content);
-
-		p_flux.setIdFlux(Integer.parseInt(requeteFact.get1Champ("SELECT MAX (" + EnStructFlux.ID_FLUX.toString() + ") FROM "
-				+ EnTable.FLUX.toString())));
-
+		return content;
 	}
 
 	// /**
