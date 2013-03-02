@@ -217,10 +217,14 @@ public class AccesTableFlux {
 	}
 
 	public void deleteFluxEtEpisode(MlFlux fluxSelectionne) {
-		String scriptDeleteEpisodes = "DELETE FROM " + EnTable.EPISODE + " WHERE " + EnStructEpisode.ID_FLUX.getNomChamp() + "="
-				+ fluxSelectionne.getIdFlux();
-		String scriptDeleteFlux = "DELETE FROM " + EnTable.FLUX + " WHERE " + EnStructFlux.ID_FLUX.getNomChamp() + "="
-				+ fluxSelectionne.getIdFlux();
+		// String scriptDeleteEpisodes = "DELETE FROM " + EnTable.EPISODE + " WHERE " + EnStructEpisode.ID_FLUX.getNomChamp() + "="
+		// + fluxSelectionne.getIdFlux();
+		// String scriptDeleteFlux = "DELETE FROM " + EnTable.FLUX + " WHERE " + EnStructFlux.ID_FLUX.getNomChamp() + "="
+		// + fluxSelectionne.getIdFlux();
+		requeteFact.deleteTable(EnTable.EPISODE, EnStructEpisode.ID_FLUX.getNomChamp() + "=" + fluxSelectionne.getIdFlux(), null);
+
+		requeteFact.deleteTable(EnTable.FLUX, EnStructFlux.ID_FLUX.getNomChamp() + "=" + fluxSelectionne.getIdFlux(), null);
+		// db.delete(T_BNFCAISSE, C_BNFCAI_ID_BNF_ID + "=" + p_bnfid, null) > 0;
 		// requeteFact.deleteTable(p_table, p_whereClause, p_whereArgs)
 
 	}

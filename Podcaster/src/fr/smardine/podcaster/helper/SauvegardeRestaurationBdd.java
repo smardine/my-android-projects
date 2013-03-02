@@ -5,7 +5,10 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.os.Environment;
+import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.database.RequeteFactory;
+import fr.smardine.podcaster.helper.log.EnNiveauLog;
+import fr.smardine.podcaster.helper.log.LogCatBuilder;
 
 public class SauvegardeRestaurationBdd {
 
@@ -28,17 +31,6 @@ public class SauvegardeRestaurationBdd {
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-
-		// // si une base appellée "trousse_baseé existe, la supprimer, ca
-		// // correspond a l'ancien format de sauvegarde
-		//
-		// File f = new File(PATH + "trousse_base");
-		// if (f.exists()) {
-		// boolean delete = f.delete();
-		// if (!delete) {
-		// f.deleteOnExit();
-		// }
-		// }
 
 		int mYear;
 		int mMonth;
@@ -65,6 +57,9 @@ public class SauvegardeRestaurationBdd {
 		File fichierSurCarteSD = new File(PATH + "podacster_base" + sYear + sMonth + sDay);
 
 		result = ManipFichier.copier(baseDansTel, fichierSurCarteSD);
+
+		LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, context.getResources().getInteger(R.string.s_fin_de_la_sauvegarde),
+				result);
 		return result;
 
 	}
