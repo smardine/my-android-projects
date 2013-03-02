@@ -21,7 +21,7 @@ import fr.smardine.podcaster.helper.log.LogCatBuilder;
  * OBJET METIER d'accès aux données de la base SQLite - instancier le moteur SQLite - ouvrir la base de données - fermer les ressources -
  * enregistrer et lire les données
  */
-public class DBEqxAdapter {
+public class DBPodcasterAdapter {
 	private final String TAG = this.getClass().getSimpleName();
 
 	public static final String T_PLANTRA = "plantra";
@@ -221,21 +221,21 @@ public class DBEqxAdapter {
 	public static final String C_MED_COMMUNE = "med_commune";
 
 	private static final Pattern EQX_DATE_PATTERN = Pattern.compile("(\\d\\d?)/(\\d\\d?)/(\\d\\d\\d\\d)");
-	private static final Pattern EQX_HEURE_PATTERN = Pattern.compile("(\\d\\d?)h(\\d\\d?)");
-	private static final Pattern EQX_MONTANTFAC_PATTERN = Pattern.compile("Total : (\\d\\d?\\d?\\d?),(\\d\\d?)");
+	// private static final Pattern EQX_HEURE_PATTERN = Pattern.compile("(\\d\\d?)h(\\d\\d?)");
+	// private static final Pattern EQX_MONTANTFAC_PATTERN = Pattern.compile("Total : (\\d\\d?\\d?\\d?),(\\d\\d?)");
 	private static final Pattern EQX_MONTANTASS_PATTERN = Pattern.compile("Part Assuré : (\\d\\d?\\d?\\d?),(\\d\\d?)");
 
 	// private static final String UPDATE_VSTID_TRNID = null;
 	private final DatabaseHelper DBHelper;
 	private SQLiteDatabase db;
 	private final Context context;
-	private final String BASE_EQUINOX;
+	private final String BASE_PODCASTER;
 
-	public DBEqxAdapter(Context p_context) {
+	public DBPodcasterAdapter(Context p_context) {
 		// instancier la base de données sur un Helper qui s'occupe de créer et
 		// mettre à jour la base de données
 		context = p_context;
-		BASE_EQUINOX = getDatabaseName(context);
+		BASE_PODCASTER = getDatabaseName(context);
 		DBHelper = new DatabaseHelper(p_context);
 
 	}
@@ -483,23 +483,23 @@ public class DBEqxAdapter {
 		private final Context context;
 
 		public DatabaseHelper(Context context) {
-			super(context, BASE_EQUINOX, null, DATABASE_VERSION_COURANTE); // provoque
-																			// la
-																			// création
-																			// si
-																			// la
-																			// base
-																			// n'existe
-																			// pas
-																			// dans
-																			// l'application
+			super(context, BASE_PODCASTER, null, DATABASE_VERSION_COURANTE); // provoque
+																				// la
+																				// création
+																				// si
+																				// la
+																				// base
+																				// n'existe
+																				// pas
+																				// dans
+																				// l'application
 			this.context = context;
 		}
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			try {
-				LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, R.string.info_databasecreate, BASE_EQUINOX);
+				LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, R.string.info_databasecreate, BASE_PODCASTER);
 				db.execSQL(CREA_T_PLANTRA);
 				db.execSQL(CREA_T_PRATICIEN);
 				db.execSQL(CREA_T_TOURNEE);
@@ -561,7 +561,7 @@ public class DBEqxAdapter {
 				if (p_oldVersion != p_newVersion) {
 					// mise à jour de la base de données en fournissant la
 					// nouvelle version de la base
-					String message = context.getString(R.string.info_databaseupdate, BASE_EQUINOX, p_oldVersion, p_newVersion);
+					String message = context.getString(R.string.info_databaseupdate, BASE_PODCASTER, p_oldVersion, p_newVersion);
 					LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, R.string.info_databaseupgrade, message);
 					Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 					if (p_oldVersion == DATABASE_VERSION_1) {
@@ -586,7 +586,7 @@ public class DBEqxAdapter {
 
 	// --------------------------------------------------------------------------------------------------------------------------
 	// ouvrie la base de données
-	public DBEqxAdapter open() {
+	public DBPodcasterAdapter open() {
 		try {
 			// ouvre la base de données pour y insérer des données
 			db = DBHelper.getWritableDatabase();

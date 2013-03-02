@@ -31,7 +31,6 @@ import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.podcaster.mdl.MlListeFlux;
 import fr.smardine.podcaster.thread.MajFluxProgressDialog;
 
 public class SuperActivity extends FragmentActivity {
@@ -111,7 +110,7 @@ public class SuperActivity extends FragmentActivity {
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		public static final String SELECTED_FLUX_ITEM = "selected_flux_item";
-		public static MlListeFlux listeFlux = null;
+		// public static MlListeFlux listeFlux = null;
 		public static MlFlux fluxSelectionne;
 		public static ActionBar actionBar;
 		public static Context context;
@@ -136,11 +135,11 @@ public class SuperActivity extends FragmentActivity {
 
 					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), viewFluxListItem, listView));
 
-					AccesTableFlux tableFlux = new AccesTableFlux(context);
-					MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
+					final AccesTableFlux tableFlux = new AccesTableFlux(context);
+					// final MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
 
-					FluxListAdapter adpt = new FluxListAdapter(getActivity(), listeFluxEnBase);
-					ListeFluxSectionFragment.listeFlux = listeFluxEnBase;
+					FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
+					// ListeFluxSectionFragment.listeFlux = listeFluxEnBase;
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
 
@@ -163,15 +162,10 @@ public class SuperActivity extends FragmentActivity {
 
 						@Override
 						public void onClick(View v) {
-							// Construction de la liste des flux
-							// List<String> listeUrl = new ArrayList<String>();
-							// for (MlFlux mlFlux : ListeFluxSectionFragment.listeFlux) {
-							// listeUrl.add(mlFlux.getFluxUrl());
-							// }
+
 							MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
-							majFlux.synchroMajFluxProgressDialog(context, ListeFluxSectionFragment.listeFlux, listView);
-							// RSSReaderAsynckTask runnableReaderAsynck = new RSSReaderAsynckTask(getActivity(), listeUrl, listView);
-							// runnableReaderAsynck.execute();
+							majFlux.synchroMajFluxProgressDialog(getActivity(), tableFlux.getListeDesFlux(), listView);
+
 						}
 					});
 
@@ -197,7 +191,7 @@ public class SuperActivity extends FragmentActivity {
 											MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
 											List<MlFlux> lst = new ArrayList<MlFlux>();
 											lst.add(leFluxClique);
-											majFlux.synchroMajFluxProgressDialog(context, lst, listView);
+											majFlux.synchroMajFluxProgressDialog(getActivity(), lst, listView);
 											return true;
 										default:
 											return false;
