@@ -23,6 +23,7 @@ public class MlEpisode implements Serializable {
 	private File vignetteTelechargee;
 	private String vignetteUrl;
 	private final MlFlux fluxParent;
+	private String urlMedia;
 
 	/**
 	 * Contient l'url du media
@@ -278,5 +279,19 @@ public class MlEpisode implements Serializable {
 	public void setStatutNouveau(boolean b) {
 		this.statutNouveau = b;
 
+	}
+
+	/**
+	 * @return the urlMedia
+	 */
+	public String getUrlMedia() {
+		return urlMedia;
+	}
+
+	/**
+	 * @param urlMedia the urlMedia to set
+	 */
+	public void setUrlMedia(String urlMedia) {
+		this.urlMedia = urlMedia;
 	}
 }

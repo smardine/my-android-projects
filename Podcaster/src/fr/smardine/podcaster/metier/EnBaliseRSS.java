@@ -21,7 +21,7 @@ public enum EnBaliseRSS {
 	// LastBuildDate("lastBuildDate"), //
 	Title("title"), //
 	Image("image"), //
-	Url("url"),//
+	Url("url"), //
 	Description("description"), //
 	Channel("channel"), //
 	Enclosure("enclosure"), //
@@ -30,7 +30,8 @@ public enum EnBaliseRSS {
 	ItuneDuration("itunes:duration"), //
 	Link("link"), //
 	ItuneAuthor("itunes:Author"), //
-	ItuneSummary("itunes:summary"), Media("media"),
+	ItuneSummary("itunes:summary"), //
+	Media("media"), //
 	Type("type");
 	private String name;
 

@@ -52,6 +52,8 @@ public class ThreadExecutionMajFlux extends Thread {
 							uneEpisode.setIdFluxParent(unFlux.getIdFlux());
 							uneEpisode.setVignetteTelechargee(unFlux.getVignetteTelechargee());
 							tableEpisode.createEpisode(uneEpisode);
+						} else {
+							tableEpisode.majEpisode(uneEpisode);
 						}
 					}
 				}

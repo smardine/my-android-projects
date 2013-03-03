@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.util.Log;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
+import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
 
@@ -79,6 +80,37 @@ public class DownloadHelper {
 		} catch (MalformedURLException e) {
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.mauvais_format_url, e);
 			p_episode.setVignetteTelechargee(null);
+			return false;
+		}
+	}
+
+	public static boolean DownloadEpisodeFromUrl(Context p_context, String p_url, MlEpisode p_episode) {
+		String TAG = "DownloadHelper.DownloadEpisodeFromUrl";
+		URL url;
+		try {
+			url = new URL(p_url);
+
+			String PATH = Environment.getExternalStorageDirectory() + "/Podcaster/Podcast/" + p_episode.getFluxParent().getTitre();
+			Log.v("log_tag", "PATH: " + PATH);
+			File directory = new File(PATH);
+			if (directory.mkdirs()) {
+
+			}
+
+			String urlFile = url.getFile();
+			String nomDuFichierLocal = urlFile.substring(urlFile.lastIndexOf("/"));
+			File fichierLocal = new File(directory, nomDuFichierLocal);
+
+			if (DownloadFile(p_context, p_url, fichierLocal, false)) {
+				p_episode.setStatutTelechargement(EnStatutTelechargement.Telecharge);
+				return true;
+			} else {
+				p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
+				return false;
+			}
+		} catch (MalformedURLException e) {
+			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.mauvais_format_url, e);
+			p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
 			return false;
 		}
 	}

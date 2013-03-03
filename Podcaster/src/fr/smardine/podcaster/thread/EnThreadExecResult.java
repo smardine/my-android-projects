@@ -1,12 +1,12 @@
 package fr.smardine.podcaster.thread;
 
 public enum EnThreadExecResult {
-	CHANGE_TITRE(-1, "en_threadexecresult_changetitre"), //
 	ENCOURS(0, "en_threadexecresult_indefini"), //
 	SUCCESS(1, "en_threadexecresult_ok"), //
 	ERROR(2, "en_threadexecresult_error"), //
 	STOP(3, "en_threadexecresult_stopit"), //
 	SUCCESS_BUTEMPTY(4, "enthreadexecresult_okbutempty"), //
+	CHANGE_TITRE(5, "en_threadexecresult_changetitre"), //
 	INDEFINI(Integer.MAX_VALUE, ""); //
 
 	private int code;
