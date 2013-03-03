@@ -3,7 +3,7 @@ package fr.smardine.podcaster.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -13,13 +13,13 @@ import fr.smardine.podcaster.thread.MajFluxProgressDialog;
 
 public class ButtonMajFluxClickListener implements OnClickListener {
 
-	private final Context context;
+	private final Activity context;
 	// private final View view;
 	private ListView listView;
 
 	// private Handler handle;
 
-	public ButtonMajFluxClickListener(Context baseContext, View p_view, ListView p_listView) {
+	public ButtonMajFluxClickListener(Activity baseContext, View p_view, ListView p_listView) {
 		this.context = baseContext;
 		this.listView = p_listView;
 	}
@@ -37,30 +37,8 @@ public class ButtonMajFluxClickListener implements OnClickListener {
 			}
 		}
 
-		// Builder ad = new AlertDialog.Builder(context);
-
-		// // ad.setPositiveButton("ok", ouinon)
-		// AlertDialogOuiNonClickListener ouinonClickListener = new AlertDialogOuiNonClickListener(this.context, this.listView,
-		// listeUrlAMettreAJour);
-		// ad.setPositiveButton("Ok", ouinonClickListener);
-		// ad.setNegativeButton("Annuler", null);
-		// // ad.setView(this.view);
-		// ad.show();
-
-		// ProgressDialog myPd_bar = new ProgressDialog(this.context);
-		// myPd_bar.setMessage("Loading....");
-		// myPd_bar.setTitle("Maj en cours..");
-		// myPd_bar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		// myPd_bar.setProgress(0);
-		// myPd_bar.setMax(100);
-		// myPd_bar.show();
-
 		MajFluxProgressDialog maj = new MajFluxProgressDialog();
 		maj.synchroMajFluxProgressDialog(context, listeFluxAMettreAJour, listView);
-
-		// RSSReaderMajFluxAsynckTask majtask = new RSSReaderMajFluxAsynckTask(this.context, listeFluxAMettreAJour, myPd_bar,
-		// this.listView);
-		// majtask.execute();
 
 	}
 }

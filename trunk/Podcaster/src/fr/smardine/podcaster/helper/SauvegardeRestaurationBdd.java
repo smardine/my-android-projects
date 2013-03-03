@@ -5,10 +5,7 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.os.Environment;
-import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.database.RequeteFactory;
-import fr.smardine.podcaster.helper.log.EnNiveauLog;
-import fr.smardine.podcaster.helper.log.LogCatBuilder;
 
 public class SauvegardeRestaurationBdd {
 
@@ -58,8 +55,8 @@ public class SauvegardeRestaurationBdd {
 
 		result = ManipFichier.copier(baseDansTel, fichierSurCarteSD);
 
-		LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, context.getResources().getInteger(R.string.s_fin_de_la_sauvegarde),
-				result);
+		// LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, context.getResources().getInteger(R.string.s_fin_de_la_sauvegarde),
+		// result);
 		return result;
 
 	}

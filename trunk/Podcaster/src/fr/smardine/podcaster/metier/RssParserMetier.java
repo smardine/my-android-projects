@@ -35,48 +35,6 @@ public class RssParserMetier {
 
 	}
 
-	// /**
-	// * Parser (construire) unFlux à partir d'une URL
-	// * @param p_context
-	// * @param p_progressDialog
-	// * @param p_urlAParser
-	// * @return Le flux construit, avec sa liste d'episode
-	// */
-	// public MlFlux parseUnFlux(Context p_context, String p_urlAParser) {
-	// MlFlux unFlux = new MlFlux();
-	// Document doc = OuvrirUrl(p_urlAParser);
-	// if (doc != null) {
-	// Node node = doc.getDocumentElement();
-	//
-	// contruitEnteteFlux(node, unFlux, p_context, p_urlAParser);
-	//
-	// parcourirNodeListeEtValoriseListeEpisode(unFlux, doc);
-	//
-	// return unFlux;
-	// }
-	// return null;
-	//
-	// }
-
-	// /**
-	// * Mettre un jour un Flux
-	// * @param p_flux
-	// */
-	// public void majUnFlux(MlFlux p_flux) {
-	//
-	// Document doc = OuvrirUrl(p_flux.getFluxUrl());
-	// if (doc != null) {
-	// p_flux.setDateDerniereSynchro(Calendar.getInstance().getTimeInMillis());
-	// // this.progressDialog.setTitle("Maj " + p_flux.getTitre());
-	// /**
-	// * Elements du flux RSS
-	// **/
-	//
-	// parcourirNodeListeEtValoriseListeEpisode(p_flux, doc, this.progressDialog);
-	// }
-	//
-	// }
-
 	/**
 	 * Construire l'entete d'un flux
 	 * @param node
@@ -249,6 +207,8 @@ public class RssParserMetier {
 			// on recupere le type d'episode
 			String typeEpisode = readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
 			unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName(typeEpisode));
+
+			unEpisode.setUrlMedia(readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Url.toString()));
 
 			// String urlImage = this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url });
 

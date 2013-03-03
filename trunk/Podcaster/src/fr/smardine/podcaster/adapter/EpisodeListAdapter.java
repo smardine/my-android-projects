@@ -1,19 +1,24 @@
 package fr.smardine.podcaster.adapter;
 
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.asynctask.DownloadEpisodeAsynckTask;
 import fr.smardine.podcaster.helper.BitmapCache;
 import fr.smardine.podcaster.helper.ImageHelper;
+import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
 import fr.smardine.tools.date.DateHelper;
@@ -27,6 +32,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;
+	private Context ctx;
 
 	/**
 	 * @param p_ctx
@@ -34,6 +40,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 	 */
 	public EpisodeListAdapter(Context p_ctx, MlListeEpisode p_lstEpisodes) {
 		// paramètrer le layout en prenant celui du context
+		this.ctx = p_ctx;
 		this.myInflater = LayoutInflater.from(p_ctx);
 		this.lstEpisodes = p_lstEpisodes;
 
@@ -75,7 +82,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 		TextView TvTitreFlux;
 		TextView TvDateDerniereSynchro;
 		ImageView VignetteFlux;
-		ImageView ImdCatFlux;
+		ImageButton ImdTelechargeEpisode;
 	}
 
 	/*
@@ -84,17 +91,18 @@ public class EpisodeListAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+		final ViewHolder holder;
 		// convertView peut déjà être initialisé sinon alors l'initialiser
 		if (convertView == null) {
 			// affecter un linearlayout propre à la ligne à afficher dans le
 			// listview
-			convertView = myInflater.inflate(R.layout.fluxlistitem, null);
+			convertView = myInflater.inflate(R.layout.episodelistitem, null);
 			holder = new ViewHolder();
 			holder.TvTitreFlux = (TextView) convertView.findViewById(R.id.tvTitreFlux);
 			holder.TvDateDerniereSynchro = (TextView) convertView.findViewById(R.id.tvDateDerniereSynchro);
 			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
-			holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
+			// holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
+			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargement);
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
@@ -104,7 +112,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		MlEpisode unEpisode = lstEpisodes.get(position);
+		final MlEpisode unEpisode = lstEpisodes.get(position);
 		// Application des données au element de la vue
 		holder.TvTitreFlux.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
@@ -130,8 +138,34 @@ public class EpisodeListAdapter extends BaseAdapter {
 		} else {
 			holder.VignetteFlux.setImageResource(R.drawable.rss_std);
 		}
-		holder.ImdCatFlux.setImageResource(R.drawable.ic_launcher);
 
+		if (unEpisode.getStatutTelechargement() == EnStatutTelechargement.Streaming) {
+			holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+		} else {
+			holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+		}
+
+		holder.ImdTelechargeEpisode.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DownloadEpisodeAsynckTask tache = new DownloadEpisodeAsynckTask(ctx, unEpisode);
+				tache.execute(new String[] { "A", "B" });
+				try {
+					if (tache.get()) {
+						// le telechargement s'est bien passé, l'update en base est fait, reste a rafraichir l'icone dans la view
+						holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 		return convertView;
 	}
 }

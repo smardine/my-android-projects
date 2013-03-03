@@ -23,6 +23,7 @@
     <string name="titre_du_flux">titre du flux tres long pour voir si ca le coupe ou pas</string>
     <string name="date_au_format_jj_mmm">Date au format jj MMM</string>
     <string name="image_de_la_categorie_audio_ou_video_">Image de la categorie (audio ou video)</string>
+    <string name="vignette_telechargement">Image telechargement</string>
     
     <!-- Gestion des messages d'excection -->
     
@@ -49,7 +50,7 @@
 	<string name="s_analyseMemoriseError">Erreur rencontrée au cours de la synchronisation</string>
     <string name="s_analyseError">Erreur rencontrée au cours de l\'analyse des données de synchronisation</string>
     <string name="info_synchrostart">SYNCHRO >> Start</string>
-    <string name="s_telechargeTournees">téléchargement..déchiffrement..décompression des tournées</string>
+    <!-- <string name="s_telechargeTournees">téléchargement..déchiffrement..décompression des tournées</string>   -->
     <string name="app_errGrave">Erreur grave</string>
     <string name="info_databasecreate">Création de la base %s</string>
     <string name="info_databaseupdate">Mise à jour de la base <xliff:g id="arg1">%s</xliff:g> passage de version <xliff:g id="arg2">%s</xliff:g> à la version <xliff:g id="arg3">%s</xliff:g></string>

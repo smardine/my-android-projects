@@ -47,15 +47,13 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ivCategorieFlux"
+    <ImageButton
+        android:id="@+id/ibTelechargement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_weight="0.01"
-        android:contentDescription="@string/image_de_la_categorie_audio_ou_video_"
-        android:src="@drawable/audio"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:background="@color/app_color"
+        android:src="@drawable/telechargement"
+        android:contentDescription="@string/vignette_telechargement" />
 
 </LinearLayout>

@@ -43,7 +43,7 @@ public class AccesTableEpisode {
 		ContentValues modifiedValue = createValuesForMlEpisode(p_episode);
 		String whereClause = EnStructEpisode.ID_EPISODE.getNomChamp() + "=?";
 		String[] whereArgs = { "" + p_episode.getIdEpisode() };
-		requeteFact.majTable(EnTable.FLUX, modifiedValue, whereClause, whereArgs);
+		requeteFact.majTable(EnTable.EPISODE, modifiedValue, whereClause, whereArgs);
 	}
 
 	private ContentValues createValuesForMlEpisode(MlEpisode p_episode) {
@@ -62,6 +62,7 @@ public class AccesTableEpisode {
 		if (p_episode.getVignetteTelechargee() != null) {
 			content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
 		}
+		content.put(EnStructEpisode.URL_MEDIA.toString(), p_episode.getUrlMedia());
 		return content;
 	}
 
@@ -202,6 +203,8 @@ public class AccesTableEpisode {
 					if (filePath != null && !("").equals(filePath)) {
 						unEpisode.setVignetteTelechargee(new File(filePath));
 					}
+				} else if (i == 13) {
+					unEpisode.setUrlMedia((String) unEnregistrement.get(i));
 				}
 			}
 

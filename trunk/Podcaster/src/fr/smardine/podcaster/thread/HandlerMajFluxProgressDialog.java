@@ -3,6 +3,7 @@
  */
 package fr.smardine.podcaster.thread;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,7 +47,7 @@ public class HandlerMajFluxProgressDialog extends Handler {
 		this.context = p_context;
 		this.methode = p_method;
 		this.listView = p_listView;
-		// this.dateEtatSynchro = p_dateEtatSynchro;
+
 		setArreterAnalyseMemorise(p_arreterAnalyseMemoire);
 		initProgressDialog(p_context);
 	}
@@ -67,7 +68,8 @@ public class HandlerMajFluxProgressDialog extends Handler {
 		myProgressDialog.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				Toast.makeText(context, "Tache annulée", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
+				gotoAff_PagePrincipale();
+				// Toast.makeText(context, "Tache annulée", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
 			}
 		});
 		if (methode == EnMethodType.CREATE_FLUX) {
@@ -117,15 +119,14 @@ public class HandlerMajFluxProgressDialog extends Handler {
 				metAjourLaListeEnFonctionDuMode();
 			case STOP: // 3:
 				if (!arreterAnalyseMemorise) { // 1
-					// memoriseDateSynchro(dateEtatSynchro);
 					info = context.getString(R.string.s_analyseMemoriseTermine, (Object) null);
 					Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
 				}
 				myProgressDialog.dismiss(); // 1 et 3
+				// gotoAff_PagePrincipale();
 
 				break;
 			case SUCCESS_BUTEMPTY: // 4:
-				// memoriseDateSynchro(dateEtatSynchro);
 				info = context.getString(R.string.s_analyseTermineVide, (Object) null);
 				Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
 				myProgressDialog.dismiss(); // 4
@@ -133,13 +134,6 @@ public class HandlerMajFluxProgressDialog extends Handler {
 			case ERROR: // 2:
 				// sortie dismiss+indic erreur
 				info = context.getString(R.string.s_analyseMemoriseError, (Object) null);
-				// if (synchroPlantra_xml_Info != null) {
-				// // indication identifiant où data à
-				// // synchro absente
-				// int resID = context.getResources().getIdentifier(synchroPlantra_xml_Info.getEnInfoCode().getResStringName(),
-				// StringHelper.RES_STRING, context.getPackageName());
-				// info = context.getResources().getText(resID).toString();
-				// }
 				Toast.makeText(context, info, Toast.LENGTH_LONG).show();
 				myProgressDialog.dismiss();
 				break;
@@ -158,50 +152,36 @@ public class HandlerMajFluxProgressDialog extends Handler {
 
 	}
 
-	// /**
-	// * Synchronisation terminée alors mémoriser la date de cette dernière synchro
-	// * @param p_xmlInfo
-	// */
-	// private void memoriseDateSynchro(String p_dateEtatSynchro) {
-	// if (p_dateEtatSynchro != null) {
-	// // PrefsEquinox prefs = new PrefsEquinox(context);
-	// // prefs.setdate_synchro(p_dateEtatSynchro);
-	// // prefs.closeEquinoxPrefs();
-	// }
-	// }
-
 	/**
-	 * Grace au context passé à cet objet métier, aller directement dans la vue des tournées.
+	 * Grace au context passé à cet objet métier, aller directement dans la vue des flux.
 	 */
-	// private void gotoAff_Tournees() {
-	// if (context instanceof Activity) {
-	// // pour démarrer cette nouvelle instance utiliser l'instance de
-	// // l'activity qui a provoqué une synchro et passer son propre
-	// // requestcode
-	// Activity myactivity = ((Activity) context);
-	//
-	// int requestcode = (myactivity.getIntent().getExtras() == null ? 0 : myactivity.getIntent().getExtras()
-	// .getInt(ExtrasEquinox.EXTRA_STARTACTIVITY_REQUESTCODE, 0));
-	// // si l'ordre de synchronisation ne provient pas du menu de la vue
-	// // des tournées alors aller dans les tournées
-	// EnActivityCode enRequestCode = EnActivityCode.fromCode(requestcode);
-	// switch (enRequestCode) {
-	// case AFF_TOURNEES_REQUEST_CODE:
-	// // la MEGA astuce pour provoquer le refresh de la vue des
-	// // tournées suite à une synchro lancée à causse d'une
-	// // modification de licence !
-	// myactivity.onContentChanged();
-	// break;
-	// case AFF_VISITE_LIST_REQUEST_CODE:
-	// myactivity.finish(); // retour dans aff_tournees
-	// break;
-	// default:
-	// // aller dans la vue des tournées
-	// Intent intent = new Intent(context, MainTabActivity.class);
-	// myactivity.startActivityForResult(intent, requestcode);
-	// myactivity.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
-	// }
-	// }
-	// }
-
+	private void gotoAff_PagePrincipale() {
+		if (context instanceof Activity) {
+			// pour démarrer cette nouvelle instance utiliser l'instance de
+			// l'activity qui a provoqué une synchro et passer son propre
+			// requestcode
+			Activity myactivity = ((Activity) context);
+			myactivity.onContentChanged();
+			// int requestcode = (myactivity.getIntent().getExtras() == null ? 0 : myactivity.getIntent().getExtras()
+			// .getInt(ExtrasEquinox.EXTRA_STARTACTIVITY_REQUESTCODE, 0));
+			// // si l'ordre de synchronisation ne provient pas du menu de la vue
+			// // des tournées alors aller dans les tournées
+			// EnActivityCode enRequestCode = EnActivityCode.fromCode(requestcode);
+			// switch (enRequestCode) {
+			// case AFF_TOURNEES_REQUEST_CODE:
+			// // la MEGA astuce pour provoquer le refresh de la vue des
+			// // tournées suite à une synchro lancée à causse d'une
+			// // modification de licence !
+			// myactivity.onContentChanged();
+			// break;
+			// case AFF_VISITE_LIST_REQUEST_CODE:
+			// myactivity.finish(); // retour dans aff_tournees
+			// break;
+			// default:
+			// // aller dans la vue des tournées
+			// Intent intent = new Intent(context, MainTabActivity.class);
+			// myactivity.startActivityForResult(intent, requestcode);
+			// myactivity.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
+		}
+	}
 }
