@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.alertDialog.IAlertDialogClickListener;
-import fr.smardine.podcaster.thread.MajFluxProgressDialog;
+import fr.smardine.podcaster.metier.progressdialog.MajFluxProgressDialog;
 
 /**
  * Gestion des evenements lors du click sur le bouton Oui sur une boite de dialogue "Oui/Non"

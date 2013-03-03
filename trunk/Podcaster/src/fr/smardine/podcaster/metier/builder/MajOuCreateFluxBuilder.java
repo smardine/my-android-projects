@@ -1,4 +1,4 @@
-package fr.smardine.podcaster.metier;
+package fr.smardine.podcaster.metier.builder;
 
 import java.util.Calendar;
 
@@ -7,9 +7,10 @@ import org.w3c.dom.Node;
 
 import android.content.Context;
 import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.metier.RssParserMetier;
 import fr.smardine.podcaster.thread.EnMethodType;
 import fr.smardine.podcaster.thread.EnThreadExecResult;
-import fr.smardine.podcaster.thread.HandlerMajFluxProgressDialog;
+import fr.smardine.podcaster.thread.hanlder.HandlerMajFluxProgressDialog;
 
 public class MajOuCreateFluxBuilder {
 

@@ -1,4 +1,4 @@
-package fr.smardine.podcaster.thread;
+package fr.smardine.podcaster.thread.hanlder;
 
 import android.app.ProgressDialog;
 import android.content.Context;

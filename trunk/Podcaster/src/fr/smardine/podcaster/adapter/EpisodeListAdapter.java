@@ -1,8 +1,8 @@
 package fr.smardine.podcaster.adapter;
 
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,12 +15,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
-import fr.smardine.podcaster.asynctask.DownloadEpisodeAsynckTask;
 import fr.smardine.podcaster.helper.BitmapCache;
 import fr.smardine.podcaster.helper.ImageHelper;
 import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
+import fr.smardine.podcaster.metier.progressdialog.DownloadEpisodeProgressDialog;
 import fr.smardine.tools.date.DateHelper;
 
 /**
@@ -149,20 +149,23 @@ public class EpisodeListAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				DownloadEpisodeAsynckTask tache = new DownloadEpisodeAsynckTask(ctx, unEpisode);
-				tache.execute(new String[] { "A", "B" });
-				try {
-					if (tache.get()) {
-						// le telechargement s'est bien passé, l'update en base est fait, reste a rafraichir l'icone dans la view
-						holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
-					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				DownloadEpisodeProgressDialog downloadEpisode = new DownloadEpisodeProgressDialog();
+				downloadEpisode.downloadEpisodeProgressDialog((Activity) ctx, unEpisode, holder.ImdTelechargeEpisode);
+
+				// DownloadEpisodeAsynckTask tache = new DownloadEpisodeAsynckTask(ctx, unEpisode);
+				// tache.execute(new String[] { "A", "B" });
+				// try {
+				// if (tache.get()) {
+				// // le telechargement s'est bien passé, l'update en base est fait, reste a rafraichir l'icone dans la view
+				// holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
+				// }
+				// } catch (InterruptedException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (ExecutionException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// }
 			}
 
 		});

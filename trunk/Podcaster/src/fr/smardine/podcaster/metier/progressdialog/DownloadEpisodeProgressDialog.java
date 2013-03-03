@@ -1,13 +1,19 @@
-package fr.smardine.podcaster.thread;
+package fr.smardine.podcaster.metier.progressdialog;
 
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
-import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.mdl.MlEpisode;
+import fr.smardine.podcaster.thread.EnMethodType;
+import fr.smardine.podcaster.thread.ThreadExecutionCreateFlux;
+import fr.smardine.podcaster.thread.ThreadExecutionDownloadEpisode;
+import fr.smardine.podcaster.thread.hanlder.HandlerDownloadEpisodeProgressDialog;
+import fr.smardine.podcaster.thread.hanlder.HandlerMajFluxProgressDialog;
 
 /**
  * Boite de dialogue visuelle ouverte à partir d'une vue dont le context est passé en paramètre du constructeur. Cette boite présente un
@@ -15,22 +21,23 @@ import fr.smardine.podcaster.mdl.MlFlux;
  * être cachée pour que l'utilisateur procède à d'autres manipulations.
  * @author s.mardine
  */
-public class MajFluxProgressDialog {
+public class DownloadEpisodeProgressDialog {
 	private final String TAG = this.getClass().getName();
 
 	/**
 	 * Créer une boite de dialoque munie d'une barre de progression Lancer un thread qui exécute la mise a jour d'un flux, et memorise les
 	 * informations en base
 	 * @param p_context
-	 * @param p_listeFlux
+	 * @param p_episode
+	 * @param imdTelechargeEpisode
 	 * @param p_listView
 	 */
-	public void synchroMajFluxProgressDialog(Activity p_context, List<MlFlux> p_listeFlux, ListView p_listView) {
+	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ImageButton imdTelechargeEpisode) {
 		try {
-			final HandlerMajFluxProgressDialog progressDialogHandler = new HandlerMajFluxProgressDialog(p_context, EnMethodType.MAJ_FLUX,
-					p_listView, false);
+			final HandlerDownloadEpisodeProgressDialog progressDialogHandler = new HandlerDownloadEpisodeProgressDialog(p_context, false,
+					imdTelechargeEpisode);
 
-			new ThreadExecutionMajFlux(p_context, progressDialogHandler, p_listeFlux).start();
+			new ThreadExecutionDownloadEpisode(p_context, progressDialogHandler, p_episode).start();
 
 		} catch (Exception e) {
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.app_errGrave, e);

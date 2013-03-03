@@ -10,7 +10,8 @@ import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.metier.MajOuCreateFluxBuilder;
+import fr.smardine.podcaster.metier.builder.MajOuCreateFluxBuilder;
+import fr.smardine.podcaster.thread.hanlder.HandlerMajFluxProgressDialog;
 
 public class ThreadExecutionCreateFlux extends Thread {
 
