@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeFlux;
-import fr.smardine.podcaster.thread.MajFluxProgressDialog;
+import fr.smardine.podcaster.metier.progressdialog.MajFluxProgressDialog;
 
 public class ButtonMajFluxClickListener implements OnClickListener {
 

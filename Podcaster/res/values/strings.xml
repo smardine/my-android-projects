@@ -60,5 +60,7 @@
     <string name="error_databaseclose">>> close ERROR:</string>
     <string name="error_databasetruncate">>> truncate ERROR:</string>
     <string name="error_databasetourneesclear">>> effacerLesTournees ERROR:</string>
-    <string name="s_fin_de_la_sauvegarde" >Resultat de la sauvegarde : %s</string> 
+    <string name="s_fin_de_la_sauvegarde" >Resultat de la sauvegarde : %s</string>
+    <string name="progress_download_episode">Téléchargement d\'un épisode</string>
+    <string name="s_telechargement_termine">Téléchargement terminé</string> 
 </resources>

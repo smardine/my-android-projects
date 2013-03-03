@@ -31,7 +31,7 @@ import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
 import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.podcaster.thread.MajFluxProgressDialog;
+import fr.smardine.podcaster.metier.progressdialog.MajFluxProgressDialog;
 
 public class SuperActivity extends FragmentActivity {
 
