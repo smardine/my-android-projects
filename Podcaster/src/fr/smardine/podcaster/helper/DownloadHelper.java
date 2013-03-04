@@ -119,10 +119,13 @@ public class DownloadHelper {
 
 	private static boolean DownloadFileWithProgress(HandlerDownloadEpisodeProgressDialog progressDialogHandler, Context p_context,
 			String p_url, File p_localFile, boolean p_overrideIfExist) {
+		String TAG = "DownloadHelper.DownloadFileWithProgress";
 		int count;
 
 		URL url;
 		try {
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.INIT_DOWNLOAD.getCode(),
+					"Connexion en cours"));
 			url = new URL(p_url);
 			URLConnection conection = url.openConnection();
 			conection.connect();
@@ -151,15 +154,14 @@ public class DownloadHelper {
 			// closing streams
 			output.close();
 			input.close();
+			return true;
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.erreur_de_protocole_au_telechargement_d_un_fichier, e);
+			return false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.erreur_de_protocole_au_telechargement_d_un_fichier, e);
+			return false;
 		}
-
-		return false;
 	}
 
 	private static boolean DownloadFile(Context p_context, String p_url, File p_localFile, boolean p_overrideIfExist) {

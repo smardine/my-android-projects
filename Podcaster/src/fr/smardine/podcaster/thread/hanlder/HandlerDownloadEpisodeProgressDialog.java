@@ -103,6 +103,9 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 				break;
 			case CHANGE_PROGRESSION:// 6
 				this.metAJourProgression(msg.obj);
+				break;
+			case INIT_DOWNLOAD:// 7
+				textView.setText("" + msg.obj);
 			case ENCOURS: // 0:
 				myProgressDialog.setMessage("" + msg.obj);
 				break;
