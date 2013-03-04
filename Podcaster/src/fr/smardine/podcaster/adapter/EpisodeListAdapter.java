@@ -83,6 +83,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 		TextView TvDateEpisode;
 		ImageView VignetteFlux;
 		ImageButton ImdTelechargeEpisode;
+		ImageButton ImdCorbeilleEpisode;
 		TextView TvTexteTelechargement;
 	}
 
@@ -103,9 +104,9 @@ public class EpisodeListAdapter extends BaseAdapter {
 			holder.TvDateEpisode = (TextView) convertView.findViewById(R.id.tvDateEpisode);
 			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
 			// holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
-			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargement);
+			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargementEpisode);
 			holder.TvTexteTelechargement = (TextView) convertView.findViewById(R.id.tvMessageTelechargement);
-
+			holder.ImdCorbeilleEpisode = (ImageButton) convertView.findViewById(R.id.ibCorbeilleEpisode);
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
@@ -144,8 +145,10 @@ public class EpisodeListAdapter extends BaseAdapter {
 
 		if (unEpisode.getStatutTelechargement() == EnStatutTelechargement.Streaming) {
 			holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+			holder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 		} else {
 			holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+			holder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
 		}
 
 		holder.ImdTelechargeEpisode.setOnClickListener(new OnClickListener() {

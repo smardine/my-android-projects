@@ -25,6 +25,7 @@
     <string name="date_au_format_jj_mmm">Date au format jj MMM</string>
     <string name="image_de_la_categorie_audio_ou_video_">Image de la categorie (audio ou video)</string>
     <string name="vignette_telechargement">Image telechargement</string>
+    <string name="vignette_corbeille">Image corbeille</string>
     
     <!-- Gestion des messages d'excection -->
     
