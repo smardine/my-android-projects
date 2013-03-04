@@ -7,6 +7,7 @@ public enum EnThreadExecResult {
 	STOP(3, "en_threadexecresult_stopit"), //
 	SUCCESS_BUTEMPTY(4, "enthreadexecresult_okbutempty"), //
 	CHANGE_TITRE(5, "en_threadexecresult_changetitre"), //
+	CHANGE_PROGRESSION(6, "en_threadexecresult_changeprogression"), //
 	INDEFINI(Integer.MAX_VALUE, ""); //
 
 	private int code;

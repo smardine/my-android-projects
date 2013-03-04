@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.MlEpisode;
@@ -30,12 +31,14 @@ public class DownloadEpisodeProgressDialog {
 	 * @param p_context
 	 * @param p_episode
 	 * @param imdTelechargeEpisode
+	 * @param tvTexteTelechargement
 	 * @param p_listView
 	 */
-	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ImageButton imdTelechargeEpisode) {
+	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ImageButton imdTelechargeEpisode,
+			TextView tvTexteTelechargement) {
 		try {
 			final HandlerDownloadEpisodeProgressDialog progressDialogHandler = new HandlerDownloadEpisodeProgressDialog(p_context, false,
-					imdTelechargeEpisode);
+					imdTelechargeEpisode, tvTexteTelechargement);
 
 			new ThreadExecutionDownloadEpisode(p_context, progressDialogHandler, p_episode).start();
 

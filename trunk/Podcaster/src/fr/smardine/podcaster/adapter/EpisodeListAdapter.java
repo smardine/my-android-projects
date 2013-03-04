@@ -79,10 +79,11 @@ public class EpisodeListAdapter extends BaseAdapter {
 	 * @author smardine
 	 */
 	public static class ViewHolder {
-		TextView TvTitreFlux;
-		TextView TvDateDerniereSynchro;
+		TextView TvTitreEpisode;
+		TextView TvDateEpisode;
 		ImageView VignetteFlux;
 		ImageButton ImdTelechargeEpisode;
+		TextView TvTexteTelechargement;
 	}
 
 	/*
@@ -98,11 +99,13 @@ public class EpisodeListAdapter extends BaseAdapter {
 			// listview
 			convertView = myInflater.inflate(R.layout.episodelistitem, null);
 			holder = new ViewHolder();
-			holder.TvTitreFlux = (TextView) convertView.findViewById(R.id.tvTitreFlux);
-			holder.TvDateDerniereSynchro = (TextView) convertView.findViewById(R.id.tvDateDerniereSynchro);
+			holder.TvTitreEpisode = (TextView) convertView.findViewById(R.id.tvTitreEpisode);
+			holder.TvDateEpisode = (TextView) convertView.findViewById(R.id.tvDateEpisode);
 			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
 			// holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
 			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargement);
+			holder.TvTexteTelechargement = (TextView) convertView.findViewById(R.id.tvMessageTelechargement);
+
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
@@ -114,9 +117,9 @@ public class EpisodeListAdapter extends BaseAdapter {
 
 		final MlEpisode unEpisode = lstEpisodes.get(position);
 		// Application des données au element de la vue
-		holder.TvTitreFlux.setText(unEpisode.getTitre());
+		holder.TvTitreEpisode.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
-		holder.TvDateDerniereSynchro.setText(dateStr);
+		holder.TvDateEpisode.setText(dateStr);
 
 		// affichage des images
 		// where imageUrl is what you pulled out from the rss feed
@@ -150,25 +153,13 @@ public class EpisodeListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				DownloadEpisodeProgressDialog downloadEpisode = new DownloadEpisodeProgressDialog();
-				downloadEpisode.downloadEpisodeProgressDialog((Activity) ctx, unEpisode, holder.ImdTelechargeEpisode);
+				downloadEpisode.downloadEpisodeProgressDialog((Activity) ctx, unEpisode, holder.ImdTelechargeEpisode,
+						holder.TvTexteTelechargement);
 
-				// DownloadEpisodeAsynckTask tache = new DownloadEpisodeAsynckTask(ctx, unEpisode);
-				// tache.execute(new String[] { "A", "B" });
-				// try {
-				// if (tache.get()) {
-				// // le telechargement s'est bien passé, l'update en base est fait, reste a rafraichir l'icone dans la view
-				// holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
-				// }
-				// } catch (InterruptedException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// } catch (ExecutionException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
 			}
 
 		});
+		holder.TvTexteTelechargement.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 		return convertView;
 	}
 }
