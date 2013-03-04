@@ -27,7 +27,9 @@ public enum EnStructEpisode implements IStructureTable {
 
 	VIGNETTE_TELECHARGEE("VIGNETTE_TELECHARGEE", EnTypeChampsSQLite.VARCHAR, null), //
 
-	URL_MEDIA("URL_MEDIA", EnTypeChampsSQLite.VARCHAR, null);
+	URL_MEDIA("URL_MEDIA", EnTypeChampsSQLite.VARCHAR, null),//
+	
+	MEDIA_TELECHARGEE("MEDIA_TELECHARGEE", EnTypeChampsSQLite.VARCHAR, null);;
 
 	private final String nomChamp;
 	private final EnTypeChampsSQLite typeClass;

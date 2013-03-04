@@ -1,12 +1,18 @@
 package fr.smardine.podcaster.helper;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,6 +25,8 @@ import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlFlux;
+import fr.smardine.podcaster.thread.EnThreadExecResult;
+import fr.smardine.podcaster.thread.hanlder.HandlerDownloadEpisodeProgressDialog;
 
 public class DownloadHelper {
 
@@ -84,35 +92,74 @@ public class DownloadHelper {
 		}
 	}
 
-	public static boolean DownloadEpisodeFromUrl(Context p_context, String p_url, MlEpisode p_episode) {
-		String TAG = "DownloadHelper.DownloadEpisodeFromUrl";
+	public static boolean DownloadEpisodeFromUrl(Context p_context, HandlerDownloadEpisodeProgressDialog progressDialogHandler,
+			String p_url, MlEpisode p_episode) {
+
+		String PATH = Environment.getExternalStorageDirectory() + "/Podcaster/Podcast/" + p_episode.getFluxParent().getTitre();
+		Log.v("log_tag", "PATH: " + PATH);
+		File directory = new File(PATH);
+		directory.mkdirs();// creation de l'arborescence de repertoire.
+
+		// String urlFile = url.getFile();
+		String nomDuFichierLocal = p_episode.getFluxParent().getTitre() + " "
+				+ p_episode.getGuid().substring(p_episode.getGuid().lastIndexOf("/") + 1);// on rajout le +1 pour ne pas prendre le dernier
+																							// "/"
+		File fichierLocal = new File(directory, nomDuFichierLocal);
+
+		if (DownloadFileWithProgress(progressDialogHandler, p_context, p_url, fichierLocal, false)) {
+			p_episode.setStatutTelechargement(EnStatutTelechargement.Telecharge);
+			p_episode.setMediaTelecharge(fichierLocal);
+			return true;
+		} else {
+			p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
+			p_episode.setMediaTelecharge(null);
+			return false;
+		}
+	}
+
+	private static boolean DownloadFileWithProgress(HandlerDownloadEpisodeProgressDialog progressDialogHandler, Context p_context,
+			String p_url, File p_localFile, boolean p_overrideIfExist) {
+		int count;
+
 		URL url;
 		try {
 			url = new URL(p_url);
+			URLConnection conection = url.openConnection();
+			conection.connect();
+			// getting file length
+			int lenghtOfFile = conection.getContentLength();
+			// input stream to read file - with 8k buffer
+			InputStream input = new BufferedInputStream(url.openStream(), 8192);
+			// Output stream to write file
+			OutputStream output = new FileOutputStream(p_localFile);
+			byte data[] = new byte[1024];
+			long total = 0;
 
-			String PATH = Environment.getExternalStorageDirectory() + "/Podcaster/Podcast/" + p_episode.getFluxParent().getTitre();
-			Log.v("log_tag", "PATH: " + PATH);
-			File directory = new File(PATH);
-			if (directory.mkdirs()) {
+			while ((count = input.read(data)) != -1) {
+				total += count;
 
+				progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.CHANGE_PROGRESSION.getCode(),
+						(int) ((total * 100) / lenghtOfFile)));
+
+				// writing data to file
+				output.write(data, 0, count);
 			}
 
-			String urlFile = url.getFile();
-			String nomDuFichierLocal = urlFile.substring(urlFile.lastIndexOf("/"));
-			File fichierLocal = new File(directory, nomDuFichierLocal);
+			// flushing output
+			output.flush();
 
-			if (DownloadFile(p_context, p_url, fichierLocal, false)) {
-				p_episode.setStatutTelechargement(EnStatutTelechargement.Telecharge);
-				return true;
-			} else {
-				p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
-				return false;
-			}
+			// closing streams
+			output.close();
+			input.close();
 		} catch (MalformedURLException e) {
-			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.mauvais_format_url, e);
-			p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
-			return false;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		return false;
 	}
 
 	private static boolean DownloadFile(Context p_context, String p_url, File p_localFile, boolean p_overrideIfExist) {
@@ -121,19 +168,22 @@ public class DownloadHelper {
 		// ou bien si le fichier n'existe pas.
 		if ((p_overrideIfExist && p_localFile.exists()) || !p_localFile.exists()) {
 			try {
-				new DefaultHttpClient().execute(new HttpGet(p_url)).getEntity().writeTo(new FileOutputStream(p_localFile));
+				FileOutputStream fs = new FileOutputStream(p_localFile);
+				DefaultHttpClient clientHttp = new DefaultHttpClient();
+				HttpGet getter = new HttpGet(p_url);
+				HttpResponse reponse = clientHttp.execute(getter);
+				HttpEntity entity = reponse.getEntity();
+				entity.writeTo(fs);
+
 			} catch (ClientProtocolException e) {
 				LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.erreur_de_protocole_au_telechargement_d_un_fichier, e);
 				return false;
 			} catch (FileNotFoundException e) {
 				LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.fichier_non_trouve, e);
-
 				return false;
-
 			} catch (IOException e) {
 				LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.IO_exception, e);
 				return false;
-
 			}
 		}
 		return true;

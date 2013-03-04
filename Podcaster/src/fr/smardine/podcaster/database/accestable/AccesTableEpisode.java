@@ -63,101 +63,12 @@ public class AccesTableEpisode {
 			content.put(EnStructEpisode.VIGNETTE_TELECHARGEE.toString(), p_episode.getVignetteTelechargee().getAbsolutePath());
 		}
 		content.put(EnStructEpisode.URL_MEDIA.toString(), p_episode.getUrlMedia());
+		if (p_episode.getMediaTelecharge() != null) {
+			content.put(EnStructEpisode.MEDIA_TELECHARGEE.toString(), p_episode.getMediaTelecharge().getAbsolutePath());
+		}
+
 		return content;
 	}
-
-	// /**
-	// * @param p_note
-	// */
-	// public void majTitreEtMessage(MlNote p_note) {
-	// ContentValues modifiedValues = new ContentValues();
-	// modifiedValues.put("Titre", p_note.getTitre());
-	// modifiedValues.put("Message", p_note.getMessage());
-	// String whereClause = "id_note=?";
-	// String[] whereArgs = { "" + p_note.getIdNote() };
-	// requeteFact.majTable(EnTable.NOTES, modifiedValues, whereClause,
-	// whereArgs);
-	// }
-	//
-	// /**
-	// * @param p_idNote
-	// * @return une liste de tableau de string
-	// */
-	// public ArrayList<String> getDefNoteById(int p_idNote) {
-	// String requete = "Select " + EnStructNotes.MESSAGE.getNomChamp() + " ,"
-	// + EnStructNotes.TITRE.getNomChamp() + //
-	// " From " + EnTable.NOTES.getNomTable() + //
-	// " Where " + EnStructNotes.ID.getNomChamp() + "=" + p_idNote;
-	// return requeteFact.getListeDeChamp(requete).get(0);
-	//
-	// }
-	//
-	// /**
-	// * @return une liste de MlNote
-	// */
-	// public MlListeFlux getListeNote() {
-	// MlListeFlux listeFlux = new MlListeFlux();
-	// String requete = "SELECT " + EnStructFlux.ID_FLUX.getNomChamp()
-	// + " FROM " + EnTable.NOTES.getNomTable() + " ORDER BY "
-	// + EnStructNotes.ID.getNomChamp();
-	//
-	// List<ArrayList<String>> lstId = requeteFact.getListeDeChamp(requete);
-	// for (ArrayList<String> anId : lstId) {
-	// MlNote n = new MlNote(Integer.parseInt(anId.get(0)), ctx);
-	// listeFlux.add(n);
-	// }
-	// return listeFlux;
-	// }
-
-	// /**
-	// * @param p_flux
-	// */
-	// public void createNewNoteDepuisProduit(MlFlux p_flux) {
-	// ContentValues values = new ContentValues();
-	// values.put("Titre",
-	// "[Auto] " + p_flux.getNomProduit() + " " + p_flux.getMarque());
-	// values.put(
-	// "Message",
-	// "Produit acheté le: " + p_flux.getDateAchat() + "\n"
-	// + "Catégorie du produit: "
-	// + p_flux.getCategorie().getSousCategorie() + "\n"
-	// + "Numéro de teinte: " + p_flux.getTeinte() + "\n"
-	// + "Durée de vie du produit: " + p_flux.getDureeVie()
-	// + " mois\n" + "Date de péremption: "
-	// + p_flux.getDatePeremption() + "\n");
-	//
-	// requeteFact.insertDansTable(EnTable.NOTES, values);
-	//
-	// }
-
-	// /**
-	// * @param p_titre
-	// * @param p_message
-	// * @return true ou false
-	// */
-	// public boolean createNewNote(String p_titre, String p_message) {
-	// ContentValues values = new ContentValues();
-	// values.put("Titre", p_titre);
-	// values.put("Message", p_message);
-	// return requeteFact.insertDansTable(EnTable.NOTES, values);
-	// }
-
-	// /**
-	// * @param p_idNote
-	// * @return true ou false
-	// */
-	// public boolean deleteNote(int p_idNote) {
-	// String whereClause = "id_note=?";
-	// String[] WhereArgs = new String[] { "" + p_idNote };
-	//
-	// // objBd.open();
-	// int nbChampEfface = requeteFact.deleteTable(EnTable.NOTES, whereClause,
-	// WhereArgs);
-	// if (nbChampEfface == 1) {
-	// return true;
-	// }
-	// return false;
-	// }
 
 	/**
 	 * 
@@ -205,6 +116,11 @@ public class AccesTableEpisode {
 					}
 				} else if (i == 13) {
 					unEpisode.setUrlMedia((String) unEnregistrement.get(i));
+				} else if (i == 14) {
+					String filePath = (String) unEnregistrement.get(i);
+					if (filePath != null && !("").equals(filePath)) {
+						unEpisode.setMediaTelecharge(new File(filePath));
+					}
 				}
 			}
 

@@ -2,6 +2,7 @@ package fr.smardine.podcaster.metier.builder;
 
 import android.content.Context;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.helper.DownloadHelper;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.thread.EnMethodType;
@@ -14,6 +15,7 @@ public class DownloadEpisodeBuilder {
 	private Context context;
 	private HandlerDownloadEpisodeProgressDialog progressDialogHandler;
 	private final String STOP_SYNCHRO = "<< STOP SYNCHRO >>";
+	private AccesTableEpisode tableEpisode;
 
 	/**
 	 * Objet métier chargé : - du téléchargement - du déchiffrement - de la décompression - de l'analyse - de la mémorisation des données
@@ -27,6 +29,7 @@ public class DownloadEpisodeBuilder {
 	public DownloadEpisodeBuilder(Context p_context, HandlerDownloadEpisodeProgressDialog p_progressDialogHandler, Object p_owner) {
 		context = p_context;
 		progressDialogHandler = p_progressDialogHandler;
+		this.tableEpisode = new AccesTableEpisode(context);
 	}
 
 	private boolean getArreterAnalyseMemorise() {
@@ -40,12 +43,12 @@ public class DownloadEpisodeBuilder {
 			throw new InterruptedException(STOP_SYNCHRO);
 		}
 
-		fautIlPoursuivre = DownloadHelper.DownloadEpisodeFromUrl(context, p_episode.getUrlMedia(), p_episode);
+		fautIlPoursuivre = DownloadHelper.DownloadEpisodeFromUrl(context, progressDialogHandler, p_episode.getUrlMedia(), p_episode);
 
 		if (fautIlPoursuivre) {
 			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.SUCCESS.getCode(),
 					context.getString(R.string.s_telechargement_termine, (Object) null)));
-
+			tableEpisode.majEpisode(p_episode);
 		} else {
 			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.SUCCESS_BUTEMPTY.getCode()));
 		}

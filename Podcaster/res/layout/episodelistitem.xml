@@ -26,17 +26,17 @@
         android:paddingTop="5dp" >
 
         <TextView
-            android:id="@+id/tvTitreFlux"
+            android:id="@+id/tvTitreEpisode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical|left"
             android:inputType="none"
             android:singleLine="true"
-            android:text="@string/titre_du_flux" />
+            android:text="@string/titre_episode" />
 
         <TextView
-            android:id="@+id/tvDateDerniereSynchro"
+            android:id="@+id/tvDateEpisode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
@@ -44,6 +44,12 @@
             android:text="@string/date_au_format_jj_mmm" 
             	>            
         </TextView>
+
+        <TextView
+            android:id="@+id/tvMessageTelechargement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_telechargement_progression" />
 
     </LinearLayout>
 
