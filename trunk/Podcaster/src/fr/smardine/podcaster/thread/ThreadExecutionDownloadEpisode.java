@@ -11,8 +11,6 @@ public class ThreadExecutionDownloadEpisode extends Thread {
 
 	private final String TAG = this.getClass().getSimpleName();
 	private final Context context;
-	// private final EnParserType type;
-	// private final EnMethodType method;
 	private final HandlerDownloadEpisodeProgressDialog progressDialogHandler;
 
 	private MlEpisode episode;
