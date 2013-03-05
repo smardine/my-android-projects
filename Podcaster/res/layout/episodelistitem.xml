@@ -53,16 +53,18 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0.01"
-        android:orientation="vertical" >
+        android:fitsSystemWindows="true" >
 
         <ImageButton
             android:id="@+id/ibCorbeilleEpisode"
-           android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:adjustViewBounds="false"
             android:background="@color/app_color"
             android:contentDescription="@string/vignette_corbeille"
@@ -72,11 +74,13 @@
             android:id="@+id/ibTelechargementEpisode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:adjustViewBounds="false"
             android:background="@color/app_color"
             android:contentDescription="@string/vignette_telechargement"
             android:src="@drawable/telechargement" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

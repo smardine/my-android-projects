@@ -35,10 +35,10 @@ public class DownloadEpisodeProgressDialog {
 	 * @param p_listView
 	 */
 	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ImageButton imdTelechargeEpisode,
-			TextView tvTexteTelechargement) {
+			ImageButton imdCorbeilleEpisode, TextView tvTexteTelechargement) {
 		try {
 			final HandlerDownloadEpisodeProgressDialog progressDialogHandler = new HandlerDownloadEpisodeProgressDialog(p_context, false,
-					imdTelechargeEpisode, tvTexteTelechargement);
+					imdTelechargeEpisode, imdCorbeilleEpisode, tvTexteTelechargement);
 
 			new ThreadExecutionDownloadEpisode(p_context, progressDialogHandler, p_episode).start();
 

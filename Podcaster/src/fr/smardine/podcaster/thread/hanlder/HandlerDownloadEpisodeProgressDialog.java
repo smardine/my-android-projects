@@ -26,8 +26,9 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 	private final Context context;
 	private ProgressDialog myProgressDialog;
 
-	private final ImageButton imageButton;
-	private final TextView textView;
+	private final ImageButton imageButtonTelechargement;
+	private final ImageButton imageButtonCorbeille;
+	private final TextView textViewMessageProgression;
 
 	private static Boolean arreterAnalyseMemorise = false;
 
@@ -40,10 +41,11 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 	}
 
 	public HandlerDownloadEpisodeProgressDialog(Context p_context, boolean p_arreterAnalyseMemoire, ImageButton imdTelechargeEpisode,
-			TextView tvTexteTelechargement) {
+			ImageButton imdCorbeille, TextView tvTexteTelechargement) {
 		this.context = p_context;
-		this.imageButton = imdTelechargeEpisode;
-		this.textView = tvTexteTelechargement;
+		this.imageButtonTelechargement = imdTelechargeEpisode;
+		this.imageButtonCorbeille = imdCorbeille;
+		this.textViewMessageProgression = tvTexteTelechargement;
 
 		setArreterAnalyseMemorise(p_arreterAnalyseMemoire);
 		initProgressDialog(p_context);
@@ -105,12 +107,14 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 				this.metAJourProgression(msg.obj);
 				break;
 			case INIT_DOWNLOAD:// 7
-				textView.setText("" + msg.obj);
+				textViewMessageProgression.setText("" + msg.obj);
+				textViewMessageProgression.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+				break;
 			case ENCOURS: // 0:
 				myProgressDialog.setMessage("" + msg.obj);
 				break;
 			case SUCCESS: // 1:
-				metAJourVisibilite();
+				metAJourVisibilite(true);
 			case STOP: // 3:
 				if (!arreterAnalyseMemorise) { // 1
 					info = context.getString(R.string.s_analyseMemoriseTermine, (Object) null);
@@ -124,12 +128,14 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 				info = context.getString(R.string.s_analyseTermineVide, (Object) null);
 				Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
 				myProgressDialog.dismiss(); // 4
+				metAJourVisibilite(false);
 				break;
 			case ERROR: // 2:
 				// sortie dismiss+indic erreur
 				info = context.getString(R.string.s_analyseMemoriseError, (Object) null);
 				Toast.makeText(context, info, Toast.LENGTH_LONG).show();
 				myProgressDialog.dismiss();
+				metAJourVisibilite(false);
 				break;
 		}
 	}
@@ -139,17 +145,24 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 		try {
 			value = (Integer) obj;
 			myProgressDialog.setProgress(value);
-			textView.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-			textView.setText(context.getString(R.string.s_telechargement_progression, (Object) null) + value + " %");
+			textViewMessageProgression.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+			textViewMessageProgression.setText(context.getString(R.string.s_telechargement_progression, (Object) null) + " " + value + " %");
 		} catch (Exception e) {
 			LogCatBuilder.WriteErrorToLog(context, TAG, R.string.app_errGrave, e);
 		}
 
 	}
 
-	private void metAJourVisibilite() {
-		this.imageButton.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
-		textView.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+	private void metAJourVisibilite(boolean isSucces) {
+		if (isSucces) {
+			this.imageButtonTelechargement.setVisibility(EnStatutVisibilite.INVISIBLE.getCode());
+			this.imageButtonCorbeille.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+		} else {
+			this.imageButtonTelechargement.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+			this.imageButtonCorbeille.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+		}
+
+		textViewMessageProgression.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 	}
 
 }

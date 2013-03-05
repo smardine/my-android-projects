@@ -94,27 +94,38 @@ public class DownloadHelper {
 
 	public static boolean DownloadEpisodeFromUrl(Context p_context, HandlerDownloadEpisodeProgressDialog progressDialogHandler,
 			String p_url, MlEpisode p_episode) {
-
+		String TAG = "DownloadEpisodeFromUrl";
 		String PATH = Environment.getExternalStorageDirectory() + "/Podcaster/Podcast/" + p_episode.getFluxParent().getTitre();
 		Log.v("log_tag", "PATH: " + PATH);
 		File directory = new File(PATH);
 		directory.mkdirs();// creation de l'arborescence de repertoire.
+		URL url;
+		try {
+			url = new URL(p_url);
 
-		// String urlFile = url.getFile();
-		String nomDuFichierLocal = p_episode.getFluxParent().getTitre() + " "
-				+ p_episode.getGuid().substring(p_episode.getGuid().lastIndexOf("/") + 1);// on rajout le +1 pour ne pas prendre le dernier
-																							// "/"
-		File fichierLocal = new File(directory, nomDuFichierLocal);
+			String urlFile = url.getFile();
+			String extension = urlFile.substring(urlFile.lastIndexOf('.'));
+			String nomDuFichierLocal = p_episode.getFluxParent().getTitre() + " "
+					+ p_episode.getGuid().substring(p_episode.getGuid().lastIndexOf("/") + 1, p_episode.getGuid().lastIndexOf("."))
+					+ extension;// on rajout le +1 pour ne pas
+			// prendre le
+			// dernier
+			// "/"
+			File fichierLocal = new File(directory, nomDuFichierLocal);
 
-		if (DownloadFileWithProgress(progressDialogHandler, p_context, p_url, fichierLocal, false)) {
-			p_episode.setStatutTelechargement(EnStatutTelechargement.Telecharge);
-			p_episode.setMediaTelecharge(fichierLocal);
-			return true;
-		} else {
-			p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
-			p_episode.setMediaTelecharge(null);
-			return false;
+			if (DownloadFileWithProgress(progressDialogHandler, p_context, p_url, fichierLocal, false)) {
+				p_episode.setStatutTelechargement(EnStatutTelechargement.Telecharge);
+				p_episode.setMediaTelecharge(fichierLocal);
+				return true;
+			} else {
+				p_episode.setStatutTelechargement(EnStatutTelechargement.Streaming);
+				p_episode.setMediaTelecharge(null);
+				return false;
+			}
+		} catch (MalformedURLException e) {
+			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.app_errGrave, e);
 		}
+		return false;
 	}
 
 	private static boolean DownloadFileWithProgress(HandlerDownloadEpisodeProgressDialog progressDialogHandler, Context p_context,
