@@ -136,10 +136,9 @@ public class SuperActivity extends FragmentActivity {
 					boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), viewFluxListItem, listView));
 
 					final AccesTableFlux tableFlux = new AccesTableFlux(context);
-					// final MlListeFlux listeFluxEnBase = tableFlux.getListeDesFlux();
 
 					FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
-					// ListeFluxSectionFragment.listeFlux = listeFluxEnBase;
+
 					// paramèter l'adapter sur la listview
 					listView.setAdapter(adpt);
 
@@ -172,7 +171,7 @@ public class SuperActivity extends FragmentActivity {
 					listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 						@Override
-						public boolean onItemLongClick(AdapterView<?> p_adapterView, View p_view, int p_position, long arg3) {
+						public boolean onItemLongClick(final AdapterView<?> p_adapterView, View p_view, final int p_position, long arg3) {
 							final MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
 							fluxSelectionne = leFluxClique;
 							PopupMenu popup = new PopupMenu(context, p_view);
@@ -186,6 +185,10 @@ public class SuperActivity extends FragmentActivity {
 										case R.id.menu_suppr_flux:
 											AccesTableFlux tableFlux = new AccesTableFlux(context);
 											tableFlux.deleteFluxEtEpisode(fluxSelectionne);
+											FluxListAdapter adpt = (FluxListAdapter) p_adapterView.getAdapter();
+											adpt.lstFlux.remove(leFluxClique);
+											adpt.notifyDataSetChanged();
+
 											return true;
 										case R.id.menu_maj_flux:
 											MajFluxProgressDialog majFlux = new MajFluxProgressDialog();

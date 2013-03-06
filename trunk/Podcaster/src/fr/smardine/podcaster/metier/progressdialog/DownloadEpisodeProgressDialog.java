@@ -4,10 +4,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import fr.smardine.podcaster.R;
+import fr.smardine.podcaster.adapter.EpisodeListAdapter.ViewHolderEpisode;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.thread.EnMethodType;
@@ -34,11 +33,10 @@ public class DownloadEpisodeProgressDialog {
 	 * @param tvTexteTelechargement
 	 * @param p_listView
 	 */
-	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ImageButton imdTelechargeEpisode,
-			ImageButton imdCorbeilleEpisode, TextView tvTexteTelechargement) {
+	public void downloadEpisodeProgressDialog(Activity p_context, MlEpisode p_episode, ViewHolderEpisode p_holder) {
 		try {
 			final HandlerDownloadEpisodeProgressDialog progressDialogHandler = new HandlerDownloadEpisodeProgressDialog(p_context, false,
-					imdTelechargeEpisode, imdCorbeilleEpisode, tvTexteTelechargement);
+					p_holder.ImdTelechargeEpisode, p_holder.ImdCorbeilleEpisode, p_holder.TvTexteTelechargement);
 
 			new ThreadExecutionDownloadEpisode(p_context, progressDialogHandler, p_episode).start();
 

@@ -21,7 +21,7 @@ import fr.smardine.tools.date.DateHelper;
  */
 public class FluxListAdapter extends BaseAdapter {
 
-	private final MlListeFlux lstFlux;
+	public final MlListeFlux lstFlux;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;

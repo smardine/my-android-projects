@@ -72,6 +72,75 @@ public class RssParserMetier {
 		}
 	}
 
+	/**
+	 * Parcourir la liste des "noeuds" xml a la recherche des balises "Item" Lorsuq'une balise est trouvée, on contruit un MlEpisode a
+	 * partir de cet "Item" Si l'episode est considéré comme "Nouveau" (n'existe pas en base), on le rajoute a la liste des episodes du flux
+	 * parent
+	 * @param p_fluxParent
+	 * @param p_doc
+	 * @param progressDialogHandler
+	 */
+	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc, Handler progressDialogHandler) {
+		// on recupere les tag nommé "item"
+		NodeList nodes = p_doc.getElementsByTagName(EnBaliseRSS.Item.toString());
+
+		for (int i = 0; i < nodes.getLength(); i++) {
+			// p_progressDialog.setProgress(i + 1);
+
+			Element element = (Element) nodes.item(i);
+			MlEpisode unEpisode = new MlEpisode(p_fluxParent);
+			// comme on est deja sous "item", on peut ne passer que le tag
+			// "Title"
+			// on recupere le titre de l'episode
+			unEpisode.setTitre(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Title }));
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
+					unEpisode.getTitre()));
+			// publishProgress(unEpisode.getTitre());
+			// p_progressDialog.setMessage(unEpisode.getTitre());
+			// on recupere la descritpion
+			unEpisode.setDescription(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Description }));
+			// on recupere l'url du fichier xml qui contient la définition
+			// du flux rss
+			unEpisode.setUrlEpisode(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Link }));
+
+			// on recupere la durée de l'element si audio ou video
+			unEpisode.setDuree(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
+			// on recupere la date de publication
+			unEpisode.setDatePublication(GMTDateToFrench(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
+
+			// on recupere l'url du fichier media (mp3, mp4...)
+			unEpisode.setGuid(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Guid }));
+
+			// on recupere le type d'episode
+			String typeEpisode = readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
+			unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName(typeEpisode));
+
+			unEpisode.setUrlMedia(readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Url.toString()));
+
+			// String urlImage = this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url });
+
+			// if (urlImage != null) {
+			// unEpisode.setVignetteUrl(urlImage);
+			// DownloadHelper.DownloadImageEpisodeFromUrl(context, unEpisode.getVignetteUrl(), unFlux, unEpisode);
+			// } else
+			if (p_fluxParent.isVignetteTelechargee()) {
+				unEpisode.setVignetteTelechargee(p_fluxParent.getVignetteTelechargee());
+			} else {
+				unEpisode.setVignetteTelechargee(null);
+			}
+
+			// on determine le statu de lecture
+			// si l'episode n'est pas connu de la base, le statut est forcement "non lu"
+			unEpisode.positionneStatutLecture();
+			// on determine le statut de telechargement
+			unEpisode.positionneStatutTelechargement();
+			if (unEpisode.isNouveau()) {
+				unEpisode.setStatutNouveau(true);
+				p_fluxParent.getListeEpisode().add(unEpisode);
+			}
+		}
+	}
+
 	/*
 	 * Afficher une Date GML au format francais
 	 * @param gmtDate
@@ -165,72 +234,4 @@ public class RssParserMetier {
 		return "";
 	}
 
-	/**
-	 * Parcourir la liste des "noeuds" xml a la recherche des balises "Item" Lorsuq'une balise est trouvée, on contruit un MlEpisode a
-	 * partir de cet "Item" Si l'episode est considéré comme "Nouveau" (n'existe pas en base), on le rajoute a la liste des episodes du flux
-	 * parent
-	 * @param p_fluxParent
-	 * @param p_doc
-	 * @param progressDialogHandler
-	 */
-	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc, Handler progressDialogHandler) {
-		// on recupere les tag nommé "item"
-		NodeList nodes = p_doc.getElementsByTagName(EnBaliseRSS.Item.toString());
-
-		for (int i = 0; i < nodes.getLength(); i++) {
-			// p_progressDialog.setProgress(i + 1);
-
-			Element element = (Element) nodes.item(i);
-			MlEpisode unEpisode = new MlEpisode(p_fluxParent);
-			// comme on est deja sous "item", on peut ne passer que le tag
-			// "Title"
-			// on recupere le titre de l'episode
-			unEpisode.setTitre(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Title }));
-			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
-					unEpisode.getTitre()));
-			// publishProgress(unEpisode.getTitre());
-			// p_progressDialog.setMessage(unEpisode.getTitre());
-			// on recupere la descritpion
-			unEpisode.setDescription(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Description }));
-			// on recupere l'url du fichier xml qui contient la définition
-			// du flux rss
-			unEpisode.setUrlEpisode(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Link }));
-
-			// on recupere la durée de l'element si audio ou video
-			unEpisode.setDuree(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
-			// on recupere la date de publication
-			unEpisode.setDatePublication(GMTDateToFrench(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
-
-			// on recupere l'url du fichier media (mp3, mp4...)
-			unEpisode.setGuid(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Guid }));
-
-			// on recupere le type d'episode
-			String typeEpisode = readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Type.toString());
-			unEpisode.setTypeEpisode(EnTypeEpisode.GetTypeEpisodeByName(typeEpisode));
-
-			unEpisode.setUrlMedia(readNodeValue(element, EnBaliseRSS.Enclosure, EnBaliseRSS.Url.toString()));
-
-			// String urlImage = this.readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Channel, EnBaliseRSS.Image, EnBaliseRSS.Url });
-
-			// if (urlImage != null) {
-			// unEpisode.setVignetteUrl(urlImage);
-			// DownloadHelper.DownloadImageEpisodeFromUrl(context, unEpisode.getVignetteUrl(), unFlux, unEpisode);
-			// } else
-			if (p_fluxParent.isVignetteTelechargee()) {
-				unEpisode.setVignetteTelechargee(p_fluxParent.getVignetteTelechargee());
-			} else {
-				unEpisode.setVignetteTelechargee(null);
-			}
-
-			// on determine le statu de lecture
-			// si l'episode n'est pas connu de la base, le statut est forcement "non lu"
-			unEpisode.positionneStatutLecture();
-			// on determine le statut de telechargement
-			unEpisode.positionneStatutTelechargement();
-			if (unEpisode.isNouveau()) {
-				unEpisode.setStatutNouveau(true);
-				p_fluxParent.getListeEpisode().add(unEpisode);
-			}
-		}
-	}
 }
