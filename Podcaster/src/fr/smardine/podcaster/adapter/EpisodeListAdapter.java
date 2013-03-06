@@ -2,30 +2,25 @@ package fr.smardine.podcaster.adapter;
 
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.podcaster.R;
-import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.helper.BitmapCache;
 import fr.smardine.podcaster.helper.ImageHelper;
+import fr.smardine.podcaster.listener.ButtonSupprMediaEpisodeClickListener;
+import fr.smardine.podcaster.listener.ButtonTelechargeEpisodeListener;
 import fr.smardine.podcaster.mdl.EnStatutTelechargement;
 import fr.smardine.podcaster.mdl.EnTypeEpisode;
 import fr.smardine.podcaster.mdl.MlEpisode;
 import fr.smardine.podcaster.mdl.MlListeEpisode;
-import fr.smardine.podcaster.metier.progressdialog.DownloadEpisodeProgressDialog;
 import fr.smardine.tools.date.DateHelper;
 
 /**
@@ -83,13 +78,13 @@ public class EpisodeListAdapter extends BaseAdapter {
 	/**
 	 * @author smardine
 	 */
-	public static class ViewHolder {
-		TextView TvTitreEpisode;
-		TextView TvDateEpisode;
-		ImageView VignetteFlux;
-		ImageButton ImdTelechargeEpisode;
-		ImageButton ImdCorbeilleEpisode;
-		TextView TvTexteTelechargement;
+	public static class ViewHolderEpisode {
+		public TextView TvTitreEpisode;
+		public TextView TvDateEpisode;
+		public ImageView VignetteFlux;
+		public ImageButton ImdTelechargeEpisode;
+		public ImageButton ImdCorbeilleEpisode;
+		public TextView TvTexteTelechargement;
 	}
 
 	/*
@@ -98,13 +93,13 @@ public class EpisodeListAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final ViewHolder holder;
+		final ViewHolderEpisode holder;
 		// convertView peut déjà être initialisé sinon alors l'initialiser
 		if (convertView == null) {
 			// affecter un linearlayout propre à la ligne à afficher dans le
 			// listview
 			convertView = myInflater.inflate(R.layout.episodelistitem, null);
-			holder = new ViewHolder();
+			holder = new ViewHolderEpisode();
 			holder.TvTitreEpisode = (TextView) convertView.findViewById(R.id.tvTitreEpisode);
 			holder.TvDateEpisode = (TextView) convertView.findViewById(R.id.tvDateEpisode);
 			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
@@ -118,7 +113,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 		} else {
 			// puisque déjà valorisé une fois alors récupérer le holder à partir
 			// du tag posé à la création
-			holder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolderEpisode) convertView.getTag();
 		}
 
 		final MlEpisode unEpisode = lstEpisodes.get(position);
@@ -159,61 +154,10 @@ public class EpisodeListAdapter extends BaseAdapter {
 				holder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
 			}
 
-			holder.ImdTelechargeEpisode.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					DownloadEpisodeProgressDialog downloadEpisode = new DownloadEpisodeProgressDialog();
-					downloadEpisode.downloadEpisodeProgressDialog((Activity) ctx, unEpisode, holder.ImdTelechargeEpisode,
-							holder.ImdCorbeilleEpisode, holder.TvTexteTelechargement);
-				}
-
-			});
-
-			holder.ImdCorbeilleEpisode.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Builder ad = new AlertDialog.Builder(ctx);
-
-					ad.setTitle("Suppression d'un flux");
-					ad.setIcon(R.drawable.ad_attention);
-					ad.setMessage("Etes vous sur de vouloir supprimer le fichier " + unEpisode.getMediaTelecharge().getAbsoluteFile());
-
-					android.content.DialogInterface.OnClickListener onClickListener1 = new android.content.DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							if (!unEpisode.getMediaTelecharge().delete()) {
-								unEpisode.getMediaTelecharge().deleteOnExit();
-							}
-
-							if (unEpisode.getMediaTelecharge().exists()) {
-								// le fichier est tjrs là
-								// laisse affiché l'icone de la poubelle
-								holder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-								holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-							} else {
-								// le fichier à bien ete effacé
-								// on reaffiche l'icone de telechargement et on cache celui de la corbeille
-								holder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-								holder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-								// de plus on met a jour le statut de de l'episode
-								unEpisode.setStatutTelechargement(EnStatutTelechargement.Streaming);
-								unEpisode.setMediaTelecharge(null);
-								new AccesTableEpisode(ctx).majEpisode(unEpisode);
-							}
-
-						}
-					};
-					ad.setPositiveButton("Ok", (android.content.DialogInterface.OnClickListener) onClickListener1);
-
-					ad.setNegativeButton("Annuler", null);
-					// ad.setView(this.view);
-					ad.show();
-
-				}
-			});
+			ButtonTelechargeEpisodeListener downloadFileListener = new ButtonTelechargeEpisodeListener(ctx, unEpisode, holder);
+			holder.ImdTelechargeEpisode.setOnClickListener(downloadFileListener);
+			ButtonSupprMediaEpisodeClickListener supprMediaListener = new ButtonSupprMediaEpisodeClickListener(ctx, unEpisode, holder);
+			holder.ImdCorbeilleEpisode.setOnClickListener(supprMediaListener);
 		}
 
 		holder.TvTexteTelechargement.setVisibility(EnStatutVisibilite.RETIRE.getCode());

@@ -106,11 +106,13 @@ public class DownloadHelper {
 			String urlFile = url.getFile();
 			String extension = urlFile.substring(urlFile.lastIndexOf('.'));
 			String nomDuFichierLocal = p_episode.getFluxParent().getTitre() + " "
-					+ p_episode.getGuid().substring(p_episode.getGuid().lastIndexOf("/") + 1, p_episode.getGuid().lastIndexOf("."))
-					+ extension;// on rajout le +1 pour ne pas
-			// prendre le
-			// dernier
-			// "/"
+					+ p_episode.getGuid().substring(p_episode.getGuid().lastIndexOf("/") + 1);
+			// on rajout le +1 pour ne pas prendre le dernier "/"
+			if (nomDuFichierLocal.indexOf(extension) == -1) {
+				// si le nom de fichier ne contient pas deja l'extension, on la rajoute.
+				nomDuFichierLocal = nomDuFichierLocal + extension;
+			}
+
 			File fichierLocal = new File(directory, nomDuFichierLocal);
 
 			if (DownloadFileWithProgress(progressDialogHandler, p_context, p_url, fichierLocal, false)) {
@@ -123,6 +125,8 @@ public class DownloadHelper {
 				return false;
 			}
 		} catch (MalformedURLException e) {
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ERROR.getCode(),
+					p_context.getString(R.string.app_errGrave)));
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.app_errGrave, e);
 		}
 		return false;
@@ -167,9 +171,13 @@ public class DownloadHelper {
 			input.close();
 			return true;
 		} catch (MalformedURLException e) {
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ERROR.getCode(),
+					p_context.getString(R.string.erreur_de_protocole_au_telechargement_d_un_fichier)));
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.erreur_de_protocole_au_telechargement_d_un_fichier, e);
 			return false;
 		} catch (IOException e) {
+			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ERROR.getCode(),
+					p_context.getString(R.string.erreur_de_protocole_au_telechargement_d_un_fichier)));
 			LogCatBuilder.WriteErrorToLog(p_context, TAG, R.string.erreur_de_protocole_au_telechargement_d_un_fichier, e);
 			return false;
 		}
