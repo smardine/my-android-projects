@@ -25,7 +25,6 @@ import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.EpisodeListAdapter;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
-import fr.smardine.podcaster.database.accestable.AccesTableEpisode;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.listener.ButtonAjoutFluxClickListener;
 import fr.smardine.podcaster.listener.ButtonMajFluxClickListener;
@@ -114,6 +113,7 @@ public class SuperActivity extends FragmentActivity {
 		public static MlFlux fluxSelectionne;
 		public static ActionBar actionBar;
 		public static Context context;
+		private static EpisodeListAdapter adptEpisode;
 
 		public ListeFluxSectionFragment() {
 		}
@@ -215,15 +215,20 @@ public class SuperActivity extends FragmentActivity {
 					View viewEpisodeListeItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(
 							R.layout.episodelistitem, null);
 
-					MlListeEpisode listeEpisode = null;
+					MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 					MlFlux fluxSelectionne = (MlFlux) getArguments().getSerializable(SELECTED_FLUX_ITEM);
+					if (adptEpisode == null) {
+						adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
+					}
 
 					if (fluxSelectionne == null) {
-						listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
+						adptEpisode.getFilter().filter(" ");
+						// listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 					} else {
-						listeEpisode = new AccesTableEpisode(context).getListeDesEpisodeParIdFlux(fluxSelectionne);
+						adptEpisode.getFilter().filter(fluxSelectionne.getTitre());
+						// listeEpisode = new AccesTableEpisode(context).getListeDesEpisodeParIdFlux(fluxSelectionne);
 					}
-					EpisodeListAdapter adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
+
 					// paramèter l'adapter sur la listview
 					listViewEpisode.setAdapter(adptEpisode);
 

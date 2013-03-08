@@ -2,6 +2,7 @@ package fr.smardine.podcaster.adapter;
 
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,13 +29,17 @@ import fr.smardine.tools.date.DateHelper;
 /**
  * @author smardine
  */
-public class EpisodeListAdapter extends BaseAdapter {
+@SuppressLint("DefaultLocale")
+public class EpisodeListAdapter extends BaseAdapter implements Filterable {
 
-	private final MlListeEpisode lstEpisodes;
+	private MlListeEpisode lstEpisodes;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;
 	private Context ctx;
+	private Filter mfilter;
+	private MlListeEpisode mOriginalValues;
+	private Object lock;
 
 	/**
 	 * @param p_ctx
@@ -43,7 +50,7 @@ public class EpisodeListAdapter extends BaseAdapter {
 		this.ctx = p_ctx;
 		this.myInflater = LayoutInflater.from(p_ctx);
 		this.lstEpisodes = p_lstEpisodes;
-
+		this.mOriginalValues = p_lstEpisodes;
 		// Initialisation du cache pour les images
 		// Get memory class of this device, exceeding this amount will throw an
 		// OutOfMemory exception.
@@ -94,6 +101,8 @@ public class EpisodeListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolderEpisode holder;
+		final MlEpisode unEpisode = lstEpisodes.get(position);
+
 		// convertView peut déjà être initialisé sinon alors l'initialiser
 		if (convertView == null) {
 			// affecter un linearlayout propre à la ligne à afficher dans le
@@ -110,13 +119,17 @@ public class EpisodeListAdapter extends BaseAdapter {
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
+			bindView(holder, unEpisode);
 		} else {
 			// puisque déjà valorisé une fois alors récupérer le holder à partir
 			// du tag posé à la création
 			holder = (ViewHolderEpisode) convertView.getTag();
 		}
 
-		final MlEpisode unEpisode = lstEpisodes.get(position);
+		return convertView;
+	}
+
+	private void bindView(ViewHolderEpisode holder, MlEpisode unEpisode) {
 		// Application des données au element de la vue
 		holder.TvTitreEpisode.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
@@ -161,6 +174,84 @@ public class EpisodeListAdapter extends BaseAdapter {
 		}
 
 		holder.TvTexteTelechargement.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-		return convertView;
+
+	}
+
+	@Override
+	public Filter getFilter() {
+		if (mfilter == null) {
+			mfilter = new EpisodeFilter();
+		}
+		return mfilter;
+	}
+
+	private class EpisodeFilter extends Filter {
+
+		@Override
+		protected FilterResults performFiltering(CharSequence prefix) {
+			FilterResults results = new FilterResults();
+
+			if (mOriginalValues == null) {
+				synchronized (lock) {
+					mOriginalValues = lstEpisodes;
+				}
+			}
+
+			if (prefix == null || prefix.length() == 0) {
+				synchronized (lock) {
+					MlListeEpisode list = new MlListeEpisode();
+					results.values = list;
+					results.count = list.size();
+				}
+			} else {
+				final String prefixString = prefix.toString();
+
+				MlListeEpisode values = mOriginalValues;
+				int count = values.size();
+
+				if (" ".equals(prefixString)) {
+					results.values = mOriginalValues;
+					results.count = mOriginalValues.size();
+				} else {
+					MlListeEpisode newValues = new MlListeEpisode();
+
+					for (int i = 0; i < count; i++) {
+						MlEpisode item = values.get(i);
+
+						if (item.getFluxParent().getTitre().startsWith(prefixString)) {
+							newValues.add(item);
+						}
+						// String[] words = item.getFluxParent().getTitre().split(" ");
+						// int wordCount = words.length;
+						//
+						// for (int k = 0; k < wordCount; k++) {
+						// final String word = words[k];
+						//
+						// if (word.startsWith(prefixString)) {
+						// newValues.add(item);
+						// break;
+						// }
+						// }
+					}
+
+					results.values = newValues;
+					results.count = newValues.size();
+				}
+
+			}
+
+			return results;
+		}
+
+		@Override
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+
+			lstEpisodes = (MlListeEpisode) results.values;
+			if (results.count > 0) {
+				notifyDataSetChanged();
+			} else {
+				notifyDataSetInvalidated();
+			}
+		}
 	}
 }
