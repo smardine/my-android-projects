@@ -1,8 +1,8 @@
 package fr.smardine.podcaster.adapter;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,9 +29,13 @@ import fr.smardine.tools.date.DateHelper;
 /**
  * @author smardine
  */
-@SuppressLint("DefaultLocale")
-public class EpisodeListAdapter extends BaseAdapter implements Filterable {
 
+public class EpisodeListAdapter extends BaseAdapter implements Filterable, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1059285392877713970L;
 	private MlListeEpisode lstEpisodes;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
@@ -85,7 +89,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable {
 	/**
 	 * @author smardine
 	 */
-	public static class ViewHolderEpisode {
+	public final class ViewHolderEpisode {
 		public TextView TvTitreEpisode;
 		public TextView TvDateEpisode;
 		public ImageView VignetteFlux;
@@ -102,12 +106,15 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolderEpisode holder;
 		final MlEpisode unEpisode = lstEpisodes.get(position);
+		// EpisodeListCacheView viewCache;
 
 		// convertView peut déjà être initialisé sinon alors l'initialiser
 		if (convertView == null) {
 			// affecter un linearlayout propre à la ligne à afficher dans le
 			// listview
 			convertView = myInflater.inflate(R.layout.episodelistitem, null);
+			// viewCache = new EpisodeListCacheView(convertView);
+
 			holder = new ViewHolderEpisode();
 			holder.TvTitreEpisode = (TextView) convertView.findViewById(R.id.tvTitreEpisode);
 			holder.TvDateEpisode = (TextView) convertView.findViewById(R.id.tvDateEpisode);
@@ -119,13 +126,14 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable {
 			// tagger le convertView avec ce Holder créé pour que l'association
 			// se fasse
 			convertView.setTag(holder);
-			bindView(holder, unEpisode);
+
 		} else {
 			// puisque déjà valorisé une fois alors récupérer le holder à partir
 			// du tag posé à la création
 			holder = (ViewHolderEpisode) convertView.getTag();
 		}
 
+		bindView(holder, unEpisode);
 		return convertView;
 	}
 
