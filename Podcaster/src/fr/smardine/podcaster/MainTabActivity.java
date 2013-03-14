@@ -50,6 +50,10 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab1).setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab2).setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_tab3).setTabListener(this));
+		actionBar.setTitle("");
+		actionBar.setIcon(null);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
 
 		fragmentFlux.actionBar = actionBar;
 		fragmentEpisode.actionBar = actionBar;
@@ -106,13 +110,6 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 				transaction.hide(fragmentEpisode);
 				transaction.show(fragmentFlux);
 			} else {
-				// Bundle args = new Bundle();
-				// args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-				// fragmentFlux.fluxSelectionne = null;
-				// fragmentFlux.setArguments(args);
-				// transaction.addToBackStack(tab.getPosition() + "stack_item");
-				// transaction.add(fragmentFlux, "FRAGMENT_FLUX");
-				// transaction.show(fragmentFlux);
 				transaction.replace(R.id.container, fragmentFlux);
 			}
 			transaction.commitAllowingStateLoss();
@@ -121,20 +118,12 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 			fragmentEpisode.context = this.getApplicationContext();
 
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
 			if (fragmentEpisode.isAdded()) {
 				transaction.hide(fragmentFlux);
 				transaction.show(fragmentEpisode);
 			} else {
-				// Bundle args = new Bundle();
-				// args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-				// args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM, fragmentFlux.fluxSelectionne);
-				// fragmentEpisode.setArguments(args);
-				// transaction.addToBackStack(tab.getPosition() + "stack_item");
-				// transaction.add(fragmentEpisode, "FRAGMENT_EPISODE");
-				// transaction.remove(fragmentFlux);
-				// transaction.show(fragmentEpisode);
 				transaction.replace(R.id.container, fragmentEpisode);
 			}
 			transaction.commitAllowingStateLoss();
@@ -163,11 +152,13 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 		// Toast.makeText(ctx, "onTabUnselected", Toast.LENGTH_LONG).show();
 		// android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		//
-		// if (tab.getPosition() == 1) {// on est sur la tab "Episode"
-		// transaction.remove(fragmentEpisode);
-		// } else if (tab.getPosition() == 0) {// on est sur la tab "Flux"
-		// transaction.remove(fragmentFlux);
-		// }
+		if (tab.getPosition() == 1) {// on est sur la tab "Episode"
+			ListeFluxSectionFragment.fluxSelectionne = null;
+			tab.setText(R.string.title_tab2);
+			// transaction.remove(fragmentEpisode);
+		} else if (tab.getPosition() == 0) {// on est sur la tab "Flux"
+			// transaction.remove(fragmentFlux);
+		}
 		// transaction.commitAllowingStateLoss();
 	}
 

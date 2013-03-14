@@ -44,9 +44,11 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 			if (fluxSelectionne == null) {
 				MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 				adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
+				actionBar.getTabAt(1).setText("Tous les épisodes");
 				// adptEpisode.getFilter().filter(" ");
 			} else {
 				adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());
+				actionBar.getTabAt(1).setText(fluxSelectionne.getTitre());
 			}
 
 			// if (fluxSelectionne == null) {
