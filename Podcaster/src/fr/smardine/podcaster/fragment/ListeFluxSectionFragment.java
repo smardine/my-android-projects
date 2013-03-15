@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.Toast;
 import fr.smardine.podcaster.R;
 import fr.smardine.podcaster.adapter.FluxListAdapter;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
@@ -40,6 +41,9 @@ public class ListeFluxSectionFragment extends Fragment {
 	public static MlFlux fluxSelectionne;
 	public ActionBar actionBar;
 	public Context context;
+	private ListView listView;
+	private ImageButton boutonAjouteFlux;
+	private ImageButton boutonMajListeFlux;
 
 	public ListeFluxSectionFragment() {
 	}
@@ -49,20 +53,20 @@ public class ListeFluxSectionFragment extends Fragment {
 
 		View v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.activity_tab1, null);
 
-		final ListView listView = (ListView) v.findViewById(R.id.listViewTab1);
+		listView = (ListView) v.findViewById(R.id.listViewTab1);
 
-		ImageButton boutonAjouteFlux = (ImageButton) v.findViewById(R.id.imageButton3);
-		ImageButton boutonMajListeFlux = (ImageButton) v.findViewById(R.id.imageButton2);
+		boutonAjouteFlux = (ImageButton) v.findViewById(R.id.imageButton3);
+		boutonMajListeFlux = (ImageButton) v.findViewById(R.id.imageButton2);
 		View viewFluxListItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.fluxlistitem, null);
 
 		boutonAjouteFlux.setOnClickListener(new ButtonAjoutFluxClickListener(this.getActivity(), viewFluxListItem, listView));
 
-		final AccesTableFlux tableFlux = new AccesTableFlux(context);
-
-		FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
-
-		// paramèter l'adapter sur la listview
-		listView.setAdapter(adpt);
+		// final AccesTableFlux tableFlux = new AccesTableFlux(context);
+		//
+		// FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
+		//
+		// // paramèter l'adapter sur la listview
+		// listView.setAdapter(adpt);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -77,15 +81,6 @@ public class ListeFluxSectionFragment extends Fragment {
 
 			}
 
-		});
-
-		boutonMajListeFlux.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
-				majFlux.synchroMajFluxProgressDialog(getActivity(), tableFlux.getListeDesFlux(), listView);
-			}
 		});
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -130,6 +125,28 @@ public class ListeFluxSectionFragment extends Fragment {
 
 	}
 
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (savedInstanceState != null) {
+			Toast.makeText(getActivity(), "Fragment Episode recréé", Toast.LENGTH_LONG).show();
+		}
+
+		final AccesTableFlux tableFlux = new AccesTableFlux(context);
+
+		FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
+
+		// paramèter l'adapter sur la listview
+		listView.setAdapter(adpt);
+
+		boutonMajListeFlux.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				MajFluxProgressDialog majFlux = new MajFluxProgressDialog();
+				majFlux.synchroMajFluxProgressDialog(getActivity(), tableFlux.getListeDesFlux(), listView);
+			}
+		});
+	}
 	// TextView textView = new TextView(getActivity());
 	// textView.setGravity(Gravity.CENTER);
 	// textView.setText(Integer.toString(getArguments().getInt(
