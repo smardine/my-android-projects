@@ -4,18 +4,18 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
-import fr.smardine.podcaster.activity.SuperActivity;
 import fr.smardine.podcaster.database.accestable.AccesTableFlux;
 import fr.smardine.podcaster.fragment.ListeEpisodeSectionFragment;
 import fr.smardine.podcaster.fragment.ListeFluxSectionFragment;
 import fr.smardine.podcaster.helper.BitmapCache;
 import fr.smardine.podcaster.helper.SauvegardeRestaurationBdd;
 
-public class MainTabActivity extends SuperActivity implements ActionBar.TabListener {
+public class MainTabActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	public static BitmapCache cacheVignette;
 
@@ -32,17 +32,23 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// fragmentFlux = new ListeFluxSectionFragment();
+		// fragmentEpisode = new ListeEpisodeSectionFragment();
+		// fragmentEpisode.context = this.ctx;
+
 		setContentView(R.layout.activity_main_tab);
 
+		fragmentFlux = (ListeFluxSectionFragment) getSupportFragmentManager().findFragmentById(R.id.fluxFragment);
+		fragmentEpisode = (ListeEpisodeSectionFragment) getSupportFragmentManager().findFragmentById(R.id.episodeFragment);
+		fragmentFlux.context = this.getApplicationContext();
+		fragmentEpisode.context = this.getApplicationContext();
 		// Set up the action bar to show tabs.
 		ActionBar actionBar = getActionBar();
 
 		// si l'action bar est caché, il est impossible de naviguer avec des
 		// onglet
 		// actionBar.hide();
-
-		fragmentFlux = new ListeFluxSectionFragment();
-		fragmentEpisode = new ListeEpisodeSectionFragment();
 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -101,7 +107,6 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 		// container view.
 		if (tab.getPosition() == 0) {
 			// fragmentFlux = new ListeFluxSectionFragment();
-			fragmentFlux.context = this.getApplicationContext();
 
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -110,7 +115,10 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 				transaction.hide(fragmentEpisode);
 				transaction.show(fragmentFlux);
 			} else {
-				transaction.replace(R.id.container, fragmentFlux);
+				transaction.addToBackStack(tab.getPosition() + "stack_item");
+				transaction.add(fragmentFlux, tab.getPosition() + ListeFluxSectionFragment.ARG_SECTION_NUMBER);
+				transaction.show(fragmentFlux);
+				// transaction.replace(R.id.container, fragmentFlux);
 			}
 			transaction.commitAllowingStateLoss();
 
@@ -124,7 +132,10 @@ public class MainTabActivity extends SuperActivity implements ActionBar.TabListe
 				transaction.hide(fragmentFlux);
 				transaction.show(fragmentEpisode);
 			} else {
-				transaction.replace(R.id.container, fragmentEpisode);
+				transaction.addToBackStack(tab.getPosition() + "stack_item");
+				transaction.add(fragmentEpisode, tab.getPosition() + ListeEpisodeSectionFragment.ARG_SECTION_NUMBER);
+				transaction.show(fragmentEpisode);
+				// transaction.replace(R.id.container, fragmentEpisode);
 			}
 			transaction.commitAllowingStateLoss();
 

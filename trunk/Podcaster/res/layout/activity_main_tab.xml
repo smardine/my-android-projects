@@ -1,7 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+
+
+<!-- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!--     xmlns:tools="http://schemas.android.com/tools" -->
+<!--     android:id="@+id/container" -->
+<!--     android:layout_width="match_parent" -->
+<!--     android:layout_height="match_parent" -->
+<!--     tools:context=".MainTabActivity" -->
+<!--     tools:ignore="MergeRootFrame" /> -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainTabActivity"
-    tools:ignore="MergeRootFrame" />
+    android:baselineAligned="false" >
+    <fragment android:name="fr.smardine.podcaster.fragment.ListeFluxSectionFragment"
+            android:id="@+id/fluxFragment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    <fragment android:name="fr.smardine.podcaster.fragment.ListeEpisodeSectionFragment"
+            android:id="@+id/episodeFragment"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+</LinearLayout>

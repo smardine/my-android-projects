@@ -38,18 +38,18 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 			adptEpisode = (EpisodeListAdapter) savedInstanceState.getSerializable(LISTADAPTER);
 		} else {
 			savedInstanceState = new Bundle();
-			MlFlux fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
-																				// getArguments().getSerializable(SELECTED_FLUX_ITEM);
-
-			if (fluxSelectionne == null) {
-				MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
-				adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
-				actionBar.getTabAt(1).setText("Tous les épisodes");
-				// adptEpisode.getFilter().filter(" ");
-			} else {
-				adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());
-				actionBar.getTabAt(1).setText(fluxSelectionne.getTitre());
-			}
+			// MlFlux fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
+			// // getArguments().getSerializable(SELECTED_FLUX_ITEM);
+			// //
+			// if (fluxSelectionne == null) {
+			// MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
+			// adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
+			// actionBar.getTabAt(1).setText("Tous les épisodes");
+			// // adptEpisode.getFilter().filter(" ");
+			// } else {
+			// adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());
+			// actionBar.getTabAt(1).setText(fluxSelectionne.getTitre());
+			// }
 
 			// if (fluxSelectionne == null) {
 			// adptEpisode.getFilter().filter(" ");
@@ -74,7 +74,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 		// ImageButton boutonMajFlux = (ImageButton) v1.findViewById(R.id.imageButtonEpisode3);
 		// View viewEpisodeListeItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.episodelistitem, null);
 
-		this.setListAdapter(adptEpisode);
+		// this.setListAdapter(adptEpisode);
 		// paramèter l'adapter sur la listview
 		// listViewEpisode.setAdapter(adptEpisode);
 
@@ -84,11 +84,29 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 
 	}
 
+	public void onViewStateRestored(Bundle savedInstanceState) {
+		super.onViewStateRestored(savedInstanceState);
+	}
+
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		if (savedInstanceState != null) {
 			Toast.makeText(getActivity(), "Fragment Episode recréé", Toast.LENGTH_LONG).show();
 		}
+
+		MlFlux fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
+		// getArguments().getSerializable(SELECTED_FLUX_ITEM);
+
+		if (fluxSelectionne == null) {
+			MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
+			adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
+			actionBar.getTabAt(1).setText("Tous les épisodes");
+			// adptEpisode.getFilter().filter(" ");
+		} else {
+			adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());
+			actionBar.getTabAt(1).setText(fluxSelectionne.getTitre());
+		}
+		this.setListAdapter(adptEpisode);
 	}
 
 	public void onStart() {
