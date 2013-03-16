@@ -33,17 +33,15 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// fragmentFlux = new ListeFluxSectionFragment();
-		// fragmentEpisode = new ListeEpisodeSectionFragment();
-		// fragmentEpisode.context = this.ctx;
-
+		// Les deux fragment se trouve dans le layout principal (activity_main_tab)
 		setContentView(R.layout.activity_main_tab);
-
+		// recherche des fragments a partir de leur ID via le fragment manager
 		fragmentFlux = (ListeFluxSectionFragment) getSupportFragmentManager().findFragmentById(R.id.fluxFragment);
 		fragmentEpisode = (ListeEpisodeSectionFragment) getSupportFragmentManager().findFragmentById(R.id.episodeFragment);
+		// valorisation de leurs propriétés
 		fragmentFlux.context = this.getApplicationContext();
 		fragmentEpisode.context = this.getApplicationContext();
-		// Set up the action bar to show tabs.
+		// Initialisation de l'action bar
 		ActionBar actionBar = getActionBar();
 
 		// si l'action bar est caché, il est impossible de naviguer avec des
@@ -106,71 +104,62 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 		// When the given tab is selected, show the tab contents in the
 		// container view.
 		if (tab.getPosition() == 0) {
-			// fragmentFlux = new ListeFluxSectionFragment();
 
+			// Ouverture d'une transaction pour les fragment
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			// effet visuel lors de l'ouverture du fragment
+			transaction.setTransition(FragmentTransaction.TRANSIT_NONE);
+			// ici, le fragment est deja ajouté car il a été chargé lors de la creation de l'activity
+			// lorsque l'on a appelé la methode "setContentView(R.layout.activity_main_tab);" dans le "onCreate"
 			if (fragmentFlux.isAdded()) {
+				// on cache le fragment "Episode"
 				transaction.hide(fragmentEpisode);
+				// et on affiche le fragment "Flux"
 				transaction.show(fragmentFlux);
 			} else {
 				transaction.addToBackStack(tab.getPosition() + "stack_item");
 				transaction.add(fragmentFlux, tab.getPosition() + ListeFluxSectionFragment.ARG_SECTION_NUMBER);
 				transaction.show(fragmentFlux);
-				// transaction.replace(R.id.container, fragmentFlux);
 			}
+			// Ne pas oublier de faire un "commit" sur la transaction
 			transaction.commitAllowingStateLoss();
 
 		} else if (tab.getPosition() == 1) {
-			fragmentEpisode.context = this.getApplicationContext();
-
+			// fragmentEpisode.context = this.getApplicationContext();
+			// on ouvre une trasaction sur le fragment
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+			transaction.setTransition(FragmentTransaction.TRANSIT_NONE);
 
 			if (fragmentEpisode.isAdded()) {
 				transaction.hide(fragmentFlux);
 				transaction.show(fragmentEpisode);
 			} else {
+				// permet de "stocker" la transaction dans une "pile" pour etre ré-exploiter lorsque l'utilisateur clique
+				// sur la touche "retour" de son telephone
 				transaction.addToBackStack(tab.getPosition() + "stack_item");
 				transaction.add(fragmentEpisode, tab.getPosition() + ListeEpisodeSectionFragment.ARG_SECTION_NUMBER);
 				transaction.show(fragmentEpisode);
-				// transaction.replace(R.id.container, fragmentEpisode);
 			}
+			// Ne pas oublier de faire un "commit" sur la transaction
 			transaction.commitAllowingStateLoss();
+			// on met a jour la liste des episodes via le flux cliqué par l'utilisateur
+			fragmentEpisode.metAjoutListeEpisode(ListeFluxSectionFragment.fluxSelectionne);
 
 		}
-		// Fragment fragment = new ListeFluxSectionFragment();
-		// ListeFluxSectionFragment.context = this.getApplicationContext();
-		// Bundle args = new Bundle();
-		// args.putInt(ListeFluxSectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-		// if (tab.getPosition() == 0) {
-		// // quand on revient sur la premiere "tab" on reinitialise le flux
-		// // selectionné
-		// ListeFluxSectionFragment.fluxSelectionne = null;
-		// } else if (tab.getPosition() == 1) {
-		// si on choisi la deuxieme "tab" (celle de liste d'épisode) on
-		// passe le flux selectionné en tant que parametre
-		// Pour que cela fonctionne, MlFlux implemente serializable, de meme
-		// que toutes ses proprietés
-		// args.putSerializable(ListeFluxSectionFragment.SELECTED_FLUX_ITEM, ListeFluxSectionFragment.fluxSelectionne);
-		// }
 
 	}
 
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-		// Toast.makeText(ctx, "onTabUnselected", Toast.LENGTH_LONG).show();
-		// android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		//
-		if (tab.getPosition() == 1) {// on est sur la tab "Episode"
+
+		if (tab.getPosition() == 1) {// on etait sur la tab "Episode"
 			ListeFluxSectionFragment.fluxSelectionne = null;
 			tab.setText(R.string.title_tab2);
-			// transaction.remove(fragmentEpisode);
-		} else if (tab.getPosition() == 0) {// on est sur la tab "Flux"
-			// transaction.remove(fragmentFlux);
+
+		} else if (tab.getPosition() == 0) {// on etait sur la tab "Flux"
+
 		}
-		// transaction.commitAllowingStateLoss();
+
 	}
 
 	@Override

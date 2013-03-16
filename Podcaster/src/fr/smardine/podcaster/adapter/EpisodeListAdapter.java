@@ -36,7 +36,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	 * 
 	 */
 	private static final long serialVersionUID = -1059285392877713970L;
-	private MlListeEpisode lstEpisodes;
+	public MlListeEpisode lstEpisodes;
 	// créer un layoutinflater pour intégrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;

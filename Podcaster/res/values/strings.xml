@@ -66,4 +66,5 @@
     <string name="progress_download_episode">Téléchargement d\'un épisode</string>
     <string name="s_telechargement_termine">Téléchargement terminé</string> 
     <string name="s_telechargement_progression">Téléchargement en cours:</string>
+    <string name="no_data">Aucune information à afficher</string>
 </resources>

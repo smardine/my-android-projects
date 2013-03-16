@@ -28,6 +28,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 	public ActionBar actionBar;
 	public Context context;
 	private EpisodeListAdapter adptEpisode;
+	private MlFlux fluxSelectionne;
 
 	public ListeEpisodeSectionFragment() {
 	}
@@ -94,7 +95,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 			Toast.makeText(getActivity(), "Fragment Episode recréé", Toast.LENGTH_LONG).show();
 		}
 
-		MlFlux fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
+		fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
 		// getArguments().getSerializable(SELECTED_FLUX_ITEM);
 
 		if (fluxSelectionne == null) {
@@ -128,5 +129,15 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putSerializable(LISTADAPTER, adptEpisode);
+	}
+
+	public void metAjoutListeEpisode(MlFlux fluxSelectionne) {
+		if (fluxSelectionne != null) {
+			this.fluxSelectionne = fluxSelectionne;
+			this.adptEpisode.lstEpisodes = this.fluxSelectionne.getListeEpisode();
+			this.adptEpisode.notifyDataSetChanged();
+			this.actionBar.getTabAt(1).setText(this.fluxSelectionne.getTitre());
+		}
+
 	}
 }
