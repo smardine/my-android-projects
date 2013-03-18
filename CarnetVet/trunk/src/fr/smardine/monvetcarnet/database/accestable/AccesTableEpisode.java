@@ -27,11 +27,6 @@ public class AccesTableEpisode {
 		return requeteFact.getNombreEnregistrement(EnTable.EPISODE);
 	}
 
-	public void createEpisode(MlEpisode p_episode) {
-		ContentValues content = createValuesForMlEpisode(p_episode);
-		requeteFact.insertDansTable(EnTable.EPISODE, content);
-	}
-
 	public void majEpisode(MlEpisode p_episode) {
 		ContentValues modifiedValue = createValuesForMlEpisode(p_episode);
 		String whereClause = EnStructEpisode.ID_EPISODE.getNomChamp() + "=?";
