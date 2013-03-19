@@ -11,11 +11,11 @@ public abstract class AccesTable<T> {
 
 	private final RequeteFactory requeteFact;
 	private final EnTable table;
-	private final IStructureTable structureTable;
+	private final Class<? extends IStructureTable> structureTable;
 
-	public AccesTable(Context p_ctx, EnTable p_Table, IStructureTable p_structureTable) {
+	public AccesTable(Context p_ctx, EnTable p_Table) {
 		this.table = p_Table;
-		this.structureTable = p_structureTable;
+		this.structureTable = table.getStructureTable();
 		this.requeteFact = new RequeteFactory(p_ctx);
 	}
 
@@ -26,22 +26,41 @@ public abstract class AccesTable<T> {
 		return requeteFact.getNombreEnregistrement(table);
 	}
 
-	public boolean deleteTable() {
+	/**
+	 * permet d'effacer le contenu d'une table
+	 * @return true si au moins une ligne a été supprimée.
+	 */
+	protected boolean deleteTable() {
 		return requeteFact.deleteTable(table, "1", null) != 0;
 	}
 
+	/**
+	 * Methode abstraite a redefinir dans les classes filles
+	 * @param p_object l'objet qui sert a creer les values
+	 * @return les values pretes a etre insérée en base
+	 */
 	protected abstract ContentValues createContentValueForObject(T p_object);
 
-	protected void insertObjectEnBase(T p_object) {
+	/**
+	 * Inserer un objet en base de type @link <T>
+	 * @param p_object
+	 * @return renvoi true ou false si l'insertion a réussie
+	 */
+	protected boolean insertObjectEnBase(T p_object) {
 		ContentValues content = createContentValueForObject(p_object);
-		requeteFact.insertDansTable(table, content);
+		return requeteFact.insertDansTable(table, content);
 	}
 
-	protected void majObjetEnBase(T p_object) {
+	/**
+	 * Met a jour un objet en base
+	 * @param p_object - l'objet a mettre a jour en base, de type @link <T>
+	 * @return true ou false si la maj a reussie (au moins une ligne modifiée)
+	 */
+	protected boolean majObjetEnBase(T p_object) {
 		ContentValues modifiedValue = createContentValueForObject(p_object);
-		String whereClause = structureTable.getListeChamp()[0].getNomChamp() + "=?"; // id de l'objet
+		String whereClause = structureTable.cast(structureTable).getListeChamp()[0].getNomChamp() + "=?"; // id de l'objet
 		int idObject = ((IMetaModel) p_object).getId();
 		String[] whereArgs = { "" + idObject };
-		requeteFact.majTable(table, modifiedValue, whereClause, whereArgs);
+		return requeteFact.majTable(table, modifiedValue, whereClause, whereArgs) != 0;
 	}
 }

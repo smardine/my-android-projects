@@ -2,7 +2,7 @@ package fr.smardine.monvetcarnet.database.structuretable;
 
 public enum EnStructCarnet implements IStructureTable {
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null), //
+	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null),
 
 	NOM_CARNET("NOM_CARNET", EnTypeChampsSQLite.VARCHAR, 250);
 
