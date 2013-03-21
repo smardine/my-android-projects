@@ -9,12 +9,12 @@ import fr.smardine.monvetcarnet.mdl.IMetaModel;
 
 public abstract class AccesTable<T> {
 
-	private final RequeteFactory requeteFact;
+	protected final RequeteFactory requeteFact;
 	private final EnTable table;
 	private final Class<? extends IStructureTable> structureTable;
 
-	public AccesTable(Context p_ctx, EnTable p_Table) {
-		this.table = p_Table;
+	public AccesTable(Context p_ctx, EnTable p_table) {
+		this.table = p_table;
 		this.structureTable = table.getStructureTable();
 		this.requeteFact = new RequeteFactory(p_ctx);
 	}

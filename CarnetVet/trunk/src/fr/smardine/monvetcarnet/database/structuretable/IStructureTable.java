@@ -20,6 +20,8 @@ public interface IStructureTable {
 	 */
 	Integer getTailleMax();
 
+	int getindex();
+
 	/**
 	 * @return le nom de l'enum
 	 */
