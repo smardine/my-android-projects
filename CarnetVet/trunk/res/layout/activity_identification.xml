@@ -1,0 +1,169 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayoutPrincipal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+ <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"       
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/imageView1"
+        android:text="nom de la bestiole" />
+
+    <TextView
+        android:id="@+id/tvDateNaissance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvNom"
+        android:text="Date de naissance   " />
+
+    <TextView
+        android:id="@+id/tvDateNaiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvDateNaissance"
+        android:layout_below="@+id/tvNom"
+        android:text="20 mars 2008" />
+    
+    <TextView
+        android:id="@+id/tvSexe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvDateNaissance"
+        android:layout_alignLeft="@+id/tvDateNaissance"
+        android:text="Sexe   " />
+
+    <TextView
+        android:id="@+id/tvSexeEnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvSexe"
+        android:layout_below="@+id/tvDateNaissance"
+        android:text="Mâle / Femelle" />
+    
+    <TextView
+        android:id="@+id/tvRace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvSexe"
+        android:layout_alignLeft="@+id/tvSexe"
+        android:text="Race   " />
+
+    <TextView
+        android:id="@+id/tvRaceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvRace"
+        android:layout_below="@+id/tvSexe"
+        android:text=" blablablabla" />
+    
+     <TextView
+        android:id="@+id/tvRobe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvRace"
+        android:layout_alignLeft="@+id/tvRace"
+        android:text="Robe   " />
+
+    <TextView
+        android:id="@+id/tvRobeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvRobe"
+        android:layout_below="@+id/tvRace"
+        android:text=" blablablabla" />
+    
+    <TextView
+        android:id="@+id/tvNumTatouage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvRobe"
+        android:layout_alignLeft="@+id/tvRobe"
+        android:text="N° Tatouage   " />
+
+    <TextView
+        android:id="@+id/tvNumTatouageValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvNumTatouage"
+        android:layout_below="@+id/tvRobe"
+        android:text=" blablablabla" />
+    
+    
+    <TextView
+        android:id="@+id/tvNumPuce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvNumTatouage"
+        android:layout_alignLeft="@+id/tvNumTatouage"
+        android:text="N° Identification   " />
+
+    <TextView
+        android:id="@+id/tvNumPuceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvNumPuce"
+        android:layout_below="@+id/tvNumTatouage"
+        android:text=" blablablabla" />
+    
+     <TextView
+        android:id="@+id/tvProp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvNumPuce"
+        android:layout_alignLeft="@+id/tvNumPuce"
+        android:text="Proprietaire 1   " />
+
+    <TextView
+        android:id="@+id/tvProp1Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvProp1"
+        android:layout_below="@+id/tvNumPuce"
+        android:text=" nom du proprio1" />
+    
+    <TextView
+        android:id="@+id/tvProp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvProp1"
+        android:layout_alignLeft="@+id/tvProp1"
+        android:text="Proprietaire 2   " />
+
+    <TextView
+        android:id="@+id/tvProp2Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvProp2"
+        android:layout_below="@+id/tvProp1"
+        android:text=" nom du proprio2" />
+    
+    <TextView
+        android:id="@+id/tvEleveur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_below="@+id/tvProp2"
+        android:layout_alignLeft="@+id/tvProp2"
+        android:text="Eleveur   " />
+
+    <TextView
+        android:id="@+id/tvEleveurValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvEleveur"
+        android:layout_below="@+id/tvProp2"
+        android:text=" nom de l'eleveur" />
+
+</RelativeLayout>
