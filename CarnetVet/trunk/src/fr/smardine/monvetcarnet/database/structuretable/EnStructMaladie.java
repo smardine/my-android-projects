@@ -1,56 +1,27 @@
 package fr.smardine.monvetcarnet.database.structuretable;
 
-public enum EnStructMaladie implements IStructureTable {
+public class EnStructMaladie extends SuperStructureTable {
 
-	ID_MALADIE("ID_MALADIE", EnTypeChampsSQLite.INTEGER, null, 1), //
+	public static EnStructMaladie ID_MALADIE = new EnStructMaladie("ID_MALADIE", EnTypeChampsSQLite.INTEGER, null, 1); //
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2), //
+	public static EnStructMaladie ID_CARNET = new EnStructMaladie("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2); //
 
-	DATE("DATE", EnTypeChampsSQLite.LONG, null, 3), //
+	public static EnStructMaladie DATE = new EnStructMaladie("DATE", EnTypeChampsSQLite.LONG, null, 3);//
 
-	TITRE("VALEUR", EnTypeChampsSQLite.VARCHAR, null, 4), //
+	public static EnStructMaladie TITRE = new EnStructMaladie("VALEUR", EnTypeChampsSQLite.VARCHAR, null, 4); //
 
-	SYMPTOME("SYMPTOME", EnTypeChampsSQLite.VARCHAR, null, 5), //
+	public static EnStructMaladie SYMPTOME = new EnStructMaladie("SYMPTOME", EnTypeChampsSQLite.VARCHAR, null, 5); //
 
-	RDV_VETO("RDV_VETO", EnTypeChampsSQLite.VARCHAR, 1, 6), //
+	public static EnStructMaladie RDV_VETO = new EnStructMaladie("RDV_VETO", EnTypeChampsSQLite.VARCHAR, 1, 6); //
 
-	TRAITEMENT("TRAITEMENT", EnTypeChampsSQLite.VARCHAR, null, 7);
-
-	private final String nomChamp;
-	private final EnTypeChampsSQLite typeClass;
-	private final Integer tailleMax;
-	private int index;
+	public static EnStructMaladie TRAITEMENT = new EnStructMaladie("TRAITEMENT", EnTypeChampsSQLite.VARCHAR, null, 7);
 
 	EnStructMaladie(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
-		this.nomChamp = p_nomChamp;
-		this.typeClass = p_typeClass;
-		this.tailleMax = p_tailleMax;
-		this.index = p_index;
-	}
-
-	@Override
-	public String getNomChamp() {
-		return nomChamp;
-	}
-
-	@Override
-	public EnTypeChampsSQLite getTypeChamp() {
-		return typeClass;
-	}
-
-	@Override
-	public Integer getTailleMax() {
-		return tailleMax;
+		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return values();
+		return new IStructureTable[] { ID_MALADIE, ID_CARNET, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT };
 	}
-
-	@Override
-	public int getindex() {
-		return index;
-	}
-
 }

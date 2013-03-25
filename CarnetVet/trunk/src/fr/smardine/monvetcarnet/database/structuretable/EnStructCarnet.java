@@ -1,46 +1,28 @@
 package fr.smardine.monvetcarnet.database.structuretable;
 
-public enum EnStructCarnet implements IStructureTable {
+public class EnStructCarnet extends SuperStructureTable {
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1),
+	public static EnStructCarnet ID_CARNET = new EnStructCarnet("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1);
 
-	NOM_CARNET("NOM_CARNET", EnTypeChampsSQLite.VARCHAR, 250, 2);
+	public static EnStructCarnet NOM_CARNET = new EnStructCarnet("NOM_CARNET", EnTypeChampsSQLite.VARCHAR, 250, 2);
 
-	private final String nomChamp;
-	private final EnTypeChampsSQLite typeClass;
-	private final Integer tailleMax;
-	private int index;
+	// private final String nomChamp;
+	// private final EnTypeChampsSQLite typeClass;
+	// private final Integer tailleMax;
+	// private final int index;
 
 	EnStructCarnet(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
-		this.nomChamp = p_nomChamp;
-		this.typeClass = p_typeClass;
-		this.tailleMax = p_tailleMax;
-		this.index = p_index;
-	}
-
-	@Override
-	public String getNomChamp() {
-		return nomChamp;
-	}
-
-	@Override
-	public EnTypeChampsSQLite getTypeChamp() {
-		return typeClass;
-	}
-
-	@Override
-	public Integer getTailleMax() {
-		return tailleMax;
+		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
+		// this.nomChamp = p_nomChamp;
+		// this.typeClass = p_typeClass;
+		// this.tailleMax = p_tailleMax;
+		// this.index = p_index;
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return values();
-	}
 
-	@Override
-	public int getindex() {
-		return index;
+		return new IStructureTable[] { ID_CARNET, NOM_CARNET };
 	}
 
 }

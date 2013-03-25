@@ -23,7 +23,7 @@ import fr.smardine.monvetcarnet.database.structuretable.EnStructPoids;
 import fr.smardine.monvetcarnet.database.structuretable.EnStructProprietaire;
 import fr.smardine.monvetcarnet.database.structuretable.EnStructVaccin;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
-import fr.smardine.monvetcarnet.database.structuretable.IStructureTable;
+import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
 
 /**
  * @author smardine Contient les scripts de creation de la base
@@ -55,23 +55,23 @@ public class G_creation_base {
 	public List<String> getScriptsDeCreationDesTables() {
 		List<String> scriptsCreationTables = new ArrayList<String>();
 		// "CREATE  TABLE  IF NOT EXISTS FLUX (ID_FLUX INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , TITRE VARCHAR, DATE_DERNIERE_SYNCHRO DATETIME, VIGNETTE_URL VARCHAR, VIGNETTE_FILE BLOB, ID_PARAMETRE INTEGER, ID_CATEGORIE INTEGER, URL VARCHAR)";
-		scriptsCreationTables.add(createTable(EnTable.CARNETS, EnStructCarnet.values()));
-		scriptsCreationTables.add(createTable(EnTable.DETAILS, EnStructDetail.values()));
-		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS, EnStructIdentification.values()));
-		scriptsCreationTables.add(createTable(EnTable.MALADIES, EnStructMaladie.values()));
-		scriptsCreationTables.add(createTable(EnTable.POIDS, EnStructPoids.values()));
-		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES, EnStructProprietaire.values()));
-		scriptsCreationTables.add(createTable(EnTable.VACCINS, EnStructVaccin.values()));
+		scriptsCreationTables.add(createTable(EnTable.CARNETS, EnStructCarnet.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.DETAILS, EnStructDetail.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS, EnStructIdentification.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.MALADIES, EnStructMaladie.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.POIDS, EnStructPoids.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES, EnStructProprietaire.class.getEnumConstants()));
+		scriptsCreationTables.add(createTable(EnTable.VACCINS, EnStructVaccin.class.getEnumConstants()));
 
 		return scriptsCreationTables;
 	}
 
-	public String createTable(EnTable p_table, IStructureTable[] p_listeChamp) {
+	public String createTable(EnTable p_table, SuperStructureTable[] p_listeChamp) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("CREATE  TABLE  IF NOT EXISTS " + p_table.getNomTable() + " (");
-		IStructureTable[] listeChamp = p_listeChamp;
+		SuperStructureTable[] listeChamp = p_listeChamp;
 		for (int i = 0; i < listeChamp.length; i++) {
-			IStructureTable unChamp = listeChamp[i];
+			SuperStructureTable unChamp = listeChamp[i];
 			if (i == 0) {
 				sb.append(unChamp.getNomChamp() + " " + unChamp.getTypeChamp().name() + " PRIMARY KEY AUTOINCREMENT  NOT NULL  UNIQUE , ");
 			} else if (i == listeChamp.length - 1) {

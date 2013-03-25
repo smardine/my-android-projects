@@ -22,11 +22,6 @@ public interface IStructureTable {
 
 	int getindex();
 
-	/**
-	 * @return le nom de l'enum
-	 */
-	String name();
-
 	IStructureTable[] getListeChamp();
 
 	@Override

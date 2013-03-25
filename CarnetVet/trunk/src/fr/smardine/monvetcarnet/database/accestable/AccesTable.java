@@ -4,14 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.monvetcarnet.database.RequeteFactory;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
-import fr.smardine.monvetcarnet.database.structuretable.IStructureTable;
+import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
 import fr.smardine.monvetcarnet.mdl.IMetaModel;
 
 public abstract class AccesTable<T> {
 
 	protected final RequeteFactory requeteFact;
 	private final EnTable table;
-	private final Class<? extends IStructureTable> structureTable;
+	private final Class<? extends SuperStructureTable> structureTable;
 
 	public AccesTable(Context p_ctx, EnTable p_table) {
 		this.table = p_table;

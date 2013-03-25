@@ -1,52 +1,23 @@
 package fr.smardine.monvetcarnet.database.structuretable;
 
-public enum EnStructVaccin implements IStructureTable {
+public class EnStructVaccin extends SuperStructureTable {
 
-	ID_VACCIN("ID_VACCIN", EnTypeChampsSQLite.INTEGER, null, 1), //
+	public static EnStructVaccin ID_VACCIN = new EnStructVaccin("ID_VACCIN", EnTypeChampsSQLite.INTEGER, null, 1); //
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2), //
+	public static EnStructVaccin ID_CARNET = new EnStructVaccin("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2); //
 
-	DATE("DATE", EnTypeChampsSQLite.LONG, null, 3), //
+	public static EnStructVaccin DATE = new EnStructVaccin("DATE", EnTypeChampsSQLite.LONG, null, 3); //
 
-	NOM("NOM", EnTypeChampsSQLite.VARCHAR, null, 4), //
+	public static EnStructVaccin NOM = new EnStructVaccin("NOM", EnTypeChampsSQLite.VARCHAR, null, 4); //
 
-	VERMIFUGE("VERMIFUGE", EnTypeChampsSQLite.VARCHAR, 1, 5);
-
-	private final String nomChamp;
-	private final EnTypeChampsSQLite typeClass;
-	private final Integer tailleMax;
-	private int index;
+	public static EnStructVaccin VERMIFUGE = new EnStructVaccin("VERMIFUGE", EnTypeChampsSQLite.VARCHAR, 1, 5);
 
 	EnStructVaccin(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
-		this.nomChamp = p_nomChamp;
-		this.typeClass = p_typeClass;
-		this.tailleMax = p_tailleMax;
-		this.index = p_index;
-	}
-
-	@Override
-	public String getNomChamp() {
-		return nomChamp;
-	}
-
-	@Override
-	public EnTypeChampsSQLite getTypeChamp() {
-		return typeClass;
-	}
-
-	@Override
-	public Integer getTailleMax() {
-		return tailleMax;
+		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return values();
+		return new IStructureTable[] { ID_VACCIN, ID_CARNET, DATE, NOM, VERMIFUGE };
 	}
-
-	@Override
-	public int getindex() {
-		return index;
-	}
-
 }

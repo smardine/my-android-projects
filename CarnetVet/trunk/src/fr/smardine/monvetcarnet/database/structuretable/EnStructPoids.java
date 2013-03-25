@@ -1,54 +1,25 @@
 package fr.smardine.monvetcarnet.database.structuretable;
 
-public enum EnStructPoids implements IStructureTable {
+public class EnStructPoids extends SuperStructureTable {
 
-	ID_POID("ID_POID", EnTypeChampsSQLite.INTEGER, null, 1), //
+	public static EnStructPoids ID_POID = new EnStructPoids("ID_POID", EnTypeChampsSQLite.INTEGER, null, 1); //
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2), //
+	public static EnStructPoids ID_CARNET = new EnStructPoids("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2); //
 
-	DATE("DATE", EnTypeChampsSQLite.LONG, null, 3), //
+	public static EnStructPoids DATE = new EnStructPoids("DATE", EnTypeChampsSQLite.LONG, null, 3); //
 
-	VALEUR("VALEUR", EnTypeChampsSQLite.VARCHAR, null, 4), //
+	public static EnStructPoids VALEUR = new EnStructPoids("VALEUR", EnTypeChampsSQLite.VARCHAR, null, 4); //
 
-	UNITE("UNITE", EnTypeChampsSQLite.VARCHAR, null, 5), //
+	public static EnStructPoids UNITE = new EnStructPoids("UNITE", EnTypeChampsSQLite.VARCHAR, null, 5); //
 
-	NOTE("NOTE", EnTypeChampsSQLite.VARCHAR, null, 6);
-
-	private final String nomChamp;
-	private final EnTypeChampsSQLite typeClass;
-	private final Integer tailleMax;
-	private int index;
+	public static EnStructPoids NOTE = new EnStructPoids("NOTE", EnTypeChampsSQLite.VARCHAR, null, 6);
 
 	EnStructPoids(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
-		this.nomChamp = p_nomChamp;
-		this.typeClass = p_typeClass;
-		this.tailleMax = p_tailleMax;
-		this.index = p_index;
-	}
-
-	@Override
-	public String getNomChamp() {
-		return nomChamp;
-	}
-
-	@Override
-	public EnTypeChampsSQLite getTypeChamp() {
-		return typeClass;
-	}
-
-	@Override
-	public Integer getTailleMax() {
-		return tailleMax;
+		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return values();
+		return new IStructureTable[] { ID_POID, ID_CARNET, DATE, VALEUR, UNITE, NOTE };
 	}
-
-	@Override
-	public int getindex() {
-		return index;
-	}
-
 }

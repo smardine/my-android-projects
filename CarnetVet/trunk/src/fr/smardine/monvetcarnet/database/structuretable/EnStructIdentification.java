@@ -1,54 +1,27 @@
 package fr.smardine.monvetcarnet.database.structuretable;
 
-public enum EnStructIdentification implements IStructureTable {
+public class EnStructIdentification extends SuperStructureTable {
 
-	ID_IDENTIFICATION("ID_IDENTIFICATION", EnTypeChampsSQLite.INTEGER, null, 1), //
+	public static EnStructIdentification ID_IDENTIFICATION = new EnStructIdentification("ID_IDENTIFICATION", EnTypeChampsSQLite.INTEGER,
+			null, 1); //
 
-	ID_CARNET("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2), //
+	public static EnStructIdentification ID_CARNET = new EnStructIdentification("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 2); //
 
-	NOM("NOM", EnTypeChampsSQLite.VARCHAR, null, 3), //
+	public static EnStructIdentification NOM = new EnStructIdentification("NOM", EnTypeChampsSQLite.VARCHAR, null, 3); //
 
-	DATE_NAISSANCE("DATE_NAISSANCE", EnTypeChampsSQLite.LONG, null, 4), //
+	public static EnStructIdentification DATE_NAISSANCE = new EnStructIdentification("DATE_NAISSANCE", EnTypeChampsSQLite.LONG, null, 4); //
 
-	TYPE_ANIMAL("TYPE_ANIMAL", EnTypeChampsSQLite.VARCHAR, null, 5), //
+	public static EnStructIdentification TYPE_ANIMAL = new EnStructIdentification("TYPE_ANIMAL", EnTypeChampsSQLite.VARCHAR, null, 5); //
 
-	GENRE("GENRE", EnTypeChampsSQLite.VARCHAR, 250, 6); //
-
-	private final String nomChamp;
-	private final EnTypeChampsSQLite typeClass;
-	private final Integer tailleMax;
-	private int index;
+	public static EnStructIdentification GENRE = new EnStructIdentification("GENRE", EnTypeChampsSQLite.VARCHAR, 250, 6); //
 
 	EnStructIdentification(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
-		this.nomChamp = p_nomChamp;
-		this.typeClass = p_typeClass;
-		this.tailleMax = p_tailleMax;
-		this.index = p_index;
-	}
-
-	@Override
-	public String getNomChamp() {
-		return nomChamp;
-	}
-
-	@Override
-	public EnTypeChampsSQLite getTypeChamp() {
-		return typeClass;
-	}
-
-	@Override
-	public Integer getTailleMax() {
-		return tailleMax;
+		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return values();
-	}
-
-	@Override
-	public int getindex() {
-		return index;
+		return new IStructureTable[] { ID_IDENTIFICATION, ID_CARNET, NOM, DATE_NAISSANCE, TYPE_ANIMAL, GENRE };
 	}
 
 }

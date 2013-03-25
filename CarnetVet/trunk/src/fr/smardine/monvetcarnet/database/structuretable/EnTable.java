@@ -16,9 +16,9 @@ public enum EnTable {
 	VACCINS("VACCINS", EnStructVaccin.class);
 
 	private String nomTable;
-	private Class<? extends IStructureTable> structureTable;
+	private Class<? extends SuperStructureTable> structureTable;
 
-	EnTable(String p_nomTable, Class<? extends IStructureTable> p_structure) {
+	EnTable(String p_nomTable, Class<? extends SuperStructureTable> p_structure) {
 		this.nomTable = p_nomTable;
 		this.structureTable = p_structure;
 	}
@@ -35,7 +35,7 @@ public enum EnTable {
 		return nomTable;
 	}
 
-	public Class<? extends IStructureTable> getStructureTable() {
+	public Class<? extends SuperStructureTable> getStructureTable() {
 		return structureTable;
 	}
 
