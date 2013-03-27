@@ -16,8 +16,12 @@ public class EnStructVaccin extends SuperStructureTable {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
-	@Override
-	public IStructureTable[] getListeChamp() {
+	public static IStructureTable[] getListeChamp() {
 		return new IStructureTable[] { ID_VACCIN, ID_CARNET, DATE, NOM, VERMIFUGE };
+	}
+
+	@Override
+	public SuperStructureTable getKeyChamp() {
+		return ID_VACCIN;
 	}
 }

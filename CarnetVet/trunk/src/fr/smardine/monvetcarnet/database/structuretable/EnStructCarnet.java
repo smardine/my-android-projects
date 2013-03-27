@@ -19,10 +19,13 @@ public class EnStructCarnet extends SuperStructureTable {
 		// this.index = p_index;
 	}
 
-	@Override
-	public IStructureTable[] getListeChamp() {
+	public static SuperStructureTable[] ListeChamp() {
+		return new SuperStructureTable[] { ID_CARNET, NOM_CARNET };
+	}
 
-		return new IStructureTable[] { ID_CARNET, NOM_CARNET };
+	@Override
+	public SuperStructureTable getKeyChamp() {
+		return ID_CARNET;
 	}
 
 }

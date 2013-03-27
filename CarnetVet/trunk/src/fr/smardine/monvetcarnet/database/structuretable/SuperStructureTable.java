@@ -34,7 +34,6 @@ public abstract class SuperStructureTable implements IStructureTable {
 		return index;
 	}
 
-	@Override
-	public abstract IStructureTable[] getListeChamp();
+	public abstract SuperStructureTable getKeyChamp();
 
 }

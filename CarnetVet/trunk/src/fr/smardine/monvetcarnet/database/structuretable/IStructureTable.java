@@ -22,7 +22,7 @@ public interface IStructureTable {
 
 	int getindex();
 
-	IStructureTable[] getListeChamp();
+	// IStructureTable[] getListeChamp();
 
 	@Override
 	String toString();

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import fr.smardine.monvetcarnet.adapter.SpinerAdapter;
+import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
@@ -48,7 +49,8 @@ public class MainActivity extends FragmentActivity {
 
 		// indiquer que l'on souhaite naviguer par le spinner
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
+		AccesTableCarnet acces = new AccesTableCarnet(getApplicationContext());
+		acces.getNbEnregistrement();
 		actionBar.setListNavigationCallbacks(new SpinerAdapter(this, R.layout.spinner), new OnNavigationListener() {
 
 			@Override

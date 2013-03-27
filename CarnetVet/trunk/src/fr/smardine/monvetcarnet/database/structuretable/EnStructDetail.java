@@ -23,9 +23,13 @@ public class EnStructDetail extends SuperStructureTable {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
+	public static SuperStructureTable[] ListeChamp() {
+		return new SuperStructureTable[] { ID_DETAIL, ID_IDENTIFICATION, RACE, ROBE, NUM_TATOUAGE, NUM_PUCE, ID_PROP1, ID_PROP2, ID_ELEVEUR };
+	}
+
 	@Override
-	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_DETAIL, ID_IDENTIFICATION, RACE, ROBE, NUM_TATOUAGE, NUM_PUCE, ID_PROP1, ID_PROP2, ID_ELEVEUR };
+	public SuperStructureTable getKeyChamp() {
+		return ID_DETAIL;
 	}
 
 }

@@ -18,9 +18,13 @@ public class EnStructProprietaire extends SuperStructureTable {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
-	@Override
-	public IStructureTable[] getListeChamp() {
+	public static IStructureTable[] getListeChamp() {
 		return new IStructureTable[] { ID_PROPRIETAIRE, ID_DETAIL, NOM, ADRESSE, TEL, MAIL };
+	}
+
+	@Override
+	public SuperStructureTable getKeyChamp() {
+		return ID_PROPRIETAIRE;
 	}
 
 }

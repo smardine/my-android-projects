@@ -19,9 +19,13 @@ public class EnStructIdentification extends SuperStructureTable {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
-	@Override
-	public IStructureTable[] getListeChamp() {
+	public static IStructureTable[] getListeChamp() {
 		return new IStructureTable[] { ID_IDENTIFICATION, ID_CARNET, NOM, DATE_NAISSANCE, TYPE_ANIMAL, GENRE };
+	}
+
+	@Override
+	public SuperStructureTable getKeyChamp() {
+		return ID_IDENTIFICATION;
 	}
 
 }

@@ -20,8 +20,12 @@ public class EnStructMaladie extends SuperStructureTable {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
-	@Override
-	public IStructureTable[] getListeChamp() {
+	public static IStructureTable[] getListeChamp() {
 		return new IStructureTable[] { ID_MALADIE, ID_CARNET, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT };
+	}
+
+	@Override
+	public SuperStructureTable getKeyChamp() {
+		return ID_MALADIE;
 	}
 }
