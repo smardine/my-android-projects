@@ -157,7 +157,6 @@ public class IdentificationFragment extends Fragment {
 			}
 			this.tvNomBestiole.setText(identification.getNomAnimal());
 			this.tvSexeEnum.setText(identification.getGenreAnimal().getType());
-
 		}
 
 	}

@@ -57,11 +57,16 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 	}
 
-	protected boolean insertIdentificationEnBase(MlIdentification p_identification) {
-		return super.insertObjectEnBase(p_identification);
+	public boolean insertIdentificationEnBase(MlIdentification p_identification) {
+		boolean result = super.insertObjectEnBase(p_identification);
+		if (result) {
+			p_identification.setIdIdentification(Integer.parseInt(requeteFact.get1Champ("SELECT MAX ("
+					+ EnStructIdentification.ID_IDENTIFICATION.toString() + ") FROM " + EnTable.IDENTIFICATIONS.toString())));
+		}
+		return result;
 	}
 
-	protected boolean majCarnetEnBase(MlIdentification p_identification) {
+	public boolean majCarnetEnBase(MlIdentification p_identification) {
 		return super.majObjetEnBase(p_identification);
 	}
 

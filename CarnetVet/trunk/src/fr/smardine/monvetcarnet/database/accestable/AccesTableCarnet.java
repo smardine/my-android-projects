@@ -46,11 +46,16 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 
 	}
 
-	protected boolean insertCarnetEnBase(MlCarnet p_carnet) {
-		return super.insertObjectEnBase(p_carnet);
+	public boolean insertCarnetEnBase(MlCarnet p_carnet) {
+		boolean result = super.insertObjectEnBase(p_carnet);
+		if (result) {
+			p_carnet.setIdCarnet(Integer.parseInt(requeteFact.get1Champ("SELECT MAX (" + EnStructCarnet.ID_CARNET.toString() + ") FROM "
+					+ EnTable.CARNETS.toString())));
+		}
+		return result;
 	}
 
-	protected boolean majCarnetEnBase(MlCarnet p_carnet) {
+	public boolean majCarnetEnBase(MlCarnet p_carnet) {
 		return super.majObjetEnBase(p_carnet);
 	}
 
