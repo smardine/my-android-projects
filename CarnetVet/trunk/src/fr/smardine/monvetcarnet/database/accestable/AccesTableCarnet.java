@@ -23,8 +23,8 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 	@Override
 	protected ContentValues createContentValueForObject(MlCarnet p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructCarnet.ID_CARNET.toString(), p_object.getId());
-		values.put(EnStructCarnet.NOM_CARNET.toString(), p_object.getNomCarnet());
+		// values.put(EnStructCarnet.ID_CARNET.getNomChamp(), p_object.getId());
+		values.put(EnStructCarnet.NOM_CARNET.getNomChamp(), p_object.getNomCarnet());
 		return values;
 	}
 

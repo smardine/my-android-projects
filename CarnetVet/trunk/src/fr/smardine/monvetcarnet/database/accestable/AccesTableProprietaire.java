@@ -19,12 +19,12 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 	@Override
 	protected ContentValues createContentValueForObject(MlProprietaire p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructProprietaire.ADRESSE.toString(), p_object.getAdresse());
-		values.put(EnStructProprietaire.ID_DETAIL.toString(), p_object.getIdDetailParent());
-		values.put(EnStructProprietaire.ID_PROPRIETAIRE.toString(), p_object.getIdProprietaire());
-		values.put(EnStructProprietaire.MAIL.toString(), p_object.getMail());
-		values.put(EnStructProprietaire.NOM.toString(), p_object.getNom());
-		values.put(EnStructProprietaire.TEL.toString(), p_object.getTelephone());
+		values.put(EnStructProprietaire.ADRESSE.getNomChamp(), p_object.getAdresse());
+		values.put(EnStructProprietaire.ID_DETAIL.getNomChamp(), p_object.getIdDetailParent());
+		values.put(EnStructProprietaire.ID_PROPRIETAIRE.getNomChamp(), p_object.getIdProprietaire());
+		values.put(EnStructProprietaire.MAIL.getNomChamp(), p_object.getMail());
+		values.put(EnStructProprietaire.NOM.getNomChamp(), p_object.getNom());
+		values.put(EnStructProprietaire.TEL.getNomChamp(), p_object.getTelephone());
 		return values;
 	}
 

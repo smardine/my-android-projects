@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvDateNaissance"
         android:layout_below="@+id/tvNom"
-        android:text="20 mars 2008" />
+         />
     
     <TextView
         android:id="@+id/tvSexe"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvSexe"
         android:layout_below="@+id/tvDateNaissance"
-        android:text="Mâle / Femelle" />
+         />
     
     <TextView
         android:id="@+id/tvRace"
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvRace"
         android:layout_below="@+id/tvSexe"
-        android:text=" blablablabla" />
+         />
     
      <TextView
         android:id="@+id/tvRobe"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvRobe"
         android:layout_below="@+id/tvRace"
-        android:text=" blablablabla" />
+         />
     
     <TextView
         android:id="@+id/tvNumTatouage"
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvNumTatouage"
         android:layout_below="@+id/tvRobe"
-        android:text=" blablablabla" />
+         />
     
     
     <TextView
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvNumPuce"
         android:layout_below="@+id/tvNumTatouage"
-        android:text=" blablablabla" />
+       />
     
      <TextView
         android:id="@+id/tvProp1"
@@ -132,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvProp1"
         android:layout_below="@+id/tvNumPuce"
-        android:text=" nom du proprio1" />
+        />
     
     <TextView
         android:id="@+id/tvProp2"
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvProp2"
         android:layout_below="@+id/tvProp1"
-        android:text=" nom du proprio2" />
+         />
     
     <TextView
         android:id="@+id/tvEleveur"
@@ -164,6 +164,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvEleveur"
         android:layout_below="@+id/tvProp2"
-        android:text=" nom de l'eleveur" />
+        />
 
 </RelativeLayout>

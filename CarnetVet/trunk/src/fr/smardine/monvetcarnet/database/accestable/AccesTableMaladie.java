@@ -20,13 +20,13 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	@Override
 	protected ContentValues createContentValueForObject(MlMaladie p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructMaladie.DATE.toString(), p_object.getDate().getTime());
-		values.put(EnStructMaladie.ID_CARNET.toString(), p_object.getIdCarnetParent());
-		values.put(EnStructMaladie.ID_MALADIE.toString(), p_object.getIdMaladie());
-		values.put(EnStructMaladie.RDV_VETO.toString(), Boolean.toString(p_object.isRdvVeto()));
-		values.put(EnStructMaladie.SYMPTOME.toString(), p_object.getSymptomes());
-		values.put(EnStructMaladie.TITRE.toString(), p_object.getTitre());
-		values.put(EnStructMaladie.TRAITEMENT.toString(), p_object.getTraitement());
+		values.put(EnStructMaladie.DATE.getNomChamp(), p_object.getDate().getTime());
+		values.put(EnStructMaladie.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructMaladie.ID_MALADIE.getNomChamp(), p_object.getIdMaladie());
+		values.put(EnStructMaladie.RDV_VETO.getNomChamp(), Boolean.toString(p_object.isRdvVeto()));
+		values.put(EnStructMaladie.SYMPTOME.getNomChamp(), p_object.getSymptomes());
+		values.put(EnStructMaladie.TITRE.getNomChamp(), p_object.getTitre());
+		values.put(EnStructMaladie.TRAITEMENT.getNomChamp(), p_object.getTraitement());
 		return values;
 	}
 

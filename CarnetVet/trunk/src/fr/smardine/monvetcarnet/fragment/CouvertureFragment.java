@@ -82,13 +82,17 @@ public class CouvertureFragment extends Fragment {
 			this.carnetParent = p_carnetParent;
 			MlIdentification identification = this.carnetParent.getIdentificationAnimal();
 			this.tvNomBestiole.setText(identification.getNomAnimal());
-			Calendar calendar = Calendar.getInstance();
-			Calendar calendarAnimal = Calendar.getInstance();
-			calendarAnimal.setTime(identification.getDateNaissance());
-			int anneDuJour = calendar.get(Calendar.YEAR) - 1900;
-			int anneDateNaissAnimal = calendarAnimal.get(Calendar.YEAR) - 1900;
 
-			this.tvAgeBestiole.setText(anneDuJour - anneDateNaissAnimal);
+			if (identification.getDateNaissance() != null) {
+				Calendar calendar = Calendar.getInstance();
+				Calendar calendarAnimal = Calendar.getInstance();
+				calendarAnimal.setTime(identification.getDateNaissance());
+				int anneDuJour = calendar.get(Calendar.YEAR) - 1900;
+				int anneDateNaissAnimal = calendarAnimal.get(Calendar.YEAR) - 1900;
+
+				this.tvAgeBestiole.setText(anneDuJour - anneDateNaissAnimal);
+			}
+
 		}
 
 	}

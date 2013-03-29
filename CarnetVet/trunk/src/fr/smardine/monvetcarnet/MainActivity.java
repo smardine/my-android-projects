@@ -152,6 +152,9 @@ public class MainActivity extends FragmentActivity {
 		int nombreDeCarnet = acces.getNbEnregistrement();
 		if (nombreDeCarnet == 0) {
 			AlertDialogFactory.creerEtAfficherIdentificationDialog(this, fragmentCouverture, fragmentIdentification);
+		} else {
+			fragmentCouverture.metAjourCouverture(acces.getListeDesCarnets().get(0));
+			fragmentIdentification.metAjourIdentification(acces.getListeDesCarnets().get(0));
 		}
 	}
 

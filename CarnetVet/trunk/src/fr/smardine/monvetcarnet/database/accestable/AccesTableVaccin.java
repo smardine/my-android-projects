@@ -22,11 +22,11 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	@Override
 	protected ContentValues createContentValueForObject(MlVaccin p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructVaccin.DATE.toString(), p_object.getDate().getTime());
-		values.put(EnStructVaccin.ID_CARNET.toString(), p_object.getIdCarnetParent());
-		values.put(EnStructVaccin.ID_VACCIN.toString(), p_object.getIdVaccin());
-		values.put(EnStructVaccin.NOM.toString(), p_object.getNomVaccin().name());
-		values.put(EnStructVaccin.VERMIFUGE.toString(), Boolean.toString(p_object.isVermifuge()));
+		values.put(EnStructVaccin.DATE.getNomChamp(), p_object.getDate().getTime());
+		values.put(EnStructVaccin.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructVaccin.ID_VACCIN.getNomChamp(), p_object.getIdVaccin());
+		values.put(EnStructVaccin.NOM.getNomChamp(), p_object.getNomVaccin().name());
+		values.put(EnStructVaccin.VERMIFUGE.getNomChamp(), Boolean.toString(p_object.isVermifuge()));
 		return values;
 	}
 

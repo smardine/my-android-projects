@@ -23,15 +23,15 @@ public class AccesTableDetail extends AccesTable<MlDetail> {
 	@Override
 	protected ContentValues createContentValueForObject(MlDetail p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructDetail.ID_DETAIL.toString(), p_object.getId());
-		values.put(EnStructDetail.ID_IDENTIFICATION.toString(), p_object.getIdIdentificationParent());
-		values.put(EnStructDetail.NUM_PUCE.toString(), p_object.getNumPuce());
-		values.put(EnStructDetail.NUM_TATOUAGE.toString(), p_object.getNumTatouage());
-		values.put(EnStructDetail.RACE.toString(), p_object.getRace());
-		values.put(EnStructDetail.ROBE.toString(), p_object.getRobe());
-		values.put(EnStructDetail.ID_ELEVEUR.toString(), p_object.getIdEleveur());
-		values.put(EnStructDetail.ID_PROP1.toString(), p_object.getIdProprietaire1());
-		values.put(EnStructDetail.ID_PROP2.toString(), p_object.getIdProprietaire2());
+		// values.put(EnStructDetail.ID_DETAIL.getNomChamp(), p_object.getId());
+		values.put(EnStructDetail.ID_IDENTIFICATION.getNomChamp(), p_object.getIdIdentificationParent());
+		values.put(EnStructDetail.NUM_PUCE.getNomChamp(), p_object.getNumPuce());
+		values.put(EnStructDetail.NUM_TATOUAGE.getNomChamp(), p_object.getNumTatouage());
+		values.put(EnStructDetail.RACE.getNomChamp(), p_object.getRace());
+		values.put(EnStructDetail.ROBE.getNomChamp(), p_object.getRobe());
+		values.put(EnStructDetail.ID_ELEVEUR.getNomChamp(), p_object.getIdEleveur());
+		values.put(EnStructDetail.ID_PROP1.getNomChamp(), p_object.getIdProprietaire1());
+		values.put(EnStructDetail.ID_PROP2.getNomChamp(), p_object.getIdProprietaire2());
 		return values;
 	}
 

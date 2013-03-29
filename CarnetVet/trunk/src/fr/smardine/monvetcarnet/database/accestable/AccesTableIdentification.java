@@ -25,12 +25,15 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 	@Override
 	protected ContentValues createContentValueForObject(MlIdentification p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructIdentification.ID_CARNET.toString(), p_object.getIdCarnetParent());
-		values.put(EnStructIdentification.ID_IDENTIFICATION.toString(), p_object.getIdIdentification());
-		values.put(EnStructIdentification.DATE_NAISSANCE.toString(), p_object.getDateNaissance().getTime());
-		values.put(EnStructIdentification.GENRE.toString(), p_object.getGenreAnimal().getType());
-		values.put(EnStructIdentification.NOM.toString(), p_object.getNomAnimal());
-		values.put(EnStructIdentification.TYPE_ANIMAL.toString(), p_object.getTypeAnimal().getType());
+		values.put(EnStructIdentification.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		// values.put(EnStructIdentification.ID_IDENTIFICATION.getNomChamp(), p_object.getIdIdentification());
+		if (p_object.getDateNaissance() != null) {
+			values.put(EnStructIdentification.DATE_NAISSANCE.getNomChamp(), p_object.getDateNaissance().getTime());
+		}
+
+		values.put(EnStructIdentification.GENRE.getNomChamp(), p_object.getGenreAnimal().getType());
+		values.put(EnStructIdentification.NOM.getNomChamp(), p_object.getNomAnimal());
+		values.put(EnStructIdentification.TYPE_ANIMAL.getNomChamp(), p_object.getTypeAnimal().getType());
 		return values;
 	}
 

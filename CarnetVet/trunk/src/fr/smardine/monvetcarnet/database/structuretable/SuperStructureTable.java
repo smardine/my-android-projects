@@ -34,6 +34,11 @@ public abstract class SuperStructureTable implements IStructureTable {
 		return index;
 	}
 
+	@Override
+	public String toString() {
+		return nomChamp;
+	}
+
 	public abstract SuperStructureTable getKeyChamp();
 
 }

@@ -10,90 +10,71 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText" >
 
-    <TextView
-        android:id="@+id/tvNom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nom de votre animal" />
-     <EditText
+   
+
+    <EditText
         android:id="@+id/etNomAnimal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvNom"
-        android:layout_toRightOf="@+id/tvNom"
         android:ems="10"
-        android:text="Tigui"
-        android:inputType="text" >
+        android:inputType="text"
+        android:hint="Nom de votre animal" >
 
         <requestFocus android:layout_width="wrap_content" />
-
     </EditText>
-    
+
     <RadioGroup
         android:id="@+id/radioGroupTypeAnimal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvNom"
-        android:layout_below="@+id/tvNom"
+        android:layout_alignLeft="@+id/etNomAnimal"
+        android:layout_below="@+id/etNomAnimal"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/rbChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:text="Chat" />
 
         <RadioButton
             android:id="@+id/rbChien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="Chien" />
+
     </RadioGroup>
-
-    <TextView
-        android:id="@+id/tvDateNaissance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupTypeAnimal"
-        android:layout_alignLeft="@+id/tvNom"
-        android:text="Date de naissance:   " />
-    
-    
-   
-
-    <DatePicker
-        android:id="@+id/datePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         android:layout_below="@+id/rbChat"
-        android:layout_toRightOf="@+id/tvDateNaissance"
-        android:spinnersShown="true"    
-        android:calendarViewShown="false"></DatePicker>
-<!--         android:layout_alignBaseline="@+id/tvDateNaissance" -->
-       "
-
-   <RadioGroup
+  
+    <RadioGroup
         android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvNom"
-        android:layout_below="@+id/tvDateNaissance"
+        android:layout_alignLeft="@+id/etNomAnimal"
+        android:layout_below="@+id/radioGroupTypeAnimal"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/rbFemelle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:text="Femelle" />
 
         <RadioButton
             android:id="@+id/rbMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="Mâle" />
+
     </RadioGroup>
 
     <GridLayout
+        android:id="@+id/gridLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/radioGroup2"
@@ -106,7 +87,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="false"
         android:layout_centerVertical="false"
-        android:columnCount="2" android:id="@+id/gridLayout1">
+        android:layout_marginTop="25dp"
+        android:columnCount="2" >
 
         <Button
             android:id="@+id/btOk"
@@ -127,9 +109,6 @@
             android:layout_row="0"
             android:text="Effacer"
             tools:ignore="ButtonStyle" />
-
     </GridLayout>
-
-   
 
 </RelativeLayout>
