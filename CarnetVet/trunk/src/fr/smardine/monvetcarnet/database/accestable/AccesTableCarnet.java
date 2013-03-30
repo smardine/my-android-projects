@@ -13,11 +13,15 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 
 	private final AccesTableVaccin tableVaccin;
 	private final AccesTablePoids tablePoids;
+	private final AccesTableIdentification tableIdentification;
+	private final AccesTableMaladie tableMaladie;
 
 	public AccesTableCarnet(Context p_ctx) {
 		super(p_ctx, EnTable.CARNETS);
 		tableVaccin = new AccesTableVaccin(p_ctx);
 		tablePoids = new AccesTablePoids(p_ctx);
+		tableIdentification = new AccesTableIdentification(p_ctx);
+		tableMaladie = new AccesTableMaladie(p_ctx);
 	}
 
 	@Override
@@ -31,12 +35,14 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 	public List<MlCarnet> getListeDesCarnets() {
 		List<MlCarnet> lstRetour = new ArrayList<MlCarnet>();
 
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.CARNETS, EnStructCarnet.class, null);
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.CARNETS, null);
 
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 			MlCarnet unCarnet = new MlCarnet();
 			unCarnet.setIdCarnet((Integer) unEnregistrement.get(EnStructCarnet.ID_CARNET.getindex()));
 			unCarnet.setNomCarnet((String) unEnregistrement.get(EnStructCarnet.NOM_CARNET.getindex()));
+			unCarnet.setIdentificationAnimal(tableIdentification.getIdentificationParIdCarnet(unCarnet));
+			unCarnet.setListeDeMaladies(tableMaladie.getListeDeMaladiesParIdCarnet(unCarnet));
 			unCarnet.setListeDeVaccins(tableVaccin.getListeDeVaccinsParIdCarnet(unCarnet));
 			unCarnet.setListeDePoids(tablePoids.getListeDePoidsParIdCarnet(unCarnet));
 

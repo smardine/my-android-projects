@@ -15,15 +15,10 @@ package fr.smardine.monvetcarnet.database;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.smardine.monvetcarnet.database.structuretable.EnStructCarnet;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructDetail;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructIdentification;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructMaladie;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructPoids;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructProprietaire;
-import fr.smardine.monvetcarnet.database.structuretable.EnStructVaccin;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.database.structuretable.IStructureTable;
+import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
+import fr.smardine.monvetcarnet.helper.ClassHelper;
 
 /**
  * @author smardine Contient les scripts de creation de la base
@@ -51,20 +46,24 @@ public class G_creation_base {
 	 */
 	public List<String> getScriptsDeCreationDesTables() {
 		List<String> scriptsCreationTables = new ArrayList<String>();
-		scriptsCreationTables.add(createTable(EnTable.CARNETS, EnStructCarnet.ListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.DETAILS, EnStructDetail.ListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS, EnStructIdentification.getListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.MALADIES, EnStructMaladie.getListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.POIDS, EnStructPoids.getListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES, EnStructProprietaire.getListeChamp()));
-		scriptsCreationTables.add(createTable(EnTable.VACCINS, EnStructVaccin.getListeChamp()));
+		scriptsCreationTables.add(createTable(EnTable.CARNETS));
+		scriptsCreationTables.add(createTable(EnTable.DETAILS));
+		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS));
+		scriptsCreationTables.add(createTable(EnTable.MALADIES));
+		scriptsCreationTables.add(createTable(EnTable.POIDS));
+		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES));
+		scriptsCreationTables.add(createTable(EnTable.VACCINS));
 		return scriptsCreationTables;
 	}
 
-	private String createTable(EnTable p_table, IStructureTable[] p_listeChamp) {
+	private String createTable(EnTable p_table) {
 		StringBuilder sb = new StringBuilder();
+
+		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(p_table.getStructureTable());
+		IStructureTable[] listeChamp = uneTable.getListeChamp();
+
 		sb.append("CREATE TABLE IF NOT EXISTS " + p_table.getNomTable() + " (");
-		IStructureTable[] listeChamp = p_listeChamp;
+
 		for (int i = 0; i < listeChamp.length; i++) {
 			IStructureTable unChamp = listeChamp[i];
 			if (i == 0) {
@@ -78,5 +77,4 @@ public class G_creation_base {
 		return sb.toString();
 
 	}
-
 }

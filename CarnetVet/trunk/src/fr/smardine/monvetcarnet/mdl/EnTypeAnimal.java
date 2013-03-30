@@ -17,4 +17,12 @@ public enum EnTypeAnimal {
 		return type;
 	}
 
+	public static EnTypeAnimal getEnumFromName(String p_name) {
+		for (EnTypeAnimal uneEnum : values()) {
+			if (uneEnum.type.equals(p_name))
+				return uneEnum;
+		}
+		return null;
+	}
+
 }

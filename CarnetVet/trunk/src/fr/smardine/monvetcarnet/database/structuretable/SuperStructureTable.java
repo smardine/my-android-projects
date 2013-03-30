@@ -41,4 +41,6 @@ public abstract class SuperStructureTable implements IStructureTable {
 
 	public abstract SuperStructureTable getKeyChamp();
 
+	public abstract IStructureTable[] getListeChamp();
+
 }

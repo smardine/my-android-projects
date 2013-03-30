@@ -31,8 +31,8 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	}
 
 	public List<MlMaladie> getListeDeMaladiesParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.MALADIES, EnStructMaladie.class,
-				EnStructMaladie.ID_CARNET.toString() + "=" + p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.MALADIES, EnStructMaladie.ID_CARNET.toString() + "="
+				+ p_carnetParent.getId());
 
 		List<MlMaladie> lstRetour = new ArrayList<MlMaladie>();
 

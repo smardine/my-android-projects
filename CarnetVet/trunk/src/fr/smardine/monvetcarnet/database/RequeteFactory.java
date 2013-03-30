@@ -8,6 +8,8 @@ import android.content.Context;
 import android.database.Cursor;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.database.structuretable.IStructureTable;
+import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
+import fr.smardine.monvetcarnet.helper.ClassHelper;
 
 /**
  * @author smardine S'occupe de gerer les requetes en bases.
@@ -98,9 +100,11 @@ public class RequeteFactory {
 		return requete;
 	}
 
-	public List<ArrayList<Object>> getListeDeChampBis(EnTable p_table, Class<? extends IStructureTable> class1, String p_whereClause) {
+	public List<ArrayList<Object>> getListeDeChampBis(EnTable p_table, String p_whereClause) {
 
-		IStructureTable[] lstChamp = class1.getEnumConstants();
+		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(p_table.getStructureTable());
+		IStructureTable[] lstChamp = uneTable.getListeChamp();
+
 		StringBuilder sb = new StringBuilder();
 		sb.append(construitRequeteFromStructuretable(lstChamp));
 

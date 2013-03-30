@@ -31,8 +31,8 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	}
 
 	public List<MlVaccin> getListeDeVaccinsParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.class,
-				EnStructVaccin.ID_CARNET.toString() + "=" + p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.ID_CARNET.toString() + "="
+				+ p_carnetParent.getId());
 
 		List<MlVaccin> lstRetour = new ArrayList<MlVaccin>();
 
@@ -42,7 +42,7 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 			unVaccin.setDate(new Date((Long) unEnregistrement.get(EnStructVaccin.DATE.getindex())));
 			unVaccin.setIdCarnetParent((Integer) unEnregistrement.get(EnStructVaccin.ID_CARNET.getindex()));
 			unVaccin.setIdVaccin((Integer) unEnregistrement.get(EnStructVaccin.ID_VACCIN.getindex()));
-			unVaccin.setNomVaccin(EnNomVaccin.valueOf((String) unEnregistrement.get(EnStructVaccin.NOM.getindex())));
+			unVaccin.setNomVaccin(EnNomVaccin.getEnumFromName((String) unEnregistrement.get(EnStructVaccin.NOM.getindex())));
 			unVaccin.setVermifuge(Boolean.parseBoolean((String) unEnregistrement.get(EnStructVaccin.VERMIFUGE.getindex())));
 			lstRetour.add(unVaccin);
 		}

@@ -16,4 +16,12 @@ public enum EnGenre {
 	public String getType() {
 		return type;
 	}
+
+	public static EnGenre getEnumFromName(String p_name) {
+		for (EnGenre uneEnum : values()) {
+			if (uneEnum.type.equals(p_name))
+				return uneEnum;
+		}
+		return null;
+	}
 }

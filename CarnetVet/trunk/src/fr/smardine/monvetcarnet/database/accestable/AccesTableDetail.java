@@ -36,8 +36,8 @@ public class AccesTableDetail extends AccesTable<MlDetail> {
 	}
 
 	public MlDetail getDetailParIdIdentification(MlIdentification p_Identification) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.DETAILS, EnStructDetail.class,
-				EnStructDetail.ID_IDENTIFICATION.toString() + "=" + p_Identification.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.DETAILS, EnStructDetail.ID_IDENTIFICATION.toString()
+				+ "=" + p_Identification.getId());
 
 		MlDetail unDetail = new MlDetail(p_Identification);
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {

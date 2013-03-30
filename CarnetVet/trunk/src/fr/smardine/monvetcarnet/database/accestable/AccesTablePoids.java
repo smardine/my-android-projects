@@ -33,8 +33,8 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	}
 
 	public List<MlPoids> getListeDePoidsParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.class,
-				EnStructPoids.ID_CARNET.toString() + "=" + p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.ID_CARNET.toString() + "="
+				+ p_carnetParent.getId());
 
 		List<MlPoids> lstRetour = new ArrayList<MlPoids>();
 
@@ -45,7 +45,7 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 			unPoids.setIdCarnetParent((Integer) unEnregistrement.get(EnStructPoids.ID_CARNET.getindex()));
 			unPoids.setIdPoid((Integer) unEnregistrement.get(EnStructPoids.ID_POID.getindex()));
 			unPoids.setNote((String) unEnregistrement.get(EnStructPoids.NOTE.getindex()));
-			unPoids.setUnitePoids(EnUnitePoids.valueOf((String) unEnregistrement.get(EnStructPoids.UNITE.getindex())));
+			unPoids.setUnitePoids(EnUnitePoids.getEnumFromName((String) unEnregistrement.get(EnStructPoids.UNITE.getindex())));
 			unPoids.setValeur(Double.valueOf((String) unEnregistrement.get(EnStructPoids.VALEUR.getindex())));
 			lstRetour.add(unPoids);
 		}

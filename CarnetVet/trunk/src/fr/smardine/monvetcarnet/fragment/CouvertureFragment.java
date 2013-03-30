@@ -87,10 +87,10 @@ public class CouvertureFragment extends Fragment {
 				Calendar calendar = Calendar.getInstance();
 				Calendar calendarAnimal = Calendar.getInstance();
 				calendarAnimal.setTime(identification.getDateNaissance());
-				int anneDuJour = calendar.get(Calendar.YEAR) - 1900;
-				int anneDateNaissAnimal = calendarAnimal.get(Calendar.YEAR) - 1900;
+				int anneDuJour = calendar.get(Calendar.YEAR);
+				int anneDateNaissAnimal = calendarAnimal.get(Calendar.YEAR);
 
-				this.tvAgeBestiole.setText(anneDuJour - anneDateNaissAnimal);
+				this.tvAgeBestiole.setText("" + (anneDuJour - anneDateNaissAnimal));
 			}
 
 		}

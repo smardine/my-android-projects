@@ -29,11 +29,10 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 	}
 
 	public MlProprietaire getProprietaireParIdDetailEtIdProprietaire(int idDetailParent, int idEleveurRecherche) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(
-				EnTable.PROPRIETAIRES,
-				EnStructProprietaire.class,
-				EnStructProprietaire.ID_DETAIL.toString() + "=" + idDetailParent + " and "
-						+ EnStructProprietaire.ID_PROPRIETAIRE.toString() + "=" + idEleveurRecherche);
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.PROPRIETAIRES,
+
+		EnStructProprietaire.ID_DETAIL.toString() + "=" + idDetailParent + " and " + EnStructProprietaire.ID_PROPRIETAIRE.toString() + "="
+				+ idEleveurRecherche);
 
 		MlProprietaire unProprietaire = new MlProprietaire();
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {

@@ -18,4 +18,12 @@ public enum EnUnitePoids {
 		return lib;
 	}
 
+	public static EnUnitePoids getEnumFromName(String p_name) {
+		for (EnUnitePoids uneEnum : values()) {
+			if (uneEnum.lib.equals(p_name))
+				return uneEnum;
+		}
+		return null;
+	}
+
 }

@@ -38,7 +38,7 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 	}
 
 	public MlIdentification getIdentificationParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.IDENTIFICATIONS, EnStructIdentification.class,
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.IDENTIFICATIONS,
 				EnStructIdentification.ID_CARNET.toString() + "=" + p_carnetParent.getId());
 
 		MlIdentification uneIdentification = new MlIdentification(p_carnetParent);
@@ -47,11 +47,12 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 			uneIdentification.setDateNaissance(new Date((Long) unEnregistrement.get(EnStructIdentification.DATE_NAISSANCE.getindex())));
 
-			uneIdentification.setGenreAnimal(EnGenre.valueOf((String) unEnregistrement.get(EnStructIdentification.GENRE.getindex())));
+			uneIdentification
+					.setGenreAnimal(EnGenre.getEnumFromName((String) unEnregistrement.get(EnStructIdentification.GENRE.getindex())));
 			uneIdentification.setIdCarnetParent((Integer) unEnregistrement.get(EnStructIdentification.ID_CARNET.getindex()));
 			uneIdentification.setIdIdentification((Integer) unEnregistrement.get(EnStructIdentification.ID_IDENTIFICATION.getindex()));
 			uneIdentification.setNomAnimal((String) unEnregistrement.get(EnStructIdentification.NOM.getindex()));
-			uneIdentification.setTypeAnimal(EnTypeAnimal.valueOf((String) unEnregistrement.get(EnStructIdentification.TYPE_ANIMAL
+			uneIdentification.setTypeAnimal(EnTypeAnimal.getEnumFromName((String) unEnregistrement.get(EnStructIdentification.TYPE_ANIMAL
 					.getindex())));
 			uneIdentification.setDetail(tableDetail.getDetailParIdIdentification(uneIdentification));
 

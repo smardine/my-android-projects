@@ -48,6 +48,7 @@ public class AlertDialogFactory {
 				MlCarnet unCarnet = new MlCarnet();
 				MlIdentification uneIdentification = new MlIdentification(unCarnet);
 				uneIdentification.setNomAnimal(etNomAnimal.getText().toString().trim());
+				unCarnet.setNomCarnet(uneIdentification.getNomAnimal());
 				if (rbChat.isChecked()) {
 					uneIdentification.setTypeAnimal(EnTypeAnimal.CHAT);
 				}
@@ -56,7 +57,7 @@ public class AlertDialogFactory {
 				}
 
 				// uneIdentification.setDateNaissance(new Date(dpDateNaiss.getText().toString()));
-				;
+
 				// uneIdentification.setDateNaissance(newFragment.recupereDate());
 				if (rbMale.isChecked()) {
 					uneIdentification.setGenreAnimal(EnGenre.MALE);
