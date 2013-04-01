@@ -7,21 +7,34 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
+import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.helper.AndroidHelper;
+import fr.smardine.monvetcarnet.helper.DateHelper;
+import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 	private DatePicker datePicker;
-	private Button dateSpinner;
+	private TextView dateSpinner;
+	private MlIdentification identification;
+	private AccesTableIdentification tableIdentification;
 
 	public DatePickerFragment() {
 
 	}
 
-	public void setButtonSpinner(Button p_button) {
+	public void setButtonSpinner(TextView p_button) {
 		this.dateSpinner = p_button;
+	}
+
+	public void setMlIdentification(MlIdentification p_identification) {
+		this.identification = p_identification;
+	}
+
+	public void setTableIdentifiaction(AccesTableIdentification p_tableIdentification) {
+		this.tableIdentification = p_tableIdentification;
 	}
 
 	@Override
@@ -40,7 +53,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 
 		this.datePicker = view;
-		this.dateSpinner.setText(AndroidHelper.getDateFromDatePicker(this.datePicker).toLocaleString());
+		Date dateChoisie = AndroidHelper.getDateFromDatePicker(this.datePicker);
+		this.dateSpinner.setText(DateHelper.ddMMMyyyy(dateChoisie));
+		this.identification.setDateNaissance(dateChoisie);
+		this.tableIdentification.majCarnetEnBase(identification);
 
 	}
 

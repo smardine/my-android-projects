@@ -56,6 +56,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+				onPostCreate(null);
 				if (itemPosition == 0) {
 					// Ouverture d'une transaction pour les fragment
 					android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

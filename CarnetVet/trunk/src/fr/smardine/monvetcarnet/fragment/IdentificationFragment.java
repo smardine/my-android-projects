@@ -1,14 +1,18 @@
 package fr.smardine.monvetcarnet.fragment;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.smardine.monvetcarnet.R;
+import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.helper.DateHelper;
 import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
@@ -40,6 +44,24 @@ public class IdentificationFragment extends Fragment {
 
 	private TextView tvEleveurValue;
 
+	private LinearLayout layoutDateNaissance;
+
+	private LinearLayout layoutEleveur;
+
+	private LinearLayout layoutProp1;
+
+	private LinearLayout layoutProp2;
+
+	private LinearLayout layoutNumPuce;
+
+	private LinearLayout layoutNumTatouage;
+
+	private LinearLayout layoutRace;
+
+	private LinearLayout layoutRobe;
+
+	private LinearLayout layoutSexe;
+
 	public IdentificationFragment() {
 	}
 
@@ -63,6 +85,15 @@ public class IdentificationFragment extends Fragment {
 		tvProp1Value = (TextView) v1.findViewById(R.id.tvProp1Value);
 		tvProp2Value = (TextView) v1.findViewById(R.id.tvProp2Value);
 		tvEleveurValue = (TextView) v1.findViewById(R.id.tvEleveurValue);
+		layoutDateNaissance = (LinearLayout) v1.findViewById(R.id.layoutDateNaissance);
+		layoutEleveur = (LinearLayout) v1.findViewById(R.id.layoutEleveur);
+		layoutProp1 = (LinearLayout) v1.findViewById(R.id.layoutProp1);
+		layoutProp2 = (LinearLayout) v1.findViewById(R.id.layoutProp2);
+		layoutNumPuce = (LinearLayout) v1.findViewById(R.id.layoutNumpuce);
+		layoutNumTatouage = (LinearLayout) v1.findViewById(R.id.layoutNumtatouage);
+		layoutRace = (LinearLayout) v1.findViewById(R.id.layoutRace);
+		layoutRobe = (LinearLayout) v1.findViewById(R.id.layoutRobe);
+		layoutSexe = (LinearLayout) v1.findViewById(R.id.layoutSexe);
 
 		return v1;
 
@@ -79,6 +110,14 @@ public class IdentificationFragment extends Fragment {
 		if (savedInstanceState != null) {
 			Toast.makeText(getActivity(), "Fragment Identification recréé", Toast.LENGTH_LONG).show();
 		}
+
+		tvDateNaissance.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showDatePickerDialog(v);
+			}
+		});
 	}
 
 	@Override
@@ -106,57 +145,74 @@ public class IdentificationFragment extends Fragment {
 		super.onSaveInstanceState(outState);
 	}
 
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		((DatePickerFragment) newFragment).setButtonSpinner(this.tvDateNaissance);
+		((DatePickerFragment) newFragment).setMlIdentification(this.carnetParent.getIdentificationAnimal());
+		AccesTableIdentification tableIdent = new AccesTableIdentification(context);
+		((DatePickerFragment) newFragment).setTableIdentifiaction(tableIdent);
+		newFragment.show(this.getActivity().getFragmentManager(), "Date");
+	}
+
+	private void afficheLayoutEnFonctionContenu(LinearLayout p_layout, Object p_contenuNullable, TextView p_textView,
+			String p_valeurAafficher) {
+		if (p_contenuNullable == null) {
+			p_layout.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+		} else {
+			p_layout.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+			p_textView.setText(p_valeurAafficher);
+		}
+	}
+
 	public void metAjourIdentification(MlCarnet p_carnetParent) {
 		if (p_carnetParent != null) {
 			this.carnetParent = p_carnetParent;
 			MlIdentification identification = this.carnetParent.getIdentificationAnimal();
-			this.tvDateNaissance.setText(DateHelper.ddMMMyyyy(identification.getDateNaissance()));
+			this.afficheLayoutEnFonctionContenu(layoutDateNaissance, identification.getDateNaissance(), tvDateNaissance,
+					DateHelper.ddMMMyyyy(identification.getDateNaissance()));
+			this.afficheLayoutEnFonctionContenu(layoutSexe, identification.getGenreAnimal(), tvSexeEnum, identification.getGenreAnimal()
+					.getType());
+
 			if (identification.getDetail() != null) {
 				if (identification.getDetail().getEleveur() != null) {
-					this.tvEleveurValue.setText(identification.getDetail().getEleveur().getNom());
-					this.tvEleveurValue.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutEleveur, identification.getDetail().getEleveur(), tvEleveurValue,
+							identification.getDetail().getEleveur().getNom());
 				} else {
-					this.tvEleveurValue.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutEleveur, null, null, null);
 				}
 				if (identification.getDetail().getProprietaire1() != null) {
-					this.tvProp1Value.setText(identification.getDetail().getProprietaire1().getNom());
-					this.tvProp1Value.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutProp1, identification.getDetail().getProprietaire1(), tvProp1Value,
+							identification.getDetail().getProprietaire1().getNom());
 				} else {
-					this.tvProp1Value.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutProp1, null, null, null);
 				}
 				if (identification.getDetail().getProprietaire2() != null) {
-					this.tvProp2Value.setText(identification.getDetail().getProprietaire2().getNom());
-					this.tvProp2Value.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutProp2, identification.getDetail().getProprietaire2(), tvProp2Value,
+							identification.getDetail().getProprietaire2().getNom());
 				} else {
-					this.tvProp2Value.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+					this.afficheLayoutEnFonctionContenu(layoutProp2, null, null, null);
 				}
-				if (identification.getDetail().getNumPuce() != null) {
-					this.tvNumPuceValue.setText(identification.getDetail().getNumPuce());
-					this.tvNumPuceValue.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-				} else {
-					this.tvNumPuceValue.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-				}
-				if (identification.getDetail().getNumTatouage() != null) {
-					this.tvNumTatouageValue.setText(identification.getDetail().getNumTatouage());
-					this.tvNumTatouageValue.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-				} else {
-					this.tvNumTatouageValue.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-				}
-				if (identification.getDetail().getRace() != null) {
-					this.tvRaceValue.setText(identification.getDetail().getRace());
-					this.tvRaceValue.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-				} else {
-					this.tvRaceValue.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-				}
-				if (identification.getDetail().getRobe() != null) {
-					this.tvRobeValue.setText(identification.getDetail().getRobe());
-					this.tvRobeValue.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-				} else {
-					this.tvRobeValue.setVisibility(EnStatutVisibilite.RETIRE.getCode());
-				}
+
+				this.afficheLayoutEnFonctionContenu(layoutNumPuce, identification.getDetail().getNumPuce(), tvNumPuceValue, identification
+						.getDetail().getNumPuce());
+				this.afficheLayoutEnFonctionContenu(layoutNumTatouage, identification.getDetail().getNumTatouage(), tvNumTatouageValue,
+						identification.getDetail().getNumTatouage());
+				this.afficheLayoutEnFonctionContenu(layoutRace, identification.getDetail().getRace(), tvRaceValue, identification
+						.getDetail().getRace());
+				this.afficheLayoutEnFonctionContenu(layoutRobe, identification.getDetail().getRobe(), tvRobeValue, identification
+						.getDetail().getRobe());
+			} else {
+				this.afficheLayoutEnFonctionContenu(layoutEleveur, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutProp1, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutProp2, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutNumPuce, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutNumTatouage, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutRace, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutRobe, null, null, null);
 			}
+
 			this.tvNomBestiole.setText(identification.getNomAnimal());
-			this.tvSexeEnum.setText(identification.getGenreAnimal().getType());
+
 		}
 
 	}

@@ -5,6 +5,7 @@ import android.content.Context;
 import fr.smardine.monvetcarnet.database.RequeteFactory;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
+import fr.smardine.monvetcarnet.helper.ClassHelper;
 import fr.smardine.monvetcarnet.mdl.IMetaModel;
 
 public abstract class AccesTable<T> {
@@ -58,7 +59,8 @@ public abstract class AccesTable<T> {
 	 */
 	protected boolean majObjetEnBase(T p_object) {
 		ContentValues modifiedValue = createContentValueForObject(p_object);
-		String whereClause = structureTable.cast(structureTable).getKeyChamp().getNomChamp() + "=?"; // id de l'objet
+		SuperStructureTable unetable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(structureTable);
+		String whereClause = unetable.getKeyChamp().getNomChamp() + "=?"; // id de l'objet
 		int idObject = ((IMetaModel) p_object).getId();
 		String[] whereArgs = { "" + idObject };
 		return requeteFact.majTable(table, modifiedValue, whereClause, whereArgs) != 0;

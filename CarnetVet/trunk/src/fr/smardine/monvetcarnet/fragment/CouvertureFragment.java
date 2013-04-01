@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.smardine.monvetcarnet.R;
@@ -18,7 +17,7 @@ import fr.smardine.monvetcarnet.mdl.MlIdentification;
 public class CouvertureFragment extends Fragment {
 	public Context context;
 	private TextView tvNomBestiole;
-	private ImageView imageView;
+
 	private TextView tvAgeBestiole;
 	private MlCarnet carnetParent;
 
@@ -33,7 +32,6 @@ public class CouvertureFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v1 = inflater.inflate(R.layout.activity_couverture, container, false);
 		tvNomBestiole = (TextView) v1.findViewById(R.id.tvNomBestiole);
-		imageView = (ImageView) v1.findViewById(R.id.imageView1);
 		tvAgeBestiole = (TextView) v1.findViewById(R.id.tvAgeBestiole);
 		return v1;
 
