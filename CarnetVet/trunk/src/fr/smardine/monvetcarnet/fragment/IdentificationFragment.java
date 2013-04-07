@@ -1,10 +1,12 @@
 package fr.smardine.monvetcarnet.fragment;
 
+import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -61,6 +63,8 @@ public class IdentificationFragment extends Fragment {
 	private LinearLayout layoutRobe;
 
 	private LinearLayout layoutSexe;
+
+	protected Object mActionMode;
 
 	public IdentificationFragment() {
 	}
@@ -212,8 +216,33 @@ public class IdentificationFragment extends Fragment {
 			}
 
 			this.tvNomBestiole.setText(identification.getNomAnimal());
+			// this.onCreateOptionsMenu(null, this.getActivity().getMenuInflater());
 
 		}
 
 	}
+
+	// @Override
+	// public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	// super.onCreateOptionsMenu(menu, inflater);
+	// // Inflate the menu; this adds items to the action bar if it is present.
+	// inflater.inflate(R.menu.menu_identification, menu);
+	//
+	// }
+	//
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		ActionBar actionBar = this.getActivity().getActionBar();
+
+		if (menuItem.getItemId() == android.R.id.home) {
+			actionBar.setSelectedNavigationItem(0);
+			return true;
+		} else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
+			return true;
+		}
+
+		return false;
+
+	}
+
 }

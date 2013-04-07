@@ -6,6 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="description_image_spinner">image spinner</string>
     <string name="nom_du_menu">nom du menu</string>
+    <string name="menu_ajouter">Ajouter</string>
+    <string name="menu_header">menu header</string>
+    <string name="sous_menu_item1">sous menu item1</string>
     
       <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>

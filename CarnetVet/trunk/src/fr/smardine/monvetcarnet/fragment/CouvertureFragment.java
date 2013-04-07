@@ -6,8 +6,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.smardine.monvetcarnet.R;
@@ -33,6 +36,13 @@ public class CouvertureFragment extends Fragment {
 		View v1 = inflater.inflate(R.layout.activity_couverture, container, false);
 		tvNomBestiole = (TextView) v1.findViewById(R.id.tvNomBestiole);
 		tvAgeBestiole = (TextView) v1.findViewById(R.id.tvAgeBestiole);
+		this.tvNomBestiole.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showPopup(v);
+			}
+		});
 		return v1;
 
 	}
@@ -73,6 +83,13 @@ public class CouvertureFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+	}
+
+	public void showPopup(View v) {
+		PopupMenu popup = new PopupMenu(this.getActivity(), v);
+		MenuInflater inflater = popup.getMenuInflater();
+		inflater.inflate(R.menu.main, popup.getMenu());
+		popup.show();
 	}
 
 	public void metAjourCouverture(MlCarnet p_carnetParent) {

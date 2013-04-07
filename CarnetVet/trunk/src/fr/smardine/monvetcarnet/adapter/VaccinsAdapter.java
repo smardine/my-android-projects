@@ -14,8 +14,8 @@ public class VaccinsAdapter extends ArrayAdapter<Object> {
 
 	private static String[] labelMenu = new String[] { "mars 2008", "fevrier 2009", "juin 2009", "juillet 2010", "aout 2011",
 			"decembre 2012" };
-	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.collections_cloud,
-			R.drawable.collections_go_to_today, R.drawable.collections_labels, R.drawable.collections_new_label };
+	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
+			R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher };
 	private final Context context;
 
 	public VaccinsAdapter(Context context, int textViewResourceId) {

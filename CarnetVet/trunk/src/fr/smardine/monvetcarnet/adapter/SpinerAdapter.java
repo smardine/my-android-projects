@@ -13,8 +13,8 @@ import fr.smardine.monvetcarnet.R;
 public class SpinerAdapter extends ArrayAdapter<Object> {
 
 	private static String[] labelMenu = new String[] { "Mon vet'carnet", "Identification", "Vaccins", "Poids", "Maladie", "Utiles" };
-	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.collections_cloud,
-			R.drawable.collections_go_to_today, R.drawable.collections_labels, R.drawable.collections_new_label };
+	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_vaccins_48px,
+			R.drawable.ic_vermifuge_48px, R.drawable.ic_launcher, R.drawable.ic_launcher };
 	private final Context context;
 
 	public SpinerAdapter(Context context, int textViewResourceId) {
