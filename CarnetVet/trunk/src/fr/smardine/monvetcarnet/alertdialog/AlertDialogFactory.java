@@ -5,19 +5,42 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
+import fr.smardine.monvetcarnet.adapter.SpinnerIdentificationSaisieAdapter;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
-import fr.smardine.monvetcarnet.mdl.EnGenre;
+import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class AlertDialogFactory {
+
+	public static void ceerEtAfficheIdentificationSaisie(final Context p_ctx) {
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_identification_saisie);
+		dialog.setTitle("Ajouter une information");
+		final RadioButton rbMale = (RadioButton) dialog.findViewById(R.id.rbMale);
+		final RadioButton rbFemelle = (RadioButton) dialog.findViewById(R.id.rbFemelle);
+		final RadioGroup radioGroupSexe = (RadioGroup) dialog.findViewById(R.id.radioGroupGenre);
+		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerIdentificationSaisie);
+		final TextView textView = (TextView) dialog.findViewById(R.id.textViewIdentificationSaisie);
+		final Spinner sp = (Spinner) dialog.findViewById(R.id.spinnerIdentificationSaisie);
+		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
+		final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+		sp.setAdapter(new SpinnerIdentificationSaisieAdapter(p_ctx, R.layout.spinner_text_only));
+		sp.setOnItemSelectedListener(new SpinnerIdentificationSaisieItemSelectedListener(rbMale, rbFemelle, radioGroupSexe, datePicker,
+				textView));
+		dialog.show();
+	}
 
 	public static void creerEtAfficherIdentificationDialog(final Context p_ctx, final CouvertureFragment fragmentCouverture,
 			final IdentificationFragment fragmentIdentification) {
@@ -30,8 +53,8 @@ public class AlertDialogFactory {
 		final RadioButton rbChat = (RadioButton) dialog.findViewById(R.id.rbChat);
 		final RadioButton rbChien = (RadioButton) dialog.findViewById(R.id.rbChien);
 		// final DatePicker dpDateNaiss = (DatePicker) dialog.findViewById(R.id.datePicker1);
-		final RadioButton rbFemelle = (RadioButton) dialog.findViewById(R.id.rbFemelle);
-		final RadioButton rbMale = (RadioButton) dialog.findViewById(R.id.rbMale);
+		// final RadioButton rbFemelle = (RadioButton) dialog.findViewById(R.id.rbFemelle);
+		// final RadioButton rbMale = (RadioButton) dialog.findViewById(R.id.rbMale);
 
 		// dpDateNaiss.setCalendarViewShown(false);
 		// dpDateNaiss.setSpinnersShown(true);
@@ -59,12 +82,12 @@ public class AlertDialogFactory {
 				// uneIdentification.setDateNaissance(new Date(dpDateNaiss.getText().toString()));
 
 				// uneIdentification.setDateNaissance(newFragment.recupereDate());
-				if (rbMale.isChecked()) {
-					uneIdentification.setGenreAnimal(EnGenre.MALE);
-				}
-				if (rbFemelle.isChecked()) {
-					uneIdentification.setGenreAnimal(EnGenre.FEMELLE);
-				}
+				// if (rbMale.isChecked()) {
+				// uneIdentification.setGenreAnimal(EnGenre.MALE);
+				// }
+				// if (rbFemelle.isChecked()) {
+				// uneIdentification.setGenreAnimal(EnGenre.FEMELLE);
+				// }
 				AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
 				AccesTableCarnet accesCarnet = new AccesTableCarnet(dialog.getContext());
 				accesCarnet.insertCarnetEnBase(unCarnet);
@@ -87,8 +110,8 @@ public class AlertDialogFactory {
 				etNomAnimal.setText("");
 				rbChat.setChecked(false);
 				rbChien.setChecked(false);
-				rbFemelle.setChecked(false);
-				rbMale.setChecked(false);
+				// rbFemelle.setChecked(false);
+				// rbMale.setChecked(false);
 			}
 		});
 

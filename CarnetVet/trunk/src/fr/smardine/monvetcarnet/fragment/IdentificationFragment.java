@@ -1,12 +1,10 @@
 package fr.smardine.monvetcarnet.fragment;
 
-import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -174,8 +172,12 @@ public class IdentificationFragment extends Fragment {
 			MlIdentification identification = this.carnetParent.getIdentificationAnimal();
 			this.afficheLayoutEnFonctionContenu(layoutDateNaissance, identification.getDateNaissance(), tvDateNaissance,
 					DateHelper.ddMMMyyyy(identification.getDateNaissance()));
-			this.afficheLayoutEnFonctionContenu(layoutSexe, identification.getGenreAnimal(), tvSexeEnum, identification.getGenreAnimal()
-					.getType());
+			if (identification.getGenreAnimal() != null && identification.getGenreAnimal().getType() != null) {
+				this.afficheLayoutEnFonctionContenu(layoutSexe, identification.getGenreAnimal(), tvSexeEnum, identification
+						.getGenreAnimal().getType());
+			} else {
+				this.afficheLayoutEnFonctionContenu(layoutSexe, null, null, null);
+			}
 
 			if (identification.getDetail() != null) {
 				if (identification.getDetail().getEleveur() != null) {
@@ -230,19 +232,19 @@ public class IdentificationFragment extends Fragment {
 	//
 	// }
 	//
-	@Override
-	public boolean onOptionsItemSelected(MenuItem menuItem) {
-		ActionBar actionBar = this.getActivity().getActionBar();
-
-		if (menuItem.getItemId() == android.R.id.home) {
-			actionBar.setSelectedNavigationItem(0);
-			return true;
-		} else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
-			return true;
-		}
-
-		return false;
-
-	}
+	// @Override
+	// public boolean onOptionsItemSelected(MenuItem menuItem) {
+	// ActionBar actionBar = this.getActivity().getActionBar();
+	//
+	// if (menuItem.getItemId() == android.R.id.home) {
+	// actionBar.setSelectedNavigationItem(0);
+	// return true;
+	// } else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
+	// return true;
+	// }
+	//
+	// return false;
+	//
+	// }
 
 }

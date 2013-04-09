@@ -6,18 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
 
-public class SpinerAdapter extends ArrayAdapter<Object> {
+public class SpinnerIdentificationSaisieAdapter extends ArrayAdapter<Object> {
 
-	private static String[] labelMenu = new String[] { "Mon vet'carnet", "Identification", "Vaccins", "Poids", "Maladie", "Utiles" };
-	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_vaccins_48px,
-			R.drawable.ic_vermifuge_48px, R.drawable.ic_launcher, R.drawable.ic_launcher };
+	private static String[] labelMenu = new String[] { "Sexe", "Date de naissance", "Race", "Robe", "Signes distinctifs", "N° de puce",
+			"N° de tatouage" };
 	private final Context context;
 
-	public SpinerAdapter(Context context, int textViewResourceId) {
+	public SpinnerIdentificationSaisieAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId, labelMenu);
 		this.context = context;
 
@@ -36,13 +34,9 @@ public class SpinerAdapter extends ArrayAdapter<Object> {
 	private View getCustomView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-		View row = inflater.inflate(R.layout.spinner, parent, false);
-		TextView label = (TextView) row.findViewById(R.id.textView1);
+		View row = inflater.inflate(R.layout.spinner_text_only, parent, false);
+		TextView label = (TextView) row.findViewById(R.id.textViewSpinnerTextOnly);
 		label.setText(labelMenu[position]);
-
-		ImageView icon = (ImageView) row.findViewById(R.id.imageView1);
-		icon.setImageResource(images[position]);
-
 		return row;
 	}
 

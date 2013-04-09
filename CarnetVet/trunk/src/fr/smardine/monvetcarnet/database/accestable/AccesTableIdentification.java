@@ -30,8 +30,10 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 		if (p_object.getDateNaissance() != null) {
 			values.put(EnStructIdentification.DATE_NAISSANCE.getNomChamp(), p_object.getDateNaissance().getTime());
 		}
+		if (p_object.getGenreAnimal() != null && p_object.getGenreAnimal().getType() != null) {
+			values.put(EnStructIdentification.GENRE.getNomChamp(), p_object.getGenreAnimal().getType());
+		}
 
-		values.put(EnStructIdentification.GENRE.getNomChamp(), p_object.getGenreAnimal().getType());
 		values.put(EnStructIdentification.NOM.getNomChamp(), p_object.getNomAnimal());
 		values.put(EnStructIdentification.TYPE_ANIMAL.getNomChamp(), p_object.getTypeAnimal().getType());
 		return values;

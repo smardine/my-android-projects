@@ -48,42 +48,19 @@
 
     </RadioGroup>
   
-    <RadioGroup
-        android:id="@+id/radioGroup2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etNomAnimal"
-        android:layout_below="@+id/radioGroupTypeAnimal"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/rbFemelle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:text="Femelle" />
-
-        <RadioButton
-            android:id="@+id/rbMale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Mâle" />
-
-    </RadioGroup>
+   
 
     <GridLayout
         android:id="@+id/gridLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioGroup2"
+        android:layout_alignLeft="@+id/radioGroupTypeAnimal"
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentTop="false"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_below="@+id/radioGroup2"
+        android:layout_below="@+id/radioGroupTypeAnimal"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="false"
         android:layout_centerVertical="false"
