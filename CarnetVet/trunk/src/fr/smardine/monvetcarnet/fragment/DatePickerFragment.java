@@ -56,7 +56,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		Date dateChoisie = AndroidHelper.getDateFromDatePicker(this.datePicker);
 		this.dateSpinner.setText(DateHelper.ddMMMyyyy(dateChoisie));
 		this.identification.setDateNaissance(dateChoisie);
-		this.tableIdentification.majCarnetEnBase(identification);
+		this.tableIdentification.majIdenificationEnBase(identification);
 
 	}
 

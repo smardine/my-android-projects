@@ -4,25 +4,30 @@ import java.util.Date;
 
 public class MlPoids implements IMetaModel {
 
-	private int idCarnetParent;
+	// private int idCarnetParent;
 	private int idPoid;
 	private Date date;
 	private EnUnitePoids unitePoids;
 	private String note;
 	private double valeur;
+	private final MlCarnet carnetParent;
+
+	public MlPoids(MlCarnet p_carnetParent) {
+		this.carnetParent = p_carnetParent;
+	}
 
 	@Override
 	public int getId() {
 		return idPoid;
 	}
 
-	public int getIdCarnetParent() {
-		return idCarnetParent;
-	}
-
-	public void setIdCarnetParent(int idCarnetParent) {
-		this.idCarnetParent = idCarnetParent;
-	}
+	// public int getIdCarnetParent() {
+	// return idCarnetParent;
+	// }
+	//
+	// public void setIdCarnetParent(int idCarnetParent) {
+	// this.idCarnetParent = idCarnetParent;
+	// }
 
 	public int getIdPoid() {
 		return idPoid;
@@ -68,6 +73,13 @@ public class MlPoids implements IMetaModel {
 	 */
 	public void setValeur(double valeur) {
 		this.valeur = valeur;
+	}
+
+	/**
+	 * @return the carnetParent
+	 */
+	public MlCarnet getCarnetParent() {
+		return carnetParent;
 	}
 
 }

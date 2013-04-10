@@ -4,7 +4,7 @@ public class EnStructProprietaire extends SuperStructureTable {
 
 	public static EnStructProprietaire ID_PROPRIETAIRE = new EnStructProprietaire("ID_PROPRIETAIRE", EnTypeChampsSQLite.INTEGER, null, 0); //
 
-	public static EnStructProprietaire ID_DETAIL = new EnStructProprietaire("ID_DETAIL", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructProprietaire ID_DETAIL_PARENT = new EnStructProprietaire("ID_DETAIL", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructProprietaire NOM = new EnStructProprietaire("NOM", EnTypeChampsSQLite.VARCHAR, null, 2); //
 
@@ -20,7 +20,7 @@ public class EnStructProprietaire extends SuperStructureTable {
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_PROPRIETAIRE, ID_DETAIL, NOM, ADRESSE, TEL, MAIL };
+		return new IStructureTable[] { ID_PROPRIETAIRE, ID_DETAIL_PARENT, NOM, ADRESSE, TEL, MAIL };
 	}
 
 	@Override

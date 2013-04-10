@@ -10,13 +10,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.adapter.SpinnerIdentificationSaisieAdapter;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
+import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
@@ -24,7 +24,8 @@ import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class AlertDialogFactory {
 
-	public static void ceerEtAfficheIdentificationSaisie(final Context p_ctx) {
+	public static void ceerEtAfficheIdentificationSaisie(final Context p_ctx, final IdentificationFragment p_identFragment,
+			final MlCarnet p_carnet) {
 		final Dialog dialog = new Dialog(p_ctx);
 		dialog.setContentView(R.layout.alertdialog_identification_saisie);
 		dialog.setTitle("Ajouter une information");
@@ -32,13 +33,15 @@ public class AlertDialogFactory {
 		final RadioButton rbFemelle = (RadioButton) dialog.findViewById(R.id.rbFemelle);
 		final RadioGroup radioGroupSexe = (RadioGroup) dialog.findViewById(R.id.radioGroupGenre);
 		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerIdentificationSaisie);
-		final TextView textView = (TextView) dialog.findViewById(R.id.textViewIdentificationSaisie);
+		final EditText textView = (EditText) dialog.findViewById(R.id.editTextIdentificationSaisie);
 		final Spinner sp = (Spinner) dialog.findViewById(R.id.spinnerIdentificationSaisie);
 		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
-		final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+		// final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
 		sp.setAdapter(new SpinnerIdentificationSaisieAdapter(p_ctx, R.layout.spinner_text_only));
 		sp.setOnItemSelectedListener(new SpinnerIdentificationSaisieItemSelectedListener(rbMale, rbFemelle, radioGroupSexe, datePicker,
-				textView));
+				textView, p_carnet));
+		boutonOk.setOnClickListener(new BtOkIdentificationSaisieClickListener(p_ctx, p_identFragment, dialog, sp, rbMale, rbFemelle,
+				datePicker, textView, p_carnet));
 		dialog.show();
 	}
 
@@ -79,19 +82,10 @@ public class AlertDialogFactory {
 					uneIdentification.setTypeAnimal(EnTypeAnimal.CHIEN);
 				}
 
-				// uneIdentification.setDateNaissance(new Date(dpDateNaiss.getText().toString()));
-
-				// uneIdentification.setDateNaissance(newFragment.recupereDate());
-				// if (rbMale.isChecked()) {
-				// uneIdentification.setGenreAnimal(EnGenre.MALE);
-				// }
-				// if (rbFemelle.isChecked()) {
-				// uneIdentification.setGenreAnimal(EnGenre.FEMELLE);
-				// }
 				AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
 				AccesTableCarnet accesCarnet = new AccesTableCarnet(dialog.getContext());
 				accesCarnet.insertCarnetEnBase(unCarnet);
-				uneIdentification.setIdCarnetParent(unCarnet.getId());
+				uneIdentification.getCarnetParent().setIdCarnet(unCarnet.getId());
 				accesIdent.insertIdentificationEnBase(uneIdentification);
 
 				unCarnet.setIdentificationAnimal(uneIdentification);

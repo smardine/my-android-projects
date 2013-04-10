@@ -15,6 +15,7 @@ import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.helper.DateHelper;
 import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
+import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
@@ -64,6 +65,10 @@ public class IdentificationFragment extends Fragment {
 
 	protected Object mActionMode;
 
+	private TextView tvSigneDistinctifValue;
+
+	private LinearLayout layoutSignesDistinctifs;
+
 	public IdentificationFragment() {
 	}
 
@@ -87,6 +92,7 @@ public class IdentificationFragment extends Fragment {
 		tvProp1Value = (TextView) v1.findViewById(R.id.tvProp1Value);
 		tvProp2Value = (TextView) v1.findViewById(R.id.tvProp2Value);
 		tvEleveurValue = (TextView) v1.findViewById(R.id.tvEleveurValue);
+		tvSigneDistinctifValue = (TextView) v1.findViewById(R.id.tvSignesDistinctifsValue);
 		layoutDateNaissance = (LinearLayout) v1.findViewById(R.id.layoutDateNaissance);
 		layoutEleveur = (LinearLayout) v1.findViewById(R.id.layoutEleveur);
 		layoutProp1 = (LinearLayout) v1.findViewById(R.id.layoutProp1);
@@ -96,6 +102,7 @@ public class IdentificationFragment extends Fragment {
 		layoutRace = (LinearLayout) v1.findViewById(R.id.layoutRace);
 		layoutRobe = (LinearLayout) v1.findViewById(R.id.layoutRobe);
 		layoutSexe = (LinearLayout) v1.findViewById(R.id.layoutSexe);
+		layoutSignesDistinctifs = (LinearLayout) v1.findViewById(R.id.layoutSigneDistinctif);
 
 		return v1;
 
@@ -158,7 +165,7 @@ public class IdentificationFragment extends Fragment {
 
 	private void afficheLayoutEnFonctionContenu(LinearLayout p_layout, Object p_contenuNullable, TextView p_textView,
 			String p_valeurAafficher) {
-		if (p_contenuNullable == null) {
+		if (p_contenuNullable == null || ((p_contenuNullable instanceof String) && StringHelper.IsNullOrEmpty((String) p_contenuNullable))) {
 			p_layout.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 		} else {
 			p_layout.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
@@ -170,8 +177,13 @@ public class IdentificationFragment extends Fragment {
 		if (p_carnetParent != null) {
 			this.carnetParent = p_carnetParent;
 			MlIdentification identification = this.carnetParent.getIdentificationAnimal();
-			this.afficheLayoutEnFonctionContenu(layoutDateNaissance, identification.getDateNaissance(), tvDateNaissance,
-					DateHelper.ddMMMyyyy(identification.getDateNaissance()));
+			if (DateHelper.IsDateVideOuDateMini(identification.getDateNaissance())) {
+				this.afficheLayoutEnFonctionContenu(layoutDateNaissance, null, null, null);
+			} else {
+				this.afficheLayoutEnFonctionContenu(layoutDateNaissance, identification.getDateNaissance(), tvDateNaissance,
+						DateHelper.ddMMMyyyy(identification.getDateNaissance()));
+			}
+
 			if (identification.getGenreAnimal() != null && identification.getGenreAnimal().getType() != null) {
 				this.afficheLayoutEnFonctionContenu(layoutSexe, identification.getGenreAnimal(), tvSexeEnum, identification
 						.getGenreAnimal().getType());
@@ -199,6 +211,8 @@ public class IdentificationFragment extends Fragment {
 					this.afficheLayoutEnFonctionContenu(layoutProp2, null, null, null);
 				}
 
+				this.afficheLayoutEnFonctionContenu(layoutSignesDistinctifs, identification.getDetail().getSignesDistinctifs(),
+						tvSigneDistinctifValue, identification.getDetail().getSignesDistinctifs());
 				this.afficheLayoutEnFonctionContenu(layoutNumPuce, identification.getDetail().getNumPuce(), tvNumPuceValue, identification
 						.getDetail().getNumPuce());
 				this.afficheLayoutEnFonctionContenu(layoutNumTatouage, identification.getDetail().getNumTatouage(), tvNumTatouageValue,
@@ -215,6 +229,7 @@ public class IdentificationFragment extends Fragment {
 				this.afficheLayoutEnFonctionContenu(layoutNumTatouage, null, null, null);
 				this.afficheLayoutEnFonctionContenu(layoutRace, null, null, null);
 				this.afficheLayoutEnFonctionContenu(layoutRobe, null, null, null);
+				this.afficheLayoutEnFonctionContenu(layoutSignesDistinctifs, null, null, null);
 			}
 
 			this.tvNomBestiole.setText(identification.getNomAnimal());

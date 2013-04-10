@@ -5,7 +5,7 @@ import java.util.Date;
 public class MlIdentification implements IMetaModel {
 
 	private int idIdentification;
-	private int idCarnetParent;
+	// private int idCarnetParent;
 	private String nomAnimal;
 	private Date dateNaissance;
 	private double ageCalcule;
@@ -31,13 +31,13 @@ public class MlIdentification implements IMetaModel {
 		this.idIdentification = idIdentification;
 	}
 
-	public int getIdCarnetParent() {
-		return idCarnetParent;
-	}
-
-	public void setIdCarnetParent(int idCarnetParent) {
-		this.idCarnetParent = idCarnetParent;
-	}
+	// public int getIdCarnetParent() {
+	// return idCarnetParent;
+	// }
+	//
+	// public void setIdCarnetParent(int idCarnetParent) {
+	// this.idCarnetParent = idCarnetParent;
+	// }
 
 	public String getNomAnimal() {
 		return nomAnimal;

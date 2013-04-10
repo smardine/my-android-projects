@@ -3,7 +3,7 @@ package fr.smardine.monvetcarnet.database.structuretable;
 public class EnStructDetail extends SuperStructureTable {
 	public static EnStructDetail ID_DETAIL = new EnStructDetail("ID_DETAIL", EnTypeChampsSQLite.INTEGER, null, 0); //
 
-	public static EnStructDetail ID_IDENTIFICATION = new EnStructDetail("ID_IDENTIFICATION", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructDetail ID_IDENTIFICATION_PARENT = new EnStructDetail("ID_IDENTIFICATION", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructDetail RACE = new EnStructDetail("RACE", EnTypeChampsSQLite.VARCHAR, 250, 2); //
 
@@ -19,13 +19,16 @@ public class EnStructDetail extends SuperStructureTable {
 
 	public static EnStructDetail ID_ELEVEUR = new EnStructDetail("ID_ELEVEUR", EnTypeChampsSQLite.INTEGER, null, 8);
 
+	public static EnStructDetail SIGNES_DISTINCTIFS = new EnStructDetail("SIGNES_DISTINCTIFS", EnTypeChampsSQLite.VARCHAR, null, 9);//
+
 	EnStructDetail(String p_nomChamp, EnTypeChampsSQLite p_typeClass, Integer p_tailleMax, int p_index) {
 		super(p_nomChamp, p_typeClass, p_tailleMax, p_index);
 	}
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new SuperStructureTable[] { ID_DETAIL, ID_IDENTIFICATION, RACE, ROBE, NUM_TATOUAGE, NUM_PUCE, ID_PROP1, ID_PROP2, ID_ELEVEUR };
+		return new SuperStructureTable[] { ID_DETAIL, ID_IDENTIFICATION_PARENT, RACE, ROBE, NUM_TATOUAGE, NUM_PUCE, ID_PROP1, ID_PROP2,
+				ID_ELEVEUR, SIGNES_DISTINCTIFS };
 	}
 
 	@Override

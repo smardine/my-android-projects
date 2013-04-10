@@ -3,6 +3,7 @@ package fr.smardine.monvetcarnet.helper;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -108,4 +109,19 @@ public class DateHelper {
 		return null;
 	}
 
+	public static boolean IsDateVideOuDateMini(Date p_date) {
+		if (p_date == null) {
+			return true;
+		} else {
+			Calendar calMinValue = Calendar.getInstance();
+			calMinValue.set(1970, 0, 1);
+			Calendar calValueActuelle = Calendar.getInstance();
+			calValueActuelle.setTime(p_date);
+
+			return calMinValue.get(Calendar.YEAR) == calValueActuelle.get(Calendar.YEAR)
+					&& calMinValue.get(Calendar.MONTH) == calValueActuelle.get(Calendar.MONTH)
+					&& calMinValue.get(Calendar.DAY_OF_MONTH) == calValueActuelle.get(Calendar.DAY_OF_MONTH);
+
+		}
+	}
 }

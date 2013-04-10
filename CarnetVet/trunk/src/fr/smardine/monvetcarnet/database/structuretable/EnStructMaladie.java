@@ -4,7 +4,7 @@ public class EnStructMaladie extends SuperStructureTable {
 
 	public static EnStructMaladie ID_MALADIE = new EnStructMaladie("ID_MALADIE", EnTypeChampsSQLite.INTEGER, null, 0); //
 
-	public static EnStructMaladie ID_CARNET = new EnStructMaladie("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructMaladie ID_CARNET_PARENT = new EnStructMaladie("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructMaladie DATE = new EnStructMaladie("DATE", EnTypeChampsSQLite.LONG, null, 2);//
 
@@ -22,7 +22,7 @@ public class EnStructMaladie extends SuperStructureTable {
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_MALADIE, ID_CARNET, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT };
+		return new IStructureTable[] { ID_MALADIE, ID_CARNET_PARENT, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT };
 	}
 
 	@Override

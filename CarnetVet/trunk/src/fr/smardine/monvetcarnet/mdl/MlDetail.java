@@ -2,12 +2,13 @@ package fr.smardine.monvetcarnet.mdl;
 
 public class MlDetail implements IMetaModel {
 
-	private int idIdentificationParent;
+	// private int idIdentificationParent;
 	private int idDetail;
 	private String race;
 	private String robe;
 	private String numTatouage;
 	private String numPuce;
+	private String signesDistinctifs;
 	private MlProprietaire proprietaire1;
 	private MlProprietaire proprietaire2;
 	private MlProprietaire eleveur;
@@ -20,18 +21,22 @@ public class MlDetail implements IMetaModel {
 		this.identificationParent = p_Identification;
 	}
 
+	private MlDetail() {
+		identificationParent = null;
+	}
+
 	@Override
 	public int getId() {
 		return idDetail;
 	}
 
-	public int getIdIdentificationParent() {
-		return idIdentificationParent;
-	}
-
-	public void setIdIdentificationParent(int idIdentificationParent) {
-		this.idIdentificationParent = idIdentificationParent;
-	}
+	// public int getIdIdentificationParent() {
+	// return idIdentificationParent;
+	// }
+	//
+	// public void setIdIdentificationParent(int idIdentificationParent) {
+	// this.idIdentificationParent = idIdentificationParent;
+	// }
 
 	public int getIdDetail() {
 		return idDetail;
@@ -71,6 +76,20 @@ public class MlDetail implements IMetaModel {
 
 	public void setNumPuce(String numPuce) {
 		this.numPuce = numPuce;
+	}
+
+	/**
+	 * @return the signesDistinctifs
+	 */
+	public String getSignesDistinctifs() {
+		return signesDistinctifs;
+	}
+
+	/**
+	 * @param signesDistinctifs the signesDistinctifs to set
+	 */
+	public void setSignesDistinctifs(String signesDistinctifs) {
+		this.signesDistinctifs = signesDistinctifs;
 	}
 
 	public MlProprietaire getProprietaire1() {

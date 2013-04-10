@@ -40,11 +40,19 @@
         android:minDate="01/01/1970"
         android:id="@+id/datePickerIdentificationSaisie"
         />
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:hint="indiquer votre information"       
-        android:id="@+id/textViewIdentificationSaisie"
-        android:textIsSelectable="true"/>
+<!--     <TextView android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content"  -->
+<!--         android:hint="indiquer votre information"        -->
+<!--         android:id="@+id/textViewIdentificationSaisie" -->
+<!--         android:textIsSelectable="true"/> -->
+
+    <EditText
+        android:id="@+id/editTextIdentificationSaisie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
     
     <LinearLayout
         android:layout_width="wrap_content"

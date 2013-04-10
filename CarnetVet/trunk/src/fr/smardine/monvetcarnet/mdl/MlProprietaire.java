@@ -2,20 +2,25 @@ package fr.smardine.monvetcarnet.mdl;
 
 public class MlProprietaire implements IMetaModel {
 
-	private int idDetailParent;
+	// private int idDetailParent;
 	private int idProprietaire;
 	private String nom;
 	private String adresse;
 	private String telephone;
 	private String mail;
+	private final MlDetail detailParent;
 
-	public int getIdDetailParent() {
-		return idDetailParent;
+	public MlProprietaire(MlDetail p_detailParent) {
+		this.detailParent = p_detailParent;
 	}
 
-	public void setIdDetailParent(int idDetailParent) {
-		this.idDetailParent = idDetailParent;
-	}
+	// public int getIdDetailParent() {
+	// return idDetailParent;
+	// }
+	//
+	// public void setIdDetailParent(int idDetailParent) {
+	// this.idDetailParent = idDetailParent;
+	// }
 
 	public int getIdProprietaire() {
 		return idProprietaire;
@@ -60,6 +65,13 @@ public class MlProprietaire implements IMetaModel {
 	@Override
 	public int getId() {
 		return idProprietaire;
+	}
+
+	/**
+	 * @return the carnetParent
+	 */
+	public MlDetail getDetailParent() {
+		return detailParent;
 	}
 
 }

@@ -4,7 +4,7 @@ public class EnStructPoids extends SuperStructureTable {
 
 	public static EnStructPoids ID_POID = new EnStructPoids("ID_POID", EnTypeChampsSQLite.INTEGER, null, 0); //
 
-	public static EnStructPoids ID_CARNET = new EnStructPoids("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructPoids ID_CARNET_PARENT = new EnStructPoids("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructPoids DATE = new EnStructPoids("DATE", EnTypeChampsSQLite.LONG, null, 2); //
 
@@ -20,7 +20,7 @@ public class EnStructPoids extends SuperStructureTable {
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_POID, ID_CARNET, DATE, VALEUR, UNITE, NOTE };
+		return new IStructureTable[] { ID_POID, ID_CARNET_PARENT, DATE, VALEUR, UNITE, NOTE };
 	}
 
 	@Override

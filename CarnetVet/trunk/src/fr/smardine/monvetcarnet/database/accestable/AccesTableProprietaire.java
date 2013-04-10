@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.monvetcarnet.database.structuretable.EnStructProprietaire;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
+import fr.smardine.monvetcarnet.mdl.MlDetail;
 import fr.smardine.monvetcarnet.mdl.MlProprietaire;
 
 public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
@@ -20,7 +21,7 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 	protected ContentValues createContentValueForObject(MlProprietaire p_object) {
 		ContentValues values = new ContentValues();
 		values.put(EnStructProprietaire.ADRESSE.getNomChamp(), p_object.getAdresse());
-		values.put(EnStructProprietaire.ID_DETAIL.getNomChamp(), p_object.getIdDetailParent());
+		values.put(EnStructProprietaire.ID_DETAIL_PARENT.getNomChamp(), p_object.getDetailParent().getId());
 		values.put(EnStructProprietaire.ID_PROPRIETAIRE.getNomChamp(), p_object.getIdProprietaire());
 		values.put(EnStructProprietaire.MAIL.getNomChamp(), p_object.getMail());
 		values.put(EnStructProprietaire.NOM.getNomChamp(), p_object.getNom());
@@ -28,17 +29,18 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 		return values;
 	}
 
-	public MlProprietaire getProprietaireParIdDetailEtIdProprietaire(int idDetailParent, int idEleveurRecherche) {
+	public MlProprietaire getProprietaireParIdDetailEtIdProprietaire(MlDetail p_DetailParent, int idEleveurRecherche) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.PROPRIETAIRES,
+				EnStructProprietaire.ID_DETAIL_PARENT.toString() + "=" + p_DetailParent.getId() + " and "
+						+ EnStructProprietaire.ID_PROPRIETAIRE.toString() + "=" + idEleveurRecherche);
 
-		EnStructProprietaire.ID_DETAIL.toString() + "=" + idDetailParent + " and " + EnStructProprietaire.ID_PROPRIETAIRE.toString() + "="
-				+ idEleveurRecherche);
-
-		MlProprietaire unProprietaire = new MlProprietaire();
+		MlProprietaire unProprietaire = null;
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 
+			unProprietaire = new MlProprietaire(p_DetailParent);
+
 			unProprietaire.setAdresse((String) unEnregistrement.get(EnStructProprietaire.ADRESSE.getindex()));
-			unProprietaire.setIdDetailParent((Integer) unEnregistrement.get(EnStructProprietaire.ID_DETAIL.getindex()));
+			// unProprietaire.setIdDetailParent((Integer) unEnregistrement.get(EnStructProprietaire.ID_DETAIL_PARENT.getindex()));
 			unProprietaire.setIdProprietaire((Integer) unEnregistrement.get(EnStructProprietaire.ID_PROPRIETAIRE.getindex()));
 			unProprietaire.setMail((String) unEnregistrement.get(EnStructProprietaire.MAIL.getindex()));
 			unProprietaire.setNom((String) unEnregistrement.get(EnStructProprietaire.NOM.getindex()));

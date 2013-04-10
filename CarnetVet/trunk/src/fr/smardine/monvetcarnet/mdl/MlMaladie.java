@@ -4,26 +4,31 @@ import java.util.Date;
 
 public class MlMaladie implements IMetaModel {
 
-	private int idCarnetParent;
+	// private int idCarnetParent;
 	private int idMaladie;
 	private Date date;
 	private String titre;
 	private String symptomes;
 	private boolean rdvVeto;
 	private String traitement;
+	private final MlCarnet carnetParent;
+
+	public MlMaladie(MlCarnet p_carnetParent) {
+		this.carnetParent = p_carnetParent;
+	}
 
 	@Override
 	public int getId() {
 		return idMaladie;
 	}
 
-	public int getIdCarnetParent() {
-		return idCarnetParent;
-	}
-
-	public void setIdCarnetParent(int idCarnetParent) {
-		this.idCarnetParent = idCarnetParent;
-	}
+	// public int getIdCarnetParent() {
+	// return idCarnetParent;
+	// }
+	//
+	// public void setIdCarnetParent(int idCarnetParent) {
+	// this.idCarnetParent = idCarnetParent;
+	// }
 
 	public int getIdMaladie() {
 		return idMaladie;
@@ -71,6 +76,13 @@ public class MlMaladie implements IMetaModel {
 
 	public void setTraitement(String traitement) {
 		this.traitement = traitement;
+	}
+
+	/**
+	 * @return the carnetParent
+	 */
+	public MlCarnet getCarnetParent() {
+		return carnetParent;
 	}
 
 }

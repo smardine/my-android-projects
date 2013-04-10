@@ -23,7 +23,7 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	protected ContentValues createContentValueForObject(MlPoids p_object) {
 		ContentValues values = new ContentValues();
 		values.put(EnStructPoids.DATE.getNomChamp(), p_object.getDate().getTime());
-		values.put(EnStructPoids.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructPoids.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
 		values.put(EnStructPoids.ID_POID.getNomChamp(), p_object.getIdPoid());
 		values.put(EnStructPoids.NOTE.getNomChamp(), p_object.getNote());
 		values.put(EnStructPoids.UNITE.getNomChamp(), p_object.getUnitePoids().name());
@@ -33,16 +33,16 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	}
 
 	public List<MlPoids> getListeDePoidsParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.ID_CARNET.toString() + "="
-				+ p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.ID_CARNET_PARENT.toString()
+				+ "=" + p_carnetParent.getId());
 
 		List<MlPoids> lstRetour = new ArrayList<MlPoids>();
 
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 
-			MlPoids unPoids = new MlPoids();
+			MlPoids unPoids = new MlPoids(p_carnetParent);
 			unPoids.setDate(new Date((Long) unEnregistrement.get(EnStructPoids.DATE.getindex())));
-			unPoids.setIdCarnetParent((Integer) unEnregistrement.get(EnStructPoids.ID_CARNET.getindex()));
+			// unPoids.setIdCarnetParent((Integer) unEnregistrement.get(EnStructPoids.ID_CARNET_PARENT.getindex()));
 			unPoids.setIdPoid((Integer) unEnregistrement.get(EnStructPoids.ID_POID.getindex()));
 			unPoids.setNote((String) unEnregistrement.get(EnStructPoids.NOTE.getindex()));
 			unPoids.setUnitePoids(EnUnitePoids.getEnumFromName((String) unEnregistrement.get(EnStructPoids.UNITE.getindex())));

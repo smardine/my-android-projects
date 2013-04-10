@@ -21,7 +21,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	protected ContentValues createContentValueForObject(MlMaladie p_object) {
 		ContentValues values = new ContentValues();
 		values.put(EnStructMaladie.DATE.getNomChamp(), p_object.getDate().getTime());
-		values.put(EnStructMaladie.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructMaladie.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
 		values.put(EnStructMaladie.ID_MALADIE.getNomChamp(), p_object.getIdMaladie());
 		values.put(EnStructMaladie.RDV_VETO.getNomChamp(), Boolean.toString(p_object.isRdvVeto()));
 		values.put(EnStructMaladie.SYMPTOME.getNomChamp(), p_object.getSymptomes());
@@ -31,16 +31,16 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	}
 
 	public List<MlMaladie> getListeDeMaladiesParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.MALADIES, EnStructMaladie.ID_CARNET.toString() + "="
-				+ p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.MALADIES, EnStructMaladie.ID_CARNET_PARENT.toString()
+				+ "=" + p_carnetParent.getId());
 
 		List<MlMaladie> lstRetour = new ArrayList<MlMaladie>();
 
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 
-			MlMaladie uneMaladie = new MlMaladie();
+			MlMaladie uneMaladie = new MlMaladie(p_carnetParent);
 			uneMaladie.setDate(new Date((Long) unEnregistrement.get(EnStructMaladie.DATE.getindex())));
-			uneMaladie.setIdCarnetParent((Integer) unEnregistrement.get(EnStructMaladie.ID_CARNET.getindex()));
+			// uneMaladie.setIdCarnetParent((Integer) unEnregistrement.get(EnStructMaladie.ID_CARNET_PARENT.getindex()));
 			uneMaladie.setIdMaladie((Integer) unEnregistrement.get(EnStructMaladie.ID_MALADIE.getindex()));
 			uneMaladie.setRdvVeto(Boolean.parseBoolean((String) unEnregistrement.get(EnStructMaladie.RDV_VETO.getindex())));
 			uneMaladie.setSymptomes((String) unEnregistrement.get(EnStructMaladie.SYMPTOME.getindex()));

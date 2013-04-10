@@ -4,7 +4,7 @@ public class EnStructVaccin extends SuperStructureTable {
 
 	public static EnStructVaccin ID_VACCIN = new EnStructVaccin("ID_VACCIN", EnTypeChampsSQLite.INTEGER, null, 0); //
 
-	public static EnStructVaccin ID_CARNET = new EnStructVaccin("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructVaccin ID_CARNET_PARENT = new EnStructVaccin("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructVaccin DATE = new EnStructVaccin("DATE", EnTypeChampsSQLite.LONG, null, 2); //
 
@@ -18,7 +18,7 @@ public class EnStructVaccin extends SuperStructureTable {
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_VACCIN, ID_CARNET, DATE, NOM, VERMIFUGE };
+		return new IStructureTable[] { ID_VACCIN, ID_CARNET_PARENT, DATE, NOM, VERMIFUGE };
 	}
 
 	@Override

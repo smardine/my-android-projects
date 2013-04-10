@@ -23,7 +23,7 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	protected ContentValues createContentValueForObject(MlVaccin p_object) {
 		ContentValues values = new ContentValues();
 		values.put(EnStructVaccin.DATE.getNomChamp(), p_object.getDate().getTime());
-		values.put(EnStructVaccin.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructVaccin.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
 		values.put(EnStructVaccin.ID_VACCIN.getNomChamp(), p_object.getIdVaccin());
 		values.put(EnStructVaccin.NOM.getNomChamp(), p_object.getNomVaccin().name());
 		values.put(EnStructVaccin.VERMIFUGE.getNomChamp(), Boolean.toString(p_object.isVermifuge()));
@@ -31,16 +31,16 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	}
 
 	public List<MlVaccin> getListeDeVaccinsParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.ID_CARNET.toString() + "="
-				+ p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.ID_CARNET_PARENT.toString()
+				+ "=" + p_carnetParent.getId());
 
 		List<MlVaccin> lstRetour = new ArrayList<MlVaccin>();
 
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
 
-			MlVaccin unVaccin = new MlVaccin();
+			MlVaccin unVaccin = new MlVaccin(p_carnetParent);
 			unVaccin.setDate(new Date((Long) unEnregistrement.get(EnStructVaccin.DATE.getindex())));
-			unVaccin.setIdCarnetParent((Integer) unEnregistrement.get(EnStructVaccin.ID_CARNET.getindex()));
+			// unVaccin.setIdCarnetParent((Integer) unEnregistrement.get(EnStructVaccin.ID_CARNET_PARENT.getindex()));
 			unVaccin.setIdVaccin((Integer) unEnregistrement.get(EnStructVaccin.ID_VACCIN.getindex()));
 			unVaccin.setNomVaccin(EnNomVaccin.getEnumFromName((String) unEnregistrement.get(EnStructVaccin.NOM.getindex())));
 			unVaccin.setVermifuge(Boolean.parseBoolean((String) unEnregistrement.get(EnStructVaccin.VERMIFUGE.getindex())));

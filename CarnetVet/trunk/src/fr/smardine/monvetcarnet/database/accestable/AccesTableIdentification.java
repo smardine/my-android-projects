@@ -11,6 +11,7 @@ import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.mdl.EnGenre;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
+import fr.smardine.monvetcarnet.mdl.MlDetail;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class AccesTableIdentification extends AccesTable<MlIdentification> {
@@ -25,7 +26,7 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 	@Override
 	protected ContentValues createContentValueForObject(MlIdentification p_object) {
 		ContentValues values = new ContentValues();
-		values.put(EnStructIdentification.ID_CARNET.getNomChamp(), p_object.getIdCarnetParent());
+		values.put(EnStructIdentification.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
 		// values.put(EnStructIdentification.ID_IDENTIFICATION.getNomChamp(), p_object.getIdIdentification());
 		if (p_object.getDateNaissance() != null) {
 			values.put(EnStructIdentification.DATE_NAISSANCE.getNomChamp(), p_object.getDateNaissance().getTime());
@@ -41,7 +42,7 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 	public MlIdentification getIdentificationParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.IDENTIFICATIONS,
-				EnStructIdentification.ID_CARNET.toString() + "=" + p_carnetParent.getId());
+				EnStructIdentification.ID_CARNET_PARENT.toString() + "=" + p_carnetParent.getId());
 
 		MlIdentification uneIdentification = new MlIdentification(p_carnetParent);
 
@@ -51,12 +52,20 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 			uneIdentification
 					.setGenreAnimal(EnGenre.getEnumFromName((String) unEnregistrement.get(EnStructIdentification.GENRE.getindex())));
-			uneIdentification.setIdCarnetParent((Integer) unEnregistrement.get(EnStructIdentification.ID_CARNET.getindex()));
+			// uneIdentification.setIdCarnetParent((Integer) unEnregistrement.get(EnStructIdentification.ID_CARNET.getindex()));
 			uneIdentification.setIdIdentification((Integer) unEnregistrement.get(EnStructIdentification.ID_IDENTIFICATION.getindex()));
 			uneIdentification.setNomAnimal((String) unEnregistrement.get(EnStructIdentification.NOM.getindex()));
 			uneIdentification.setTypeAnimal(EnTypeAnimal.getEnumFromName((String) unEnregistrement.get(EnStructIdentification.TYPE_ANIMAL
 					.getindex())));
-			uneIdentification.setDetail(tableDetail.getDetailParIdIdentification(uneIdentification));
+			MlDetail unDetail = tableDetail.getDetailParIdIdentification(uneIdentification);
+			if (unDetail == null) {
+				// si le detail remonté est null, il n'a jamais été créé, on le creer et on linsert en base
+				unDetail = new MlDetail(uneIdentification);
+				tableDetail.insertDetailEnBase(unDetail);
+				uneIdentification.setDetail(unDetail);
+			} else {
+				uneIdentification.setDetail(unDetail);
+			}
 
 		}
 		return uneIdentification;
@@ -72,8 +81,8 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 		return result;
 	}
 
-	public boolean majCarnetEnBase(MlIdentification p_identification) {
-		return super.majObjetEnBase(p_identification);
+	public boolean majIdenificationEnBase(MlIdentification p_identification) {
+		return tableDetail.majDetailEnBase(p_identification.getDetail()) && super.majObjetEnBase(p_identification);
 	}
 
 	@Override

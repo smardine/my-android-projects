@@ -5,7 +5,7 @@ public class EnStructIdentification extends SuperStructureTable {
 	public static EnStructIdentification ID_IDENTIFICATION = new EnStructIdentification("ID_IDENTIFICATION", EnTypeChampsSQLite.INTEGER,
 			null, 0); //
 
-	public static EnStructIdentification ID_CARNET = new EnStructIdentification("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
+	public static EnStructIdentification ID_CARNET_PARENT = new EnStructIdentification("ID_CARNET", EnTypeChampsSQLite.INTEGER, null, 1); //
 
 	public static EnStructIdentification NOM = new EnStructIdentification("NOM", EnTypeChampsSQLite.VARCHAR, null, 2); //
 
@@ -21,7 +21,7 @@ public class EnStructIdentification extends SuperStructureTable {
 
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_IDENTIFICATION, ID_CARNET, NOM, DATE_NAISSANCE, TYPE_ANIMAL, GENRE };
+		return new IStructureTable[] { ID_IDENTIFICATION, ID_CARNET_PARENT, NOM, DATE_NAISSANCE, TYPE_ANIMAL, GENRE };
 	}
 
 	@Override

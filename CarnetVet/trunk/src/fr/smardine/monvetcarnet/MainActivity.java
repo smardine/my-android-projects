@@ -1,7 +1,6 @@
 package fr.smardine.monvetcarnet;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -97,7 +96,8 @@ public class MainActivity extends FragmentActivity {
 			actionBar.setSelectedNavigationItem(0);
 			return true;
 		} else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
-			AlertDialogFactory.ceerEtAfficheIdentificationSaisie((Context) this);
+			AlertDialogFactory.ceerEtAfficheIdentificationSaisie(this, fragmentIdentification, new AccesTableCarnet(this)
+					.getListeDesCarnets().get(0));
 			return true;
 		}
 
