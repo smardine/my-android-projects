@@ -55,15 +55,9 @@ public class AlertDialogFactory {
 		final EditText etNomAnimal = (EditText) dialog.findViewById(R.id.etNomAnimal);
 		final RadioButton rbChat = (RadioButton) dialog.findViewById(R.id.rbChat);
 		final RadioButton rbChien = (RadioButton) dialog.findViewById(R.id.rbChien);
-		// final DatePicker dpDateNaiss = (DatePicker) dialog.findViewById(R.id.datePicker1);
-		// final RadioButton rbFemelle = (RadioButton) dialog.findViewById(R.id.rbFemelle);
-		// final RadioButton rbMale = (RadioButton) dialog.findViewById(R.id.rbMale);
 
-		// dpDateNaiss.setCalendarViewShown(false);
-		// dpDateNaiss.setSpinnersShown(true);
 		etNomAnimal.setText("");
-		// ImageView image = (ImageView) dialog.findViewById(R.id.image);
-		// image.setImageResource(R.drawable.ic_launcher);
+
 		Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
 		Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
 
@@ -92,7 +86,7 @@ public class AlertDialogFactory {
 
 				fragmentCouverture.metAjourCouverture(unCarnet);
 				fragmentIdentification.metAjourIdentification(unCarnet);
-
+				// fermer le dialog
 				dialog.dismiss();
 			}
 		});
@@ -104,8 +98,6 @@ public class AlertDialogFactory {
 				etNomAnimal.setText("");
 				rbChat.setChecked(false);
 				rbChien.setChecked(false);
-				// rbFemelle.setChecked(false);
-				// rbMale.setChecked(false);
 			}
 		});
 

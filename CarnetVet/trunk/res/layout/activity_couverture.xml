@@ -31,14 +31,15 @@
                 android:id="@+id/tvCarnetDeSanteDe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Le carnet de santé de"
+                android:text="@string/le_carnet_de"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/tvNomBestiole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nom de la bestiole"
+                android:hint="@string/nom_animal"
+                android:textIsSelectable="true"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </RelativeLayout>

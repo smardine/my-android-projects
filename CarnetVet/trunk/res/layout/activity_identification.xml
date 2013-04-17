@@ -13,25 +13,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"       
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/description_image_spinner" />
 
     <TextView
         android:id="@+id/tvNom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
-        android:text="nom de la bestiole" />
+        android:hint="@string/nom_animal"
+        android:textIsSelectable="true" />
     
 	<LinearLayout android:orientation="horizontal"
 	    android:layout_below="@+id/tvNom"
 	    android:id="@+id/layoutDateNaissance"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">"
+	    android:layout_height="wrap_content">
 	      <TextView
 	        android:id="@+id/tvDateNaissance"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"        
-	        android:text="Né(e) le " />	
+	        android:text="@string/ne_le" />	
 	    <TextView
 	        android:id="@+id/tvDateNaiss"
 	        android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
         android:id="@+id/tvSexe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"  
-        android:text="Sexe   " />
+        android:text="@string/sexe" />
 
     <TextView
         android:id="@+id/tvSexeEnum"
@@ -72,7 +74,7 @@
         android:id="@+id/tvRace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"   
-        android:text="Race   " />
+        android:text="@string/race" />
 
     <TextView
         android:id="@+id/tvRaceValue"
@@ -92,7 +94,7 @@
         android:id="@+id/tvRobe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"        
-        android:text="Robe   " />
+        android:text="@string/robe" />
 
     <TextView
         android:id="@+id/tvRobeValue"
@@ -112,7 +114,7 @@
 	        android:id="@+id/tvNumTatouage"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content" 
-	        android:text="N° Tatouage   " />
+	        android:text="@string/num_tatouage" />
 
 	    <TextView
 	        android:id="@+id/tvNumTatouageValue"
@@ -132,7 +134,7 @@
         android:id="@+id/tvNumPuce"
         android:layout_width="wrap_content"       
         android:layout_height="wrap_content"
-        android:text="N° Identification   " />
+        android:text="@string/num_identification" />
 
     <TextView
         android:id="@+id/tvNumPuceValue"
@@ -152,7 +154,7 @@
 	        android:id="@+id/tvProp1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"  
-	        android:text="Proprietaire 1   " />
+	        android:text="@string/proprio1" />
 
 	    <TextView
 	        android:id="@+id/tvProp1Value"
@@ -172,7 +174,7 @@
 	        android:id="@+id/tvProp2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content" 
-	        android:text="Proprietaire 2   " />
+	        android:text="@string/proprio2" />
 
 	    <TextView
 	        android:id="@+id/tvProp2Value"
@@ -192,7 +194,7 @@
 	        android:id="@+id/tvEleveur"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content" 
-	        android:text="Eleveur   " />
+	        android:text="@string/eleveur" />
 
 	    <TextView
 	        android:id="@+id/tvEleveurValue"
