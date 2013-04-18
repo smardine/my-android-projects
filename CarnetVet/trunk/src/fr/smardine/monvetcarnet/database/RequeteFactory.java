@@ -88,6 +88,11 @@ public class RequeteFactory {
 
 	}
 
+	/**
+	 * Construit une requete a partir d'une classe implementant "IStructureTable"
+	 * @param p_sctructureTable
+	 * @return
+	 */
 	private String construitRequeteFromStructuretable(IStructureTable[] p_sctructureTable) {
 		String requete = "Select ";
 		for (int i = 0; i < p_sctructureTable.length; i++) {
@@ -100,9 +105,16 @@ public class RequeteFactory {
 		return requete;
 	}
 
+	/**
+	 * Obtenir une liste de champs a partir d'un EnTable et d'une clause where sous forme de chaine
+	 * @param p_table
+	 * @param p_whereClause
+	 * @return
+	 */
 	public List<ArrayList<Object>> getListeDeChampBis(EnTable p_table, String p_whereClause) {
 
-		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(p_table.getStructureTable());
+		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper
+				.createInstanceClassFromClass(p_table.getStructureTable(), this.ctx);
 		IStructureTable[] lstChamp = uneTable.getListeChamp();
 
 		StringBuilder sb = new StringBuilder();

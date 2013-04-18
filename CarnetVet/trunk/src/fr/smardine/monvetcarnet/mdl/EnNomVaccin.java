@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * Vaccin
+ * @author sims
+ */
 public enum EnNomVaccin {
 
 	RC, P, CH, FelV, Rage;

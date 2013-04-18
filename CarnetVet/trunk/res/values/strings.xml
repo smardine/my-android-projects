@@ -10,6 +10,8 @@
     <string name="menu_header">menu header</string>
     <string name="sous_menu_item1">sous menu item1</string>
     <string name="nom_animal">Nom de votre animal</string>
+    <string name="age_animal">Age de l\'animal</string>
+    <string name="ans">ans</string>
     <string name="ne_le">Né(e) le </string>
     <string name="sexe">Sexe:   </string>
     <string name="race">Race:   </string>
@@ -21,7 +23,7 @@
     <string name="eleveur">Eleveur:   </string>
     <string name="le_carnet_de">Le carnet de santé de</string>
     
-      <color name="app_color">#FFFFFF</color>
+    <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
 
 </resources>

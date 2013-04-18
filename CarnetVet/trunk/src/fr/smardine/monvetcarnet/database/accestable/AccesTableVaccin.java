@@ -12,13 +12,24 @@ import fr.smardine.monvetcarnet.mdl.EnNomVaccin;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
+/**
+ * Classe d'acces a la table Vaccin
+ * @author sims
+ */
 public class AccesTableVaccin extends AccesTable<MlVaccin> {
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableVaccin(Context p_ctx) {
 		super(p_ctx, EnTable.VACCINS);
 
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlMaladie
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlVaccin p_object) {
 		ContentValues values = new ContentValues();
@@ -30,6 +41,11 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 		return values;
 	}
 
+	/**
+	 * Obtenir la listes des MlVaccins associé à un MlCarnet
+	 * @param p_carnetParent
+	 * @return
+	 */
 	public List<MlVaccin> getListeDeVaccinsParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.ID_CARNET_PARENT.toString()
 				+ "=" + p_carnetParent.getId());
@@ -49,14 +65,27 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 		return lstRetour;
 	}
 
+	/**
+	 * Inserer un MlVaccin en base
+	 * @param p_vaccin
+	 * @return
+	 */
 	protected boolean insertVaccinEnBase(MlVaccin p_vaccin) {
 		return super.insertObjectEnBase(p_vaccin);
 	}
 
+	/**
+	 * Mettre a jour un MlVaccin en base
+	 * @param p_vaccin
+	 * @return
+	 */
 	protected boolean majVaccinEnBase(MlVaccin p_vaccin) {
 		return super.majObjetEnBase(p_vaccin);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

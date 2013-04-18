@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * Genre de l'animal
+ * @author sims
+ */
 public enum EnGenre {
 	MALE("Mâle"), //
 	FEMELLE("Femelle");

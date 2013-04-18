@@ -11,12 +11,23 @@ import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
 
+/**
+ * Classe d'acces a la table Maladie
+ * @author sims
+ */
 public class AccesTableMaladie extends AccesTable<MlMaladie> {
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableMaladie(Context p_ctx) {
 		super(p_ctx, EnTable.MALADIES);
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlMaladie
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlMaladie p_object) {
 		ContentValues values = new ContentValues();
@@ -30,6 +41,11 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 		return values;
 	}
 
+	/**
+	 * Obtenir la liste des MlMaladies en base a partir d'un MlCarnet
+	 * @param p_carnetParent
+	 * @return
+	 */
 	public List<MlMaladie> getListeDeMaladiesParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.MALADIES, EnStructMaladie.ID_CARNET_PARENT.toString()
 				+ "=" + p_carnetParent.getId());
@@ -52,14 +68,27 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 		return lstRetour;
 	}
 
+	/**
+	 * Inserer un MlMaladie en base
+	 * @param p_maladie
+	 * @return
+	 */
 	protected boolean insertMaladieEnBase(MlMaladie p_maladie) {
 		return super.insertObjectEnBase(p_maladie);
 	}
 
+	/**
+	 * Mettre a jour un MlMaladie en base
+	 * @param p_maladie
+	 * @return
+	 */
 	protected boolean majMaladieEnBase(MlMaladie p_maladie) {
 		return super.majObjetEnBase(p_maladie);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

@@ -18,6 +18,11 @@ public enum EnTable {
 	private String nomTable;
 	private Class<? extends SuperStructureTable> structureTable;
 
+	/**
+	 * Constructeur
+	 * @param p_nomTable
+	 * @param p_structure
+	 */
 	EnTable(String p_nomTable, Class<? extends SuperStructureTable> p_structure) {
 		this.nomTable = p_nomTable;
 		this.structureTable = p_structure;
@@ -35,6 +40,10 @@ public enum EnTable {
 		return nomTable;
 	}
 
+	/**
+	 * Obtenir la structure de la table associé a l'enum
+	 * @return
+	 */
 	public Class<? extends SuperStructureTable> getStructureTable() {
 		return structureTable;
 	}

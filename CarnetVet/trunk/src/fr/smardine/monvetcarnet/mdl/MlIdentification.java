@@ -2,6 +2,10 @@ package fr.smardine.monvetcarnet.mdl;
 
 import java.util.Date;
 
+/**
+ * MlIdentification
+ * @author sims
+ */
 public class MlIdentification implements IMetaModel {
 
 	private int idIdentification;

@@ -36,16 +36,27 @@ public class BDAcces {
 		this.mCtx = ctx;
 	}
 
+	/**
+	 * Classe helper d'acces a la bdd
+	 * @author sims
+	 */
 	private class DatabaseHelper extends SQLiteOpenHelper {
 
+		/**
+		 * Constructeur
+		 * @param context
+		 */
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
+		/**
+		 * Cette methode est lancé par le systeme lors de la creation de la bdd
+		 */
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			G_creation_base creation = new G_creation_base();
-			for (String s : creation.getallCreation()) {
+			for (String s : creation.getallCreation(mCtx)) {
 				db.execSQL(s);
 			}
 
@@ -55,6 +66,9 @@ public class BDAcces {
 			// }
 		}
 
+		/**
+		 * Cette methode est lancé par la systeme lors de la maj d'une bdd
+		 */
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
@@ -72,7 +86,7 @@ public class BDAcces {
 	}
 
 	/**
-	 * @throws SQLException
+	 * Ouverture de la bdd
 	 */
 	protected void open() {
 		// si la base est deja ouverte, on la ferme.

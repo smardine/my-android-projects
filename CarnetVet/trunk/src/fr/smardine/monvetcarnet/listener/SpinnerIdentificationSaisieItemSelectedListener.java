@@ -13,6 +13,9 @@ import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 
+/**
+ * @author sims
+ */
 public class SpinnerIdentificationSaisieItemSelectedListener implements OnItemSelectedListener {
 
 	private final RadioButton rbMale;
@@ -22,6 +25,15 @@ public class SpinnerIdentificationSaisieItemSelectedListener implements OnItemSe
 	private final EditText textView;
 	private final MlCarnet carnet;
 
+	/**
+	 * Constructeur
+	 * @param rbMale
+	 * @param rbFemelle
+	 * @param radioGroupSexe
+	 * @param datePicker
+	 * @param textView
+	 * @param p_carnet
+	 */
 	public SpinnerIdentificationSaisieItemSelectedListener(RadioButton rbMale, RadioButton rbFemelle, RadioGroup radioGroupSexe,
 			DatePicker datePicker, EditText textView, MlCarnet p_carnet) {
 		this.rbMale = rbMale;
@@ -38,6 +50,9 @@ public class SpinnerIdentificationSaisieItemSelectedListener implements OnItemSe
 		valoriseLesElementsEnFonctionDeLaPosition(p_itemPosition);
 	}
 
+	/**
+	 * @param p_itemPosition
+	 */
 	private void valoriseLesElementsEnFonctionDeLaPosition(int p_itemPosition) {
 		switch (p_itemPosition) {
 			case 0:// sexe
@@ -93,11 +108,17 @@ public class SpinnerIdentificationSaisieItemSelectedListener implements OnItemSe
 
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		afficheOuCacheElementEnFonctionDeLaPosition(-1);
 	}
 
+	/**
+	 * @param p_position
+	 */
 	private void afficheOuCacheElementEnFonctionDeLaPosition(int p_position) {
 		// par defaut, tous les elements sont invisibles
 		radioGroupSexe.setVisibility(EnStatutVisibilite.RETIRE.getCode());

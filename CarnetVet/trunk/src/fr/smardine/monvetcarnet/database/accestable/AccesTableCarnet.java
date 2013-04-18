@@ -9,6 +9,10 @@ import fr.smardine.monvetcarnet.database.structuretable.EnStructCarnet;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 
+/**
+ * Classe d'acces a la table Carnet
+ * @author sims
+ */
 public class AccesTableCarnet extends AccesTable<MlCarnet> {
 
 	private final AccesTableVaccin tableVaccin;
@@ -16,6 +20,10 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 	private final AccesTableIdentification tableIdentification;
 	private final AccesTableMaladie tableMaladie;
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableCarnet(Context p_ctx) {
 		super(p_ctx, EnTable.CARNETS);
 		tableVaccin = new AccesTableVaccin(p_ctx);
@@ -24,6 +32,9 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 		tableMaladie = new AccesTableMaladie(p_ctx);
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlCarnet
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlCarnet p_object) {
 		ContentValues values = new ContentValues();
@@ -32,6 +43,10 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 		return values;
 	}
 
+	/**
+	 * Obtenir la liste des carnets en base
+	 * @return
+	 */
 	public List<MlCarnet> getListeDesCarnets() {
 		List<MlCarnet> lstRetour = new ArrayList<MlCarnet>();
 
@@ -52,6 +67,11 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 
 	}
 
+	/**
+	 * Inserer un MlCarnet en base
+	 * @param p_carnet
+	 * @return
+	 */
 	public boolean insertCarnetEnBase(MlCarnet p_carnet) {
 		boolean result = super.insertObjectEnBase(p_carnet);
 		if (result) {
@@ -61,10 +81,18 @@ public class AccesTableCarnet extends AccesTable<MlCarnet> {
 		return result;
 	}
 
+	/**
+	 * Mettre a jour un MlCarnet en base
+	 * @param p_carnet
+	 * @return
+	 */
 	public boolean majCarnetEnBase(MlCarnet p_carnet) {
 		return super.majObjetEnBase(p_carnet);
 	}
 
+	/**
+	 * Effacer le contenu de la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

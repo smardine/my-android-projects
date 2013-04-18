@@ -24,7 +24,13 @@ import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class AlertDialogFactory {
 
-	public static void ceerEtAfficheIdentificationSaisie(final Context p_ctx, final IdentificationFragment p_identFragment,
+	/**
+	 * Crée et affiche l'alert dialog qui permet de faire les saisies d'informations sur la page "Identification"
+	 * @param p_ctx
+	 * @param p_identFragment
+	 * @param p_carnet
+	 */
+	public static void creerEtAfficherIdentificationSaisie(final Context p_ctx, final IdentificationFragment p_identFragment,
 			final MlCarnet p_carnet) {
 		final Dialog dialog = new Dialog(p_ctx);
 		dialog.setContentView(R.layout.alertdialog_identification_saisie);
@@ -36,7 +42,7 @@ public class AlertDialogFactory {
 		final EditText textView = (EditText) dialog.findViewById(R.id.editTextIdentificationSaisie);
 		final Spinner sp = (Spinner) dialog.findViewById(R.id.spinnerIdentificationSaisie);
 		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
-		// final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+
 		sp.setAdapter(new SpinnerIdentificationSaisieAdapter(p_ctx, R.layout.spinner_text_only));
 		sp.setOnItemSelectedListener(new SpinnerIdentificationSaisieItemSelectedListener(rbMale, rbFemelle, radioGroupSexe, datePicker,
 				textView, p_carnet));
@@ -45,6 +51,12 @@ public class AlertDialogFactory {
 		dialog.show();
 	}
 
+	/**
+	 * Crée et affiche l'alert diaolg qui est affiché lors de la premiere entrée dans le soft
+	 * @param p_ctx
+	 * @param fragmentCouverture
+	 * @param fragmentIdentification
+	 */
 	public static void creerEtAfficherIdentificationDialog(final Context p_ctx, final CouvertureFragment fragmentCouverture,
 			final IdentificationFragment fragmentIdentification) {
 		final Dialog dialog = new Dialog(p_ctx);

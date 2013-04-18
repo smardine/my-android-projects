@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * Type d'animal
+ * @author sims
+ */
 public enum EnTypeAnimal {
 	CHIEN("Chien"), //
 	CHAT("Chat");

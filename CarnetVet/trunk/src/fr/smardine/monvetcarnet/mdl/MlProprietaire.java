@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * MlProprietaire
+ * @author sims
+ */
 public class MlProprietaire implements IMetaModel {
 
 	// private int idDetailParent;

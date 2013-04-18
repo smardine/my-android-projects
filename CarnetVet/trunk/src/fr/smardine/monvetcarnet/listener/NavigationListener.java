@@ -6,9 +6,12 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
+import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
+import fr.smardine.monvetcarnet.helper.log.EnNiveauLog;
+import fr.smardine.monvetcarnet.helper.log.LogCatBuilder;
 
 public class NavigationListener implements OnNavigationListener {
 
@@ -21,7 +24,16 @@ public class NavigationListener implements OnNavigationListener {
 	private MenuItem menuPlusVaccin;
 	private MenuItem menuPlusMaladie;
 	private MenuItem menuPlusPoid;
+	private final String TAG = this.getClass().getName();
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 * @param p_couvertureFragment
+	 * @param p_identFragment
+	 * @param p_vaccinFrragment
+	 * @param p_actionbar
+	 */
 	public NavigationListener(FragmentActivity p_ctx, CouvertureFragment p_couvertureFragment, IdentificationFragment p_identFragment,
 			VaccinFragment p_vaccinFrragment, ActionBar p_actionbar) {
 		this.ctx = p_ctx;
@@ -73,7 +85,7 @@ public class NavigationListener implements OnNavigationListener {
 				afficheOuCacheBoutonAjouterEnFonctionDeLaPosition(itemPosition);
 				return true;
 			default:
-				Toast.makeText(ctx, "La position selectionnée n'est pas encore gérée (NavigationListener)", Toast.LENGTH_LONG).show();
+				LogCatBuilder.WriteInfoToLog(ctx, EnNiveauLog.WARNING, TAG, R.string.position_non_geree, TAG);
 				return false;
 		}
 
@@ -102,6 +114,7 @@ public class NavigationListener implements OnNavigationListener {
 				this.menuPlusMaladie.setVisible(true);
 				break;
 			default:
+				LogCatBuilder.WriteInfoToLog(ctx, EnNiveauLog.WARNING, TAG, R.string.position_non_geree, TAG);
 				Toast.makeText(ctx, "La position selectionnée n'est pas encore gérée (NavigationListener)", Toast.LENGTH_LONG).show();
 
 		}

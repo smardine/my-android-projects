@@ -8,13 +8,25 @@ import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
 import fr.smardine.monvetcarnet.helper.ClassHelper;
 import fr.smardine.monvetcarnet.mdl.IMetaModel;
 
+/**
+ * Classe mere d'acces aux table de la base
+ * @author sims
+ * @param <T>
+ */
 public abstract class AccesTable<T> {
 
 	protected final RequeteFactory requeteFact;
 	private final EnTable table;
 	private final Class<? extends SuperStructureTable> structureTable;
+	private final Context ctx;
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 * @param p_table
+	 */
 	public AccesTable(Context p_ctx, EnTable p_table) {
+		this.ctx = p_ctx;
 		this.table = p_table;
 		this.structureTable = table.getStructureTable();
 		this.requeteFact = new RequeteFactory(p_ctx);
@@ -59,7 +71,7 @@ public abstract class AccesTable<T> {
 	 */
 	protected boolean majObjetEnBase(T p_object) {
 		ContentValues modifiedValue = createContentValueForObject(p_object);
-		SuperStructureTable unetable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(structureTable);
+		SuperStructureTable unetable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(structureTable, ctx);
 		String whereClause = unetable.getKeyChamp().getNomChamp() + "=?"; // id de l'objet
 		int idObject = ((IMetaModel) p_object).getId();
 		String[] whereArgs = { "" + idObject };

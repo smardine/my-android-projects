@@ -22,8 +22,6 @@ public interface IStructureTable {
 
 	int getindex();
 
-	// IStructureTable[] getListeChamp();
-
 	@Override
 	String toString();
 

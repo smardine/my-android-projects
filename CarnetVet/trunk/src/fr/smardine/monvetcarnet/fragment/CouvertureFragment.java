@@ -17,6 +17,10 @@ import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
+/**
+ * Fragment "Couverture"
+ * @author sims
+ */
 public class CouvertureFragment extends Fragment {
 	public Context context;
 	private TextView tvNomBestiole;
@@ -27,8 +31,6 @@ public class CouvertureFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// on est sur la page principale, on ne veut pas afficher la touche retour dans l'action bar
-
 	}
 
 	@Override
@@ -107,7 +109,6 @@ public class CouvertureFragment extends Fragment {
 
 				this.tvAgeBestiole.setText("" + (anneDuJour - anneDateNaissAnimal));
 			}
-
 		}
 
 	}

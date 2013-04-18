@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * MlDetail
+ * @author sims
+ */
 public class MlDetail implements IMetaModel {
 
 	private int idDetail;

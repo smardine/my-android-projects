@@ -96,7 +96,7 @@ public class MainActivity extends FragmentActivity {
 			actionBar.setSelectedNavigationItem(0);
 			return true;
 		} else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
-			AlertDialogFactory.ceerEtAfficheIdentificationSaisie(this, fragmentIdentification, new AccesTableCarnet(this)
+			AlertDialogFactory.creerEtAfficherIdentificationSaisie(this, fragmentIdentification, new AccesTableCarnet(this)
 					.getListeDesCarnets().get(0));
 			return true;
 		}

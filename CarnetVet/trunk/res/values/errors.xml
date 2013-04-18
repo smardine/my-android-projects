@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fichier ressources pour tout les messages d'erreur  -->
+    
+    
+    <!-- Exception -->
+    <string name="methode_inconnue">Méthode inconnue</string>
+    <string name="argument_incorrect">Argument incorrect</string>
+    <string name="instanciation_echouee">Instantiation echouée</string>
+    <string name="acces_illegal">Acces illegal à une methode, verifier la visibilité</string>
+    <string name="cible_incorrecte">Cible incorrecte</string>
+    <string name="class_inconnue">Classe inconnue</string>
+    
+    
+    <!-- warning -->
+    <string name="insertion_en_base_echouee">Impossible de rentrer les données en bases (%s)</string>
+    <string name="position_non_geree">La position selectionnée n\'est pas encore gérée (%s)</string>
+</resources>

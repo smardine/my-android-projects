@@ -12,13 +12,24 @@ import fr.smardine.monvetcarnet.mdl.EnUnitePoids;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlPoids;
 
+/**
+ * Classe d'acces a la table Poids
+ * @author sims
+ */
 public class AccesTablePoids extends AccesTable<MlPoids> {
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTablePoids(Context p_ctx) {
 		super(p_ctx, EnTable.POIDS);
 
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlMaladie
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlPoids p_object) {
 		ContentValues values = new ContentValues();
@@ -32,6 +43,11 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 		return values;
 	}
 
+	/**
+	 * Obtenir la liste des MlPoids en base a partir d'un MlCarnet
+	 * @param p_carnetParent
+	 * @return
+	 */
 	public List<MlPoids> getListeDePoidsParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.ID_CARNET_PARENT.toString()
 				+ "=" + p_carnetParent.getId());
@@ -52,14 +68,27 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 		return lstRetour;
 	}
 
+	/**
+	 * Inserer un MlPoids en base
+	 * @param p_poid
+	 * @return
+	 */
 	protected boolean insertPoidEnBase(MlPoids p_poid) {
 		return super.insertObjectEnBase(p_poid);
 	}
 
+	/**
+	 * Mettre a jour un MlPoids en base
+	 * @param p_poid
+	 * @return
+	 */
 	protected boolean majPoidEnBase(MlPoids p_poid) {
 		return super.majObjetEnBase(p_poid);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

@@ -11,10 +11,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.helper.AndroidHelper;
+import fr.smardine.monvetcarnet.helper.log.EnNiveauLog;
+import fr.smardine.monvetcarnet.helper.log.LogCatBuilder;
 import fr.smardine.monvetcarnet.mdl.EnGenre;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 
@@ -32,7 +34,20 @@ public class BtOkIdentificationSaisieClickListener implements OnClickListener {
 	private final Context ctx;
 	private final IdentificationFragment identFragment;
 	private final Dialog dialog;
+	private final String TAG = this.getClass().getName();
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 * @param p_identFragment
+	 * @param p_dialog
+	 * @param p_spinner
+	 * @param p_rbMale
+	 * @param p_rbFemelle
+	 * @param p_datePicker
+	 * @param p_textView
+	 * @param p_carnet
+	 */
 	public BtOkIdentificationSaisieClickListener(Context p_ctx, IdentificationFragment p_identFragment, Dialog p_dialog, Spinner p_spinner,
 			RadioButton p_rbMale, RadioButton p_rbFemelle, DatePicker p_datePicker, EditText p_textView, MlCarnet p_carnet) {
 		this.ctx = p_ctx;
@@ -84,7 +99,9 @@ public class BtOkIdentificationSaisieClickListener implements OnClickListener {
 			identFragment.metAjourIdentification(carnet);
 			dialog.dismiss();
 		} else {
-			Toast.makeText(ctx, "Impossible de rentrer les données en bases (" + this.getClass().getName() + ")", Toast.LENGTH_LONG).show();
+			// Toast.makeText(ctx, "Impossible de rentrer les données en bases (" + this.getClass().getName() + ")",
+			// Toast.LENGTH_LONG).show();
+			LogCatBuilder.WriteInfoToLog(ctx, EnNiveauLog.WARNING, TAG, R.string.insertion_en_base_echouee, TAG);
 		}
 
 	}

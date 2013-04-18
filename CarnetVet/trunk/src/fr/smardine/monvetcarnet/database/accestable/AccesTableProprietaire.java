@@ -10,13 +10,24 @@ import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.mdl.MlDetail;
 import fr.smardine.monvetcarnet.mdl.MlProprietaire;
 
+/**
+ * Classe d'acces à la table Proprietaire
+ * @author sims
+ */
 public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableProprietaire(Context p_ctx) {
 		super(p_ctx, EnTable.PROPRIETAIRES);
 
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlMaladie
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlProprietaire p_object) {
 		ContentValues values = new ContentValues();
@@ -29,10 +40,16 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 		return values;
 	}
 
-	public MlProprietaire getProprietaireParIdDetailEtIdProprietaire(MlDetail p_DetailParent, int idEleveurRecherche) {
+	/**
+	 * Obtenir un MlProprietaire à partir d'un MlDetail parent et d'un idEleveurOuProprio
+	 * @param p_DetailParent
+	 * @param idEleveurOuProprioRecherche
+	 * @return
+	 */
+	public MlProprietaire getProprietaireParIdDetailEtIdProprietaire(MlDetail p_DetailParent, int idEleveurOuProprioRecherche) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.PROPRIETAIRES,
 				EnStructProprietaire.ID_DETAIL_PARENT.toString() + "=" + p_DetailParent.getId() + " and "
-						+ EnStructProprietaire.ID_PROPRIETAIRE.toString() + "=" + idEleveurRecherche);
+						+ EnStructProprietaire.ID_PROPRIETAIRE.toString() + "=" + idEleveurOuProprioRecherche);
 
 		MlProprietaire unProprietaire = null;
 		for (ArrayList<Object> unEnregistrement : listeDeChamp) {
@@ -50,14 +67,27 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 		return unProprietaire;
 	}
 
+	/**
+	 * Inserer un MlProprietaire en base
+	 * @param p_proprietaire
+	 * @return
+	 */
 	protected boolean insertProprietaireEnBase(MlProprietaire p_proprietaire) {
 		return super.insertObjectEnBase(p_proprietaire);
 	}
 
+	/**
+	 * Mettre a jour un MlProprietaire en base
+	 * @param p_proprietaire
+	 * @return
+	 */
 	protected boolean majProprietaireEnBase(MlProprietaire p_proprietaire) {
 		return super.majObjetEnBase(p_proprietaire);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

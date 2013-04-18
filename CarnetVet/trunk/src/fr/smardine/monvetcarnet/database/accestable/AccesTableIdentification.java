@@ -14,15 +14,26 @@ import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlDetail;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
+/**
+ * Classe d'acces a la table Identification
+ * @author sims
+ */
 public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 	private final AccesTableDetail tableDetail;
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableIdentification(Context p_ctx) {
 		super(p_ctx, EnTable.IDENTIFICATIONS);
 		tableDetail = new AccesTableDetail(p_ctx);
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlIdentification
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlIdentification p_object) {
 		ContentValues values = new ContentValues();
@@ -40,6 +51,11 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 		return values;
 	}
 
+	/**
+	 * Obtenir un MlIdentification a partir d'un MlCarnet
+	 * @param p_carnetParent
+	 * @return
+	 */
 	public MlIdentification getIdentificationParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.IDENTIFICATIONS,
 				EnStructIdentification.ID_CARNET_PARENT.toString() + "=" + p_carnetParent.getId());
@@ -72,6 +88,11 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 
 	}
 
+	/**
+	 * Inserer un MlIdentification en base
+	 * @param p_identification
+	 * @return
+	 */
 	public boolean insertIdentificationEnBase(MlIdentification p_identification) {
 		boolean result = super.insertObjectEnBase(p_identification);
 		if (result) {
@@ -81,10 +102,18 @@ public class AccesTableIdentification extends AccesTable<MlIdentification> {
 		return result;
 	}
 
+	/**
+	 * Mettre a jour un MlIdentification en base
+	 * @param p_identification
+	 * @return
+	 */
 	public boolean majIdenificationEnBase(MlIdentification p_identification) {
 		return tableDetail.majDetailEnBase(p_identification.getDetail()) && super.majObjetEnBase(p_identification);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

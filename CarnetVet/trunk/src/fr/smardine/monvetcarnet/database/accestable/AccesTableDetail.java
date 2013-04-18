@@ -10,16 +10,27 @@ import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.mdl.MlDetail;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
+/**
+ * Classe d'acces a la table "Detail"
+ * @author sims
+ */
 public class AccesTableDetail extends AccesTable<MlDetail> {
 
 	private final AccesTableProprietaire tableProprietaire;
 
+	/**
+	 * Constructeur
+	 * @param p_ctx
+	 */
 	public AccesTableDetail(Context p_ctx) {
 		super(p_ctx, EnTable.DETAILS);
 		tableProprietaire = new AccesTableProprietaire(p_ctx);
 
 	}
 
+	/**
+	 * methode permettant de creer un objet pour l'insertion en base a partir d'un MlDetail
+	 */
 	@Override
 	protected ContentValues createContentValueForObject(MlDetail p_object) {
 		ContentValues values = new ContentValues();
@@ -36,6 +47,11 @@ public class AccesTableDetail extends AccesTable<MlDetail> {
 		return values;
 	}
 
+	/**
+	 * Obtenir un MlDetail à partir d'un MlIdentification parent
+	 * @param p_Identification
+	 * @return
+	 */
 	public MlDetail getDetailParIdIdentification(MlIdentification p_Identification) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.DETAILS,
 				EnStructDetail.ID_IDENTIFICATION_PARENT.toString() + "=" + p_Identification.getId());
@@ -64,6 +80,11 @@ public class AccesTableDetail extends AccesTable<MlDetail> {
 		return unDetail;
 	}
 
+	/**
+	 * Inserer un MlDetail en base
+	 * @param p_detail
+	 * @return
+	 */
 	protected boolean insertDetailEnBase(MlDetail p_detail) {
 		boolean result = super.insertObjectEnBase(p_detail);
 		if (result) {
@@ -73,10 +94,18 @@ public class AccesTableDetail extends AccesTable<MlDetail> {
 		return result;
 	}
 
+	/**
+	 * Mettre a jour un MlDetail en base
+	 * @param p_detail
+	 * @return
+	 */
 	protected boolean majDetailEnBase(MlDetail p_detail) {
 		return super.majObjetEnBase(p_detail);
 	}
 
+	/**
+	 * Effacer la table
+	 */
 	@Override
 	public boolean deleteTable() {
 		return super.deleteTable();

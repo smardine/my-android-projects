@@ -2,6 +2,10 @@ package fr.smardine.monvetcarnet.mdl;
 
 import java.util.Date;
 
+/**
+ * MlPoids
+ * @author sims
+ */
 public class MlPoids implements IMetaModel {
 
 	// private int idCarnetParent;

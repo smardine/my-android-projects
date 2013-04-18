@@ -1,5 +1,9 @@
 package fr.smardine.monvetcarnet.mdl;
 
+/**
+ * Unité de poids
+ * @author sims
+ */
 public enum EnUnitePoids {
 
 	Kilo("Kg"), //

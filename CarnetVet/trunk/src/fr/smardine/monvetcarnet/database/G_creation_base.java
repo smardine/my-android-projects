@@ -15,6 +15,7 @@ package fr.smardine.monvetcarnet.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
 import fr.smardine.monvetcarnet.database.structuretable.IStructureTable;
 import fr.smardine.monvetcarnet.database.structuretable.SuperStructureTable;
@@ -26,7 +27,7 @@ import fr.smardine.monvetcarnet.helper.ClassHelper;
 public class G_creation_base {
 
 	/**
-	 * 
+	 * Constructeur
 	 */
 	public G_creation_base() {
 	}
@@ -34,9 +35,9 @@ public class G_creation_base {
 	/**
 	 * @return l'ensemble des scripts de creation de la base.
 	 */
-	public List<String> getallCreation() {
+	public List<String> getallCreation(Context p_context) {
 		List<String> allCreation = new ArrayList<String>();
-		allCreation.addAll(getScriptsDeCreationDesTables());
+		allCreation.addAll(getScriptsDeCreationDesTables(p_context));
 		return allCreation;
 	}
 
@@ -44,22 +45,28 @@ public class G_creation_base {
 	 * Creation des tables
 	 * @return liste de scripts
 	 */
-	public List<String> getScriptsDeCreationDesTables() {
+	public List<String> getScriptsDeCreationDesTables(Context p_context) {
 		List<String> scriptsCreationTables = new ArrayList<String>();
-		scriptsCreationTables.add(createTable(EnTable.CARNETS));
-		scriptsCreationTables.add(createTable(EnTable.DETAILS));
-		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS));
-		scriptsCreationTables.add(createTable(EnTable.MALADIES));
-		scriptsCreationTables.add(createTable(EnTable.POIDS));
-		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES));
-		scriptsCreationTables.add(createTable(EnTable.VACCINS));
+		scriptsCreationTables.add(createTable(EnTable.CARNETS, p_context));
+		scriptsCreationTables.add(createTable(EnTable.DETAILS, p_context));
+		scriptsCreationTables.add(createTable(EnTable.IDENTIFICATIONS, p_context));
+		scriptsCreationTables.add(createTable(EnTable.MALADIES, p_context));
+		scriptsCreationTables.add(createTable(EnTable.POIDS, p_context));
+		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES, p_context));
+		scriptsCreationTables.add(createTable(EnTable.VACCINS, p_context));
 		return scriptsCreationTables;
 	}
 
-	private String createTable(EnTable p_table) {
+	/**
+	 * Renvoi le script sql de creation d'une table
+	 * @param p_table
+	 * @return
+	 */
+	private String createTable(EnTable p_table, Context p_context) {
 		StringBuilder sb = new StringBuilder();
 
-		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(p_table.getStructureTable());
+		SuperStructureTable uneTable = (SuperStructureTable) ClassHelper.createInstanceClassFromClass(p_table.getStructureTable(),
+				p_context);
 		IStructureTable[] listeChamp = uneTable.getListeChamp();
 
 		sb.append("CREATE TABLE IF NOT EXISTS " + p_table.getNomTable() + " (");
