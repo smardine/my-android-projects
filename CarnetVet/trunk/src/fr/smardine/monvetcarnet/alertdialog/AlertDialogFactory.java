@@ -16,6 +16,7 @@ import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
+import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
@@ -67,7 +68,8 @@ public class AlertDialogFactory {
 		final EditText etNomAnimal = (EditText) dialog.findViewById(R.id.etNomAnimal);
 		final RadioButton rbChat = (RadioButton) dialog.findViewById(R.id.rbChat);
 		final RadioButton rbChien = (RadioButton) dialog.findViewById(R.id.rbChien);
-
+		rbChat.setChecked(false);
+		rbChien.setChecked(false);
 		etNomAnimal.setText("");
 
 		Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
@@ -116,4 +118,51 @@ public class AlertDialogFactory {
 		dialog.show();
 	}
 
+	public static void creerEtAfficherSaisieNomAnimal(final Context p_ctx, final MlCarnet p_carnet,
+			final CouvertureFragment fragmentCouverture, final IdentificationFragment fragmentIdentification) {
+
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_saisie_texte);
+		dialog.setTitle("Nom de l'animal");
+
+		final EditText etNomAnimal = (EditText) dialog.findViewById(R.id.etSaisie);
+		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
+		final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+
+		etNomAnimal.setHint(R.string.nom_animal);
+
+		if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getNomAnimal())) {
+			etNomAnimal.setText(p_carnet.getIdentificationAnimal().getNomAnimal());
+		}
+
+		boutonOk.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				p_carnet.getIdentificationAnimal().setNomAnimal(etNomAnimal.getText().toString().trim());
+				p_carnet.setNomCarnet(p_carnet.getIdentificationAnimal().getNomAnimal());
+
+				AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
+				AccesTableCarnet accesCarnet = new AccesTableCarnet(dialog.getContext());
+				accesCarnet.majCarnetEnBase(p_carnet);
+
+				accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
+
+				fragmentCouverture.metAjourCouverture(p_carnet);
+				fragmentIdentification.metAjourIdentification(p_carnet);
+				// fermer le dialog
+				dialog.dismiss();
+			}
+		});
+
+		boutonEffacer.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				etNomAnimal.setText("");
+			}
+		});
+
+		dialog.show();
+	}
 }

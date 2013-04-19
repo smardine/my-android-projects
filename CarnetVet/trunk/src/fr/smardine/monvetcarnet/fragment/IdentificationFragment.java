@@ -1,9 +1,7 @@
 package fr.smardine.monvetcarnet.fragment;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,9 +17,7 @@ import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
-public class IdentificationFragment extends Fragment {
-
-	public Context context;
+public class IdentificationFragment extends SuperFragment {
 
 	private MlCarnet carnetParent;
 
@@ -69,19 +65,21 @@ public class IdentificationFragment extends Fragment {
 
 	private LinearLayout layoutSignesDistinctifs;
 
+	private LinearLayout layoutNom;
+
 	public IdentificationFragment() {
+		super();
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// on est sur la page principale, on veut afficher la touche retour dans l'action bar
-
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v1 = inflater.inflate(R.layout.activity_identification, container, false);
+
 		tvNomBestiole = (TextView) v1.findViewById(R.id.tvNom);
 		tvDateNaissance = (TextView) v1.findViewById(R.id.tvDateNaiss);
 		tvSexeEnum = (TextView) v1.findViewById(R.id.tvSexeEnum);
@@ -93,6 +91,8 @@ public class IdentificationFragment extends Fragment {
 		tvProp2Value = (TextView) v1.findViewById(R.id.tvProp2Value);
 		tvEleveurValue = (TextView) v1.findViewById(R.id.tvEleveurValue);
 		tvSigneDistinctifValue = (TextView) v1.findViewById(R.id.tvSignesDistinctifsValue);
+
+		layoutNom = (LinearLayout) v1.findViewById(R.id.layoutNomAnimal);
 		layoutDateNaissance = (LinearLayout) v1.findViewById(R.id.layoutDateNaissance);
 		layoutEleveur = (LinearLayout) v1.findViewById(R.id.layoutEleveur);
 		layoutProp1 = (LinearLayout) v1.findViewById(R.id.layoutProp1);
@@ -109,11 +109,6 @@ public class IdentificationFragment extends Fragment {
 	}
 
 	@Override
-	public void onViewStateRestored(Bundle savedInstanceState) {
-		super.onViewStateRestored(savedInstanceState);
-	}
-
-	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		if (savedInstanceState != null) {
@@ -127,31 +122,6 @@ public class IdentificationFragment extends Fragment {
 				showDatePickerDialog(v);
 			}
 		});
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 	}
 
 	public void showDatePickerDialog(View v) {
@@ -182,6 +152,12 @@ public class IdentificationFragment extends Fragment {
 			} else {
 				this.afficheLayoutEnFonctionContenu(layoutDateNaissance, identification.getDateNaissance(), tvDateNaissance,
 						DateHelper.ddMMMyyyy(identification.getDateNaissance()));
+			}
+
+			if (StringHelper.IsNullOrEmpty(identification.getNomAnimal())) {
+				this.afficheLayoutEnFonctionContenu(layoutNom, null, null, null);
+			} else {
+				this.afficheLayoutEnFonctionContenu(layoutNom, identification.getNomAnimal(), tvNomBestiole, identification.getNomAnimal());
 			}
 
 			if (identification.getGenreAnimal() != null && identification.getGenreAnimal().getType() != null) {
@@ -232,34 +208,8 @@ public class IdentificationFragment extends Fragment {
 				this.afficheLayoutEnFonctionContenu(layoutSignesDistinctifs, null, null, null);
 			}
 
-			this.tvNomBestiole.setText(identification.getNomAnimal());
-			// this.onCreateOptionsMenu(null, this.getActivity().getMenuInflater());
-
+			// this.tvNomBestiole.setText(identification.getNomAnimal());
 		}
 
 	}
-
-	// @Override
-	// public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	// super.onCreateOptionsMenu(menu, inflater);
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// inflater.inflate(R.menu.menu_identification, menu);
-	//
-	// }
-	//
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem menuItem) {
-	// ActionBar actionBar = this.getActivity().getActionBar();
-	//
-	// if (menuItem.getItemId() == android.R.id.home) {
-	// actionBar.setSelectedNavigationItem(0);
-	// return true;
-	// } else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
-	// return true;
-	// }
-	//
-	// return false;
-	//
-	// }
-
 }

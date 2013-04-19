@@ -15,9 +15,9 @@ import fr.smardine.monvetcarnet.listener.NavigationListener;
 
 public class MainActivity extends FragmentActivity {
 
-	private CouvertureFragment fragmentCouverture;
-	private IdentificationFragment fragmentIdentification;
-	private VaccinFragment fragmentVaccin;
+	public static CouvertureFragment fragmentCouverture;
+	public static IdentificationFragment fragmentIdentification;
+	public static VaccinFragment fragmentVaccin;
 	private ActionBar actionBar;
 	private NavigationListener navListener;
 
@@ -31,9 +31,9 @@ public class MainActivity extends FragmentActivity {
 		fragmentIdentification = (IdentificationFragment) getSupportFragmentManager().findFragmentById(R.id.identificationFragment);
 		fragmentVaccin = (VaccinFragment) getSupportFragmentManager().findFragmentById(R.id.VaccinFragment);
 		// valorisation de leurs propriétés
-		fragmentCouverture.context = this.getApplicationContext();
-		fragmentIdentification.context = this.getApplicationContext();
-		fragmentVaccin.context = this.getApplicationContext();
+		// fragmentCouverture.context = this.getApplicationContext();
+		// fragmentIdentification.context = this.getApplicationContext();
+		// fragmentVaccin.context = this.getApplicationContext();
 
 		// au demarrage,on ne souhaite afficher que la couverture à l'utilisateur.
 

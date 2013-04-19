@@ -1,8 +1,6 @@
 package fr.smardine.monvetcarnet.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +10,10 @@ import android.widget.GridView;
 import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.adapter.VaccinsAdapter;
 
-public class VaccinFragment extends Fragment implements OnItemSelectedListener {
+public class VaccinFragment extends SuperFragment implements OnItemSelectedListener {
 
-	public Context context;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// on est sur la page principale, on veut afficher la touche retour dans l'action bar
-
+	public VaccinFragment() {
+		super();
 	}
 
 	@Override
