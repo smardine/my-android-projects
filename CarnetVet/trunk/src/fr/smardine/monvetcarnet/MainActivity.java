@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity {
 			return true;
 		} else if (menuItem.getItemId() == R.id.menuPlusIdentification) {
 			AlertDialogFactory.creerEtAfficherIdentificationSaisie(this, fragmentIdentification, new AccesTableCarnet(this)
-					.getListeDesCarnets().get(0));
+					.getListeDesCarnets().get(0), -1);
 			return true;
 		}
 

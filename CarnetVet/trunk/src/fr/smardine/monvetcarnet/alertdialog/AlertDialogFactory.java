@@ -2,6 +2,8 @@ package fr.smardine.monvetcarnet.alertdialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,7 +34,7 @@ public class AlertDialogFactory {
 	 * @param p_carnet
 	 */
 	public static void creerEtAfficherIdentificationSaisie(final Context p_ctx, final IdentificationFragment p_identFragment,
-			final MlCarnet p_carnet) {
+			final MlCarnet p_carnet, int indexASlectionner) {
 		final Dialog dialog = new Dialog(p_ctx);
 		dialog.setContentView(R.layout.alertdialog_identification_saisie);
 		dialog.setTitle("Ajouter une information");
@@ -49,6 +51,11 @@ public class AlertDialogFactory {
 				textView, p_carnet));
 		boutonOk.setOnClickListener(new BtOkIdentificationSaisieClickListener(p_ctx, p_identFragment, dialog, sp, rbMale, rbFemelle,
 				datePicker, textView, p_carnet));
+
+		if (indexASlectionner >= 0) {
+			sp.setSelection(indexASlectionner);
+			dialog.setTitle("Modifier une information");
+		}
 		dialog.show();
 	}
 
@@ -70,10 +77,26 @@ public class AlertDialogFactory {
 		final RadioButton rbChien = (RadioButton) dialog.findViewById(R.id.rbChien);
 		rbChat.setChecked(false);
 		rbChien.setChecked(false);
-		etNomAnimal.setText("");
 
-		Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
-		Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
+		final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+
+		etNomAnimal.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+				// le bouton de validation sera actif seulement une fois le nom de l'animal saisi.
+				boutonOk.setEnabled(!StringHelper.IsNullOrEmpty(etNomAnimal.getText().toString().trim()));
+			}
+		});
+		etNomAnimal.setText("");
 
 		// if button is clicked, close the custom dialog
 		boutonOk.setOnClickListener(new OnClickListener() {
@@ -114,20 +137,27 @@ public class AlertDialogFactory {
 				rbChien.setChecked(false);
 			}
 		});
+		// rendre l'alert dialog inssensible a la touche retour (ne peut pas etre annulé)
+		dialog.setCancelable(false);
 
 		dialog.show();
 	}
 
+	/**
+	 * Creer et afficher l'aertdialog permettant de saisir/changer le nom de l'animal
+	 * @param p_ctx
+	 * @param p_carnet
+	 * @param fragmentCouverture
+	 * @param fragmentIdentification
+	 */
 	public static void creerEtAfficherSaisieNomAnimal(final Context p_ctx, final MlCarnet p_carnet,
 			final CouvertureFragment fragmentCouverture, final IdentificationFragment fragmentIdentification) {
 
-		final Dialog dialog = new Dialog(p_ctx);
-		dialog.setContentView(R.layout.alertdialog_saisie_texte);
-		dialog.setTitle("Nom de l'animal");
+		final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "Nom de l'animal");
 
-		final EditText etNomAnimal = (EditText) dialog.findViewById(R.id.etSaisie);
-		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
-		final Button boutonEffacer = (Button) dialog.findViewById(R.id.btEffacer);
+		final EditText etNomAnimal = recupererEditTextSaisie(dialog);
+		final Button boutonOk = recupererBoutonOk(dialog);
+		final Button boutonEffacer = recupererBoutonEffacer(dialog);
 
 		etNomAnimal.setHint(R.string.nom_animal);
 
@@ -164,5 +194,202 @@ public class AlertDialogFactory {
 		});
 
 		dialog.show();
+	}
+
+	// public static void creerEtAfficherSaisieRobe(final Context p_ctx, final MlCarnet p_carnet,
+	// final IdentificationFragment fragmentIdentification) {
+	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "Robe");
+	//
+	// final EditText editText = recupererEditTextSaisie(dialog);
+	// final Button boutonOk = recupererBoutonOk(dialog);
+	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
+	//
+	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getRobe())) {
+	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getRobe());
+	// }
+	//
+	// boutonOk.setOnClickListener(new OnClickListener() {
+	// @Override
+	// public void onClick(View v) {
+	//
+	// p_carnet.getIdentificationAnimal().getDetail().setRobe(editText.getText().toString().trim());
+	//
+	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
+	//
+	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
+	//
+	// fragmentIdentification.metAjourIdentification(p_carnet);
+	// // fermer le dialog
+	// dialog.dismiss();
+	// }
+	// });
+	//
+	// boutonEffacer.setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// editText.setText("");
+	// }
+	// });
+	//
+	// dialog.show();
+	//
+	// }
+	//
+	// public static void creerEtAfficherSaisieRace(final Context p_ctx, final MlCarnet p_carnet,
+	// final IdentificationFragment fragmentIdentification) {
+	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "Race");
+	//
+	// final EditText editText = recupererEditTextSaisie(dialog);
+	// final Button boutonOk = recupererBoutonOk(dialog);
+	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
+	//
+	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getRace())) {
+	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getRace());
+	// }
+	//
+	// boutonOk.setOnClickListener(new OnClickListener() {
+	// @Override
+	// public void onClick(View v) {
+	//
+	// p_carnet.getIdentificationAnimal().getDetail().setRace(editText.getText().toString().trim());
+	//
+	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
+	//
+	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
+	//
+	// fragmentIdentification.metAjourIdentification(p_carnet);
+	// // fermer le dialog
+	// dialog.dismiss();
+	// }
+	// });
+	//
+	// boutonEffacer.setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// editText.setText("");
+	// }
+	// });
+	//
+	// dialog.show();
+	// }
+	//
+	// public static void creerEtAfficherSaisieNumTatouage(final Context p_ctx, final MlCarnet p_carnet,
+	// final IdentificationFragment fragmentIdentification) {
+	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "N° tatouage");
+	//
+	// final EditText editText = recupererEditTextSaisie(dialog);
+	// final Button boutonOk = recupererBoutonOk(dialog);
+	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
+	//
+	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getNumTatouage())) {
+	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getNumTatouage());
+	// }
+	//
+	// boutonOk.setOnClickListener(new OnClickListener() {
+	// @Override
+	// public void onClick(View v) {
+	//
+	// p_carnet.getIdentificationAnimal().getDetail().setNumTatouage(editText.getText().toString().trim());
+	//
+	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
+	//
+	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
+	//
+	// fragmentIdentification.metAjourIdentification(p_carnet);
+	// // fermer le dialog
+	// dialog.dismiss();
+	// }
+	// });
+	//
+	// boutonEffacer.setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// editText.setText("");
+	// }
+	// });
+	//
+	// dialog.show();
+	// }
+	//
+	// public static void creerEtAfficherSaisieNumPuce(final Context p_ctx, final MlCarnet p_carnet,
+	// final IdentificationFragment fragmentIdentification) {
+	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "N° puce");
+	//
+	// final EditText editText = recupererEditTextSaisie(dialog);
+	// final Button boutonOk = recupererBoutonOk(dialog);
+	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
+	//
+	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getNumPuce())) {
+	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getNumPuce());
+	// }
+	//
+	// boutonOk.setOnClickListener(new OnClickListener() {
+	// @Override
+	// public void onClick(View v) {
+	//
+	// p_carnet.getIdentificationAnimal().getDetail().setNumPuce(editText.getText().toString().trim());
+	//
+	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
+	//
+	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
+	//
+	// fragmentIdentification.metAjourIdentification(p_carnet);
+	// // fermer le dialog
+	// dialog.dismiss();
+	// }
+	// });
+	//
+	// boutonEffacer.setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// editText.setText("");
+	// }
+	// });
+	//
+	// dialog.show();
+	// }
+	//
+	/**
+	 * Creer l'alert dialog permettant la saisie d'info au format texte
+	 * @param p_ctx
+	 * @param p_titre
+	 * @return
+	 */
+	private static Dialog creerAlertDialogSaisieInfoTexte(Context p_ctx, String p_titre) {
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_saisie_texte);
+		dialog.setTitle(p_titre);
+		return dialog;
+	}
+
+	/**
+	 * Recuperer le composant EditText a partir du dialog parent
+	 * @param p_dialogParent
+	 * @return
+	 */
+	private static EditText recupererEditTextSaisie(Dialog p_dialogParent) {
+		return (EditText) p_dialogParent.findViewById(R.id.etSaisie);
+	}
+
+	/**
+	 * Recuperer le bouton Ok a partir du dialog parent
+	 * @param p_dialogParent
+	 * @return
+	 */
+	private static Button recupererBoutonOk(Dialog p_dialogParent) {
+		return (Button) p_dialogParent.findViewById(R.id.btOk);
+	}
+
+	/**
+	 * Recuperer le bouton Effacer a partir du dialog parent
+	 * @param p_dialogParent
+	 * @return
+	 */
+	private static Button recupererBoutonEffacer(Dialog p_dialogParent) {
+		return (Button) p_dialogParent.findViewById(R.id.btEffacer);
 	}
 }

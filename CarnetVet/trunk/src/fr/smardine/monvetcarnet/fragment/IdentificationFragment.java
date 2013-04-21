@@ -1,6 +1,5 @@
 package fr.smardine.monvetcarnet.fragment;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +8,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import fr.smardine.monvetcarnet.MainActivity;
 import fr.smardine.monvetcarnet.R;
-import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
+import fr.smardine.monvetcarnet.alertdialog.AlertDialogFactory;
 import fr.smardine.monvetcarnet.helper.DateHelper;
 import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
+import fr.smardine.monvetcarnet.listener.TextViewIdentificationListener;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 
 public class IdentificationFragment extends SuperFragment {
-
-	private MlCarnet carnetParent;
 
 	private TextView tvNomBestiole;
 
@@ -81,15 +80,23 @@ public class IdentificationFragment extends SuperFragment {
 		View v1 = inflater.inflate(R.layout.activity_identification, container, false);
 
 		tvNomBestiole = (TextView) v1.findViewById(R.id.tvNom);
+
 		tvDateNaissance = (TextView) v1.findViewById(R.id.tvDateNaiss);
+
 		tvSexeEnum = (TextView) v1.findViewById(R.id.tvSexeEnum);
+
 		tvRaceValue = (TextView) v1.findViewById(R.id.tvRaceValue);
+
 		tvRobeValue = (TextView) v1.findViewById(R.id.tvRobeValue);
+
 		tvNumTatouageValue = (TextView) v1.findViewById(R.id.tvNumTatouageValue);
+
 		tvNumPuceValue = (TextView) v1.findViewById(R.id.tvNumPuceValue);
+
 		tvProp1Value = (TextView) v1.findViewById(R.id.tvProp1Value);
 		tvProp2Value = (TextView) v1.findViewById(R.id.tvProp2Value);
 		tvEleveurValue = (TextView) v1.findViewById(R.id.tvEleveurValue);
+
 		tvSigneDistinctifValue = (TextView) v1.findViewById(R.id.tvSignesDistinctifsValue);
 
 		layoutNom = (LinearLayout) v1.findViewById(R.id.layoutNomAnimal);
@@ -114,23 +121,6 @@ public class IdentificationFragment extends SuperFragment {
 		if (savedInstanceState != null) {
 			Toast.makeText(getActivity(), "Fragment Identification recréé", Toast.LENGTH_LONG).show();
 		}
-
-		tvDateNaissance.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				showDatePickerDialog(v);
-			}
-		});
-	}
-
-	public void showDatePickerDialog(View v) {
-		DialogFragment newFragment = new DatePickerFragment();
-		((DatePickerFragment) newFragment).setButtonSpinner(this.tvDateNaissance);
-		((DatePickerFragment) newFragment).setMlIdentification(this.carnetParent.getIdentificationAnimal());
-		AccesTableIdentification tableIdent = new AccesTableIdentification(context);
-		((DatePickerFragment) newFragment).setTableIdentifiaction(tableIdent);
-		newFragment.show(this.getActivity().getFragmentManager(), "Date");
 	}
 
 	private void afficheLayoutEnFonctionContenu(LinearLayout p_layout, Object p_contenuNullable, TextView p_textView,
@@ -145,8 +135,9 @@ public class IdentificationFragment extends SuperFragment {
 
 	public void metAjourIdentification(MlCarnet p_carnetParent) {
 		if (p_carnetParent != null) {
-			this.carnetParent = p_carnetParent;
-			MlIdentification identification = this.carnetParent.getIdentificationAnimal();
+			// this.carnetParent = p_carnetParent;
+			instancieToutLesClickListenerDeLaPage(p_carnetParent);
+			MlIdentification identification = p_carnetParent.getIdentificationAnimal();
 			if (DateHelper.IsDateVideOuDateMini(identification.getDateNaissance())) {
 				this.afficheLayoutEnFonctionContenu(layoutDateNaissance, null, null, null);
 			} else {
@@ -207,9 +198,32 @@ public class IdentificationFragment extends SuperFragment {
 				this.afficheLayoutEnFonctionContenu(layoutRobe, null, null, null);
 				this.afficheLayoutEnFonctionContenu(layoutSignesDistinctifs, null, null, null);
 			}
-
-			// this.tvNomBestiole.setText(identification.getNomAnimal());
 		}
+
+	}
+
+	private void instancieToutLesClickListenerDeLaPage(final MlCarnet p_carnetParent) {
+		layoutNom.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialogFactory.creerEtAfficherSaisieNomAnimal(context, p_carnetParent, MainActivity.fragmentCouverture,
+						MainActivity.fragmentIdentification);
+
+			}
+		});
+		layoutSexe.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification, p_carnetParent, 0));
+		layoutDateNaissance.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification,
+				p_carnetParent, 1));
+		layoutRace.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification, p_carnetParent, 2));
+		layoutRobe.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification, p_carnetParent, 3));
+		layoutSignesDistinctifs.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification,
+				p_carnetParent, 4));
+
+		layoutNumPuce
+				.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification, p_carnetParent, 5));
+		layoutNumTatouage.setOnClickListener(new TextViewIdentificationListener(context, MainActivity.fragmentIdentification,
+				p_carnetParent, 6));
 
 	}
 }

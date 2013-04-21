@@ -21,6 +21,7 @@
     <string name="proprio1">Proprietaire 1:   </string>
     <string name="proprio2">Proprietaire 2:   </string>
     <string name="eleveur">Eleveur:   </string>
+    <string name="signes_distinctifs">Signes distinctifs:   </string>
     <string name="le_carnet_de">Le carnet de santé de</string>
     
     <color name="app_color">#FFFFFF</color>

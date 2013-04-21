@@ -20,12 +20,13 @@ public class SuperFragment extends Fragment {
 	 * Constructeur
 	 */
 	public SuperFragment() {
-		this.context = this.getActivity();
+
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.context = this.getActivity();
 	}
 
 	@Override
