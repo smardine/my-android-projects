@@ -99,6 +99,8 @@ public class MainActivity extends FragmentActivity {
 			AlertDialogFactory.creerEtAfficherIdentificationSaisie(this, fragmentIdentification, new AccesTableCarnet(this)
 					.getListeDesCarnets().get(0), -1);
 			return true;
+		} else if (menuItem.getItemId() == R.id.menuPlusVaccin) {
+			AlertDialogFactory.creerEtAfficherVaccinSaisie(this, fragmentVaccin, new AccesTableCarnet(this).getListeDesCarnets().get(0));
 		}
 
 		return false;

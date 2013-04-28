@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -18,8 +19,10 @@ import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
+import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
+import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
@@ -56,6 +59,29 @@ public class AlertDialogFactory {
 			sp.setSelection(indexASlectionner);
 			dialog.setTitle("Modifier une information");
 		}
+		dialog.show();
+	}
+
+	public static void creerEtAfficherVaccinSaisie(final Context p_ctx, final VaccinFragment p_vaccinFragment, final MlCarnet p_carnet) {
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_vaccin_saisie);
+		dialog.setTitle("Ajouter un vaccin");
+		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerVaccinSaisie);
+
+		final RadioButton rbCoryza = (RadioButton) dialog.findViewById(R.id.rbCoryza);
+		final RadioButton rbTyphus = (RadioButton) dialog.findViewById(R.id.rbTyphus);
+		final RadioButton rbLeucose = (RadioButton) dialog.findViewById(R.id.rbLeucose);
+		final RadioButton rbChlamydiose = (RadioButton) dialog.findViewById(R.id.rbChlamydiose);
+		final RadioButton rbRage = (RadioButton) dialog.findViewById(R.id.rbRage);
+		final RadioGroup radioGroupVaccin = (RadioGroup) dialog.findViewById(R.id.radioGroupVaccins);
+
+		final CheckBox cbVermifuge = (CheckBox) dialog.findViewById(R.id.cbVermifuge);
+
+		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
+
+		boutonOk.setOnClickListener(new BtOkVaccinSaisieClickListener(p_ctx, p_vaccinFragment, dialog, radioGroupVaccin, cbVermifuge,
+				datePicker, p_carnet));
+
 		dialog.show();
 	}
 
@@ -196,163 +222,6 @@ public class AlertDialogFactory {
 		dialog.show();
 	}
 
-	// public static void creerEtAfficherSaisieRobe(final Context p_ctx, final MlCarnet p_carnet,
-	// final IdentificationFragment fragmentIdentification) {
-	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "Robe");
-	//
-	// final EditText editText = recupererEditTextSaisie(dialog);
-	// final Button boutonOk = recupererBoutonOk(dialog);
-	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
-	//
-	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getRobe())) {
-	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getRobe());
-	// }
-	//
-	// boutonOk.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	//
-	// p_carnet.getIdentificationAnimal().getDetail().setRobe(editText.getText().toString().trim());
-	//
-	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
-	//
-	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
-	//
-	// fragmentIdentification.metAjourIdentification(p_carnet);
-	// // fermer le dialog
-	// dialog.dismiss();
-	// }
-	// });
-	//
-	// boutonEffacer.setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// editText.setText("");
-	// }
-	// });
-	//
-	// dialog.show();
-	//
-	// }
-	//
-	// public static void creerEtAfficherSaisieRace(final Context p_ctx, final MlCarnet p_carnet,
-	// final IdentificationFragment fragmentIdentification) {
-	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "Race");
-	//
-	// final EditText editText = recupererEditTextSaisie(dialog);
-	// final Button boutonOk = recupererBoutonOk(dialog);
-	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
-	//
-	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getRace())) {
-	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getRace());
-	// }
-	//
-	// boutonOk.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	//
-	// p_carnet.getIdentificationAnimal().getDetail().setRace(editText.getText().toString().trim());
-	//
-	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
-	//
-	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
-	//
-	// fragmentIdentification.metAjourIdentification(p_carnet);
-	// // fermer le dialog
-	// dialog.dismiss();
-	// }
-	// });
-	//
-	// boutonEffacer.setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// editText.setText("");
-	// }
-	// });
-	//
-	// dialog.show();
-	// }
-	//
-	// public static void creerEtAfficherSaisieNumTatouage(final Context p_ctx, final MlCarnet p_carnet,
-	// final IdentificationFragment fragmentIdentification) {
-	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "N° tatouage");
-	//
-	// final EditText editText = recupererEditTextSaisie(dialog);
-	// final Button boutonOk = recupererBoutonOk(dialog);
-	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
-	//
-	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getNumTatouage())) {
-	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getNumTatouage());
-	// }
-	//
-	// boutonOk.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	//
-	// p_carnet.getIdentificationAnimal().getDetail().setNumTatouage(editText.getText().toString().trim());
-	//
-	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
-	//
-	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
-	//
-	// fragmentIdentification.metAjourIdentification(p_carnet);
-	// // fermer le dialog
-	// dialog.dismiss();
-	// }
-	// });
-	//
-	// boutonEffacer.setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// editText.setText("");
-	// }
-	// });
-	//
-	// dialog.show();
-	// }
-	//
-	// public static void creerEtAfficherSaisieNumPuce(final Context p_ctx, final MlCarnet p_carnet,
-	// final IdentificationFragment fragmentIdentification) {
-	// final Dialog dialog = creerAlertDialogSaisieInfoTexte(p_ctx, "N° puce");
-	//
-	// final EditText editText = recupererEditTextSaisie(dialog);
-	// final Button boutonOk = recupererBoutonOk(dialog);
-	// final Button boutonEffacer = recupererBoutonEffacer(dialog);
-	//
-	// if (!StringHelper.IsNullOrEmpty(p_carnet.getIdentificationAnimal().getDetail().getNumPuce())) {
-	// editText.setText(p_carnet.getIdentificationAnimal().getDetail().getNumPuce());
-	// }
-	//
-	// boutonOk.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	//
-	// p_carnet.getIdentificationAnimal().getDetail().setNumPuce(editText.getText().toString().trim());
-	//
-	// AccesTableIdentification accesIdent = new AccesTableIdentification(dialog.getContext());
-	//
-	// accesIdent.majIdenificationEnBase(p_carnet.getIdentificationAnimal());
-	//
-	// fragmentIdentification.metAjourIdentification(p_carnet);
-	// // fermer le dialog
-	// dialog.dismiss();
-	// }
-	// });
-	//
-	// boutonEffacer.setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// editText.setText("");
-	// }
-	// });
-	//
-	// dialog.show();
-	// }
-	//
 	/**
 	 * Creer l'alert dialog permettant la saisie d'info au format texte
 	 * @param p_ctx

@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout1"
-    android:layout_width="match_parent"
+    android:id="@+id/linarLayoutVaccin"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="3dip"
     android:orientation="vertical">
@@ -9,22 +9,29 @@
             android:id="@+id/tvDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"           
-            android:text="mars 2008"
+            android:hint="@string/description_date_vaccin"
+            android:textIsSelectable="false"
             android:textColor="@color/text_color" />
+     <LinearLayout android:orientation="horizontal"
+          android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
         <ImageView
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/ic_vaccins_64px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivLogoVaccin"
         android:contentDescription="@string/description_image_spinner">
         </ImageView>
         <ImageView
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/ic_vermifuge_64px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivLogoVermifuge"
         android:contentDescription="@string/description_image_spinner">
         </ImageView>
+         
+     </LinearLayout>
+       
 
        
         

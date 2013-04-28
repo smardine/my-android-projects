@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <DatePicker android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
+        android:minDate="01/01/1970"
+        android:id="@+id/datePickerVaccinSaisie"
+        />
+    
+     <RadioGroup
+        android:id="@+id/radioGroupVaccins"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/rbCoryza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_corysa" />
+
+        <RadioButton
+            android:id="@+id/rbTyphus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_typhus" />
+        <RadioButton
+            android:id="@+id/rbLeucose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_leucose" />
+        <RadioButton
+            android:id="@+id/rbChlamydiose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_chlamydiose" />
+        <RadioButton
+            android:id="@+id/rbRage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"           
+            android:text="@string/vaccin_rage" />
+
+    </RadioGroup>
+    
+     <CheckBox android:id="@+id/cbVermifuge"
+         	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/vermifuge"/>
+    
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="?android:attr/buttonBarStyle"  >
+
+        <Button
+            android:id="@+id/btOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/ok"            />
+
+        <Button
+            android:id="@+id/btEffacer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="40dp"
+            style="?android:attr/buttonBarButtonStyle"            
+            android:text="@string/effacer"/>
+        
+    </LinearLayout>
+    
+    
+    
+
+</LinearLayout>

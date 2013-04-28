@@ -24,6 +24,18 @@
     <string name="signes_distinctifs">Signes distinctifs:   </string>
     <string name="le_carnet_de">Le carnet de santé de</string>
     
+    
+    <string name="vaccin_corysa">Corysa</string>
+    <string name="vaccin_typhus">Typhus</string>
+    <string name="vaccin_leucose">Leucose</string>
+    <string name="vaccin_chlamydiose">Chlamydiose</string>
+    <string name="vaccin_rage">Rage</string>
+    <string name="vermifuge">Vermifuge</string>
+    <string name="description_date_vaccin">Date au format mmm YYYY</string>
+    
+    <string name="ok">OK</string>
+    <string name="effacer">Effacer</string>
+    
     <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
 

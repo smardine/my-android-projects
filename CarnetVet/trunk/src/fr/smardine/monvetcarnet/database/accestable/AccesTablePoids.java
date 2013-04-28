@@ -35,7 +35,7 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 		ContentValues values = new ContentValues();
 		values.put(EnStructPoids.DATE.getNomChamp(), p_object.getDate().getTime());
 		values.put(EnStructPoids.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
-		values.put(EnStructPoids.ID_POID.getNomChamp(), p_object.getIdPoid());
+		// values.put(EnStructPoids.ID_POID.getNomChamp(), p_object.getIdPoid());
 		values.put(EnStructPoids.NOTE.getNomChamp(), p_object.getNote());
 		values.put(EnStructPoids.UNITE.getNomChamp(), p_object.getUnitePoids().name());
 		values.put(EnStructPoids.VALEUR.getNomChamp(), p_object.getValeur());

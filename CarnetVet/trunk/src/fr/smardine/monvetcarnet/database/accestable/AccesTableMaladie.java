@@ -33,7 +33,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 		ContentValues values = new ContentValues();
 		values.put(EnStructMaladie.DATE.getNomChamp(), p_object.getDate().getTime());
 		values.put(EnStructMaladie.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
-		values.put(EnStructMaladie.ID_MALADIE.getNomChamp(), p_object.getIdMaladie());
+		// values.put(EnStructMaladie.ID_MALADIE.getNomChamp(), p_object.getIdMaladie());
 		values.put(EnStructMaladie.RDV_VETO.getNomChamp(), Boolean.toString(p_object.isRdvVeto()));
 		values.put(EnStructMaladie.SYMPTOME.getNomChamp(), p_object.getSymptomes());
 		values.put(EnStructMaladie.TITRE.getNomChamp(), p_object.getTitre());

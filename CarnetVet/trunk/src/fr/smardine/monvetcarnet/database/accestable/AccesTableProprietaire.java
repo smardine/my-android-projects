@@ -33,7 +33,7 @@ public class AccesTableProprietaire extends AccesTable<MlProprietaire> {
 		ContentValues values = new ContentValues();
 		values.put(EnStructProprietaire.ADRESSE.getNomChamp(), p_object.getAdresse());
 		values.put(EnStructProprietaire.ID_DETAIL_PARENT.getNomChamp(), p_object.getDetailParent().getId());
-		values.put(EnStructProprietaire.ID_PROPRIETAIRE.getNomChamp(), p_object.getIdProprietaire());
+		// values.put(EnStructProprietaire.ID_PROPRIETAIRE.getNomChamp(), p_object.getIdProprietaire());
 		values.put(EnStructProprietaire.MAIL.getNomChamp(), p_object.getMail());
 		values.put(EnStructProprietaire.NOM.getNomChamp(), p_object.getNom());
 		values.put(EnStructProprietaire.TEL.getNomChamp(), p_object.getTelephone());

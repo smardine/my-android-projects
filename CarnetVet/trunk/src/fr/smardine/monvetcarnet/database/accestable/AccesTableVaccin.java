@@ -35,8 +35,10 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 		ContentValues values = new ContentValues();
 		values.put(EnStructVaccin.DATE.getNomChamp(), p_object.getDate().getTime());
 		values.put(EnStructVaccin.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
-		values.put(EnStructVaccin.ID_VACCIN.getNomChamp(), p_object.getIdVaccin());
-		values.put(EnStructVaccin.NOM.getNomChamp(), p_object.getNomVaccin().name());
+		// values.put(EnStructVaccin.ID_VACCIN.getNomChamp(), p_object.getIdVaccin());
+		if (p_object.getNomVaccin() != null) {
+			values.put(EnStructVaccin.NOM.getNomChamp(), p_object.getNomVaccin().name());
+		}
 		values.put(EnStructVaccin.VERMIFUGE.getNomChamp(), Boolean.toString(p_object.isVermifuge()));
 		return values;
 	}
@@ -48,7 +50,7 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	 */
 	public List<MlVaccin> getListeDeVaccinsParIdCarnet(MlCarnet p_carnetParent) {
 		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.VACCINS, EnStructVaccin.ID_CARNET_PARENT.toString()
-				+ "=" + p_carnetParent.getId());
+				+ "=" + p_carnetParent.getId() + " ORDER BY " + EnStructVaccin.ID_VACCIN.toString() + " DESC");
 
 		List<MlVaccin> lstRetour = new ArrayList<MlVaccin>();
 
@@ -70,8 +72,13 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	 * @param p_vaccin
 	 * @return
 	 */
-	protected boolean insertVaccinEnBase(MlVaccin p_vaccin) {
-		return super.insertObjectEnBase(p_vaccin);
+	public boolean insertVaccinEnBase(MlVaccin p_vaccin) {
+		boolean result = super.insertObjectEnBase(p_vaccin);
+		if (result) {
+			p_vaccin.setIdVaccin(Integer.parseInt(requeteFact.get1Champ("SELECT MAX (" + EnStructVaccin.ID_VACCIN.toString() + ") FROM "
+					+ EnTable.VACCINS.toString())));
+		}
+		return result;
 	}
 
 	/**

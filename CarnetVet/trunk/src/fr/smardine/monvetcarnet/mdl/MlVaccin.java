@@ -8,13 +8,16 @@ import java.util.Date;
  */
 public class MlVaccin implements IMetaModel {
 
-	// private int idCarnetParent;
 	private int idVaccin;
 	private Date date;
 	private EnNomVaccin nomVaccin;
 	private boolean vermifuge;
 	private final MlCarnet carnetParent;
 
+	/**
+	 * Constructeur
+	 * @param p_carnetParent
+	 */
 	public MlVaccin(MlCarnet p_carnetParent) {
 		this.carnetParent = p_carnetParent;
 	}
@@ -23,14 +26,6 @@ public class MlVaccin implements IMetaModel {
 	public int getId() {
 		return idVaccin;
 	}
-
-	// public int getIdCarnetParent() {
-	// return idCarnetParent;
-	// }
-	//
-	// public void setIdCarnetParent(int idCarnetParent) {
-	// this.idCarnetParent = idCarnetParent;
-	// }
 
 	public int getIdVaccin() {
 		return idVaccin;

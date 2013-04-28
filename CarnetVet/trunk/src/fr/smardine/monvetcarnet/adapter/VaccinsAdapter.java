@@ -1,41 +1,50 @@
 package fr.smardine.monvetcarnet.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
+import fr.smardine.monvetcarnet.helper.DateHelper;
+import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
+import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 /**
- * Array adapter utilisé sur la page "Vaccin" qui permet d'afficher sous forme de grille les vaccins
+ * BaseAdapter utilisé sur la page "Vaccin" qui permet d'afficher sous forme de grille les vaccins
  * @author sims
  */
-public class VaccinsAdapter extends ArrayAdapter<Object> {
-	/**
-	 * tableau de chaine avec les label des menus
-	 */
-	private static String[] labelMenu = new String[] { "mars 2008", "fevrier 2009", "juin 2009", "juillet 2010", "aout 2011",
-			"decembre 2012" };
-	/**
-	 * tableau d'entier representant d'eventuels icones a mettre en face des menus.
-	 */
-	private final int[] images = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher };
+public class VaccinsAdapter extends BaseAdapter {
+
+	private final int imageVermifuge = R.drawable.ic_vermifuge_64px;
+	private final int imageVaccin = R.drawable.ic_vaccins_64px;
 	private final Context context;
+	public List<MlVaccin> listeDeVaccin;
 
-	public VaccinsAdapter(Context context, int textViewResourceId) {
-		super(context, textViewResourceId, labelMenu);
+	public VaccinsAdapter(Context context, List<MlVaccin> listeDeVaccins) {
+		super();
+		this.listeDeVaccin = listeDeVaccins;
 		this.context = context;
-
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return getCustomView(position, convertView, parent);
+	}
+
+	/**
+	 * @author smardine
+	 */
+	public final class ViewHolderVaccin {
+		public TextView TvDateVaccin;
+		public ImageView IvVaccin;
+		public ImageView IvVermifuge;
+
 	}
 
 	/**
@@ -47,28 +56,62 @@ public class VaccinsAdapter extends ArrayAdapter<Object> {
 	 * @return
 	 */
 	private View getCustomView(int position, View convertView, ViewGroup parent) {
-		View v;
+		final ViewHolderVaccin holder;
+		MlVaccin unVaccin = this.listeDeVaccin.get(position);
+
 		if (convertView == null) {
-			v = LayoutInflater.from(context).inflate(R.layout.vaccin, null);
-			v.setLayoutParams(new GridView.LayoutParams(100, 100));
 
-			TextView tvDate = (TextView) v.findViewById(R.id.tvDateValue);
-			tvDate.setText(labelMenu[position]);
+			convertView = LayoutInflater.from(context).inflate(R.layout.vaccin, null);
+			convertView.setLayoutParams(new GridView.LayoutParams(200, 200));
 
-			ImageView imageViewVaccin = (ImageView) v.findViewById(R.id.ivLogoVaccin);
-			imageViewVaccin.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageViewVaccin.setPadding(8, 8, 8, 8);
-			imageViewVaccin.setImageResource(images[position]);
+			holder = new ViewHolderVaccin();
 
-			ImageView imageViewVermifuge = (ImageView) v.findViewById(R.id.ivLogoVermifuge);
-			imageViewVermifuge.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageViewVermifuge.setPadding(8, 8, 8, 8);
-			imageViewVermifuge.setImageResource(images[position]);
+			holder.TvDateVaccin = (TextView) convertView.findViewById(R.id.tvDateValue);
+
+			holder.IvVermifuge = (ImageView) convertView.findViewById(R.id.ivLogoVermifuge);
+
+			holder.IvVaccin = (ImageView) convertView.findViewById(R.id.ivLogoVaccin);
+
+			if (unVaccin.isVermifuge()) {
+				holder.IvVermifuge.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				holder.IvVermifuge.setPadding(8, 8, 8, 8);
+				holder.IvVermifuge.setImageResource(imageVermifuge);
+			} else {
+				holder.IvVermifuge.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+			}
+
+			if (unVaccin.getNomVaccin() != null) {
+				holder.IvVaccin.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				holder.IvVaccin.setPadding(8, 8, 8, 8);
+				holder.IvVaccin.setImageResource(imageVaccin);
+			} else {
+				holder.IvVaccin.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+			}
+			// tagger le convertView avec ce Holder créé pour que l'association
+			// se fasse
+			convertView.setTag(holder);
 
 		} else {
-			v = convertView;
+			// puisque déjà valorisé une fois alors récupérer le holder à partir
+			// du tag posé à la création
+			holder = (ViewHolderVaccin) convertView.getTag();
 		}
+		holder.TvDateVaccin.setText(DateHelper.MMMYYYY(unVaccin.getDate()));
+		return convertView;
+	}
 
-		return v;
+	@Override
+	public int getCount() {
+		return this.listeDeVaccin.size();
+	}
+
+	@Override
+	public Object getItem(int p_position) {
+		return this.listeDeVaccin.get(p_position);
+	}
+
+	@Override
+	public long getItemId(int p_position) {
+		return this.listeDeVaccin.get(p_position).getId();
 	}
 }
