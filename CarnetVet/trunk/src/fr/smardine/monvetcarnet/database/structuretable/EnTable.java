@@ -13,7 +13,7 @@ public enum EnTable {
 	MALADIES("MALADIES", EnStructMaladie.class), //
 	POIDS("POIDS", EnStructPoids.class), //
 	PROPRIETAIRES("PROPRIETAIRES", EnStructProprietaire.class), //
-	VACCINS("VACCINS", EnStructVaccin.class);
+	VACCINS("VACCINS", EnStructVaccin.class); //
 
 	private String nomTable;
 	private Class<? extends SuperStructureTable> structureTable;

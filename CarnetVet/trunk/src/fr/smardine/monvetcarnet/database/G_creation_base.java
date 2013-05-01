@@ -54,6 +54,7 @@ public class G_creation_base {
 		scriptsCreationTables.add(createTable(EnTable.POIDS, p_context));
 		scriptsCreationTables.add(createTable(EnTable.PROPRIETAIRES, p_context));
 		scriptsCreationTables.add(createTable(EnTable.VACCINS, p_context));
+
 		return scriptsCreationTables;
 	}
 
@@ -82,6 +83,5 @@ public class G_creation_base {
 			}
 		}
 		return sb.toString();
-
 	}
 }

@@ -14,48 +14,99 @@
         android:id="@+id/datePickerVaccinSaisie"
         />
     
-     <RadioGroup
-        android:id="@+id/radioGroupVaccins"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/layoutVaccinChat"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/rbCoryza"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp" >
+        
+         <CheckBox
+            android:id="@+id/cbCoryza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:text="@string/vaccin_corysa" />
 
-        <RadioButton
-            android:id="@+id/rbTyphus"
+        <CheckBox
+            android:id="@+id/cbTyphus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:text="@string/vaccin_typhus" />
-        <RadioButton
-            android:id="@+id/rbLeucose"
+        <CheckBox
+            android:id="@+id/cbLeucose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:text="@string/vaccin_leucose" />
-        <RadioButton
-            android:id="@+id/rbChlamydiose"
+        <CheckBox
+            android:id="@+id/cbChlamydiose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:text="@string/vaccin_chlamydiose" />
-        <RadioButton
-            android:id="@+id/rbRage"
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutVaccinChien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp" >
+        
+         <CheckBox
+            android:id="@+id/cbMaladieDeCarre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_maladie_de_carre" />
+
+        <CheckBox
+            android:id="@+id/cbParvovirose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_parvovirose" />
+        <CheckBox
+            android:id="@+id/cbHepatiteDeRubarth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_hepatite_de_rubarth" />
+        <CheckBox
+            android:id="@+id/cbLeptospirose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/vaccin_Leptospirose" />
+        <CheckBox
+            android:id="@+id/cbTouxDuChenil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"           
+            android:text="@string/vaccin_toux_du_chenil" />
+         <CheckBox
+            android:id="@+id/cbPiroplasmose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"           
+            android:text="@string/vaccin_piroplasmose" />        
+         
+    </LinearLayout>
+       
+    <LinearLayout
+        android:id="@+id/layoutVaccinCommun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp">
+
+         <CheckBox
+            android:id="@+id/cbRage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"           
             android:text="@string/vaccin_rage" />
-
-    </RadioGroup>
     
      <CheckBox android:id="@+id/cbVermifuge"
          	android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"            
             android:text="@string/vermifuge"/>
+        
+    </LinearLayout>
+
+   
     
     
     <LinearLayout

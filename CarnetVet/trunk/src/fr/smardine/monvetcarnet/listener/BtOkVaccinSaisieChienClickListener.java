@@ -9,21 +9,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.RadioGroup;
 import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableVaccin;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.helper.AndroidHelper;
 import fr.smardine.monvetcarnet.helper.log.EnNiveauLog;
 import fr.smardine.monvetcarnet.helper.log.LogCatBuilder;
-import fr.smardine.monvetcarnet.mdl.EnNomVaccin;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 /**
  * @author sims
  */
-public class BtOkVaccinSaisieClickListener implements OnClickListener {
+public class BtOkVaccinSaisieChienClickListener implements OnClickListener {
 
 	private final DatePicker datePicker;
 
@@ -31,15 +29,29 @@ public class BtOkVaccinSaisieClickListener implements OnClickListener {
 	private final VaccinFragment vaccinFragment;
 	private final Dialog dialog;
 	private final String TAG = this.getClass().getName();
-	private final RadioGroup radioGroup;
 	private final CheckBox cbVermifuge;
 	private final MlCarnet carnet;
+	private final CheckBox cbRage;
+
+	private final CheckBox cbMaladieDeCarre;
+
+	private final CheckBox cbParvovirose;
+
+	private final CheckBox cbHepatiteDeRubarth;
+
+	private final CheckBox cbLeptospirose;
+
+	private final CheckBox cbTouxDuChenil;
+
+	private final CheckBox cbPiroplasmose;
 
 	/**
 	 * Constructeur
 	 * @param p_ctx
 	 * @param p_identFragment
 	 * @param p_dialog
+	 * @param cbVermifuge2
+	 * @param cbRage2
 	 * @param p_spinner
 	 * @param p_rbMale
 	 * @param p_rbFemelle
@@ -48,12 +60,19 @@ public class BtOkVaccinSaisieClickListener implements OnClickListener {
 	 * @param p_carnet
 	 */
 
-	public BtOkVaccinSaisieClickListener(Context p_ctx, VaccinFragment p_vaccinFragment, Dialog p_dialog, RadioGroup radioGroupVaccin,
-			CheckBox cbVermifuge, DatePicker p_datePicker, MlCarnet p_carnet) {
+	public BtOkVaccinSaisieChienClickListener(Context p_ctx, VaccinFragment p_vaccinFragment, Dialog p_dialog, CheckBox cbMaladieDeCarre,
+			CheckBox cbParvovirose, CheckBox cbHepatiteDeRubarth, CheckBox cbLeptospirose, CheckBox cbTouxDuChenil,
+			CheckBox cbPiroplasmose, CheckBox cbRage, CheckBox cbVermifuge, DatePicker p_datePicker, MlCarnet p_carnet) {
 		this.ctx = p_ctx;
 		this.vaccinFragment = p_vaccinFragment;
 		this.dialog = p_dialog;
-		this.radioGroup = radioGroupVaccin;
+		this.cbMaladieDeCarre = cbMaladieDeCarre;
+		this.cbParvovirose = cbParvovirose;
+		this.cbHepatiteDeRubarth = cbHepatiteDeRubarth;
+		this.cbLeptospirose = cbLeptospirose;
+		this.cbTouxDuChenil = cbTouxDuChenil;
+		this.cbPiroplasmose = cbPiroplasmose;
+		this.cbRage = cbRage;
 		this.cbVermifuge = cbVermifuge;
 		this.datePicker = p_datePicker;
 		this.carnet = p_carnet;
@@ -66,24 +85,15 @@ public class BtOkVaccinSaisieClickListener implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		MlVaccin unNouveauVaccin = new MlVaccin(this.carnet);
-		switch (this.radioGroup.getCheckedRadioButtonId()) {
-			case R.id.rbCoryza:
-				unNouveauVaccin.setNomVaccin(EnNomVaccin.Corysa);
-				break;
-			case R.id.rbTyphus:
-				unNouveauVaccin.setNomVaccin(EnNomVaccin.Typhus);
-				break;
-			case R.id.rbLeucose:
-				unNouveauVaccin.setNomVaccin(EnNomVaccin.Leucose);
-				break;
-			case R.id.rbChlamydiose:
-				unNouveauVaccin.setNomVaccin(EnNomVaccin.Chlamydiose);
-				break;
-			case R.id.rbRage:
-				unNouveauVaccin.setNomVaccin(EnNomVaccin.Rage);
-				break;
-		}
 
+		unNouveauVaccin.setMaladieDeCarre(this.cbMaladieDeCarre.isChecked());
+		unNouveauVaccin.setParvovirose(this.cbParvovirose.isChecked());
+		unNouveauVaccin.setHepatiteDeRubarth(this.cbHepatiteDeRubarth.isChecked());
+		unNouveauVaccin.setLeptospirose(this.cbLeptospirose.isChecked());
+		unNouveauVaccin.setTouxDuChenil(this.cbTouxDuChenil.isChecked());
+		unNouveauVaccin.setPiroplasmose(this.cbPiroplasmose.isChecked());
+
+		unNouveauVaccin.setRage(this.cbRage.isChecked());
 		unNouveauVaccin.setVermifuge(this.cbVermifuge.isChecked());
 		unNouveauVaccin.setDate(AndroidHelper.getDateFromDatePicker(datePicker));
 

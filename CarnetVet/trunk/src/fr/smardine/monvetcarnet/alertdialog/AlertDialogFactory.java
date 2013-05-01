@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -20,9 +21,12 @@ import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
+import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
-import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieClickListener;
+import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChatClickListener;
+import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChienClickListener;
+import fr.smardine.monvetcarnet.listener.CbCheckChangeListenerVaccin;
 import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
@@ -68,19 +72,61 @@ public class AlertDialogFactory {
 		dialog.setTitle("Ajouter un vaccin");
 		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerVaccinSaisie);
 
-		final RadioButton rbCoryza = (RadioButton) dialog.findViewById(R.id.rbCoryza);
-		final RadioButton rbTyphus = (RadioButton) dialog.findViewById(R.id.rbTyphus);
-		final RadioButton rbLeucose = (RadioButton) dialog.findViewById(R.id.rbLeucose);
-		final RadioButton rbChlamydiose = (RadioButton) dialog.findViewById(R.id.rbChlamydiose);
-		final RadioButton rbRage = (RadioButton) dialog.findViewById(R.id.rbRage);
-		final RadioGroup radioGroupVaccin = (RadioGroup) dialog.findViewById(R.id.radioGroupVaccins);
+		final CheckBox cbCoryza = (CheckBox) dialog.findViewById(R.id.cbCoryza);
+		final CheckBox cbTyphus = (CheckBox) dialog.findViewById(R.id.cbTyphus);
+		final CheckBox cbLeucose = (CheckBox) dialog.findViewById(R.id.cbLeucose);
+		final CheckBox cbChlamydiose = (CheckBox) dialog.findViewById(R.id.cbChlamydiose);
+		final LinearLayout layoutChat = (LinearLayout) dialog.findViewById(R.id.layoutVaccinChat);
 
+		final CheckBox cbMaladieDeCarre = (CheckBox) dialog.findViewById(R.id.cbMaladieDeCarre);
+		final CheckBox cbParvovirose = (CheckBox) dialog.findViewById(R.id.cbParvovirose);
+		final CheckBox cbHepatiteDeRubarth = (CheckBox) dialog.findViewById(R.id.cbHepatiteDeRubarth);
+		final CheckBox cbLeptospirose = (CheckBox) dialog.findViewById(R.id.cbLeptospirose);
+		final CheckBox cbTouxDuChenil = (CheckBox) dialog.findViewById(R.id.cbTouxDuChenil);
+		final CheckBox cbPiroplasmose = (CheckBox) dialog.findViewById(R.id.cbPiroplasmose);
+
+		final LinearLayout layoutChien = (LinearLayout) dialog.findViewById(R.id.layoutVaccinChien);
+
+		final CheckBox cbRage = (CheckBox) dialog.findViewById(R.id.cbRage);
 		final CheckBox cbVermifuge = (CheckBox) dialog.findViewById(R.id.cbVermifuge);
 
 		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
+		// Par defaut, les deux layout sont retiré,
+		// puis en fonction du type d'animal, on affiche l'un ou l'autre
+		layoutChat.setVisibility(EnStatutVisibilite.RETIRE.getCode());
+		layoutChien.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 
-		boutonOk.setOnClickListener(new BtOkVaccinSaisieClickListener(p_ctx, p_vaccinFragment, dialog, radioGroupVaccin, cbVermifuge,
-				datePicker, p_carnet));
+		// Par defaut, le bouton Ok est grisé car aucune des checkBox n'est selectionnée.
+		boutonOk.setEnabled(false);
+
+		// Faire en sorte que le bouton "Ok" ne soit accessible que si au moins une des checkbox est cochée
+		CbCheckChangeListenerVaccin cbChangeListener = new CbCheckChangeListenerVaccin(boutonOk);
+		cbCoryza.setOnCheckedChangeListener(cbChangeListener);
+		cbTyphus.setOnCheckedChangeListener(cbChangeListener);
+		cbLeucose.setOnCheckedChangeListener(cbChangeListener);
+		cbChlamydiose.setOnCheckedChangeListener(cbChangeListener);
+		cbMaladieDeCarre.setOnCheckedChangeListener(cbChangeListener);
+		cbParvovirose.setOnCheckedChangeListener(cbChangeListener);
+		cbHepatiteDeRubarth.setOnCheckedChangeListener(cbChangeListener);
+		cbLeptospirose.setOnCheckedChangeListener(cbChangeListener);
+		cbTouxDuChenil.setOnCheckedChangeListener(cbChangeListener);
+		cbPiroplasmose.setOnCheckedChangeListener(cbChangeListener);
+		cbRage.setOnCheckedChangeListener(cbChangeListener);
+		cbVermifuge.setOnCheckedChangeListener(cbChangeListener);
+
+		switch (p_carnet.getIdentificationAnimal().getTypeAnimal()) {
+			case CHAT:
+				layoutChat.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+				boutonOk.setOnClickListener(new BtOkVaccinSaisieChatClickListener(p_ctx, p_vaccinFragment, dialog, cbCoryza, cbTyphus,
+						cbLeucose, cbChlamydiose, cbRage, cbVermifuge, datePicker, p_carnet));
+				break;
+			case CHIEN:
+				layoutChien.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
+				boutonOk.setOnClickListener(new BtOkVaccinSaisieChienClickListener(p_ctx, p_vaccinFragment, dialog, cbMaladieDeCarre,
+						cbParvovirose, cbHepatiteDeRubarth, cbLeptospirose, cbTouxDuChenil, cbPiroplasmose, cbRage, cbVermifuge,
+						datePicker, p_carnet));
+				break;
+		}
 
 		dialog.show();
 	}

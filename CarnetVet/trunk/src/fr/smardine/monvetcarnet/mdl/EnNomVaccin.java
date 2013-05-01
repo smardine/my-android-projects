@@ -6,7 +6,7 @@ package fr.smardine.monvetcarnet.mdl;
  */
 public enum EnNomVaccin {
 
-	Corysa, Typhus, Leucose, Chlamydiose, Rage;
+	Corysa, Typhus, Leucose, Chlamydiose, Rage, MaladieDeCarre, Parvovirose, HepatiteDeRubarth, Leptospirose, TouxDuChenil, Piroplasmose;
 
 	public static EnNomVaccin getEnumFromName(String p_name) {
 		for (EnNomVaccin uneEnum : values()) {

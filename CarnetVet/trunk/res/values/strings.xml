@@ -32,6 +32,12 @@
     <string name="vaccin_rage">Rage</string>
     <string name="vermifuge">Vermifuge</string>
     <string name="description_date_vaccin">Date au format mmm YYYY</string>
+    <string name="vaccin_maladie_de_carre">Maladie de Carré</string>
+    <string name="vaccin_parvovirose">Parvovirose</string>
+    <string name="vaccin_hepatite_de_rubarth">Hépatite de Rubarth</string>
+    <string name="vaccin_Leptospirose">Leptospirose</string>
+    <string name="vaccin_toux_du_chenil">Toux du chenil</string>
+    <string name="vaccin_piroplasmose">Piroplasmose</string>
     
     <string name="ok">OK</string>
     <string name="effacer">Effacer</string>

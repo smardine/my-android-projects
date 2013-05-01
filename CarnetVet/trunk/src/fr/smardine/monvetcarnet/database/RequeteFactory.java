@@ -139,6 +139,7 @@ public class RequeteFactory {
 						lstIntermediaire.add(c.getLong(idxColumn));
 						break;
 					case VARCHAR:
+					case BOOL:
 						lstIntermediaire.add(c.getString(idxColumn));
 						break;
 				}

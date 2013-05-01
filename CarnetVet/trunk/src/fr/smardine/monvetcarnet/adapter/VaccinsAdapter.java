@@ -80,7 +80,7 @@ public class VaccinsAdapter extends BaseAdapter {
 				holder.IvVermifuge.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 			}
 
-			if (unVaccin.getNomVaccin() != null) {
+			if (unVaccin.isAuMoinsUnVaccin()) {
 				holder.IvVaccin.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				holder.IvVaccin.setPadding(8, 8, 8, 8);
 				holder.IvVaccin.setImageResource(imageVaccin);

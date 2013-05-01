@@ -71,8 +71,7 @@ public enum EnLogMessages {
 	// //
 	// // FTP_CONNEXION_NOK("La connexion au serveur FTP à échouée"), //
 	// FTP_UPLOAD_NOK("L'envoi du fichier trace vers le serveur à echoué"), //
-	ENREGISTREMENT_SURVEILLANCE(
-			"Enregistrement d'une instance de surveillance des exceptions");
+	ENREGISTREMENT_SURVEILLANCE("Enregistrement d'une instance de surveillance des exceptions");
 
 	private String message;
 

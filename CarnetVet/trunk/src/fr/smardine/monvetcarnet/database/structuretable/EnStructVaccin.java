@@ -12,9 +12,33 @@ public class EnStructVaccin extends SuperStructureTable {
 
 	public static EnStructVaccin DATE = new EnStructVaccin("DATE", EnTypeChampsSQLite.LONG, null, 2); //
 
-	public static EnStructVaccin NOM = new EnStructVaccin("NOM", EnTypeChampsSQLite.VARCHAR, null, 3); //
+	public static EnStructVaccin IS_VERMIFUGE = new EnStructVaccin("IS_VERMIFUGE", EnTypeChampsSQLite.BOOL, 1, 3);
 
-	public static EnStructVaccin VERMIFUGE = new EnStructVaccin("VERMIFUGE", EnTypeChampsSQLite.VARCHAR, 1, 4);
+	public static EnStructVaccin IS_CORYSA = new EnStructVaccin("IS_CORYSA", EnTypeChampsSQLite.BOOL, 1, 4);//
+
+	public static EnStructVaccin IS_TYPHUS = new EnStructVaccin("IS_TYPHUS", EnTypeChampsSQLite.BOOL, 1, 5);//
+
+	public static EnStructVaccin IS_LEUCOSE = new EnStructVaccin("IS_LEUCOSE", EnTypeChampsSQLite.BOOL, 1, 6);//
+
+	public static EnStructVaccin IS_CHLAMYDIOSE = new EnStructVaccin("IS_CHLAMYDIOSE", EnTypeChampsSQLite.BOOL, 1, 7);//
+
+	public static EnStructVaccin IS_RAGE = new EnStructVaccin("IS_RAGE", EnTypeChampsSQLite.BOOL, 1, 8);//
+
+	/**********************************/
+	/** Liste des vaccins pour chien **/
+	/**********************************/
+
+	public static EnStructVaccin IS_MALADIE_DE_CARRE = new EnStructVaccin("IS_MALADIE_DE_CARRE", EnTypeChampsSQLite.BOOL, 1, 9);//
+
+	public static EnStructVaccin IS_PARVOVIROSE = new EnStructVaccin("IS_PARVOVIROSE", EnTypeChampsSQLite.BOOL, 1, 10);//
+
+	public static EnStructVaccin IS_HEPATITE_DE_RUBARTH = new EnStructVaccin("IS_HEPATITE_DE_RUBARTH", EnTypeChampsSQLite.BOOL, 1, 11);//
+
+	public static EnStructVaccin IS_LEPTOSPIROSE = new EnStructVaccin("IS_LEPTOSPIROSE", EnTypeChampsSQLite.BOOL, 1, 12);//
+
+	public static EnStructVaccin IS_TOUX_DU_CHENIL = new EnStructVaccin("IS_TOUX_DU_CHENIL", EnTypeChampsSQLite.BOOL, 1, 13);//
+
+	public static EnStructVaccin IS_PIROPLASMOSE = new EnStructVaccin("IS_PIROPLASMOSE", EnTypeChampsSQLite.BOOL, 1, 14);//
 
 	/**
 	 * Constructeur
@@ -32,7 +56,8 @@ public class EnStructVaccin extends SuperStructureTable {
 	 */
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_VACCIN, ID_CARNET_PARENT, DATE, NOM, VERMIFUGE };
+		return new IStructureTable[] { ID_VACCIN, ID_CARNET_PARENT, DATE, IS_VERMIFUGE, IS_CORYSA, IS_TYPHUS, IS_LEUCOSE, IS_CHLAMYDIOSE,
+				IS_RAGE, IS_MALADIE_DE_CARRE, IS_PARVOVIROSE, IS_HEPATITE_DE_RUBARTH, IS_LEPTOSPIROSE, IS_TOUX_DU_CHENIL, IS_PIROPLASMOSE };
 	}
 
 	/**
