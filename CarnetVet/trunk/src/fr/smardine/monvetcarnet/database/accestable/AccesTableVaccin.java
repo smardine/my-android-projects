@@ -107,7 +107,7 @@ public class AccesTableVaccin extends AccesTable<MlVaccin> {
 	 * @param p_vaccin
 	 * @return
 	 */
-	protected boolean majVaccinEnBase(MlVaccin p_vaccin) {
+	public boolean majVaccinEnBase(MlVaccin p_vaccin) {
 		return super.majObjetEnBase(p_vaccin);
 	}
 

@@ -39,8 +39,11 @@
     <string name="vaccin_toux_du_chenil">Toux du chenil</string>
     <string name="vaccin_piroplasmose">Piroplasmose</string>
     
+    <string name="date_vaccin">Date du vaccin</string>
+    
     <string name="ok">OK</string>
     <string name="effacer">Effacer</string>
+    <string name="modifier">Modifier</string>
     
     <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>

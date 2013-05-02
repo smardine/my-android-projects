@@ -12,6 +12,7 @@ import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.listener.NavigationListener;
+import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 public class MainActivity extends FragmentActivity {
 
@@ -100,7 +101,10 @@ public class MainActivity extends FragmentActivity {
 					.getListeDesCarnets().get(0), -1);
 			return true;
 		} else if (menuItem.getItemId() == R.id.menuPlusVaccin) {
-			AlertDialogFactory.creerEtAfficherVaccinSaisie(this, fragmentVaccin, new AccesTableCarnet(this).getListeDesCarnets().get(0));
+			boolean isModeCreation = true;
+			MlVaccin unNouveauVaccin = null;
+			AlertDialogFactory.creerEtAfficherVaccinSaisie(this, fragmentVaccin, new AccesTableCarnet(this).getListeDesCarnets().get(0),
+					isModeCreation, unNouveauVaccin);
 		}
 
 		return false;

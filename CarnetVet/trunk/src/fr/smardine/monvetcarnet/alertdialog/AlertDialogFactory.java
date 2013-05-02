@@ -11,16 +11,20 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
+import fr.smardine.monvetcarnet.adapter.ListAdapterNomDesVaccins;
 import fr.smardine.monvetcarnet.adapter.SpinnerIdentificationSaisieAdapter;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
+import fr.smardine.monvetcarnet.helper.DateHelper;
 import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
@@ -31,6 +35,7 @@ import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelected
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
+import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 public class AlertDialogFactory {
 
@@ -66,7 +71,16 @@ public class AlertDialogFactory {
 		dialog.show();
 	}
 
-	public static void creerEtAfficherVaccinSaisie(final Context p_ctx, final VaccinFragment p_vaccinFragment, final MlCarnet p_carnet) {
+	/**
+	 * Créer et afficher l'alert dialog permettant la saisie ou la modification d'un vaccin
+	 * @param p_ctx
+	 * @param p_vaccinFragment
+	 * @param p_carnet
+	 * @param isModeCreation
+	 * @param p_vaccin
+	 */
+	public static void creerEtAfficherVaccinSaisie(final Context p_ctx, final VaccinFragment p_vaccinFragment, final MlCarnet p_carnet,
+			boolean isModeCreation, final MlVaccin p_vaccin) {
 		final Dialog dialog = new Dialog(p_ctx);
 		dialog.setContentView(R.layout.alertdialog_vaccin_saisie);
 		dialog.setTitle("Ajouter un vaccin");
@@ -114,21 +128,81 @@ public class AlertDialogFactory {
 		cbRage.setOnCheckedChangeListener(cbChangeListener);
 		cbVermifuge.setOnCheckedChangeListener(cbChangeListener);
 
+		if (!isModeCreation) {
+			dialog.setTitle("Modifier un vaccin");
+			cbCoryza.setChecked(p_vaccin.isCorysa());
+			cbTyphus.setChecked(p_vaccin.isTiphus());
+			cbLeucose.setChecked(p_vaccin.isLeucose());
+			cbChlamydiose.setChecked(p_vaccin.isChlamydiose());
+			cbMaladieDeCarre.setChecked(p_vaccin.isMaladieDeCarre());
+			cbParvovirose.setChecked(p_vaccin.isParvovirose());
+			cbHepatiteDeRubarth.setChecked(p_vaccin.isHepatiteDeRubarth());
+			cbLeptospirose.setChecked(p_vaccin.isLeptospirose());
+			cbTouxDuChenil.setChecked(p_vaccin.isTouxDuChenil());
+			cbPiroplasmose.setChecked(p_vaccin.isPiroplasmose());
+			cbRage.setChecked(p_vaccin.isRage());
+			cbVermifuge.setChecked(p_vaccin.isVermifuge());
+		}
+
 		switch (p_carnet.getIdentificationAnimal().getTypeAnimal()) {
 			case CHAT:
 				layoutChat.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
 				boutonOk.setOnClickListener(new BtOkVaccinSaisieChatClickListener(p_ctx, p_vaccinFragment, dialog, cbCoryza, cbTyphus,
-						cbLeucose, cbChlamydiose, cbRage, cbVermifuge, datePicker, p_carnet));
+						cbLeucose, cbChlamydiose, cbRage, cbVermifuge, datePicker, p_carnet, p_vaccin, isModeCreation));
 				break;
 			case CHIEN:
 				layoutChien.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
 				boutonOk.setOnClickListener(new BtOkVaccinSaisieChienClickListener(p_ctx, p_vaccinFragment, dialog, cbMaladieDeCarre,
 						cbParvovirose, cbHepatiteDeRubarth, cbLeptospirose, cbTouxDuChenil, cbPiroplasmose, cbRage, cbVermifuge,
-						datePicker, p_carnet));
+						datePicker, p_carnet, p_vaccin, isModeCreation));
 				break;
 		}
 
 		dialog.show();
+	}
+
+	/**
+	 * Créer et afficher l'alertdialog qui permet de consulter la liste des vaccins lors du clic sur un des elements de la grille des
+	 * vaccins. S'affiche en mode consultation, puis au clic sur le bouton Modifier, lance une autre alertdialog (la meme que pour la saisie
+	 * d'un vaccin)
+	 * @param p_ctx
+	 * @param p_vaccinFragment
+	 * @param p_carnet
+	 * @param p_vaccin
+	 */
+	public static void creerEtAfficherVaccinConsultation(final Context p_ctx, final VaccinFragment p_vaccinFragment,
+			final MlCarnet p_carnet, final MlVaccin p_vaccin) {
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_vaccin_detail);
+		dialog.setTitle("Détail d'un vaccin");
+		TextView tvDate = (TextView) dialog.findViewById(R.id.tvdateVaccin);
+		ListView lvListeVaccin = (ListView) dialog.findViewById(R.id.lvListeVaccins);
+		Button boutonOk = recupererBoutonOk(dialog);
+		Button boutonModifier = (Button) dialog.findViewById(R.id.btModifier);
+
+		lvListeVaccin.setAdapter(new ListAdapterNomDesVaccins(p_ctx, p_vaccin));
+		tvDate.setText(DateHelper.ddMMMyyyy(p_vaccin.getDate()));
+
+		boutonOk.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+
+		boutonModifier.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				boolean isModeCreation = false;
+				dialog.dismiss();
+				creerEtAfficherVaccinSaisie(p_ctx, p_vaccinFragment, p_carnet, isModeCreation, p_vaccin);
+			}
+		});
+
+		dialog.show();
+
 	}
 
 	/**

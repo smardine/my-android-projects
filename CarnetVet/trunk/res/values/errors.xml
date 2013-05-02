@@ -13,6 +13,7 @@
     
     
     <!-- warning -->
-    <string name="insertion_en_base_echouee">Impossible de rentrer les données en bases (%s)</string>
+    <string name="insertion_en_base_echouee">Impossible de rentrer les données en base (%s)</string>
+    <string name="maj_en_base_echouee">Impossible de mettre a jour les données en base (%s)</string>
     <string name="position_non_geree">La position selectionnée n\'est pas encore gérée (%s)</string>
 </resources>

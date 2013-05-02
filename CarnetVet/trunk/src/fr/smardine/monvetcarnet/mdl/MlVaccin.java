@@ -1,6 +1,8 @@
 package fr.smardine.monvetcarnet.mdl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * MlVaccin
@@ -24,6 +26,40 @@ public class MlVaccin implements IMetaModel {
 	private boolean piroplasmose;
 
 	private final MlCarnet carnetParent;
+
+	/**
+	 * Obtenir la liste des vaccins injectés
+	 * @return
+	 */
+	public List<String> getListeDesVaccinsInjectes() {
+		List<String> lst = new ArrayList<String>();
+		if (isCorysa())
+			lst.add(EnNomVaccin.Corysa.toString());
+		if (isTiphus())
+			lst.add(EnNomVaccin.Typhus.toString());
+		if (isLeucose())
+			lst.add(EnNomVaccin.Leucose.toString());
+		if (isChlamydiose())
+			lst.add(EnNomVaccin.Chlamydiose.toString());
+		if (isRage())
+			lst.add(EnNomVaccin.Rage.toString());
+		if (isMaladieDeCarre())
+			lst.add(EnNomVaccin.MaladieDeCarre.toString());
+		if (isParvovirose())
+			lst.add(EnNomVaccin.Parvovirose.toString());
+		if (isHepatiteDeRubarth())
+			lst.add(EnNomVaccin.HepatiteDeRubarth.toString());
+		if (isLeptospirose())
+			lst.add(EnNomVaccin.Leptospirose.toString());
+		if (isTouxDuChenil())
+			lst.add(EnNomVaccin.TouxDuChenil.toString());
+		if (isPiroplasmose())
+			lst.add(EnNomVaccin.Piroplasmose.toString());
+		if (isVermifuge())
+			lst.add("Vermifuge");
+
+		return lst;
+	}
 
 	/**
 	 * Constructeur
