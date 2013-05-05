@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import fr.smardine.monvetcarnet.database.structuretable.EnStructMaladie;
 import fr.smardine.monvetcarnet.database.structuretable.EnTable;
+import fr.smardine.monvetcarnet.mdl.EnPictoMaladie;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
 
@@ -33,11 +34,11 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 		ContentValues values = new ContentValues();
 		values.put(EnStructMaladie.DATE.getNomChamp(), p_object.getDate().getTime());
 		values.put(EnStructMaladie.ID_CARNET_PARENT.getNomChamp(), p_object.getCarnetParent().getId());
-		// values.put(EnStructMaladie.ID_MALADIE.getNomChamp(), p_object.getIdMaladie());
 		values.put(EnStructMaladie.RDV_VETO.getNomChamp(), Boolean.toString(p_object.isRdvVeto()));
 		values.put(EnStructMaladie.SYMPTOME.getNomChamp(), p_object.getSymptomes());
 		values.put(EnStructMaladie.TITRE.getNomChamp(), p_object.getTitre());
 		values.put(EnStructMaladie.TRAITEMENT.getNomChamp(), p_object.getTraitement());
+		values.put(EnStructMaladie.PICTO_MALADIE.getNomChamp(), p_object.getPictoMaladie().name());
 		return values;
 	}
 
@@ -62,7 +63,8 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 			uneMaladie.setSymptomes((String) unEnregistrement.get(EnStructMaladie.SYMPTOME.getindex()));
 			uneMaladie.setTitre((String) unEnregistrement.get(EnStructMaladie.TITRE.getindex()));
 			uneMaladie.setTraitement((String) unEnregistrement.get(EnStructMaladie.TRAITEMENT.getindex()));
-
+			uneMaladie.setPictoMaladie(EnPictoMaladie.pictoMaladieParNom((String) unEnregistrement.get(EnStructMaladie.PICTO_MALADIE
+					.getindex())));
 			lstRetour.add(uneMaladie);
 		}
 		return lstRetour;
@@ -73,7 +75,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	 * @param p_maladie
 	 * @return
 	 */
-	protected boolean insertMaladieEnBase(MlMaladie p_maladie) {
+	public boolean insertMaladieEnBase(MlMaladie p_maladie) {
 		return super.insertObjectEnBase(p_maladie);
 	}
 
@@ -82,7 +84,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 	 * @param p_maladie
 	 * @return
 	 */
-	protected boolean majMaladieEnBase(MlMaladie p_maladie) {
+	public boolean majMaladieEnBase(MlMaladie p_maladie) {
 		return super.majObjetEnBase(p_maladie);
 	}
 

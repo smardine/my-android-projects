@@ -30,6 +30,10 @@
             android:name="fr.smardine.monvetcarnet.fragment.VaccinFragment"
             android:label="Vaccins" >           
         </activity>
+        <activity
+            android:name="fr.smardine.monvetcarnet.fragment.MaladieFragment"
+            android:label="Maladies" >           
+        </activity>
     </application>
 
 </manifest>

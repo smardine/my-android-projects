@@ -8,13 +8,13 @@ import java.util.Date;
  */
 public class MlMaladie implements IMetaModel {
 
-	// private int idCarnetParent;
 	private int idMaladie;
 	private Date date;
 	private String titre;
 	private String symptomes;
 	private boolean rdvVeto;
 	private String traitement;
+	private EnPictoMaladie pictoMaladie;
 	private final MlCarnet carnetParent;
 
 	public MlMaladie(MlCarnet p_carnetParent) {
@@ -25,14 +25,6 @@ public class MlMaladie implements IMetaModel {
 	public int getId() {
 		return idMaladie;
 	}
-
-	// public int getIdCarnetParent() {
-	// return idCarnetParent;
-	// }
-	//
-	// public void setIdCarnetParent(int idCarnetParent) {
-	// this.idCarnetParent = idCarnetParent;
-	// }
 
 	public int getIdMaladie() {
 		return idMaladie;
@@ -87,6 +79,25 @@ public class MlMaladie implements IMetaModel {
 	 */
 	public MlCarnet getCarnetParent() {
 		return carnetParent;
+	}
+
+	/**
+	 * @return the pictoMaladie
+	 */
+	public EnPictoMaladie getPictoMaladie() {
+		return pictoMaladie;
+	}
+
+	/**
+	 * @param pictoMaladie the pictoMaladie to set
+	 */
+	public void setPictoMaladie(EnPictoMaladie pictoMaladie) {
+		this.pictoMaladie = pictoMaladie;
+	}
+
+	public boolean isPictoDefini() {
+		// TODO Auto-generated method stub
+		return this.pictoMaladie != null;
 	}
 
 }

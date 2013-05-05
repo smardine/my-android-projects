@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutPresentationMaladie"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+     <DatePicker android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
+        android:minDate="01/01/1970"
+        android:id="@+id/datePickerMaladieSaisie"
+        />
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:id="@+id/layoutZoneValidation">
+        
+        <Button
+            android:id="@+id/btOk"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/btModifier"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="40dp"
+            android:text="@string/effacer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutNoteMaladie"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutZoneValidation" >
+
+       
+        <TextView
+            android:id="@+id/textViewNoteMaladie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+             android:ems="10"
+            
+            android:hint="@string/description_note_maladie" />
+        
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/layoutTraitementMaladie"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutNoteMaladie" 
+        android:orientation="vertical">
+
+       <CheckBox
+           android:id="@+id/cbRdvVeto"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/rdv_veto" />
+
+        <TextView
+            android:id="@+id/textViewTraitementMaladie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+             android:ems="10"
+            
+            android:hint="@string/description_traitement_maladie" />
+        
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/layoutTitreEtSymptomeMaladie"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layoutTraitementMaladie"
+        android:layout_below="@id/datePickerMaladieSaisie" 
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewTitreMaladie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:ems="20"                        
+            android:hint="@string/description_titre_maladie" />
+
+        <TextView
+            android:id="@+id/textViewSymptomesMaladie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"                      
+            android:hint="@string/description_symptomes_maladie" />
+        
+        <CheckBox
+           android:id="@+id/cbChoixPictogramme"
+           android:layout_width="wrap_content"
+           android:layout_height="fill_parent"
+           android:text="@string/picto" />
+        
+    </LinearLayout>
+   
+
+    
+    
+    
+
+</RelativeLayout>

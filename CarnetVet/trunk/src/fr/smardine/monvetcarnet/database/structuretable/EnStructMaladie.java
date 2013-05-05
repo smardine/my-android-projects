@@ -12,13 +12,15 @@ public class EnStructMaladie extends SuperStructureTable {
 
 	public static EnStructMaladie DATE = new EnStructMaladie("DATE", EnTypeChampsSQLite.LONG, null, 2);//
 
-	public static EnStructMaladie TITRE = new EnStructMaladie("VALEUR", EnTypeChampsSQLite.VARCHAR, null, 3); //
+	public static EnStructMaladie TITRE = new EnStructMaladie("TITRE", EnTypeChampsSQLite.VARCHAR, null, 3); //
 
 	public static EnStructMaladie SYMPTOME = new EnStructMaladie("SYMPTOME", EnTypeChampsSQLite.VARCHAR, null, 4); //
 
 	public static EnStructMaladie RDV_VETO = new EnStructMaladie("RDV_VETO", EnTypeChampsSQLite.VARCHAR, 1, 5); //
 
 	public static EnStructMaladie TRAITEMENT = new EnStructMaladie("TRAITEMENT", EnTypeChampsSQLite.VARCHAR, null, 6);
+
+	public static EnStructMaladie PICTO_MALADIE = new EnStructMaladie("PICTO_MALADIE", EnTypeChampsSQLite.VARCHAR, null, 7);
 
 	/**
 	 * Constructeur
@@ -36,7 +38,7 @@ public class EnStructMaladie extends SuperStructureTable {
 	 */
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_MALADIE, ID_CARNET_PARENT, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT };
+		return new IStructureTable[] { ID_MALADIE, ID_CARNET_PARENT, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT, PICTO_MALADIE };
 	}
 
 	/**

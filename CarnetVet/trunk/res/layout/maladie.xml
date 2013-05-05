@@ -1,0 +1,45 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linarLayoutVaccin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dip"
+    android:orientation="vertical">
+     <TextView
+            android:id="@+id/tvDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"           
+            android:hint="@string/description_date_vaccin"
+            android:textIsSelectable="false"
+            android:textColor="@color/text_color" />
+     <LinearLayout android:orientation="horizontal"
+          android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+	 	<TextView
+            android:id="@+id/tvTitreMaladie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"           
+            android:hint="@string/description_titre_maladie"
+            android:textIsSelectable="false"
+            android:textColor="@color/text_color" />
+        <ImageView
+        android:src="@drawable/ic_vaccins_64px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPictoMaladie"
+        android:contentDescription="@string/description_image_spinner">
+        </ImageView>
+        <ImageView
+        android:src="@drawable/ic_vermifuge_64px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivLogoRdvVeto"
+        android:contentDescription="@string/description_image_spinner">
+        </ImageView>
+         
+     </LinearLayout>
+       
+
+       
+        
+    </LinearLayout>
