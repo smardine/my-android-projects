@@ -25,10 +25,12 @@ import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.MaladieFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
+import fr.smardine.monvetcarnet.helper.AndroidHelper;
 import fr.smardine.monvetcarnet.helper.DateHelper;
 import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
+import fr.smardine.monvetcarnet.listener.BtOkMaladieSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChatClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChienClickListener;
 import fr.smardine.monvetcarnet.listener.CbCheckChangeListenerVaccin;
@@ -71,11 +73,6 @@ public class AlertDialogFactory {
 			dialog.setTitle("Modifier une information");
 		}
 		dialog.show();
-	}
-
-	public static void creerEtAfficherMaladieSaisie(Context context, MaladieFragment maladieFragment, MlCarnet carnetParent,
-			MlMaladie maladieSelectionnee) {
-
 	}
 
 	/**
@@ -429,74 +426,31 @@ public class AlertDialogFactory {
 		dialog.setContentView(R.layout.alertdialog_maladie_saisie);
 		dialog.setTitle("Ajouter une maladie");
 		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerMaladieSaisie);
+		final TextView titre = (TextView) dialog.findViewById(R.id.textViewTitreMaladie);
+		final TextView symptomes = (TextView) dialog.findViewById(R.id.textViewSymptomesMaladie);
+		final Button btPicto = (Button) dialog.findViewById(R.id.cbChoixPictogramme);
+		final CheckBox cbRdvVeto = (CheckBox) dialog.findViewById(R.id.cbRdvVeto);
+		final TextView traitments = (TextView) dialog.findViewById(R.id.textViewTraitementMaladie);
+		final TextView notes = (TextView) dialog.findViewById(R.id.textViewNoteMaladie);
 
-		// final CheckBox cbCoryza = (CheckBox) dialog.findViewById(R.id.cbCoryza);
-		// final CheckBox cbTyphus = (CheckBox) dialog.findViewById(R.id.cbTyphus);
-		// final CheckBox cbLeucose = (CheckBox) dialog.findViewById(R.id.cbLeucose);
-		// final CheckBox cbChlamydiose = (CheckBox) dialog.findViewById(R.id.cbChlamydiose);
-		// final LinearLayout layoutChat = (LinearLayout) dialog.findViewById(R.id.layoutVaccinChat);
-		//
-		// final CheckBox cbMaladieDeCarre = (CheckBox) dialog.findViewById(R.id.cbMaladieDeCarre);
-		// final CheckBox cbParvovirose = (CheckBox) dialog.findViewById(R.id.cbParvovirose);
-		// final CheckBox cbHepatiteDeRubarth = (CheckBox) dialog.findViewById(R.id.cbHepatiteDeRubarth);
-		// final CheckBox cbLeptospirose = (CheckBox) dialog.findViewById(R.id.cbLeptospirose);
-		// final CheckBox cbTouxDuChenil = (CheckBox) dialog.findViewById(R.id.cbTouxDuChenil);
-		// final CheckBox cbPiroplasmose = (CheckBox) dialog.findViewById(R.id.cbPiroplasmose);
-		//
-		// final LinearLayout layoutChien = (LinearLayout) dialog.findViewById(R.id.layoutVaccinChien);
-		//
-		// final CheckBox cbRage = (CheckBox) dialog.findViewById(R.id.cbRage);
-		// final CheckBox cbVermifuge = (CheckBox) dialog.findViewById(R.id.cbVermifuge);
-
-		final Button boutonOk = (Button) dialog.findViewById(R.id.btOk);
-
-		// Par defaut, le bouton Ok est grisé car aucune des checkBox n'est selectionnée.
-		boutonOk.setEnabled(false);
-
-		// Faire en sorte que le bouton "Ok" ne soit accessible que si au moins une des checkbox est cochée
-		CbCheckChangeListenerVaccin cbChangeListener = new CbCheckChangeListenerVaccin(boutonOk);
-		// cbCoryza.setOnCheckedChangeListener(cbChangeListener);
-		// cbTyphus.setOnCheckedChangeListener(cbChangeListener);
-		// cbLeucose.setOnCheckedChangeListener(cbChangeListener);
-		// cbChlamydiose.setOnCheckedChangeListener(cbChangeListener);
-		// cbMaladieDeCarre.setOnCheckedChangeListener(cbChangeListener);
-		// cbParvovirose.setOnCheckedChangeListener(cbChangeListener);
-		// cbHepatiteDeRubarth.setOnCheckedChangeListener(cbChangeListener);
-		// cbLeptospirose.setOnCheckedChangeListener(cbChangeListener);
-		// cbTouxDuChenil.setOnCheckedChangeListener(cbChangeListener);
-		// cbPiroplasmose.setOnCheckedChangeListener(cbChangeListener);
-		// cbRage.setOnCheckedChangeListener(cbChangeListener);
-		// cbVermifuge.setOnCheckedChangeListener(cbChangeListener);
+		Button boutonOk = recupererBoutonOk(dialog);
+		Button boutonEffacer = recupererBoutonEffacer(dialog);
 
 		if (!isModeCreation) {
 			dialog.setTitle("Modifier une maladie");
-			// cbCoryza.setChecked(p_vaccin.isCorysa());
-			// cbTyphus.setChecked(p_vaccin.isTiphus());
-			// cbLeucose.setChecked(p_vaccin.isLeucose());
-			// cbChlamydiose.setChecked(p_vaccin.isChlamydiose());
-			// cbMaladieDeCarre.setChecked(p_vaccin.isMaladieDeCarre());
-			// cbParvovirose.setChecked(p_vaccin.isParvovirose());
-			// cbHepatiteDeRubarth.setChecked(p_vaccin.isHepatiteDeRubarth());
-			// cbLeptospirose.setChecked(p_vaccin.isLeptospirose());
-			// cbTouxDuChenil.setChecked(p_vaccin.isTouxDuChenil());
-			// cbPiroplasmose.setChecked(p_vaccin.isPiroplasmose());
-			// cbRage.setChecked(p_vaccin.isRage());
-			// cbVermifuge.setChecked(p_vaccin.isVermifuge());
+			cbRdvVeto.setChecked(maladieSelectionnee.isRdvVeto());
+
+			// btPicto.setChecked(maladieSelectionnee.isPictoDefini());
+			AndroidHelper.SetDateToDatePicker(datePicker, maladieSelectionnee.getDate());
+			titre.setText(maladieSelectionnee.getTitre());
+			symptomes.setText(maladieSelectionnee.getSymptomes());
+			traitments.setText(maladieSelectionnee.getTraitement());
+			notes.setText(maladieSelectionnee.getNotes());
+
 		}
 
-		// switch (p_carnet.getIdentificationAnimal().getTypeAnimal()) {
-		// case CHAT:
-		// layoutChat.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-		// boutonOk.setOnClickListener(new BtOkVaccinSaisieChatClickListener(p_ctx, p_vaccinFragment, dialog, cbCoryza, cbTyphus,
-		// cbLeucose, cbChlamydiose, cbRage, cbVermifuge, datePicker, p_carnet, p_vaccin, isModeCreation));
-		// break;
-		// case CHIEN:
-		// layoutChien.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
-		// boutonOk.setOnClickListener(new BtOkVaccinSaisieChienClickListener(p_ctx, p_vaccinFragment, dialog, cbMaladieDeCarre,
-		// cbParvovirose, cbHepatiteDeRubarth, cbLeptospirose, cbTouxDuChenil, cbPiroplasmose, cbRage, cbVermifuge,
-		// datePicker, p_carnet, p_vaccin, isModeCreation));
-		// break;
-		// }
+		boutonOk.setOnClickListener(new BtOkMaladieSaisieClickListener(context, maladieFragment, carnetParent, dialog, datePicker, titre,
+				symptomes, btPicto, cbRdvVeto, traitments, notes, maladieSelectionnee, isModeCreation));
 
 		dialog.show();
 

@@ -15,6 +15,7 @@ public class MlMaladie implements IMetaModel {
 	private boolean rdvVeto;
 	private String traitement;
 	private EnPictoMaladie pictoMaladie;
+	private String notes;
 	private final MlCarnet carnetParent;
 
 	public MlMaladie(MlCarnet p_carnetParent) {
@@ -96,8 +97,21 @@ public class MlMaladie implements IMetaModel {
 	}
 
 	public boolean isPictoDefini() {
-		// TODO Auto-generated method stub
 		return this.pictoMaladie != null;
+	}
+
+	/**
+	 * @return the notes
+	 */
+	public String getNotes() {
+		return notes;
+	}
+
+	/**
+	 * @param notes the notes to set
+	 */
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 }

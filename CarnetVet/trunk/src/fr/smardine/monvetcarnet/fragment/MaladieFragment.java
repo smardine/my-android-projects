@@ -14,13 +14,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.adapter.MaladieAdapter;
-import fr.smardine.monvetcarnet.adapter.VaccinsAdapter;
 import fr.smardine.monvetcarnet.alertdialog.AlertDialogFactory;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
-import fr.smardine.monvetcarnet.database.accestable.AccesTableVaccin;
+import fr.smardine.monvetcarnet.database.accestable.AccesTableMaladie;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
-import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 /**
  * @author sims
@@ -64,11 +62,11 @@ public class MaladieFragment extends SuperFragment implements OnItemClickListene
 	 * Met a jour la liste des vaccins sur la grille
 	 * @param p_carnetParent
 	 */
-	public void metAjourListeDeVaccin(MlCarnet p_carnetParent) {
+	public void metAjourListeDeMaladies(MlCarnet p_carnetParent) {
 		if (p_carnetParent != null) {
-			List<MlVaccin> listeDeVaccin = new AccesTableVaccin(this.context).getListeDeVaccinsParIdCarnet(p_carnetParent);
-			if (listeDeVaccin != null && listeDeVaccin.size() > 0) {
-				choix.setAdapter(new VaccinsAdapter(context, listeDeVaccin));
+			List<MlMaladie> listeDeMaladie = new AccesTableMaladie(this.context).getListeDeMaladiesParIdCarnet(carnetParent);
+			if (listeDeMaladie != null && listeDeMaladie.size() > 0) {
+				choix.setAdapter(new MaladieAdapter(context, listeDeMaladie));
 			}
 		}
 	}

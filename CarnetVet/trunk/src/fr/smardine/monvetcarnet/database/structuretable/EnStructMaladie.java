@@ -22,6 +22,8 @@ public class EnStructMaladie extends SuperStructureTable {
 
 	public static EnStructMaladie PICTO_MALADIE = new EnStructMaladie("PICTO_MALADIE", EnTypeChampsSQLite.VARCHAR, null, 7);
 
+	public static EnStructMaladie NOTES = new EnStructMaladie("NOTES", EnTypeChampsSQLite.VARCHAR, null, 8);
+
 	/**
 	 * Constructeur
 	 * @param p_nomChamp
@@ -38,7 +40,7 @@ public class EnStructMaladie extends SuperStructureTable {
 	 */
 	@Override
 	public IStructureTable[] getListeChamp() {
-		return new IStructureTable[] { ID_MALADIE, ID_CARNET_PARENT, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT, PICTO_MALADIE };
+		return new IStructureTable[] { ID_MALADIE, ID_CARNET_PARENT, DATE, TITRE, SYMPTOME, RDV_VETO, TRAITEMENT, PICTO_MALADIE, NOTES };
 	}
 
 	/**

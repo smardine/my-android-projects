@@ -39,6 +39,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 		values.put(EnStructMaladie.TITRE.getNomChamp(), p_object.getTitre());
 		values.put(EnStructMaladie.TRAITEMENT.getNomChamp(), p_object.getTraitement());
 		values.put(EnStructMaladie.PICTO_MALADIE.getNomChamp(), p_object.getPictoMaladie().name());
+		values.put(EnStructMaladie.NOTES.getNomChamp(), p_object.getNotes());
 		return values;
 	}
 
@@ -65,6 +66,7 @@ public class AccesTableMaladie extends AccesTable<MlMaladie> {
 			uneMaladie.setTraitement((String) unEnregistrement.get(EnStructMaladie.TRAITEMENT.getindex()));
 			uneMaladie.setPictoMaladie(EnPictoMaladie.pictoMaladieParNom((String) unEnregistrement.get(EnStructMaladie.PICTO_MALADIE
 					.getindex())));
+			uneMaladie.setNotes(((String) unEnregistrement.get(EnStructMaladie.NOTES.getindex())));
 			lstRetour.add(uneMaladie);
 		}
 		return lstRetour;

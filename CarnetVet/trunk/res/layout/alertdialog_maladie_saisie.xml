@@ -107,10 +107,10 @@
             android:textIsSelectable="true"                      
             android:hint="@string/description_symptomes_maladie" />
         
-        <CheckBox
-           android:id="@+id/cbChoixPictogramme"
+        <Button
+           android:id="@+id/btChoixPictogramme"
            android:layout_width="wrap_content"
-           android:layout_height="fill_parent"
+           android:layout_height="wrap_content"
            android:text="@string/picto" />
         
     </LinearLayout>
