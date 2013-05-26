@@ -47,6 +47,7 @@
     <string name="description_traitement_maladie">Traitements appliqués lors de la consultation, sur plusieur lignes</string>
     <string name="rdv_veto">rdv vétérinaire</string>
     <string name="picto">Pictogramme</string>
+    <string name="choix_picto">Choisissez une image</string>
     <string name="description_symptomes_maladie">Symptômes de la maladies, sur plusieur lignes</string>
     
     

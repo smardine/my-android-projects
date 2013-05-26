@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -17,6 +19,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import fr.smardine.monvetcarnet.R;
+import fr.smardine.monvetcarnet.adapter.GalleryItemSelectedListener;
+import fr.smardine.monvetcarnet.adapter.ImageAdapter;
 import fr.smardine.monvetcarnet.adapter.ListAdapterNomDesVaccins;
 import fr.smardine.monvetcarnet.adapter.SpinnerIdentificationSaisieAdapter;
 import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
@@ -35,6 +39,7 @@ import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChatClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChienClickListener;
 import fr.smardine.monvetcarnet.listener.CbCheckChangeListenerVaccin;
 import fr.smardine.monvetcarnet.listener.SpinnerIdentificationSaisieItemSelectedListener;
+import fr.smardine.monvetcarnet.mdl.EnPictoMaladie;
 import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
@@ -420,21 +425,29 @@ public class AlertDialogFactory {
 
 	}
 
-	public static void creerEtAfficherMaladieSaisie(Context context, MaladieFragment maladieFragment, MlCarnet carnetParent,
-			boolean isModeCreation, MlMaladie maladieSelectionnee) {
+	public static void creerEtAfficherMaladieSaisie(final Context context, MaladieFragment maladieFragment, MlCarnet carnetParent,
+			boolean isModeCreation, final MlMaladie maladieSelectionnee) {
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.alertdialog_maladie_saisie);
 		dialog.setTitle("Ajouter une maladie");
 		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerMaladieSaisie);
 		final TextView titre = (TextView) dialog.findViewById(R.id.textViewTitreMaladie);
 		final TextView symptomes = (TextView) dialog.findViewById(R.id.textViewSymptomesMaladie);
-		final Button btPicto = (Button) dialog.findViewById(R.id.cbChoixPictogramme);
+		final Button btPicto = (Button) dialog.findViewById(R.id.btChoixPictogramme);
+		final ImageView ivPictoMaladie = (ImageView) dialog.findViewById(R.id.ivPictoMaladieChoisi);
 		final CheckBox cbRdvVeto = (CheckBox) dialog.findViewById(R.id.cbRdvVeto);
 		final TextView traitments = (TextView) dialog.findViewById(R.id.textViewTraitementMaladie);
 		final TextView notes = (TextView) dialog.findViewById(R.id.textViewNoteMaladie);
 
 		Button boutonOk = recupererBoutonOk(dialog);
 		Button boutonEffacer = recupererBoutonEffacer(dialog);
+		btPicto.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				creerEtAfficherChoixPictogrammmeMaladie(context, maladieSelectionnee, ivPictoMaladie);
+			}
+		});
 
 		if (!isModeCreation) {
 			dialog.setTitle("Modifier une maladie");
@@ -456,4 +469,33 @@ public class AlertDialogFactory {
 
 	}
 
+	@SuppressWarnings("deprecation")
+	public static void creerEtAfficherChoixPictogrammmeMaladie(Context p_ctx, final MlMaladie p_maladieSelectionnee,
+			final ImageView ivPictoMaladie) {
+		final Dialog dialog = new Dialog(p_ctx);
+		dialog.setContentView(R.layout.alertdialog_choix_picto_maladie);
+		Gallery gal = ((Gallery) dialog.findViewById(R.id.gallery));
+
+		final ImageAdapter adapter = new ImageAdapter(p_ctx);
+		gal.setAdapter(adapter);
+		if (p_maladieSelectionnee.getPictoMaladie() != null) {
+			ivPictoMaladie.setImageResource(p_maladieSelectionnee.getPictoMaladie().getRessourcePicto());
+			gal.setSelection(p_maladieSelectionnee.getPictoMaladie().getPosition());
+		}
+
+		Button boutonOk = recupererBoutonOk(dialog);
+
+		final GalleryItemSelectedListener itemSelectedListener = new GalleryItemSelectedListener(adapter);
+		gal.setOnItemSelectedListener(itemSelectedListener);
+		boutonOk.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				p_maladieSelectionnee.setPictoMaladie(EnPictoMaladie.pictoMaladieParRessource(itemSelectedListener.getSelectedResource()));
+				ivPictoMaladie.setImageResource(p_maladieSelectionnee.getPictoMaladie().getRessourcePicto());
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
 }

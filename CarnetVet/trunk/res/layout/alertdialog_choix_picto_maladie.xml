@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
+   >
+
+<Gallery android:id="@+id/gallery"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:gravity="bottom"
+       android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+/>
+ <RelativeLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:id="@+id/layoutZoneValidation"
+        android:layout_below="@+id/gallery">
+        
+        <Button
+            android:id="@+id/btOk"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="@string/ok"
+            android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
+        
+    </RelativeLayout>
+</RelativeLayout>
