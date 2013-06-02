@@ -57,5 +57,6 @@
     
     <color name="app_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
-
+    <color name="grey">#05511F</color>
+	<color name="grey_light">#0551F0</color>
 </resources>

@@ -10,6 +10,7 @@ import fr.smardine.monvetcarnet.R;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.MaladieFragment;
+import fr.smardine.monvetcarnet.fragment.PoidsFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.helper.log.EnNiveauLog;
 import fr.smardine.monvetcarnet.helper.log.LogCatBuilder;
@@ -27,6 +28,7 @@ public class NavigationListener implements OnNavigationListener {
 	private MenuItem menuPlusPoid;
 	private final String TAG = this.getClass().getName();
 	private final MaladieFragment fragmentMaladie;
+	private final PoidsFragment fragmentPoids;
 
 	/**
 	 * Constructeur
@@ -38,12 +40,13 @@ public class NavigationListener implements OnNavigationListener {
 	 * @param p_actionbar
 	 */
 	public NavigationListener(FragmentActivity p_ctx, CouvertureFragment p_couvertureFragment, IdentificationFragment p_identFragment,
-			VaccinFragment p_vaccinFrragment, MaladieFragment fragmentMaladie, ActionBar p_actionbar) {
+			VaccinFragment p_vaccinFrragment, MaladieFragment fragmentMaladie, PoidsFragment fragmentPoids, ActionBar p_actionbar) {
 		this.ctx = p_ctx;
 		this.fragmentCouverture = p_couvertureFragment;
 		this.fragmentIdentification = p_identFragment;
 		this.fragmentVaccin = p_vaccinFrragment;
 		this.fragmentMaladie = fragmentMaladie;
+		this.fragmentPoids = fragmentPoids;
 		this.actionBar = p_actionbar;
 	}
 
@@ -85,6 +88,7 @@ public class NavigationListener implements OnNavigationListener {
 			case 0:
 			case 1:
 			case 2:
+			case 3:
 			case 4:
 				creerEtExecuterTransactionFromPosition(itemPosition);
 				afficheOuCacheBoutonAjouterEnFonctionDeLaPosition(itemPosition);
@@ -140,6 +144,7 @@ public class NavigationListener implements OnNavigationListener {
 				transaction.hide(fragmentIdentification);
 				transaction.hide(fragmentVaccin);
 				transaction.hide(fragmentMaladie);
+				transaction.hide(fragmentPoids);
 				// et on affiche le fragment "Flux"
 				transaction.show(fragmentCouverture);
 				actionBar.setDisplayHomeAsUpEnabled(false);
@@ -155,6 +160,7 @@ public class NavigationListener implements OnNavigationListener {
 				transaction.hide(fragmentCouverture);
 				transaction.hide(fragmentVaccin);
 				transaction.hide(fragmentMaladie);
+				transaction.hide(fragmentPoids);
 				// et on affiche le fragment "Flux"
 				transaction.show(fragmentIdentification);
 				actionBar.setDisplayHomeAsUpEnabled(true);
@@ -171,6 +177,7 @@ public class NavigationListener implements OnNavigationListener {
 				transaction.hide(fragmentCouverture);
 				transaction.hide(fragmentIdentification);
 				transaction.hide(fragmentMaladie);
+				transaction.hide(fragmentPoids);
 				// et on affiche le fragment "Flux"
 				transaction.show(fragmentVaccin);
 				actionBar.setDisplayHomeAsUpEnabled(true);
@@ -180,12 +187,31 @@ public class NavigationListener implements OnNavigationListener {
 				transaction.add(fragmentVaccin, p_itemPosition + "stack_item");
 				transaction.show(fragmentVaccin);
 			}
-		} else if (p_itemPosition == 4) {
+		} else if (p_itemPosition == 3) {
+			if (fragmentPoids.isAdded()) {
+				// on cache le fragment "Episode"
+				transaction.hide(fragmentCouverture);
+				transaction.hide(fragmentIdentification);
+				transaction.hide(fragmentMaladie);
+				transaction.hide(fragmentVaccin);
+				// et on affiche le fragment "Flux"
+				transaction.show(fragmentPoids);
+				actionBar.setDisplayHomeAsUpEnabled(true);
+				actionBar.setDisplayShowHomeEnabled(true);
+			} else {
+				transaction.addToBackStack(p_itemPosition + "stack_item");
+				transaction.add(fragmentPoids, p_itemPosition + "stack_item");
+				transaction.show(fragmentPoids);
+			}
+		}
+
+		else if (p_itemPosition == 4) {
 			if (fragmentMaladie.isAdded()) {
 				// on cache le fragment "Episode"
 				transaction.hide(fragmentCouverture);
 				transaction.hide(fragmentIdentification);
 				transaction.hide(fragmentVaccin);
+				transaction.hide(fragmentPoids);
 				// et on affiche le fragment "Flux"
 				transaction.show(fragmentMaladie);
 				actionBar.setDisplayHomeAsUpEnabled(true);

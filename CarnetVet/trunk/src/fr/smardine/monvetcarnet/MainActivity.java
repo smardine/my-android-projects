@@ -11,6 +11,7 @@ import fr.smardine.monvetcarnet.database.accestable.AccesTableCarnet;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.MaladieFragment;
+import fr.smardine.monvetcarnet.fragment.PoidsFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.listener.NavigationListener;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
@@ -22,6 +23,7 @@ public class MainActivity extends FragmentActivity {
 	public static IdentificationFragment fragmentIdentification;
 	public static VaccinFragment fragmentVaccin;
 	public static MaladieFragment fragmentMaladie;
+	public static PoidsFragment fragmentPoids;
 	private ActionBar actionBar;
 	private NavigationListener navListener;
 
@@ -35,6 +37,7 @@ public class MainActivity extends FragmentActivity {
 		fragmentIdentification = (IdentificationFragment) getSupportFragmentManager().findFragmentById(R.id.identificationFragment);
 		fragmentVaccin = (VaccinFragment) getSupportFragmentManager().findFragmentById(R.id.VaccinFragment);
 		fragmentMaladie = (MaladieFragment) getSupportFragmentManager().findFragmentById(R.id.MaladieFragment);
+		fragmentPoids = (PoidsFragment) getSupportFragmentManager().findFragmentById(R.id.PoidsFragment);
 
 		// valorisation de leurs propriétés
 		// fragmentCouverture.context = this.getApplicationContext();
@@ -47,6 +50,7 @@ public class MainActivity extends FragmentActivity {
 		transaction.hide(fragmentIdentification);
 		transaction.hide(fragmentVaccin);
 		transaction.hide(fragmentMaladie);
+		transaction.hide(fragmentPoids);
 		transaction.commit();
 
 		// Initialisation de l'action bar
@@ -58,7 +62,8 @@ public class MainActivity extends FragmentActivity {
 
 		// indiquer que l'on souhaite naviguer par le spinner
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		navListener = new NavigationListener(this, fragmentCouverture, fragmentIdentification, fragmentVaccin, fragmentMaladie, actionBar);
+		navListener = new NavigationListener(this, fragmentCouverture, fragmentIdentification, fragmentVaccin, fragmentMaladie,
+				fragmentPoids, actionBar);
 
 		// utilisation du bouton "Retour" lorsque l'on est pas sur la page principale de l'appli.
 		// actionBar.setHomeButtonEnabled(true);

@@ -34,6 +34,10 @@
             android:name="fr.smardine.monvetcarnet.fragment.MaladieFragment"
             android:label="Maladies" >           
         </activity>
+        <activity
+            android:name="fr.smardine.monvetcarnet.fragment.PoidsFragment"
+            android:label="Maladies" >           
+        </activity>
     </application>
 
 </manifest>
