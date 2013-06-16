@@ -1,7 +1,5 @@
 package fr.smardine.monvetcarnet.fragment;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -34,6 +32,7 @@ public class PoidsFragment extends SuperFragment {
 
 	private MlCarnet carnetParent;
 	private View view;
+	private AccesTablePoids tablePoid;
 
 	public PoidsFragment() {
 		super();
@@ -62,7 +61,10 @@ public class PoidsFragment extends SuperFragment {
 		if (listeDeCarnet != null && listeDeCarnet.size() > 0) {
 			carnetParent = listeDeCarnet.get(0);
 		}
-		final GraphicalView chart = construitLeGraph();
+
+		tablePoid = new AccesTablePoids(context);
+		List<MlPoids> listeDesPoids = tablePoid.getListeDePoidsParIdCarnet(carnetParent);
+		final GraphicalView chart = construitLeGraph(listeDesPoids);
 		((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
 	}
@@ -70,12 +72,14 @@ public class PoidsFragment extends SuperFragment {
 	public void metAjourListePoids(MlCarnet p_carnetParent) {
 		if (p_carnetParent != null) {
 			this.carnetParent = p_carnetParent;
-
+			List<MlPoids> listeDesPoids = tablePoid.getListeDePoidsParIdCarnet(carnetParent);
+			final GraphicalView chart = construitLeGraph(listeDesPoids);
+			((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		}
 
 	}
 
-	private GraphicalView construitLeGraph() {
+	private GraphicalView construitLeGraph(List<MlPoids> listeDesPoids) {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 
 		renderer.setAxisTitleTextSize(16);
@@ -103,30 +107,30 @@ public class PoidsFragment extends SuperFragment {
 
 		// Les séries de données du graphe
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		List<MlPoids> listeDesPoids = new ArrayList<MlPoids>();
-		listeDesPoids = new AccesTablePoids(context).getListeDePoidsParIdCarnet(carnetParent);
-
-		MlPoids unPoid = new MlPoids(carnetParent);
-		unPoid.setDate(new Date(2010 - 1900, 01, 01));
-		unPoid.setValeur(5.5);
-
-		MlPoids deuxPoid = new MlPoids(carnetParent);
-		deuxPoid.setDate(new Date(2011 - 1900, 02, 03));
-		deuxPoid.setValeur(7.5);
-		deuxPoid.setNote("Totot");
-
-		MlPoids troisPoid = new MlPoids(carnetParent);
-		troisPoid.setDate(new Date(2013 - 1900, 04, 20));
-		troisPoid.setValeur(6.5);
-
-		MlPoids quatrePoid = new MlPoids(carnetParent);
-		quatrePoid.setDate(new Date(2012 - 1900, 04, 20));
-		quatrePoid.setValeur(1.5);
-
-		listeDesPoids.add(unPoid);
-		listeDesPoids.add(deuxPoid);
-		listeDesPoids.add(troisPoid);
-		listeDesPoids.add(quatrePoid);
+		// List<MlPoids> listeDesPoids = new ArrayList<MlPoids>();
+		// listeDesPoids = new AccesTablePoids(context).getListeDePoidsParIdCarnet(carnetParent);
+		//
+		// MlPoids unPoid = new MlPoids(carnetParent);
+		// unPoid.setDate(new Date(2010 - 1900, 01, 01));
+		// unPoid.setValeur(5.5);
+		//
+		// MlPoids deuxPoid = new MlPoids(carnetParent);
+		// deuxPoid.setDate(new Date(2011 - 1900, 02, 03));
+		// deuxPoid.setValeur(7.5);
+		// deuxPoid.setNote("Totot");
+		//
+		// MlPoids troisPoid = new MlPoids(carnetParent);
+		// troisPoid.setDate(new Date(2013 - 1900, 04, 20));
+		// troisPoid.setValeur(6.5);
+		//
+		// MlPoids quatrePoid = new MlPoids(carnetParent);
+		// quatrePoid.setDate(new Date(2012 - 1900, 04, 20));
+		// quatrePoid.setValeur(1.5);
+		//
+		// listeDesPoids.add(unPoid);
+		// listeDesPoids.add(deuxPoid);
+		// listeDesPoids.add(troisPoid);
+		// listeDesPoids.add(quatrePoid);
 
 		XYSeriesRenderer r = new XYSeriesRenderer();
 		r.setColor(Color.RED);

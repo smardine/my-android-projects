@@ -73,7 +73,7 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	 * @param p_poid
 	 * @return
 	 */
-	protected boolean insertPoidEnBase(MlPoids p_poid) {
+	public boolean insertPoidEnBase(MlPoids p_poid) {
 		return super.insertObjectEnBase(p_poid);
 	}
 
@@ -82,7 +82,7 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	 * @param p_poid
 	 * @return
 	 */
-	protected boolean majPoidEnBase(MlPoids p_poid) {
+	public boolean majPoidEnBase(MlPoids p_poid) {
 		return super.majObjetEnBase(p_poid);
 	}
 

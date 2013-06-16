@@ -28,6 +28,7 @@ import fr.smardine.monvetcarnet.database.accestable.AccesTableIdentification;
 import fr.smardine.monvetcarnet.fragment.CouvertureFragment;
 import fr.smardine.monvetcarnet.fragment.IdentificationFragment;
 import fr.smardine.monvetcarnet.fragment.MaladieFragment;
+import fr.smardine.monvetcarnet.fragment.PoidsFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.helper.AndroidHelper;
 import fr.smardine.monvetcarnet.helper.DateHelper;
@@ -35,6 +36,7 @@ import fr.smardine.monvetcarnet.helper.EnStatutVisibilite;
 import fr.smardine.monvetcarnet.helper.StringHelper;
 import fr.smardine.monvetcarnet.listener.BtOkIdentificationSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkMaladieSaisieClickListener;
+import fr.smardine.monvetcarnet.listener.BtOkPoidsSaisieClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChatClickListener;
 import fr.smardine.monvetcarnet.listener.BtOkVaccinSaisieChienClickListener;
 import fr.smardine.monvetcarnet.listener.CbCheckChangeListenerVaccin;
@@ -44,6 +46,7 @@ import fr.smardine.monvetcarnet.mdl.EnTypeAnimal;
 import fr.smardine.monvetcarnet.mdl.MlCarnet;
 import fr.smardine.monvetcarnet.mdl.MlIdentification;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
+import fr.smardine.monvetcarnet.mdl.MlPoids;
 import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 public class AlertDialogFactory {
@@ -420,6 +423,36 @@ public class AlertDialogFactory {
 				creerEtAfficherMaladieSaisie(context, maladieFragment, carnetParent, isModeCreation, maladieSelectionnee);
 			}
 		});
+
+		dialog.show();
+
+	}
+
+	public static void creerEtAfficherPoidSaisie(final Context context, PoidsFragment poidFragment, MlCarnet carnetParent,
+			boolean isModeCreation, final MlPoids poidSelectionnee) {
+		final Dialog dialog = new Dialog(context);
+		dialog.setContentView(R.layout.alertdialog_poid_saisie);
+		dialog.setTitle("Ajouter une pesée");
+		final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePickerPoidsSaisie);
+		final EditText poidEnKilo = (EditText) dialog.findViewById(R.id.editTextSaisieKilo);
+		final EditText poidEnGramme = (EditText) dialog.findViewById(R.id.editTextSaisieGramme);
+		final TextView notes = (TextView) dialog.findViewById(R.id.textViewNotePoids);
+
+		Button boutonOk = recupererBoutonOk(dialog);
+		Button boutonEffacer = recupererBoutonEffacer(dialog);
+
+		if (!isModeCreation) {
+			dialog.setTitle("Modifier une pesée");
+			AndroidHelper.SetDateToDatePicker(datePicker, poidSelectionnee.getDate());
+			poidEnKilo.setText(String.valueOf(poidSelectionnee.getValeur()));
+			poidEnKilo.setText(String.valueOf(poidSelectionnee.getValeur()));
+
+			notes.setText(poidSelectionnee.getNote());
+
+		}
+
+		boutonOk.setOnClickListener(new BtOkPoidsSaisieClickListener(context, poidFragment, carnetParent, dialog, datePicker, poidEnKilo,
+				poidEnGramme, notes, poidSelectionnee, isModeCreation));
 
 		dialog.show();
 

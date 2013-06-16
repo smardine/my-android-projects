@@ -42,6 +42,8 @@
     <string name="date_vaccin">Date du vaccin</string>
     <string name="date_maladie">Date de la maladie</string>
     
+    <string name="poid_libelle_poids">Poid</string>
+    
     <string name="description_titre_maladie">Titre de la maladie sur une ligne</string>
     <string name="description_note_maladie">Notes de la maladie, sur plusieurs lignes</string>
     <string name="description_traitement_maladie">Traitements appliqués lors de la consultation, sur plusieur lignes</string>

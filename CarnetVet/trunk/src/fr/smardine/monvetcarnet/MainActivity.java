@@ -15,6 +15,7 @@ import fr.smardine.monvetcarnet.fragment.PoidsFragment;
 import fr.smardine.monvetcarnet.fragment.VaccinFragment;
 import fr.smardine.monvetcarnet.listener.NavigationListener;
 import fr.smardine.monvetcarnet.mdl.MlMaladie;
+import fr.smardine.monvetcarnet.mdl.MlPoids;
 import fr.smardine.monvetcarnet.mdl.MlVaccin;
 
 public class MainActivity extends FragmentActivity {
@@ -122,6 +123,12 @@ public class MainActivity extends FragmentActivity {
 			MlMaladie uneNouvelleMaladie = null;
 			AlertDialogFactory.creerEtAfficherMaladieSaisie(this, fragmentMaladie, new AccesTableCarnet(this).getListeDesCarnets().get(0),
 					isModeCreation, uneNouvelleMaladie);
+			return true;
+		} else if (menuItem.getItemId() == R.id.menuPlusPoids) {
+			boolean isModeCreation = true;
+			MlPoids unNouveauPoid = null;
+			AlertDialogFactory.creerEtAfficherPoidSaisie(this, fragmentPoids, new AccesTableCarnet(this).getListeDesCarnets().get(0),
+					isModeCreation, unNouveauPoid);
 			return true;
 		}
 
