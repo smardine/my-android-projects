@@ -1,13 +1,16 @@
 package fr.smardine.podcaster.adapter;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
@@ -137,7 +140,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 		return convertView;
 	}
 
-	private void bindView(ViewHolderEpisode holder, MlEpisode unEpisode) {
+	private void bindView(ViewHolderEpisode holder, final MlEpisode unEpisode) {
 		// Application des données au element de la vue
 		holder.TvTitreEpisode.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
@@ -159,6 +162,33 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 			holder.VignetteFlux.setAdjustViewBounds(true);
 			holder.VignetteFlux.setMaxHeight(150);
 			holder.VignetteFlux.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+			holder.VignetteFlux.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					MediaPlayer mp = new MediaPlayer();
+					try {
+						mp.setDataSource(unEpisode.getMediaTelecharge().getAbsolutePath());
+						mp.prepare();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					mp.start();
+
+				}
+			});
 
 		} else {
 			holder.VignetteFlux.setImageResource(R.drawable.rss_std);
