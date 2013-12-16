@@ -64,8 +64,10 @@ public class PoidsFragment extends SuperFragment {
 
 		tablePoid = new AccesTablePoids(context);
 		List<MlPoids> listeDesPoids = tablePoid.getListeDePoidsParIdCarnet(carnetParent);
-		final GraphicalView chart = construitLeGraph(listeDesPoids);
-		((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		if (!listeDesPoids.isEmpty()) {
+			final GraphicalView chart = construitLeGraph(listeDesPoids);
+			((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		}
 
 	}
 
@@ -73,8 +75,11 @@ public class PoidsFragment extends SuperFragment {
 		if (p_carnetParent != null) {
 			this.carnetParent = p_carnetParent;
 			List<MlPoids> listeDesPoids = tablePoid.getListeDePoidsParIdCarnet(carnetParent);
-			final GraphicalView chart = construitLeGraph(listeDesPoids);
-			((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			if (!listeDesPoids.isEmpty()) {
+				final GraphicalView chart = construitLeGraph(listeDesPoids);
+				((ViewGroup) view).addView(chart, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			}
+
 		}
 
 	}

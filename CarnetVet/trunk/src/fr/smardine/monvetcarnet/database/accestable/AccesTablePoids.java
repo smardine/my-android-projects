@@ -49,8 +49,11 @@ public class AccesTablePoids extends AccesTable<MlPoids> {
 	 * @return
 	 */
 	public List<MlPoids> getListeDePoidsParIdCarnet(MlCarnet p_carnetParent) {
-		List<ArrayList<Object>> listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS, EnStructPoids.ID_CARNET_PARENT.toString()
-				+ "=" + p_carnetParent.getId());
+		List<ArrayList<Object>> listeDeChamp = new ArrayList<ArrayList<Object>>();
+		if (p_carnetParent != null) {
+			listeDeChamp = requeteFact.getListeDeChampBis(EnTable.POIDS,
+					EnStructPoids.ID_CARNET_PARENT.toString() + "=" + p_carnetParent.getId());
+		}
 
 		List<MlPoids> lstRetour = new ArrayList<MlPoids>();
 
