@@ -6,7 +6,7 @@ import android.content.Context;
 import fr.smardine.podcaster.alertDialog.type.EnTypeAlertDialogAide;
 
 /**
- * Classe generale permettant de contruire les DialogBox en fonction d'un type souhaité
+ * Classe generale permettant de contruire les DialogBox en fonction d'un type souhaite
  * @author smardine
  */
 public class AlertDialogFactory {
@@ -23,7 +23,7 @@ public class AlertDialogFactory {
 
 	/**
 	 * Constructeur
-	 * @param p_ctx - le Context qui a lancé cette DialogBox
+	 * @param p_ctx - le Context qui a lance cette DialogBox
 	 */
 	public AlertDialogFactory(Context p_ctx) {
 		this.ctx = p_ctx;
@@ -32,7 +32,7 @@ public class AlertDialogFactory {
 	/**
 	 * Construit une boite de dialogue prevenant l'utilisateur d'un probleme.
 	 * @param p_type - le type d'alert dialog que l'on construit
-	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à l'ecran
+	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher a l'ecran
 	 */
 	// public AlertDialog.Builder getAttentionDialog(
 	// EnTypeAlertDialogAttention p_type) {
@@ -60,9 +60,9 @@ public class AlertDialogFactory {
 	// * Construit une dialogBox avec deux boutons (oui et Non) plus du texte, un
 	// * titre et une icone
 	// * @param p_type - le type d'alert dialog que l'on construit
-	// * @param p_marqueAEnvoyer - eventuellement la marque à "pusher" vers le
+	// * @param p_marqueAEnvoyer - eventuellement la marque a "pusher" vers le
 	// * site
-	// * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à
+	// * @return la boite de dialogue. Utiliser ad.show() pour l'afficher a
 	// * l'ecran
 	// */
 	// public AlertDialog.Builder getOuiNonDialog(EnTypeAlertDialogOuiNon p_type,
@@ -82,7 +82,7 @@ public class AlertDialogFactory {
 	/**
 	 * Construit une dialogBox avec deux boutons (Choisir et Annuler) ,une liste d'element cliquable, un titre mais pas d'icone
 	 * @param p_type - le type d'alert dialog que l'on construit
-	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher à l'ecran
+	 * @return la boite de dialogue. Utiliser ad.show() pour l'afficher a l'ecran
 	 */
 	// public AlertDialog.Builder getChoixCatDialog(
 	// EnTypeAlertDialogChoixCat p_type) {
@@ -137,7 +137,7 @@ public class AlertDialogFactory {
 	// }
 
 	// /**
-	// * @param p_categorie la categorie recherchée (Visage,Yeux,Levres...)
+	// * @param p_categorie la categorie recherchee (Visage,Yeux,Levres...)
 	// * @return toutes les sous catgegorie sous forme de tableau de string
 	// */
 	// private String[] recupereSousCategorie(String p_categorie) {
@@ -157,7 +157,7 @@ public class AlertDialogFactory {
 
 	// /**
 	// * @param p_categorie - la ategorie mere
-	// * @return Recupere l'incice de la sous categorie cochée en fonction du
+	// * @return Recupere l'incice de la sous categorie cochee en fonction du
 	// nom
 	// * de la categorie mere
 	// */

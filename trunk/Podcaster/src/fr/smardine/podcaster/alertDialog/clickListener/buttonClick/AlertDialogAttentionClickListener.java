@@ -8,7 +8,7 @@ import fr.smardine.podcaster.alertDialog.type.EnTypeAlertDialogAttention;
 
 /**
  * Gestion des evenements lors du click le bouton Ok les dialogBox permettant
- * d'afficher un message d'avertissement à l'utilisateur
+ * d'afficher un message d'avertissement a l'utilisateur
  * @author smardine
  */
 
@@ -20,8 +20,8 @@ public class AlertDialogAttentionClickListener implements
 
 	/**
 	 * Constructeur
-	 * @param p_ctx - le Context qui a lancé cette dialogBox
-	 * @param p_type - le type de dialogBox à traiter
+	 * @param p_ctx - le Context qui a lance cette dialogBox
+	 * @param p_type - le type de dialogBox a traiter
 	 */
 	public AlertDialogAttentionClickListener(Context p_ctx,
 			EnTypeAlertDialogAttention p_type) {

@@ -24,8 +24,8 @@ public class AlertDialogOuiNonClickListener implements IAlertDialogClickListener
 	 * @param urlsChecked
 	 * @param handle
 	 * @param listView
-	 * @param p_type - le type d'alertDialog concerné
-	 * @param p_marque - eventuellement la marque à "pusher" vers le site
+	 * @param p_type - le type d'alertDialog concerne
+	 * @param p_marque - eventuellement la marque a "pusher" vers le site
 	 */
 	public AlertDialogOuiNonClickListener(Context p_ctx, ListView p_listView, List<String> urlsChecked) {
 		this.ctx = p_ctx;

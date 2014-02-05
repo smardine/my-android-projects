@@ -13,7 +13,7 @@ import android.widget.Toast;
 public final class handlerUtility {
 
 	/**
-	 * Constructeur privé pour classe utilitaire
+	 * Constructeur prive pour classe utilitaire
 	 */
 	private handlerUtility() {
 
@@ -22,7 +22,7 @@ public final class handlerUtility {
 	/**
 	 * Envoi un message d'erreur vers la dialogBox
 	 * @param p_progressDialogHandler - Handler - le Handler de la dialogBox
-	 * @param errorMessage - String - le message à afficher
+	 * @param errorMessage - String - le message a afficher
 	 */
 	public static void showErrorDialog(Handler p_progressDialogHandler,
 			String errorMessage) {
@@ -72,7 +72,7 @@ public final class handlerUtility {
 						Toast.LENGTH_LONG).show();
 				p_myProgressDialog.dismiss();
 				break;
-			case 2:// execution terminée et reussie
+			case 2:// execution terminee et reussie
 
 				Toast.makeText(p_context, "" + p_msg.obj, Toast.LENGTH_LONG)
 						.show();

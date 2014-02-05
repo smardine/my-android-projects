@@ -22,8 +22,8 @@ public class ItemClickListenerTabListeFLux implements OnItemClickListener {
 		MlFlux leFluxClique = (MlFlux) p_adapterVueParente
 				.getItemAtPosition(p_position);
 		this.fluxSelectionne = leFluxClique;
-		// En realité le numero de tab est en base 0
-		// si on à 3 tab, la deuxieme aura le numero 1
+		// En realite le numero de tab est en base 0
+		// si on a 3 tab, la deuxieme aura le numero 1
 		// 0,1,2
 		actionBar.setSelectedNavigationItem(1);
 	}

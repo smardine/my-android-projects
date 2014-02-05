@@ -19,12 +19,12 @@ public class MajOuCreateFluxBuilder {
 	private final String STOP_SYNCHRO = "<< STOP SYNCHRO >>";
 
 	/**
-	 * Objet métier chargé : - du téléchargement - du déchiffrement - de la décompression - de l'analyse - de la mémorisation des données
-	 * bénéficiaires et des tournées
-	 * @param p_type type d'analyseur utilisé (SAX ..)
-	 * @param p_method provenance du flux XML à analyser (URL directement depuis connexion DATA depuis un fichier local
+	 * Objet metier charge : - du telechargement - du dechiffrement - de la decompression - de l'analyse - de la memorisation des donnees
+	 * beneficiaires et des tournees
+	 * @param p_type type d'analyseur utilise (SAX ..)
+	 * @param p_method provenance du flux XML a analyser (URL directement depuis connexion DATA depuis un fichier local
 	 * @param p_context
-	 * @param p_progressDialogHandler moteur lié à la boite de dialogue de progression
+	 * @param p_progressDialogHandler moteur lie a la boite de dialogue de progression
 	 * @param p_owner
 	 */
 	public MajOuCreateFluxBuilder(Context p_context, HandlerMajFluxProgressDialog p_progressDialogHandler, Object p_owner) {

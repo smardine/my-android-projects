@@ -3,7 +3,7 @@ package fr.smardine.podcaster.database;
 import fr.smardine.podcaster.database.structure.EnTable;
 
 /**
- * @author smardine rempli la base avec des données de test
+ * @author smardine rempli la base avec des donnees de test
  */
 public final class G_remplirBase {
 
@@ -15,7 +15,7 @@ public final class G_remplirBase {
 	}
 
 	/**
-	 * Constructeur privé pour classe utilitaire
+	 * Constructeur prive pour classe utilitaire
 	 */
 	private G_remplirBase() {
 

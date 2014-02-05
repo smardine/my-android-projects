@@ -9,13 +9,13 @@ public enum EnBaliseRSS {
 	// "pubDate" => date de publication
 	// "guid" => a prioris, renvoi vers l'url du podcast, dans le cas d'un
 	// podcast audio, j'avais directement l'url du .mp3
-	// "itunes:duration" => durée
+	// "itunes:duration" => duree
 	// "itunes:Author" => auteur du flux
 	// "itunes:Explicit" => boolean oui ou non
-	// "itunes:Keyword" => des mots clé pour les moteur de recherche, séparé
+	// "itunes:Keyword" => des mots cle pour les moteur de recherche, separe
 	// par des virgules
 	// "itunes:subtitle" => ??
-	// "itunes:summary" => résumé du flux
+	// "itunes:summary" => resume du flux
 	Item("item"), //
 
 	// LastBuildDate("lastBuildDate"), //

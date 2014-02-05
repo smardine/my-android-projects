@@ -18,7 +18,7 @@ public class AlertDialogSingleChoiceChoixCatItemClickListener implements
 
 	/**
 	 * Constructeur
-	 * @param p_type - le type de catégorie traitée par la dialogBox
+	 * @param p_type - le type de categorie traitee par la dialogBox
 	 */
 	public AlertDialogSingleChoiceChoixCatItemClickListener(
 			EnTypeAlertDialogChoixCat p_type) {
@@ -48,8 +48,8 @@ public class AlertDialogSingleChoiceChoixCatItemClickListener implements
 	}
 
 	/**
-	 * S'occupe de traiter les autres categories en fonction de l'item cliqué
-	 * @param p_item l'index de l'item cliqué
+	 * S'occupe de traiter les autres categories en fonction de l'item clique
+	 * @param p_item l'index de l'item clique
 	 */
 	private void traiteAutre(int p_item) {
 		EnCategorieAutres catAutre = EnCategorieAutres
@@ -67,8 +67,8 @@ public class AlertDialogSingleChoiceChoixCatItemClickListener implements
 
 	/**
 	 * S'occupe de traiter les categories concernant les levres en fonction de
-	 * l'item cliqué
-	 * @param p_item l'index de l'item cliqué
+	 * l'item clique
+	 * @param p_item l'index de l'item clique
 	 */
 	private void traiteLevre(int p_item) {
 		EnCategorieLevre catLevre = EnCategorieLevre
@@ -86,8 +86,8 @@ public class AlertDialogSingleChoiceChoixCatItemClickListener implements
 
 	/**
 	 * S'occupe de traiter les categories concernant les yeux en fonction de
-	 * l'item cliqué
-	 * @param p_item l'index de l'item cliqué
+	 * l'item clique
+	 * @param p_item l'index de l'item clique
 	 */
 	private void traiteYeux(int p_item) {
 		EnCategorieYeux catYeux = EnCategorieYeux.getCategorieFromCode(p_item);
@@ -109,8 +109,8 @@ public class AlertDialogSingleChoiceChoixCatItemClickListener implements
 
 	/**
 	 * S'occupe de traiter les categories concernant le visage en fonction de
-	 * l'item cliqué
-	 * @param p_item l'index de l'item cliqué
+	 * l'item clique
+	 * @param p_item l'index de l'item clique
 	 */
 	private void traiteVisage(int p_item) {
 		EnCategorieVisage catVisage = EnCategorieVisage

@@ -16,7 +16,7 @@ public class ManipFichier {
 	 * Deplace un fichier
 	 * @param source -File le fichier source
 	 * @param destination -File le fichier de destination
-	 * @return result -Boolean vrai si ca a marché
+	 * @return result -Boolean vrai si ca a marche
 	 */
 
 	public static boolean deplacer(File source, File destination) {
@@ -41,7 +41,7 @@ public class ManipFichier {
 	 * copie un fichier
 	 * @param source -File le fichier source
 	 * @param destination -File le fichier de destination
-	 * @return resultat -Boolean vrai si ca a marché
+	 * @return resultat -Boolean vrai si ca a marche
 	 */
 	public static boolean copier(File source, File destination) {
 		boolean resultat = false;
@@ -51,7 +51,7 @@ public class ManipFichier {
 		java.io.FileOutputStream destinationFile = null;
 
 		try {
-			// Création du fichier destination (si le fichier existe deja, on le
+			// Creation du fichier destination (si le fichier existe deja, on le
 			// supprime):
 			if (destination.exists()) {
 				destination.delete();
@@ -73,7 +73,7 @@ public class ManipFichier {
 				destinationFile.write(buffer, 0, nbLecture);
 			}
 
-			// Copie réussie
+			// Copie reussie
 			resultat = true;
 		} catch (java.io.FileNotFoundException f) {
 			resultat = false;
@@ -97,7 +97,7 @@ public class ManipFichier {
 
 	/**
 	 * Suppresion du contenu d'un repertoire avec un filtre sur l'extension
-	 * @param RepAVider - File repertoire à vider.
+	 * @param RepAVider - File repertoire a vider.
 	 * @param extension -Final String extension sous la forme ".eml"
 	 */
 	public static void DeleteContenuRepertoireAvecFiltre(File RepAVider,
@@ -111,7 +111,7 @@ public class ManipFichier {
 			});
 			if (list != null) {
 				for (int i = 0; i < list.length; i++) {
-					// Appel récursif sur les sous-répertoires
+					// Appel recursif sur les sous-repertoires
 					DeleteContenuRepertoireAvecFiltre(list[i], extension);
 				}
 			} else {

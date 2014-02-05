@@ -63,7 +63,7 @@ public class ThreadExecutionCreateFlux extends Thread {
 				}
 			}
 
-			// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
+			// on recupere la liste des flux en base et on rafraichi la liste presentee a l'ecran
 			MlListeFlux listeFlux = tableFlux.getListeDesFlux();
 			progressDialogHandler.ValoriserListeFlux(listeFlux);
 

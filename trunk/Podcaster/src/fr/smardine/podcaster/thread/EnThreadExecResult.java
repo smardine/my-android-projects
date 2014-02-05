@@ -20,9 +20,9 @@ public enum EnThreadExecResult {
 	}
 
 	/**
-	 * Renvoie le EnSyncReqResult correspondant au code passé en paramètre
+	 * Renvoie le EnSyncReqResult correspondant au code passe en parametre
 	 * @param p_code
-	 * @return null si p_code pas trouvé
+	 * @return null si p_code pas trouve
 	 */
 	public static EnThreadExecResult fromCode(int p_code) {
 		for (EnThreadExecResult v : EnThreadExecResult.values()) {
@@ -40,7 +40,7 @@ public enum EnThreadExecResult {
 	/**
 	 * exemple de mise en oeuvre int resID = this.getResources().getIdentifier(EnSynchroType .PLANTRA.getResStringName(),
 	 * StringHelper.RES_STRING, this.getPackageName()); String essai = this.getResources().getText(resID).toString();
-	 * @return le 'name' de la ressource chaine déclarée dans string.xml
+	 * @return le 'name' de la ressource chaine declaree dans string.xml
 	 */
 	public String getResStringName() {
 		return resStringName;

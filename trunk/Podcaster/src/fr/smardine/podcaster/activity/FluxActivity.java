@@ -31,7 +31,7 @@ public class FluxActivity extends Activity {
 
 		EpisodeListAdapter adpt = new EpisodeListAdapter(this,
 				unFlux.getListeEpisode());
-		// paramèter l'adapter sur la listview
+		// parameter l'adapter sur la listview
 		listView.setAdapter(adpt);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 

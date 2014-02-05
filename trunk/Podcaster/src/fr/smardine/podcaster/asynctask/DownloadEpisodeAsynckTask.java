@@ -56,7 +56,7 @@ public class DownloadEpisodeAsynckTask extends AsyncTask<String, MlEpisode, Bool
 
 	@Override
 	public void onProgressUpdate(MlEpisode... prog) {
-		// À chaque avancement du téléchargement, on met à jour la boîte de dialogue
+		// À chaque avancement du telechargement, on met a jour la boîte de dialogue
 		this.progressDialog.setMessage(prog[0].getTitre());
 	}
 

@@ -14,7 +14,7 @@ public enum EnStatutLecture {
 	}
 	
 	/**
-	 * Retourver le type d'episode a partir de la valeur remonté dans le tag
+	 * Retourver le type d'episode a partir de la valeur remonte dans le tag
 	 * @param p_name
 	 * @return
 	 */

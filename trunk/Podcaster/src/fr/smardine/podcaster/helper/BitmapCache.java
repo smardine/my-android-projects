@@ -20,8 +20,8 @@ public class BitmapCache extends LruCache<String, Bitmap> {
 	}
 
 	/**
-	 * Ajouter un bitmap au cache, identifié par sa clé On utilisera ici le chemin du fichier comme clé Si le bitmap n'est pas déjà en
-	 * cache, il sera ajouté.
+	 * Ajouter un bitmap au cache, identifie par sa cle On utilisera ici le chemin du fichier comme cle Si le bitmap n'est pas deja en
+	 * cache, il sera ajoute.
 	 * @param key
 	 * @param bitmap
 	 */
@@ -32,7 +32,7 @@ public class BitmapCache extends LruCache<String, Bitmap> {
 	}
 
 	/**
-	 * Obtenir le bitmap correspondant a la clé (le chemin du fichier sert de clé)
+	 * Obtenir le bitmap correspondant a la cle (le chemin du fichier sert de cle)
 	 * @param key
 	 * @return Le bitmap issu du cache
 	 */

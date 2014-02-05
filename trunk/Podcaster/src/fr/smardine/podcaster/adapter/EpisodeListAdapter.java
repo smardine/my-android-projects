@@ -40,7 +40,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	 */
 	private static final long serialVersionUID = -1059285392877713970L;
 	public MlListeEpisode lstEpisodes;
-	// créer un layoutinflater pour intégrer la listview dedans
+	// creer un layoutinflater pour integrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;
 	private Context ctx;
@@ -53,7 +53,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	 * @param p_lstEpisodes
 	 */
 	public EpisodeListAdapter(Context p_ctx, MlListeEpisode p_lstEpisodes) {
-		// paramètrer le layout en prenant celui du context
+		// parametrer le layout en prenant celui du context
 		this.ctx = p_ctx;
 		this.myInflater = LayoutInflater.from(p_ctx);
 		this.lstEpisodes = p_lstEpisodes;
@@ -85,8 +85,8 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	}
 
 	/*
-	 * astuce pour fluidifier au mieux l'affichage de la listview mémoriser le contenu des composants visuels qui sont présents dans une
-	 * ligne de la listview La classe peut être déclarée dans un autre module pour être réutilisée
+	 * astuce pour fluidifier au mieux l'affichage de la listview memoriser le contenu des composants visuels qui sont presents dans une
+	 * ligne de la listview La classe peut être declaree dans un autre module pour être reutilisee
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	/**
@@ -102,7 +102,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	}
 
 	/*
-	 * cette méthode est appelée à chaque fois que la listview doit afficher une ligne
+	 * cette methode est appelee a chaque fois que la listview doit afficher une ligne
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	@Override
@@ -111,9 +111,9 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 		final MlEpisode unEpisode = lstEpisodes.get(position);
 		// EpisodeListCacheView viewCache;
 
-		// convertView peut déjà être initialisé sinon alors l'initialiser
+		// convertView peut deja être initialise sinon alors l'initialiser
 		if (convertView == null) {
-			// affecter un linearlayout propre à la ligne à afficher dans le
+			// affecter un linearlayout propre a la ligne a afficher dans le
 			// listview
 			convertView = myInflater.inflate(R.layout.episodelistitem, null);
 			// viewCache = new EpisodeListCacheView(convertView);
@@ -126,13 +126,13 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargementEpisode);
 			holder.TvTexteTelechargement = (TextView) convertView.findViewById(R.id.tvMessageTelechargement);
 			holder.ImdCorbeilleEpisode = (ImageButton) convertView.findViewById(R.id.ibCorbeilleEpisode);
-			// tagger le convertView avec ce Holder créé pour que l'association
+			// tagger le convertView avec ce Holder cree pour que l'association
 			// se fasse
 			convertView.setTag(holder);
 
 		} else {
-			// puisque déjà valorisé une fois alors récupérer le holder à partir
-			// du tag posé à la création
+			// puisque deja valorise une fois alors recuperer le holder a partir
+			// du tag pose a la creation
 			holder = (ViewHolderEpisode) convertView.getTag();
 		}
 
@@ -141,7 +141,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 	}
 
 	private void bindView(ViewHolderEpisode holder, final MlEpisode unEpisode) {
-		// Application des données au element de la vue
+		// Application des donnees au element de la vue
 		holder.TvTitreEpisode.setText(unEpisode.getTitre());
 		String dateStr = DateHelper.ddMMM(new Date(unEpisode.getDatePublication()));
 		holder.TvDateEpisode.setText(dateStr);

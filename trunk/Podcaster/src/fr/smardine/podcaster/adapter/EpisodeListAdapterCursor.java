@@ -34,7 +34,7 @@ public class EpisodeListAdapterCursor extends SimpleCursorAdapter {
 	}
 
 	@Override
-	// renvoyer le Cursor qui correspond à la ligne d'indice position dans la
+	// renvoyer le Cursor qui correspond a la ligne d'indice position dans la
 	// listview
 	public Object getItem(int position) {
 		return super.getItem(position);
@@ -49,9 +49,9 @@ public class EpisodeListAdapterCursor extends SimpleCursorAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		View retour = convertView;
-		// convertView peut déjà être initialisé sinon alors l'initialiser
+		// convertView peut deja être initialise sinon alors l'initialiser
 		if (retour == null) {
-			// affecter un linearlayout propre à la ligne à afficher dans le
+			// affecter un linearlayout propre a la ligne a afficher dans le
 			// listview
 			convertView = myInflater.inflate(R.layout.episodelistitem, null);
 			holder = new ViewHolderEpisode();
@@ -62,16 +62,16 @@ public class EpisodeListAdapterCursor extends SimpleCursorAdapter {
 			holder.ImdTelechargeEpisode = (ImageButton) convertView.findViewById(R.id.ibTelechargementEpisode);
 			holder.TvTexteTelechargement = (TextView) convertView.findViewById(R.id.tvMessageTelechargement);
 			holder.ImdCorbeilleEpisode = (ImageButton) convertView.findViewById(R.id.ibCorbeilleEpisode);
-			// tagger le convertView avec ce Holder créé pour que l'association
+			// tagger le convertView avec ce Holder cree pour que l'association
 			// se fasse
 			convertView.setTag(holder);
 			bindView(holder, unEpisode);
-			// tagger le retour avec ce Holder créé pour que l'association
+			// tagger le retour avec ce Holder cree pour que l'association
 			// se fasse
 			retour.setTag(holder);
 		} else {
-			// puisque déjà valorisé une fois alors récupérer le holder à partir
-			// du tag posé à la création
+			// puisque deja valorise une fois alors recuperer le holder a partir
+			// du tag pose a la creation
 			holder = (ViewHolder) retour.getTag();
 		}
 		Cursor c = (Cursor) super.getItem(position);
@@ -88,8 +88,8 @@ public class EpisodeListAdapterCursor extends SimpleCursorAdapter {
 	}
 
 	/*
-	 * astuce pour fluidifier au mieux l'affichage de la listview mémoriser le contenu des composants visuels qui sont présents dans une
-	 * ligne de la listview La classe peut être déclarée dans un autre module pour être réutilisée
+	 * astuce pour fluidifier au mieux l'affichage de la listview memoriser le contenu des composants visuels qui sont presents dans une
+	 * ligne de la listview La classe peut être declaree dans un autre module pour être reutilisee
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	/**

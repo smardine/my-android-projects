@@ -45,7 +45,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 			// if (fluxSelectionne == null) {
 			// MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 			// adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
-			// actionBar.getTabAt(1).setText("Tous les épisodes");
+			// actionBar.getTabAt(1).setText("Tous les episodes");
 			// // adptEpisode.getFilter().filter(" ");
 			// } else {
 			// adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());
@@ -76,7 +76,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 		// View viewEpisodeListeItem = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.episodelistitem, null);
 
 		// this.setListAdapter(adptEpisode);
-		// paramèter l'adapter sur la listview
+		// parameter l'adapter sur la listview
 		// listViewEpisode.setAdapter(adptEpisode);
 
 		// boutonMajFlux.setOnClickListener(new ButtonMajFluxClickListener(this.getActivity(), viewEpisodeListeItem, listViewEpisode));
@@ -92,7 +92,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		if (savedInstanceState != null) {
-			Toast.makeText(getActivity(), "Fragment Episode recréé", Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(), "Fragment Episode recree", Toast.LENGTH_LONG).show();
 		}
 
 		fluxSelectionne = ListeFluxSectionFragment.fluxSelectionne;// (MlFlux)
@@ -101,7 +101,7 @@ public class ListeEpisodeSectionFragment extends ListFragment {
 		if (fluxSelectionne == null) {
 			MlListeEpisode listeEpisode = new AccesTableFlux(context).getListeDesFlux().GetAllEpisode();
 			adptEpisode = new EpisodeListAdapter(getActivity(), listeEpisode);
-			actionBar.getTabAt(1).setText("Tous les épisodes");
+			actionBar.getTabAt(1).setText("Tous les episodes");
 			// adptEpisode.getFilter().filter(" ");
 		} else {
 			adptEpisode = new EpisodeListAdapter(getActivity(), fluxSelectionne.getListeEpisode());

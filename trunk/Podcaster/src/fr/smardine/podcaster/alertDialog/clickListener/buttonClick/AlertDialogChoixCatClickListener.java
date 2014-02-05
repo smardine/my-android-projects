@@ -22,8 +22,8 @@ public class AlertDialogChoixCatClickListener implements
 
 	/**
 	 * Constructeur
-	 * @param p_ctx - le Context qui a lancé la dialogBox
-	 * @param p_type - le type de categorie traité
+	 * @param p_ctx - le Context qui a lance la dialogBox
+	 * @param p_type - le type de categorie traite
 	 * @param p_choixCatSingleClickListener - le clickListener parent de celui
 	 *        ci qui va gerer les actions lors des clicks sur les items de la
 	 *        dialogBox
