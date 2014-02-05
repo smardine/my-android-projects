@@ -528,7 +528,7 @@ public class DBPodcasterAdapter {
 			}
 		}
 
-		// Dans le cas où il faudrait completement reconstruire la base
+		// Dans le cas ou il faudrait completement reconstruire la base
 		public void drop_to_re_create(SQLiteDatabase db) {
 			try {
 				db.execSQL("DROP TABLE if exists " + T_PLANTRA);
@@ -799,7 +799,7 @@ public class DBPodcasterAdapter {
 													// COMPRIS
 													// LA NOTE
 													// qui peut
-													// être
+													// etre
 													// volumineuse
 					C_TRN_ID + "=?", // selection,
 					new String[] { "" + p_trnId }, // selectionArgs,
@@ -891,9 +891,9 @@ public class DBPodcasterAdapter {
 		return (ord_id > 0);
 	}
 
-	// le SimpleCursorAdapter necessite un champ _id, la requête doit comporter
+	// le SimpleCursorAdapter necessite un champ _id, la requete doit comporter
 	// une clause GROUP BY pour associer ensemble
-	// les traitements d'une même ordo dans une même ligne ordo
+	// les traitements d'une meme ordo dans une meme ligne ordo
 	// BIDOUILLE ici pour avoir une colonne _id sur la foreign key ord_id_vst_id
 	public Cursor recupererLesOrdosDeLaVisite(long p_vstId) {
 		try {
@@ -985,7 +985,7 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Renvoie TRUE si le beneficiaire de cle primaire p_bnfId peut être supprime c'est a dire si aucune visite ne fait reference a ce
+	 * Renvoie TRUE si le beneficiaire de cle primaire p_bnfId peut etre supprime c'est a dire si aucune visite ne fait reference a ce
 	 * beneficiaire
 	 * @param p_bnfId cle primaire benef
 	 * @return true si pas de visite pour ce benef
@@ -1547,7 +1547,7 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * construire une date/heure au format iso8601 YYYY-MM-DD HH:MM:SS:SSS . l'heure peut être absente
+	 * construire une date/heure au format iso8601 YYYY-MM-DD HH:MM:SS:SSS . l'heure peut etre absente
 	 * @param p_xtournee structure tournee (date)
 	 * @param p_xvisite structure visite (heure)
 	 * @return

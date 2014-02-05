@@ -82,7 +82,7 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 
 	@Override
 	protected void onProgressUpdate(String... prog) {
-		// À chaque avancement du telechargement, on met a jour la boîte de dialogue
+		// À chaque avancement du telechargement, on met a jour la boite de dialogue
 		this.progressDialog.setMessage(prog[0]);
 	}
 

@@ -46,7 +46,7 @@ public class SuperActivity extends FragmentActivity {
 
 	/**
 	 * La fonction onPause() est suivie : - d'un onResume() si l'activite passe a nouveau en premier plan - d'un onStop() si elle devient
-	 * invisible a l'utilisateur L'execution de la fonction onPause() doit être rapide, car la prochaine activite ne demarrera pas tant que
+	 * invisible a l'utilisateur L'execution de la fonction onPause() doit etre rapide, car la prochaine activite ne demarrera pas tant que
 	 * l'execution de la fonction onPause() n'est pas terminee.
 	 */
 	@Override
