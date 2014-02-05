@@ -18,8 +18,8 @@ import fr.smardine.podcaster.helper.log.EnNiveauLog;
 import fr.smardine.podcaster.helper.log.LogCatBuilder;
 
 /*
- * OBJET METIER d'accès aux données de la base SQLite - instancier le moteur SQLite - ouvrir la base de données - fermer les ressources -
- * enregistrer et lire les données
+ * OBJET METIER d'acces aux donnees de la base SQLite - instancier le moteur SQLite - ouvrir la base de donnees - fermer les ressources -
+ * enregistrer et lire les donnees
  */
 public class DBPodcasterAdapter {
 	private final String TAG = this.getClass().getSimpleName();
@@ -33,16 +33,16 @@ public class DBPodcasterAdapter {
 	public static final String T_BENEF = "benef";
 	public static final String T_BNFCAISSE = "bnfcaisse"; // extension de la
 															// table benef :
-															// assuré et caisse
+															// assure et caisse
 	public static final String T_BNFMUTUELLE = "bnfmutuelle"; // extension de la
 																// table benef :
-																// complémentaire
+																// complementaire
 	public static final String T_BNFLASTVISITE = "bnflastvisite";
-	public static final String T_VSTALERTE = "vstalerte"; // alerte associée à
+	public static final String T_VSTALERTE = "vstalerte"; // alerte associee a
 															// une visite
-	public static final String T_FACTURE = "facture"; // factures PDT chargées
-														// dans TLA destinées à
-														// un bénéficaire donné
+	public static final String T_FACTURE = "facture"; // factures PDT chargees
+														// dans TLA destinees a
+														// un beneficaire donne
 
 	public static final String C_AS_PLT_ID = "plt_id";
 	public static final String C_PLT_ID = "_id";
@@ -61,7 +61,7 @@ public class DBPodcasterAdapter {
 	public static final String C_PRT_LIBELLE = "prt_libelle";
 	public static final String C_PRT_PRIORITY = "prt_priority";
 	public static final int C_PRT_PRIORITY_MAX = 99; // lorsque ce praticien est
-														// le propiétaire du
+														// le propietaire du
 														// mobile
 	public static final int C_PRT_NON_ATTRIB = Integer.MAX_VALUE;
 	public static final int C_PRT_TOUS = Integer.MAX_VALUE - 1;
@@ -223,7 +223,7 @@ public class DBPodcasterAdapter {
 	private static final Pattern EQX_DATE_PATTERN = Pattern.compile("(\\d\\d?)/(\\d\\d?)/(\\d\\d\\d\\d)");
 	// private static final Pattern EQX_HEURE_PATTERN = Pattern.compile("(\\d\\d?)h(\\d\\d?)");
 	// private static final Pattern EQX_MONTANTFAC_PATTERN = Pattern.compile("Total : (\\d\\d?\\d?\\d?),(\\d\\d?)");
-	private static final Pattern EQX_MONTANTASS_PATTERN = Pattern.compile("Part Assuré : (\\d\\d?\\d?\\d?),(\\d\\d?)");
+	private static final Pattern EQX_MONTANTASS_PATTERN = Pattern.compile("Part Assure : (\\d\\d?\\d?\\d?),(\\d\\d?)");
 
 	// private static final String UPDATE_VSTID_TRNID = null;
 	private final DatabaseHelper DBHelper;
@@ -232,8 +232,8 @@ public class DBPodcasterAdapter {
 	private final String BASE_PODCASTER;
 
 	public DBPodcasterAdapter(Context p_context) {
-		// instancier la base de données sur un Helper qui s'occupe de créer et
-		// mettre à jour la base de données
+		// instancier la base de donnees sur un Helper qui s'occupe de creer et
+		// mettre a jour la base de donnees
 		context = p_context;
 		BASE_PODCASTER = getDatabaseName(context);
 		DBHelper = new DatabaseHelper(p_context);
@@ -250,7 +250,7 @@ public class DBPodcasterAdapter {
 	}
 
 	/*
-	 * cette classe crée la base de données + mise à jour des données {@link http://www.sqlite.org/foreignkeys.html}
+	 * cette classe cree la base de donnees + mise a jour des donnees {@link http://www.sqlite.org/foreignkeys.html}
 	 */
 	public class DatabaseHelper extends SQLiteOpenHelper {
 		private static final String CREA_T_PLANTRA = "CREATE TABLE " + T_PLANTRA + " (" + C_PLT_ID + " integer primary key autoincrement, "
@@ -265,15 +265,15 @@ public class DBPodcasterAdapter {
 				+ " integer primary key autoincrement, " + C_PRT_CLEVENUS + " texte non null, " // "clevenus"
 				+ C_PRT_FINESS + " texte non null, " // "finess"
 				+ C_PRT_COLOR + " texte non null, " // "color"
-				+ C_PRT_LIBELLE + " texte non null, " // "nomprat" nom prénom
-				+ C_PRT_PRIORITY + " integer  " // 0 non définie 99:prioritaire
+				+ C_PRT_LIBELLE + " texte non null, " // "nomprat" nom prenom
+				+ C_PRT_PRIORITY + " integer  " // 0 non definie 99:prioritaire
 				+ ");";
 		private static final String CREA_T_TOURNEE = "CREATE TABLE " + T_TOURNEE + " (" + C_TRN_ID + " integer primary key autoincrement, "
 				+ C_TRN_ID_PLT_ID
 				+ " integer non null, " // foreign key sur plantra
 				+ C_TRN_ID_PRT_ID
-				+ " integer, " // foreign key sur praticien. null=la tournée
-								// concerne des visites non attribuées
+				+ " integer, " // foreign key sur praticien. null=la tournee
+								// concerne des visites non attribuees
 				+ C_TRN_SHORTDATE
 				+ " texte non null, " // "ShortDatePrint" JJ/MM/AAAA
 				+ C_TRN_LONGDATE
@@ -292,7 +292,7 @@ public class DBPodcasterAdapter {
 				+ " integer non null, "// foreign key sur tournee.
 				+ C_VST_ID_PRT_ID
 				+ " integer, " // foreign key sur praticien. null=la visite
-								// n'est pas attribuée à un prat
+								// n'est pas attribuee a un prat
 				+ C_VST_ID_BNF_ID
 				+ " integer non null, " // foreign key sur benef.
 				+ C_VST_CLEBENEF
@@ -329,11 +329,11 @@ public class DBPodcasterAdapter {
 				+ " integer non null, " // foreign key sur tournee.
 				+ C_ORD_ID_PRT_ID
 				+ " integer, " // foreign key sur praticien. null=le soin n'est
-								// pas attribué à un prat
+								// pas attribue a un prat
 				+ C_ORD_ID_BNF_ID
 				+ " integer non null, " // foreign key sur benef.
 				+ C_ORD_ID_MED_ID
-				+ " integer,  " // foreign key sur éventuel medecin prescripteur
+				+ " integer,  " // foreign key sur eventuel medecin prescripteur
 				+ C_ORD_NFG
 				+ " texte, " // "NFGPrint"
 				+ C_ORD_NUM
@@ -485,7 +485,7 @@ public class DBPodcasterAdapter {
 		public DatabaseHelper(Context context) {
 			super(context, BASE_PODCASTER, null, DATABASE_VERSION_COURANTE); // provoque
 																				// la
-																				// création
+																				// creation
 																				// si
 																				// la
 																				// base
@@ -528,7 +528,7 @@ public class DBPodcasterAdapter {
 			}
 		}
 
-		// Dans le cas où il faudrait complètement reconstruire la base
+		// Dans le cas où il faudrait completement reconstruire la base
 		public void drop_to_re_create(SQLiteDatabase db) {
 			try {
 				db.execSQL("DROP TABLE if exists " + T_PLANTRA);
@@ -559,13 +559,13 @@ public class DBPodcasterAdapter {
 			int newv = 0;
 			try {
 				if (p_oldVersion != p_newVersion) {
-					// mise à jour de la base de données en fournissant la
+					// mise a jour de la base de donnees en fournissant la
 					// nouvelle version de la base
 					String message = context.getString(R.string.info_databaseupdate, BASE_PODCASTER, p_oldVersion, p_newVersion);
 					LogCatBuilder.WriteInfoToLog(context, EnNiveauLog.INFO, TAG, R.string.info_databaseupgrade, message);
 					Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 					if (p_oldVersion == DATABASE_VERSION_1) {
-						// ce qu'il faut pour passer de la 1 à la 2
+						// ce qu'il faut pour passer de la 1 a la 2
 						/*
 						 * db.execSQL("ALTER TABLE "+T_BENEF+" ADD "+C_BNF_SECTEUR +" texte ");
 						 */
@@ -585,10 +585,10 @@ public class DBPodcasterAdapter {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------
-	// ouvrie la base de données
+	// ouvrie la base de donnees
 	public DBPodcasterAdapter open() {
 		try {
-			// ouvre la base de données pour y insérer des données
+			// ouvre la base de donnees pour y inserer des donnees
 			db = DBHelper.getWritableDatabase();
 		} catch (SQLException e) {
 			LogCatBuilder.WriteErrorToLog(context, TAG, R.string.error_databaseopen, e);
@@ -597,7 +597,7 @@ public class DBPodcasterAdapter {
 		return this;
 	}
 
-	// fermer la base de données
+	// fermer la base de donnees
 	public void close() {
 		try {
 			db.close();
@@ -606,17 +606,17 @@ public class DBPodcasterAdapter {
 		}
 	}
 
-	// effacer toutes les données de la base
+	// effacer toutes les donnees de la base
 	public void truncate() {
 		try {
 			db.execSQL("DELETE FROM " + T_PLANTRA);
 			db.execSQL("DELETE FROM " + T_PRATICIEN);
 			db.execSQL("DELETE FROM " + T_TOURNEE);
-			db.execSQL("DELETE FROM " + T_VSTALERTE); // référence vst_id
+			db.execSQL("DELETE FROM " + T_VSTALERTE); // reference vst_id
 			db.execSQL("DELETE FROM " + T_VISITE);
 			db.execSQL("DELETE FROM " + T_ORDO);
 			db.execSQL("DELETE FROM " + T_MEDECIN);
-			db.execSQL("DELETE FROM " + T_FACTURE); // référence bnf_id
+			db.execSQL("DELETE FROM " + T_FACTURE); // reference bnf_id
 			db.execSQL("DELETE FROM " + T_BNFCAISSE);
 			db.execSQL("DELETE FROM " + T_BNFMUTUELLE);
 			db.execSQL("DELETE FROM " + T_BNFLASTVISITE);
@@ -636,10 +636,10 @@ public class DBPodcasterAdapter {
 			effacerReferenceVisitePraticienDebnflastvisite();
 			db.execSQL("DELETE FROM " + T_VISITE);
 			db.execSQL("DELETE FROM " + T_ORDO);
-			// db.execSQL("DELETE FROM "+T_MEDECIN); à garder
-			// db.execSQL("DELETE FROM "+T_BENEF); à garder
-			// db.execSQL("DELETE FROM "+T_BNFCAISSE); à garder
-			// db.execSQL("DELETE FROM "+T_BNFMUTUELLE); à garder
+			// db.execSQL("DELETE FROM "+T_MEDECIN); a garder
+			// db.execSQL("DELETE FROM "+T_BENEF); a garder
+			// db.execSQL("DELETE FROM "+T_BNFCAISSE); a garder
+			// db.execSQL("DELETE FROM "+T_BNFMUTUELLE); a garder
 			db.execSQL("DELETE FROM " + T_FACTURE);
 		} catch (SQLException e) {
 			LogCatBuilder.WriteErrorToLog(context, TAG, R.string.error_databasetourneesclear, e);
@@ -647,8 +647,8 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Effacer les références visite et praticien dans la table bnflastvisite. Ne laisser que les libellés. L'indication sera lisible dans
-	 * le détail du bénéficiaire mais l'accès au détail de la visite ne sera pas possible. Clear bnfvst_id_vst_id et bnfvst_id_prt_id
+	 * Effacer les references visite et praticien dans la table bnflastvisite. Ne laisser que les libelles. L'indication sera lisible dans
+	 * le detail du beneficiaire mais l'acces au detail de la visite ne sera pas possible. Clear bnfvst_id_vst_id et bnfvst_id_prt_id
 	 */
 	private void effacerReferenceVisitePraticienDebnflastvisite() {
 		try {
@@ -697,9 +697,9 @@ public class DBPodcasterAdapter {
 	}
 
 	/*
-	 * renvoie _id du praticien d'identiifant p_clevenus sachant qu'il existe deux valeurs "génériques" représentative du choix
-	 * "tous les praticiens" et "non attribues" dans ces cais l' _id retourné est une valeur précise permettant de filtrer les tournées
-	 * souhaitées. Lorsque un idenfifiant n'est plus reconnu alors _id retourné est celui correspondant à "tous"
+	 * renvoie _id du praticien d'identiifant p_clevenus sachant qu'il existe deux valeurs "generiques" representative du choix
+	 * "tous les praticiens" et "non attribues" dans ces cais l' _id retourne est une valeur precise permettant de filtrer les tournees
+	 * souhaitees. Lorsque un idenfifiant n'est plus reconnu alors _id retourne est celui correspondant a "tous"
 	 */
 	public long find_prt_idByCleVenus(String p_clevenus) {
 		long prt_id;
@@ -733,7 +733,7 @@ public class DBPodcasterAdapter {
 
 	/**
 	 * Returns tous les praticiens connus
-	 * @param isneedtous et isneednonattrib indicateurs pour commencer le tableau avec les libellés tous et non attribués
+	 * @param isneedtous et isneednonattrib indicateurs pour commencer le tableau avec les libelles tous et non attribues
 	 * @return List de tous les praticiens
 	 */
 	// public ArrayList<Prt_Item> recupererLaListeDesPraticiens(boolean isneedtous, boolean isneednonattrib) {
@@ -785,7 +785,7 @@ public class DBPodcasterAdapter {
 	// }
 
 	// private boolean supprimerUneTournee(long p_id) {
-	// // renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+	// // renvoie une valeur superieure a 0 si l'enreg a ete supprime
 	// return db.delete(T_TOURNEE, C_TRN_ID + "=" + p_id, null) > 0;
 	// }
 
@@ -821,7 +821,7 @@ public class DBPodcasterAdapter {
 		return db.rawQuery(requete, new String[] { "" + p_trnId });
 	}
 
-	// PAS VRAIMENT UTILE en l'état
+	// PAS VRAIMENT UTILE en l'etat
 	public Cursor recupererLaListeDesVisites() {
 		try {
 			return db.query(T_VISITE, new String[] { C_VST_ID, C_VST_ID_TRN_ID, C_VST_ID_PRT_ID, C_VST_ID_BNF_ID, C_VST_CLEBENEF,
@@ -839,7 +839,7 @@ public class DBPodcasterAdapter {
 	}
 
 	// private boolean supprimerUneOrdo(long p_id) {
-	// // renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+	// // renvoie une valeur superieure a 0 si l'enreg a ete supprime
 	// return db.delete(T_ORDO, C_ORD_ID + "=" + p_id, null) > 0;
 	// }
 
@@ -860,7 +860,7 @@ public class DBPodcasterAdapter {
 	}
 
 	/*
-	 * outre le commentaire posé sur le RDV dans EQUINOX prendre en compte les saisies locales dans bloc-notes public boolean
+	 * outre le commentaire pose sur le RDV dans EQUINOX prendre en compte les saisies locales dans bloc-notes public boolean
 	 * isAuMoinsUnCommentVisite(long p_vstid){ long ord_id=0; if (p_vstid > 0) { Cursor c = db.query(T_ORDO, new String[]{C_ORD_ID},
 	 * "("+C_ORD_ID_VST_ID+"=?) AND (" +C_ORD_COMMENT_VISITE+" IS NOT NULL) AND ("+C_ORD_COMMENT_VISITE+"<>?)", new String[]{""+p_vstid,
 	 * ""}, null, null, null); try { if (c.moveToNext()) { ord_id = c.getLong(0); } } catch (SQLException e) { Log.d(TAG,
@@ -891,7 +891,7 @@ public class DBPodcasterAdapter {
 		return (ord_id > 0);
 	}
 
-	// le SimpleCursorAdapter nécessite un champ _id, la requête doit comporter
+	// le SimpleCursorAdapter necessite un champ _id, la requête doit comporter
 	// une clause GROUP BY pour associer ensemble
 	// les traitements d'une même ordo dans une même ligne ordo
 	// BIDOUILLE ici pour avoir une colonne _id sur la foreign key ord_id_vst_id
@@ -924,7 +924,7 @@ public class DBPodcasterAdapter {
 
 	// --------------------------------------------------------------------------------------------------------------------------
 	// BENEF
-	// méthode commune à l'insertion et à la mise à jour
+	// methode commune a l'insertion et a la mise a jour
 	// private ContentValues construireValuesBenef(xml_Benef p_xbenef) {
 	// ContentValues values = new ContentValues();
 	// values.put(C_BNF_CLEBENEF, p_xbenef.getBenefCle());
@@ -972,7 +972,7 @@ public class DBPodcasterAdapter {
 	// }
 	// }
 
-	// mise à jour de la note du bénéficiaire
+	// mise a jour de la note du beneficiaire
 	public void updateBenefNote(long p_bnfid, String p_note) {
 		try {
 			ContentValues values = new ContentValues();
@@ -985,9 +985,9 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Renvoie TRUE si le bénéficiaire de clé primaire p_bnfId peut être supprimé c'est à dire si aucune visite ne fait référence à ce
-	 * bénéficiaire
-	 * @param p_bnfId clé primaire benef
+	 * Renvoie TRUE si le beneficiaire de cle primaire p_bnfId peut être supprime c'est a dire si aucune visite ne fait reference a ce
+	 * beneficiaire
+	 * @param p_bnfId cle primaire benef
 	 * @return true si pas de visite pour ce benef
 	 */
 	private boolean isBenefSupprimable(long p_bnfId) {
@@ -1010,13 +1010,13 @@ public class DBPodcasterAdapter {
 	}
 
 	private boolean supprimerUnBenef(long p_id) {
-		// renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+		// renvoie une valeur superieure a 0 si l'enreg a ete supprime
 		return db.delete(T_BENEF, C_BNF_ID + "=" + p_id, null) > 0;
 	}
 
 	/**
-	 * Si le bénéficiaire de clé primaire p_bnfId n'est pas référencé dans une visite alors il est supprimé les trigger BEFORE DELETE créés
-	 * pour bnfcaisse + bnflastvisite + bnfmutuelle sont exécutés à la suppression de p_bnfId
+	 * Si le beneficiaire de cle primaire p_bnfId n'est pas reference dans une visite alors il est supprime les trigger BEFORE DELETE crees
+	 * pour bnfcaisse + bnflastvisite + bnfmutuelle sont executes a la suppression de p_bnfId
 	 * @param p_bnfId
 	 * @return
 	 */
@@ -1032,7 +1032,7 @@ public class DBPodcasterAdapter {
 		try {
 			return db.query(T_BENEF, new String[] { C_BNF_ID, C_BNF_CLEBENEF, C_BNF_NOM, C_BNF_PRENOM, C_BNF_DATENAIS, C_BNF_LIBELLE }, // nbre
 																																		// champs
-																																		// réduit
+																																		// reduit
 					null, // selection,
 					null, // selectionArgs,
 					null, // groupBy,
@@ -1089,7 +1089,7 @@ public class DBPodcasterAdapter {
 		try {
 			return db.query(T_BENEF, new String[] { C_BNF_ID, C_BNF_CLEBENEF, C_BNF_NOM, C_BNF_PRENOM, C_BNF_DATENAIS, C_BNF_LIBELLE }, // nbre
 																																		// champs
-																																		// réduit
+																																		// reduit
 					p_whereClause == null ? null : p_whereClause.toString(), // selection,
 					p_args, // selectionArgs,
 					null, // groupBy,
@@ -1141,7 +1141,7 @@ public class DBPodcasterAdapter {
 
 	// --------------------------------------------------------------------------------------------------------------------------
 	// T_BNFCAISSE
-	// méthode commune à l'insertion et à la mise à jour
+	// methode commune a l'insertion et a la mise a jour
 	// private ContentValues construireValuesBenefCai(xml_Benef p_xbenef, long p_bnfId) {
 	// xml_BenefCai bc = p_xbenef.getbenefcai();
 	// ContentValues values = new ContentValues();
@@ -1190,9 +1190,9 @@ public class DBPodcasterAdapter {
 	// }
 	// }
 
-	// p_bnfid la foreign key représentant benef
+	// p_bnfid la foreign key representant benef
 	private boolean supprimerUnBenefCai(long p_bnfid) {
-		// renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+		// renvoie une valeur superieure a 0 si l'enreg a ete supprime
 		return db.delete(T_BNFCAISSE, C_BNFCAI_ID_BNF_ID + "=" + p_bnfid, null) > 0;
 	}
 
@@ -1219,7 +1219,7 @@ public class DBPodcasterAdapter {
 
 	// --------------------------------------------------------------------------------------------------------------------------
 	// T_BNFMUTUELLE
-	// méthode commune à l'insertion et à la mise à jour
+	// methode commune a l'insertion et a la mise a jour
 	// private ContentValues construireValuesBenefMut(xml_Benef p_xbenef, long p_bnfId) {
 	// xml_BenefMut bc = p_xbenef.getbenefmut();
 	// ContentValues values = new ContentValues();
@@ -1264,9 +1264,9 @@ public class DBPodcasterAdapter {
 	// }
 	// }
 
-	// p_bnfid la foreign key représentant benef
+	// p_bnfid la foreign key representant benef
 	private boolean supprimerUnBenefMut(long p_bnfid) {
-		// renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+		// renvoie une valeur superieure a 0 si l'enreg a ete supprime
 		return db.delete(T_BNFMUTUELLE, C_BNFMUT_ID_BNF_ID + "=" + p_bnfid, null) > 0;
 	}
 
@@ -1293,29 +1293,29 @@ public class DBPodcasterAdapter {
 	// --------------------------------------------------------------------------------------------------------------------------
 	// T_BNFLASTVISITE
 	/**
-	 * Insérer dans table bnflastvisite une association p_bnfId-p_dervstdate si p_dervstdate est vraiment la date de rendez-vous la plus
+	 * Inserer dans table bnflastvisite une association p_bnfId-p_dervstdate si p_dervstdate est vraiment la date de rendez-vous la plus
 	 * grande
-	 * @return la clé primaire de l'enregistrement créé
+	 * @return la cle primaire de l'enregistrement cree
 	 */
 	public long insererDerniereVisiteSiNecessaire(long p_bnfId, long p_vstId, long p_prtId, String p_dervstprat, String p_dervstdate) {
 		long retour = isAuMoinsUneDerniereVisiteSupOuEgale(p_bnfId, p_dervstdate);
 		if (retour == 0) {
-			// effacer éventuelle visite de date-heure inférieure
+			// effacer eventuelle visite de date-heure inferieure
 			supprimerDerniereVisiteDuBenef(p_bnfId);
-			// inscrire le rendez-vous le plus récent
+			// inscrire le rendez-vous le plus recent
 			retour = insererUneDerniereVisite(p_bnfId, p_vstId, p_prtId, p_dervstprat, p_dervstdate);
 		}
 		return retour;
 	}
 
 	/**
-	 * Créer un enregistrement dans table bnflastvisite pour associer benef p_bnfId et visite p_vstId/p_dervstdate
-	 * @param p_bnfId clé primaire du bénéf
-	 * @param p_vstId clé primaire de la visite
-	 * @param p_prtId 0 ou clé primaire du praticien à qui la visite est attribuée
-	 * @param p_dervstprat '' ou libellé du praticien
+	 * Creer un enregistrement dans table bnflastvisite pour associer benef p_bnfId et visite p_vstId/p_dervstdate
+	 * @param p_bnfId cle primaire du benef
+	 * @param p_vstId cle primaire de la visite
+	 * @param p_prtId 0 ou cle primaire du praticien a qui la visite est attribuee
+	 * @param p_dervstprat '' ou libelle du praticien
 	 * @param p_dervstdate date-heure visite au format AAAA-MM-JJ HH:MM
-	 * @return clé primaire de l'enreg créé
+	 * @return cle primaire de l'enreg cree
 	 */
 	private long insererUneDerniereVisite(long p_bnfId, long p_vstId, long p_prtId, String p_dervstprat, String p_dervstdate) {
 		try {
@@ -1334,18 +1334,18 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Supprimer de la table bnflastvisite toute association benef/derniere visite du bénéf de clé p_bnfId
-	 * @param p_bnfId clé primaire du bénéficiaire
+	 * Supprimer de la table bnflastvisite toute association benef/derniere visite du benef de cle p_bnfId
+	 * @param p_bnfId cle primaire du beneficiaire
 	 * @return TRUE si suppression faite
 	 */
 	private boolean supprimerDerniereVisiteDuBenef(long p_bnfId) {
-		// renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+		// renvoie une valeur superieure a 0 si l'enreg a ete supprime
 		return db.delete(T_BNFLASTVISITE, C_BNFVST_ID_BNF_ID + "=" + p_bnfId, null) > 0;
 	}
 
 	/**
 	 * Renvoie un curseur d'association benef/derniere date visite pour beneficiaire p_bnfId
-	 * @param p_bnfId clé primaire du bénéficiaire
+	 * @param p_bnfId cle primaire du beneficiaire
 	 * @return cursor
 	 */
 	public Cursor recupereDerniereVisiteDeBenef(long p_bnfId) {
@@ -1363,10 +1363,10 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Renvoie <> 0 si trouve une visite de date >= à p_dervstdate associée au bénéficiaire p_bnfId
-	 * @param p_bnfId clé primaire bénéficiaire
-	 * @param p_dervstdate date/heure de la visite dont il faut vérifier l'éventuelle référence au format AAAA-MM-JJ HH:MM
-	 * @return valeur de clé si association déjà faite 0 sinon
+	 * Renvoie <> 0 si trouve une visite de date >= a p_dervstdate associee au beneficiaire p_bnfId
+	 * @param p_bnfId cle primaire beneficiaire
+	 * @param p_dervstdate date/heure de la visite dont il faut verifier l'eventuelle reference au format AAAA-MM-JJ HH:MM
+	 * @return valeur de cle si association deja faite 0 sinon
 	 */
 	private long isAuMoinsUneDerniereVisiteSupOuEgale(long p_bnfId, String p_dervstdate) {
 		long bnfvst_id = 0;
@@ -1391,7 +1391,7 @@ public class DBPodcasterAdapter {
 
 	// --------------------------------------------------------------------------------------------------------------------------
 	// T_FACTURE
-	// méthode commune à l'insertion et à la mise à jour
+	// methode commune a l'insertion et a la mise a jour
 	// private ContentValues construireValuesFacture(xml_Facture p_xfacture, long p_bnfId) {
 	// ContentValues values = new ContentValues();
 	// values.put(C_FAC_ID_BNF_ID, p_bnfId);
@@ -1415,14 +1415,14 @@ public class DBPodcasterAdapter {
 	// }
 	// }
 
-	// p_bnfid la foreign key représentant benef
+	// p_bnfid la foreign key representant benef
 	// private boolean supprimerLesFacturesUnBenef(long p_bnfid) {
-	// // renvoie une valeur supérieure à 0 si l'enreg a été supprimé
+	// // renvoie une valeur superieure a 0 si l'enreg a ete supprime
 	// return db.delete(T_FACTURE, C_FAC_ID_BNF_ID + "=" + p_bnfid, null) > 0;
 	// }
 
 	// renvoyer un cursor sur le(s) libelle(s) du TLA contenant les factures du
-	// bénéficiaire p_bnfId correspondant
+	// beneficiaire p_bnfId correspondant
 	public Cursor recupereLesTlaUnBenef(long p_bnfId) {
 		try {
 			return db.query(T_FACTURE, new String[] { C_FAC_ID, C_FAC_ID_BNF_ID, C_FAC_TLA }, C_FAC_ID_BNF_ID + "=?", // selection,
@@ -1437,8 +1437,8 @@ public class DBPodcasterAdapter {
 	}
 
 	// renvoyer un cursor contenant tous les champs des n factures du
-	// bénéficiaire p_bnfId correspondant
-	// chargées dans le TLA p_tlaLibelle
+	// beneficiaire p_bnfId correspondant
+	// chargees dans le TLA p_tlaLibelle
 	public Cursor recupereLesFacturesUnBenefUnTla(long p_bnfId, String p_tlaLibelle) {
 		try {
 			return db.query(T_FACTURE, new String[] { C_FAC_ID, C_FAC_ID_BNF_ID, C_FAC_TLA, C_FAC_MNT_FACTURE, C_FAC_MNT_ASSURE,
@@ -1517,7 +1517,7 @@ public class DBPodcasterAdapter {
 	/**
 	 * Convertir une date au format JJ/MM/AAAA au format <code>java.util.Date</code>
 	 * @param dateString la date au format JJ/MM/AAAA
-	 * @return l'objet <code>java.util.Date</code> représentant cette date
+	 * @return l'objet <code>java.util.Date</code> representant cette date
 	 */
 	public Date JJMMAAAAToDate(String dateString) {
 		Matcher m = EQX_DATE_PATTERN.matcher(dateString);
@@ -1533,9 +1533,9 @@ public class DBPodcasterAdapter {
 	}
 
 	/**
-	 * Convertir une date au format JJ/MM/AAAA en un entier correspondant à la valeur aaaa+mm+jj
+	 * Convertir une date au format JJ/MM/AAAA en un entier correspondant a la valeur aaaa+mm+jj
 	 * @param dateString la date au format JJ/MM/AAAA
-	 * @return l'entier représentant cette date
+	 * @return l'entier representant cette date
 	 */
 	public int JJMMAAAAToInteger(String dateString) {
 		if (!("").equals(dateString.trim())) {
@@ -1566,7 +1566,7 @@ public class DBPodcasterAdapter {
 	// return retour.trim();
 	// }
 
-	// récupérer le montant facturé au format entier
+	// recuperer le montant facture au format entier
 	// private int MontantFactureToInteger(String p_montantFacture) {
 	// int retour = 0;
 	// if ((p_montantFacture != null) & (p_montantFacture.length() > 0) & (!("").equals(p_montantFacture.trim()))) {
@@ -1584,7 +1584,7 @@ public class DBPodcasterAdapter {
 	// return retour;
 	// }
 
-	// récupérer le montant facturé au format chaine simple xxxx.xx
+	// recuperer le montant facture au format chaine simple xxxx.xx
 	// public String MontantFactureToString(String p_montantFacture) {
 	// String retour = "";
 	// if ((p_montantFacture != null) & (p_montantFacture.length() > 0) & (!("").equals(p_montantFacture.trim()))) {
@@ -1597,13 +1597,13 @@ public class DBPodcasterAdapter {
 	// return retour;
 	// }
 
-	// récupérer le montant assuré au format entier
+	// recuperer le montant assure au format entier
 	// private int MontantAssureToInteger(String p_montantAssure) {
 	// int retour = 0;
 	// if ((p_montantAssure != null) & (p_montantAssure.length() > 0) & (!("").equals(p_montantAssure.trim()))) {
 	// Matcher m = EQX_MONTANTASS_PATTERN.matcher(p_montantAssure);
 	// if (!m.matches()) {
-	// throw new NumberFormatException("DBEqxAdapter: [" + p_montantAssure + "]Format montant (Part Assuré : x,xx) invalide");
+	// throw new NumberFormatException("DBEqxAdapter: [" + p_montantAssure + "]Format montant (Part Assure : x,xx) invalide");
 	// }
 	// String montant = String.valueOf(m.group(1)) + String.valueOf(m.group(2));
 	// try {
@@ -1615,13 +1615,13 @@ public class DBPodcasterAdapter {
 	// return retour;
 	// }
 
-	// récupérer le montant assuré au format chaine xxxx.xx
+	// recuperer le montant assure au format chaine xxxx.xx
 	public String MontantAssureToString(String p_montantAssure) {
 		String retour = "";
 		if ((p_montantAssure != null) & (p_montantAssure.length() > 0) & (!("").equals(p_montantAssure.trim()))) {
 			Matcher m = EQX_MONTANTASS_PATTERN.matcher(p_montantAssure);
 			if (!m.matches()) {
-				throw new NumberFormatException("DBEqxAdapter: [" + p_montantAssure + "]Format montant (Part Assuré : x,xx) invalide");
+				throw new NumberFormatException("DBEqxAdapter: [" + p_montantAssure + "]Format montant (Part Assure : x,xx) invalide");
 			}
 			retour = String.valueOf(m.group(1)) + "." + String.valueOf(m.group(2));
 		}
@@ -1633,7 +1633,7 @@ public class DBPodcasterAdapter {
 	// ======================================================================================================================
 
 	/*
-	 * exemple de mise à jour public void updateFolder(long folderID, String name) { ContentValues values = new ContentValues();
+	 * exemple de mise a jour public void updateFolder(long folderID, String name) { ContentValues values = new ContentValues();
 	 * values.put(FolderColumns.NAME, name); SQLiteDatabase db = null; try { db = mOpenHelper.getWritableDatabase();
 	 * db.update(FOLDER_TABLE_NAME, values, FolderColumns._ID + "=" + folderID, null); } finally { if (db != null) db.close(); } }
 	 */

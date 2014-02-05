@@ -4,25 +4,25 @@ import fr.smardine.podcaster.alertDialog.IAlertDialogClickListener;
 import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogAttentionClickListener;
 
 /**
- * Definition des différente DialogBox de type "Attention"
+ * Definition des differente DialogBox de type "Attention"
  * @author smardine
  */
 public enum EnTypeAlertDialogAttention {
 
-	PLUSIEUR_CAT("Attention", "Vous avez séléctionné plus d'une categorie \n"
+	PLUSIEUR_CAT("Attention", "Vous avez selectionne plus d'une categorie \n"
 			+ "Veuillez n'en choisir qu'une.", "Ok",
 			AlertDialogAttentionClickListener.class), //
 	AUCUNE_CAT("Attention",
-			"Vous n'avez rentré aucune catégorie \nMerci d'en saisir une",
+			"Vous n'avez rentre aucune categorie \nMerci d'en saisir une",
 			"Ok", null), //
 	AUCUNE_MARQUE("Attention",
-			"Vous n'avez rentré aucune marque \nMerci d'en saisir une", "Ok",
+			"Vous n'avez rentre aucune marque \nMerci d'en saisir une", "Ok",
 			null), //
 	MANQUE_INFO("Attention",
-			"Vous avez oublié de rentrer certaines informations.", "Ok", null), //
+			"Vous avez oublie de rentrer certaines informations.", "Ok", null), //
 	AUCUN_PRODUIT_ENREGISTRE(
 			"Pour information",
-			"Aucun produit n'est actuellement enregistré dans Ma p'tite trousse",
+			"Aucun produit n'est actuellement enregistre dans Ma p'tite trousse",
 			"Ok", null);
 
 	private String titre;

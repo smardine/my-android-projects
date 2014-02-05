@@ -19,7 +19,7 @@ public class SuperActivity extends FragmentActivity {
 	}
 
 	/**
-	 * Exécuté lorsque l'activité devient visible à l'utilisateur. La fonction onStart() est suivie de la fonction onResume().
+	 * Execute lorsque l'activite devient visible a l'utilisateur. La fonction onStart() est suivie de la fonction onResume().
 	 */
 	@Override
 	public void onStart() {
@@ -45,9 +45,9 @@ public class SuperActivity extends FragmentActivity {
 	}
 
 	/**
-	 * La fonction onPause() est suivie : - d'un onResume() si l'activité passe à nouveau en premier plan - d'un onStop() si elle devient
-	 * invisible à l'utilisateur L'exécution de la fonction onPause() doit être rapide, car la prochaine activité ne démarrera pas tant que
-	 * l'exécution de la fonction onPause() n'est pas terminée.
+	 * La fonction onPause() est suivie : - d'un onResume() si l'activite passe a nouveau en premier plan - d'un onStop() si elle devient
+	 * invisible a l'utilisateur L'execution de la fonction onPause() doit être rapide, car la prochaine activite ne demarrera pas tant que
+	 * l'execution de la fonction onPause() n'est pas terminee.
 	 */
 	@Override
 	public void onPause() {
@@ -111,7 +111,7 @@ public class SuperActivity extends FragmentActivity {
 	//
 	// FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
 	//
-	// // paramèter l'adapter sur la listview
+	// // parameter l'adapter sur la listview
 	// listView.setAdapter(adpt);
 	//
 	// listView.setOnItemClickListener(new OnItemClickListener() {
@@ -120,8 +120,8 @@ public class SuperActivity extends FragmentActivity {
 	// public void onItemClick(AdapterView<?> p_adapterView, View p_view, int p_position, long arg3) {
 	// MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
 	// fluxSelectionne = leFluxClique;
-	// // En realité le numero de tab est en base 0
-	// // si on à 3 tab, la deuxieme aura le numero 1
+	// // En realite le numero de tab est en base 0
+	// // si on a 3 tab, la deuxieme aura le numero 1
 	// // 0,1,2
 	// actionBar.setSelectedNavigationItem(1);
 	//
@@ -201,7 +201,7 @@ public class SuperActivity extends FragmentActivity {
 	// // listeEpisode = new AccesTableEpisode(context).getListeDesEpisodeParIdFlux(fluxSelectionne);
 	// }
 	//
-	// // paramèter l'adapter sur la listview
+	// // parameter l'adapter sur la listview
 	// listViewEpisode.setAdapter(adptEpisode);
 	//
 	// boutonMajFlux.setOnClickListener(new ButtonMajFluxClickListener(this.getActivity(), viewEpisodeListeItem,
@@ -210,7 +210,7 @@ public class SuperActivity extends FragmentActivity {
 	// return v2;
 	//
 	// default:
-	// throw new RuntimeException("Il y a une erreur de programmation, le numero d'onglet n'est pas geré");
+	// throw new RuntimeException("Il y a une erreur de programmation, le numero d'onglet n'est pas gere");
 	// }
 	//
 	// // TextView textView = new TextView(getActivity());

@@ -28,7 +28,7 @@ public class ThreadExecutionDownloadEpisode extends Thread {
 			DownloadEpisodeBuilder builder = new DownloadEpisodeBuilder(context, progressDialogHandler, this);
 
 			progressDialogHandler.sendMessage(progressDialogHandler.obtainMessage(EnThreadExecResult.ENCOURS.getCode(),
-					"Téléchargement en cours..."));
+					"Telechargement en cours..."));
 
 			builder.doDownloadEpisode(episode, EnMethodType.DOWNLOAD_EPISODE);
 

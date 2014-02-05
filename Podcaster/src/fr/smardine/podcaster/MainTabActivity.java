@@ -38,13 +38,13 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 		// recherche des fragments a partir de leur ID via le fragment manager
 		fragmentFlux = (ListeFluxSectionFragment) getSupportFragmentManager().findFragmentById(R.id.fluxFragment);
 		fragmentEpisode = (ListeEpisodeSectionFragment) getSupportFragmentManager().findFragmentById(R.id.episodeFragment);
-		// valorisation de leurs propriétés
+		// valorisation de leurs proprietes
 		fragmentFlux.context = this.getApplicationContext();
 		fragmentEpisode.context = this.getApplicationContext();
 		// Initialisation de l'action bar
 		ActionBar actionBar = getActionBar();
 
-		// si l'action bar est caché, il est impossible de naviguer avec des
+		// si l'action bar est cache, il est impossible de naviguer avec des
 		// onglet
 		// actionBar.hide();
 
@@ -109,8 +109,8 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			// effet visuel lors de l'ouverture du fragment
 			transaction.setTransition(FragmentTransaction.TRANSIT_NONE);
-			// ici, le fragment est deja ajouté car il a été chargé lors de la creation de l'activity
-			// lorsque l'on a appelé la methode "setContentView(R.layout.activity_main_tab);" dans le "onCreate"
+			// ici, le fragment est deja ajoute car il a ete charge lors de la creation de l'activity
+			// lorsque l'on a appele la methode "setContentView(R.layout.activity_main_tab);" dans le "onCreate"
 			if (fragmentFlux.isAdded()) {
 				// on cache le fragment "Episode"
 				transaction.hide(fragmentEpisode);
@@ -134,7 +134,7 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 				transaction.hide(fragmentFlux);
 				transaction.show(fragmentEpisode);
 			} else {
-				// permet de "stocker" la transaction dans une "pile" pour etre ré-exploiter lorsque l'utilisateur clique
+				// permet de "stocker" la transaction dans une "pile" pour etre re-exploiter lorsque l'utilisateur clique
 				// sur la touche "retour" de son telephone
 				transaction.addToBackStack(tab.getPosition() + "stack_item");
 				transaction.add(fragmentEpisode, tab.getPosition() + ListeEpisodeSectionFragment.ARG_SECTION_NUMBER);
@@ -142,7 +142,7 @@ public class MainTabActivity extends FragmentActivity implements ActionBar.TabLi
 			}
 			// Ne pas oublier de faire un "commit" sur la transaction
 			transaction.commitAllowingStateLoss();
-			// on met a jour la liste des episodes via le flux cliqué par l'utilisateur
+			// on met a jour la liste des episodes via le flux clique par l'utilisateur
 			fragmentEpisode.metAjoutListeEpisode(ListeFluxSectionFragment.fluxSelectionne);
 
 		}

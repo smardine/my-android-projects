@@ -140,7 +140,7 @@ public class RequeteFactory {
 	 * @param p_modifiedValue
 	 * @param p_whereClause
 	 * @param p_whereArgs
-	 * @return le nombre d'enregistrement affecté
+	 * @return le nombre d'enregistrement affecte
 	 */
 	public int majTable(EnTable p_table, ContentValues p_modifiedValue, String p_whereClause, String[] p_whereArgs) {
 		bdAcces.open();
@@ -153,7 +153,7 @@ public class RequeteFactory {
 	 * @param p_table
 	 * @param p_whereClause
 	 * @param p_whereArgs
-	 * @return le nombre de ligne suprrimée(s)
+	 * @return le nombre de ligne suprrimee(s)
 	 */
 	public int deleteTable(EnTable p_table, String p_whereClause, String[] p_whereArgs) {
 		bdAcces.open();

@@ -8,7 +8,7 @@ import android.util.Log;
 
 public final class StringHelper {
 	/**
-	 * Constructeur privé pour classe utilitaire
+	 * Constructeur prive pour classe utilitaire
 	 */
 	private StringHelper() {
 
@@ -32,9 +32,9 @@ public final class StringHelper {
 	}
 
 	/**
-	 * Renvoit une chaine représentative des données p_bytes réprésentée en
-	 * hexadécimal au format chaine de caractère ^par ex. le tableau d'octets A0
-	 * 34 1E sera reprétenté par la chaine "A0341E" en sortie de cette procédure
+	 * Renvoit une chaine representative des donnees p_bytes representee en
+	 * hexadecimal au format chaine de caractere ^par ex. le tableau d'octets A0
+	 * 34 1E sera repretente par la chaine "A0341E" en sortie de cette procedure
 	 * @param p_bytes
 	 * @return String
 	 */
@@ -63,7 +63,7 @@ public final class StringHelper {
 	/**
 	 * traduit une chaine en date Date
 	 * @param p_iso8601 au format "AAAA-MM-JJ HH:MM"
-	 * @return null si format de date non respectée
+	 * @return null si format de date non respectee
 	 */
 	public static Date Iso8601ToDate(String p_iso8601) {
 		Date retour = null;
@@ -87,7 +87,7 @@ public final class StringHelper {
 	/**
 	 * Transformer une date au format iso8601 en format p_format
 	 * @param p_iso8601
-	 * @param p_format format de la date exemple "dd/MM/yyyy à HH:mm"
+	 * @param p_format format de la date exemple "dd/MM/yyyy a HH:mm"
 	 * @return
 	 */
 	public static String Iso8601ToFormat(String p_iso8601, String p_format) {

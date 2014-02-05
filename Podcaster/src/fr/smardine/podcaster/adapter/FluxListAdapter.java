@@ -22,7 +22,7 @@ import fr.smardine.tools.date.DateHelper;
 public class FluxListAdapter extends BaseAdapter {
 
 	public final MlListeFlux lstFlux;
-	// créer un layoutinflater pour intégrer la listview dedans
+	// creer un layoutinflater pour integrer la listview dedans
 	private final LayoutInflater myInflater;
 	private BitmapCache cache;
 
@@ -31,7 +31,7 @@ public class FluxListAdapter extends BaseAdapter {
 	 * @param p_lstFlux
 	 */
 	public FluxListAdapter(Context p_ctx, MlListeFlux p_lstFlux) {
-		// paramètrer le layout en prenant celui du context
+		// parametrer le layout en prenant celui du context
 		this.myInflater = LayoutInflater.from(p_ctx);
 		this.lstFlux = p_lstFlux;
 
@@ -62,8 +62,8 @@ public class FluxListAdapter extends BaseAdapter {
 	}
 
 	/*
-	 * astuce pour fluidifier au mieux l'affichage de la listview mémoriser le contenu des composants visuels qui sont présents dans une
-	 * ligne de la listview La classe peut être déclarée dans un autre module pour être réutilisée
+	 * astuce pour fluidifier au mieux l'affichage de la listview memoriser le contenu des composants visuels qui sont presents dans une
+	 * ligne de la listview La classe peut être declaree dans un autre module pour être reutilisee
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	/**
@@ -77,15 +77,15 @@ public class FluxListAdapter extends BaseAdapter {
 	}
 
 	/*
-	 * cette méthode est appelée à chaque fois que la listview doit afficher une ligne
+	 * cette methode est appelee a chaque fois que la listview doit afficher une ligne
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		// convertView peut déjà être initialisé sinon alors l'initialiser
+		// convertView peut deja être initialise sinon alors l'initialiser
 		if (convertView == null) {
-			// affecter un linearlayout propre à la ligne à afficher dans le
+			// affecter un linearlayout propre a la ligne a afficher dans le
 			// listview
 			convertView = myInflater.inflate(R.layout.fluxlistitem, null);
 			holder = new ViewHolder();
@@ -94,17 +94,17 @@ public class FluxListAdapter extends BaseAdapter {
 			holder.TvDateDerniereSynchro = (TextView) convertView.findViewById(R.id.tvDateDerniereSynchro);
 			holder.VignetteFlux = (ImageView) convertView.findViewById(R.id.ivVignetteFlux);
 			holder.ImdCatFlux = (ImageView) convertView.findViewById(R.id.ivCategorieFlux);
-			// tagger le convertView avec ce Holder créé pour que l'association
+			// tagger le convertView avec ce Holder cree pour que l'association
 			// se fasse
 			convertView.setTag(holder);
 		} else {
-			// puisque déjà valorisé une fois alors récupérer le holder à partir
-			// du tag posé à la création
+			// puisque deja valorise une fois alors recuperer le holder a partir
+			// du tag pose a la creation
 			holder = (ViewHolder) convertView.getTag();
 		}
 
 		MlFlux unFlux = lstFlux.get(position);
-		// Application des données au element de la vue
+		// Application des donnees au element de la vue
 		holder.TvTitreFlux.setText(unFlux.getTitre());
 		String dateStr = DateHelper.ddMMM(unFlux.getDateDernierePublication());
 		holder.TvDateDerniereSynchro.setText(dateStr);

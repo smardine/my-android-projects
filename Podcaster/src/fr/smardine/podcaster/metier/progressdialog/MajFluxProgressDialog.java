@@ -14,16 +14,16 @@ import fr.smardine.podcaster.thread.ThreadExecutionMajFlux;
 import fr.smardine.podcaster.thread.hanlder.HandlerMajFluxProgressDialog;
 
 /**
- * Boite de dialogue visuelle ouverte à partir d'une vue dont le context est passé en paramètre du constructeur. Cette boite présente un
- * composant de progression circulaire. Le processus métier est exécuté dans un thread, il est interrompable . La boite de dialogue peut
- * être cachée pour que l'utilisateur procède à d'autres manipulations.
+ * Boite de dialogue visuelle ouverte a partir d'une vue dont le context est passe en parametre du constructeur. Cette boite presente un
+ * composant de progression circulaire. Le processus metier est execute dans un thread, il est interrompable . La boite de dialogue peut
+ * être cachee pour que l'utilisateur procede a d'autres manipulations.
  * @author s.mardine
  */
 public class MajFluxProgressDialog {
 	private final String TAG = this.getClass().getName();
 
 	/**
-	 * Créer une boite de dialoque munie d'une barre de progression Lancer un thread qui exécute la mise a jour d'un flux, et memorise les
+	 * Creer une boite de dialoque munie d'une barre de progression Lancer un thread qui execute la mise a jour d'un flux, et memorise les
 	 * informations en base
 	 * @param p_context
 	 * @param p_listeFlux
@@ -42,7 +42,7 @@ public class MajFluxProgressDialog {
 	}
 
 	/**
-	 * Créer une boite de dialoque munie d'une barre de progression Lancer un thread qui exécute la creation d'un flux, et memorise les
+	 * Creer une boite de dialoque munie d'une barre de progression Lancer un thread qui execute la creation d'un flux, et memorise les
 	 * infos en base
 	 * @param p_context
 	 * @param p_listeUrl

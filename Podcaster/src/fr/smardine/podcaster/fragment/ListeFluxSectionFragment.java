@@ -65,7 +65,7 @@ public class ListeFluxSectionFragment extends Fragment {
 		//
 		// FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
 		//
-		// // paramèter l'adapter sur la listview
+		// // parameter l'adapter sur la listview
 		// listView.setAdapter(adpt);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -74,8 +74,8 @@ public class ListeFluxSectionFragment extends Fragment {
 			public void onItemClick(AdapterView<?> p_adapterView, View p_view, int p_position, long arg3) {
 				MlFlux leFluxClique = (MlFlux) p_adapterView.getItemAtPosition(p_position);
 				fluxSelectionne = leFluxClique;
-				// En realité le numero de tab est en base 0
-				// si on à 3 tab, la deuxieme aura le numero 1
+				// En realite le numero de tab est en base 0
+				// si on a 3 tab, la deuxieme aura le numero 1
 				// 0,1,2
 				actionBar.setSelectedNavigationItem(1);
 
@@ -128,14 +128,14 @@ public class ListeFluxSectionFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		if (savedInstanceState != null) {
-			Toast.makeText(getActivity(), "Fragment Episode recréé", Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(), "Fragment Episode recree", Toast.LENGTH_LONG).show();
 		}
 
 		final AccesTableFlux tableFlux = new AccesTableFlux(context);
 
 		FluxListAdapter adpt = new FluxListAdapter(getActivity(), tableFlux.getListeDesFlux());
 
-		// paramèter l'adapter sur la listview
+		// parameter l'adapter sur la listview
 		listView.setAdapter(adpt);
 
 		boutonMajListeFlux.setOnClickListener(new OnClickListener() {

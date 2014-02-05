@@ -10,7 +10,7 @@ import fr.smardine.podcaster.alertDialog.clickListener.buttonClick.AlertDialogOu
 public enum EnTypeAlertDialogOuiNon {
 
 	NOUVELLE_MARQUE(
-			"Petite vérification",
+			"Petite verification",
 			"Nouvelle marque\nCette marque est inconnue de \"Ma p'tite trousse\"\nSouhaitez vous la partager avec les autres utilisateurs? (Connexion Edge, 3G ou wifi requise)",
 			"Oui", "Non", AlertDialogOuiNonClickListener.class, null);
 

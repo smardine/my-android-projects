@@ -47,9 +47,9 @@ public enum EnActivityCode {
 	}
 
 	/**
-	 * Renvoie le EnActivityCode correspondant au code passé en paramètre
+	 * Renvoie le EnActivityCode correspondant au code passe en parametre
 	 * @param p_code
-	 * @return EnActivityCode.AUCUN si p_code pas trouvé
+	 * @return EnActivityCode.AUCUN si p_code pas trouve
 	 */
 	public static EnActivityCode fromCode(int p_code) {
 		if (p_code > 0) {

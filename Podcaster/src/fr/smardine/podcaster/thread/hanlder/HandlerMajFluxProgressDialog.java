@@ -71,7 +71,7 @@ public class HandlerMajFluxProgressDialog extends Handler {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				gotoAff_PagePrincipale();
-				// Toast.makeText(context, "Tache annulée", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
+				// Toast.makeText(context, "Tache annulee", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
 			}
 		});
 		if (methode == EnMethodType.CREATE_FLUX) {
@@ -148,31 +148,31 @@ public class HandlerMajFluxProgressDialog extends Handler {
 			this.listView.setAdapter(adpt);
 		} else if (methode == EnMethodType.CREATE_FLUX) {
 			FluxListAdapter adpt = new FluxListAdapter(this.context, listeFlux);
-			// paramèter l'adapter sur la listview
+			// parameter l'adapter sur la listview
 			this.listView.setAdapter(adpt);
 		}
 
 	}
 
 	/**
-	 * Grace au context passé à cet objet métier, aller directement dans la vue des flux.
+	 * Grace au context passe a cet objet metier, aller directement dans la vue des flux.
 	 */
 	private void gotoAff_PagePrincipale() {
 		if (context instanceof Activity) {
-			// pour démarrer cette nouvelle instance utiliser l'instance de
-			// l'activity qui a provoqué une synchro et passer son propre
+			// pour demarrer cette nouvelle instance utiliser l'instance de
+			// l'activity qui a provoque une synchro et passer son propre
 			// requestcode
 			Activity myactivity = ((Activity) context);
 			myactivity.onContentChanged();
 			// int requestcode = (myactivity.getIntent().getExtras() == null ? 0 : myactivity.getIntent().getExtras()
 			// .getInt(ExtrasEquinox.EXTRA_STARTACTIVITY_REQUESTCODE, 0));
 			// // si l'ordre de synchronisation ne provient pas du menu de la vue
-			// // des tournées alors aller dans les tournées
+			// // des tournees alors aller dans les tournees
 			// EnActivityCode enRequestCode = EnActivityCode.fromCode(requestcode);
 			// switch (enRequestCode) {
 			// case AFF_TOURNEES_REQUEST_CODE:
 			// // la MEGA astuce pour provoquer le refresh de la vue des
-			// // tournées suite à une synchro lancée à causse d'une
+			// // tournees suite a une synchro lancee a causse d'une
 			// // modification de licence !
 			// myactivity.onContentChanged();
 			// break;
@@ -180,7 +180,7 @@ public class HandlerMajFluxProgressDialog extends Handler {
 			// myactivity.finish(); // retour dans aff_tournees
 			// break;
 			// default:
-			// // aller dans la vue des tournées
+			// // aller dans la vue des tournees
 			// Intent intent = new Intent(context, MainTabActivity.class);
 			// myactivity.startActivityForResult(intent, requestcode);
 			// myactivity.overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);

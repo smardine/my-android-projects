@@ -116,7 +116,7 @@ public class G_maj_base {
 	 */
 	private List<String> getVersion2() {
 		version2 = new ArrayList<String>();
-		version2.add("UPDATE trousse_marques SET nom_marque=\"L'Oréal\" where id_marque=80");
+		version2.add("UPDATE trousse_marques SET nom_marque=\"L'Oreal\" where id_marque=80");
 		return version2;
 	}
 
@@ -126,7 +126,7 @@ public class G_maj_base {
 	private List<String> getVersion3() {
 		version3 = new ArrayList<String>();
 		version3.add("UPDATE trousse_marques SET nom_marque=\"Black'Up\" where id_marque=17");
-		version3.add("UPDATE trousse_marques SET nom_marque=\"L'Action Cosmétique\" where id_marque=79");
+		version3.add("UPDATE trousse_marques SET nom_marque=\"L'Action Cosmetique\" where id_marque=79");
 		version3.add("UPDATE trousse_marques SET nom_marque=\"Mosqueta's\" where id_marque=110");
 		version3.add("UPDATE trousse_marques SET nom_marque=\"Paula's Choice\" where id_marque=120");
 		version3.add("UPDATE trousse_marques SET nom_marque=\"Phyt's\" where id_marque=123");
@@ -144,8 +144,8 @@ public class G_maj_base {
 		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Fonds de teint\" where nom_souscatergorie=\"Fond de tein\"");
 		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Correcteurs - Bases\" where nom_souscatergorie=\"Correcteurs - Bases\"");
 		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Crayons contour\" where nom_souscatergorie=\"Crayon contour\"");
-		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Rouges à lèvres\" where nom_souscatergorie=\"Rouge à lèvre\"");
-		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Vernis à ongles\" where nom_souscatergorie=\"Vernis à ongle\"");
+		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Rouges a levres\" where nom_souscatergorie=\"Rouge a levre\"");
+		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Vernis a ongles\" where nom_souscatergorie=\"Vernis a ongle\"");
 		version4.add("UPDATE trousse_produits SET nom_souscatergorie=\"Crayons - Eyeliners\" where nom_souscatergorie=\"Crayons - Eyliners\"");
 		return version4;
 

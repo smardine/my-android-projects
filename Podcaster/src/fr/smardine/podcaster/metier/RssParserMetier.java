@@ -73,15 +73,15 @@ public class RssParserMetier {
 	}
 
 	/**
-	 * Parcourir la liste des "noeuds" xml a la recherche des balises "Item" Lorsuq'une balise est trouvée, on contruit un MlEpisode a
-	 * partir de cet "Item" Si l'episode est considéré comme "Nouveau" (n'existe pas en base), on le rajoute a la liste des episodes du flux
+	 * Parcourir la liste des "noeuds" xml a la recherche des balises "Item" Lorsuq'une balise est trouvee, on contruit un MlEpisode a
+	 * partir de cet "Item" Si l'episode est considere comme "Nouveau" (n'existe pas en base), on le rajoute a la liste des episodes du flux
 	 * parent
 	 * @param p_fluxParent
 	 * @param p_doc
 	 * @param progressDialogHandler
 	 */
 	public static void parcourirNodeListeEtValoriseListeEpisode(MlFlux p_fluxParent, Document p_doc, Handler progressDialogHandler) {
-		// on recupere les tag nommé "item"
+		// on recupere les tag nomme "item"
 		NodeList nodes = p_doc.getElementsByTagName(EnBaliseRSS.Item.toString());
 
 		for (int i = 0; i < nodes.getLength(); i++) {
@@ -99,11 +99,11 @@ public class RssParserMetier {
 			// p_progressDialog.setMessage(unEpisode.getTitre());
 			// on recupere la descritpion
 			unEpisode.setDescription(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Description }));
-			// on recupere l'url du fichier xml qui contient la définition
+			// on recupere l'url du fichier xml qui contient la definition
 			// du flux rss
 			unEpisode.setUrlEpisode(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.Link }));
 
-			// on recupere la durée de l'element si audio ou video
+			// on recupere la duree de l'element si audio ou video
 			unEpisode.setDuree(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.ItuneDuration }));
 			// on recupere la date de publication
 			unEpisode.setDatePublication(GMTDateToFrench(readNode(element, new EnBaliseRSS[] { EnBaliseRSS.PubDate })));
@@ -160,9 +160,9 @@ public class RssParserMetier {
 	}
 
 	/**
-	 * Méthode permettant de retourner ce que contient d'un noeud
+	 * Methode permettant de retourner ce que contient d'un noeud
 	 * @param _node le noeud principal
-	 * @param _path suite des noms des noeud sans espace séparer par des "|"
+	 * @param _path suite des noms des noeud sans espace separer par des "|"
 	 * @return un string contenant le valeur du noeud voulut
 	 */
 	private static String readNode(Node _node, EnBaliseRSS[] _paths) {
@@ -212,9 +212,9 @@ public class RssParserMetier {
 	}
 
 	/**
-	 * Méthode permettant de retourner ce que contient d'un noeud
+	 * Methode permettant de retourner ce que contient d'un noeud
 	 * @param p_node le noeud principal
-	 * @param _path suite des noms des noeud sans espace séparer par des "|"
+	 * @param _path suite des noms des noeud sans espace separer par des "|"
 	 * @param p_value
 	 * @return un string contenant le valeur du noeud voulut
 	 */

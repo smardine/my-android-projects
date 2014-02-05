@@ -1,7 +1,7 @@
 package fr.smardine.podcaster.helper;
 
 /**
- * cette classes gere tout les parametres que l'on peut passer d'une activité a
+ * cette classes gere tout les parametres que l'on peut passer d'une activite a
  * une autre.
  * @author smardine
  */

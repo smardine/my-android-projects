@@ -47,7 +47,7 @@ public enum EnTypeAlertDialogSingleChoice {
 		switch (this) {
 			case FINIOUPAS:
 				CharSequence[] items = { "Ajouter un produit",
-						"Dupliquer un produit", "Revenir à la page d'accueil" };
+						"Dupliquer un produit", "Revenir a la page d'accueil" };
 				return items;
 		}
 		return null;

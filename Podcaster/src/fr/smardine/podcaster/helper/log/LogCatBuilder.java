@@ -10,7 +10,7 @@ import android.util.Log;
 public final class LogCatBuilder {
 
 	/**
-	 * Constructeur privé pour une classe utilitaire
+	 * Constructeur prive pour une classe utilitaire
 	 */
 	private LogCatBuilder() {
 
@@ -21,7 +21,7 @@ public final class LogCatBuilder {
 	 * @param p_context - Context
 	 * @param p_tag - String - le tag de la classe java
 	 * @param p_resId - int - lien vers le fichier {@link string}
-	 * @param p_exception - Exception - l'exception à logué
+	 * @param p_exception - Exception - l'exception a logue
 	 */
 	public static void WriteErrorToLog(Context p_context, String p_tag,
 			int p_resId, Exception p_exception, Object... p_formatArgs) {
@@ -73,7 +73,7 @@ public final class LogCatBuilder {
 	}
 
 	/**
-	 * Ecrire un message p_resId formaté avec les indications p_formatArgs dans
+	 * Ecrire un message p_resId formate avec les indications p_formatArgs dans
 	 * LogCat SAUF les ERROR
 	 * @param p_context
 	 * @param p_niveauLog niveau

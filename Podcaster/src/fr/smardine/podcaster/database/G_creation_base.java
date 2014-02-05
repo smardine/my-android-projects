@@ -120,9 +120,9 @@ public class G_creation_base {
 		creationCategorie
 				.add("INSERT INTO trousse_produits (nom_souscatergorie,nom_categorie,ISCHECKED) VALUES ('Crayons contour','Levres','false')");
 		creationCategorie
-				.add("INSERT INTO trousse_produits (nom_souscatergorie,nom_categorie,ISCHECKED) VALUES ('Rouges à lèvres','Levres','false')");
+				.add("INSERT INTO trousse_produits (nom_souscatergorie,nom_categorie,ISCHECKED) VALUES ('Rouges a levres','Levres','false')");
 		creationCategorie
-				.add("INSERT INTO trousse_produits (nom_souscatergorie,nom_categorie,ISCHECKED) VALUES ('Vernis à ongles','Autres','false')");
+				.add("INSERT INTO trousse_produits (nom_souscatergorie,nom_categorie,ISCHECKED) VALUES ('Vernis a ongles','Autres','false')");
 		return creationCategorie;
 	}
 
@@ -142,14 +142,14 @@ public class G_creation_base {
 	// */
 	// private final String[] SCRIPT_INSERT_MARQUE = {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('2B','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Agnès b.','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Agnes b.','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Alverde','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Annabelle','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Annayaké','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Anne Faugère','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Annayake','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Anne Faugere','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Arcancil','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Artdeco','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Auriège','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Auriege','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Avon','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('B Never Too Busy To Be Beautiful','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('BS Beauty Success','false')",
@@ -188,22 +188,22 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Dr Pierre Ricaud','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Dr Temt','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Dr.Hauschka','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Déborah','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Deborah','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Eclipse Colours','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Ecrinal','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elcéa','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elcea','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elite','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elizabeth Arden','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elysambre','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Elytis','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Essence','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Estée Lauder','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Estee Lauder','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Eye care','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Eyeko','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Fresh','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Fusion Beauty','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Galerie Noémie','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Galénic','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Galerie Noemie','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Galenic','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Gemey-Maybelline','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Giorgio Armani Cosmetics','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Givenchy','false')",
@@ -211,7 +211,7 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Guerlain','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('HC HighTech Cosmetics','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Hema','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Héléna Rubinstein','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Helena Rubinstein','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Iman','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Imju','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Innoxa','false')",
@@ -219,8 +219,8 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Jean-Claude Biguine','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Kanebo','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Kiss Me','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('L Action Cosmétique','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('L Oréal','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('L Action Cosmetique','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('L Oreal','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('LR','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('La Roche Posay','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Lancaster','false')",
@@ -229,7 +229,7 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Lash Plus Greenfields','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Laura','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Lavera','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Le Club de la Beauté Naturelle','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Le Club de la Beaute Naturelle','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Lena Bliss','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Les Copines','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Lise Watier','false')",
@@ -250,7 +250,7 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Miss Den','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Miss Helen - Monoprix','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Model Co','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Modélite','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Modelite','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Mosqueta s','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('NYX','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Nars','false')",
@@ -272,9 +272,9 @@ public class G_creation_base {
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Qualinat','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Revlon','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Rimmel','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Réserve Naturelle','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Reserve Naturelle','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('SLA Serge Louis Alvarez','false')",
-	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Santé','false')",
+	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Sante','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Sephora','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Serge Lutens','false')",
 	// "INSERT INTO trousse_marques (nom_marque,ISCHECKED) VALUES ('Shiseido','false')",

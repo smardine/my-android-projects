@@ -14,7 +14,7 @@ import fr.smardine.podcaster.mdl.MlFlux;
 import fr.smardine.podcaster.mdl.MlListeFlux;
 
 /**
- * @author smardine Acces a la table des Notes enregistré en base
+ * @author smardine Acces a la table des Notes enregistre en base
  */
 public class AccesTableFlux {
 
@@ -61,7 +61,7 @@ public class AccesTableFlux {
 	}
 
 	/**
-	 * Creation des content Value, utilisaé a la fois pour l'insertion et la maj en bdd
+	 * Creation des content Value, utilisae a la fois pour l'insertion et la maj en bdd
 	 * @param p_flux
 	 * @return
 	 */
@@ -130,12 +130,12 @@ public class AccesTableFlux {
 	// "[Auto] " + p_flux.getNomProduit() + " " + p_flux.getMarque());
 	// values.put(
 	// "Message",
-	// "Produit acheté le: " + p_flux.getDateAchat() + "\n"
-	// + "Catégorie du produit: "
+	// "Produit achete le: " + p_flux.getDateAchat() + "\n"
+	// + "Categorie du produit: "
 	// + p_flux.getCategorie().getSousCategorie() + "\n"
-	// + "Numéro de teinte: " + p_flux.getTeinte() + "\n"
-	// + "Durée de vie du produit: " + p_flux.getDureeVie()
-	// + " mois\n" + "Date de péremption: "
+	// + "Numero de teinte: " + p_flux.getTeinte() + "\n"
+	// + "Duree de vie du produit: " + p_flux.getDureeVie()
+	// + " mois\n" + "Date de peremption: "
 	// + p_flux.getDatePeremption() + "\n");
 	//
 	// requeteFact.insertDansTable(EnTable.NOTES, values);

@@ -68,7 +68,7 @@ public class HandlerDownloadEpisodeProgressDialog extends Handler {
 		// @Override
 		// public void onDismiss(DialogInterface dialog) {
 		// // gotoAff_PagePrincipale();
-		// // Toast.makeText(context, "Tache annulée", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
+		// // Toast.makeText(context, "Tache annulee", Toast.LENGTH_LONG).show();// gotoAff_Tournees();
 		// }
 		// });
 

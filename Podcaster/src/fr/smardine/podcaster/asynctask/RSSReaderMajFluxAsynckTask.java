@@ -69,20 +69,20 @@ public class RSSReaderMajFluxAsynckTask extends AsyncTask<Void, String, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
-		// on recupere la liste des flux en base et on rafraichi la liste presentée a l'ecran
+		// on recupere la liste des flux en base et on rafraichi la liste presentee a l'ecran
 		MlListeEpisode listeEpisode = new MlListeEpisode();
 		for (MlFlux unFlux : this.listeFlux) {
 			listeEpisode.addAll(tableEpisode.getListeDesEpisodeParIdFlux(unFlux));
 		}
 
 		EpisodeListAdapter adpt = new EpisodeListAdapter(this.context, listeEpisode);
-		// paramèter l'adapter sur la listview
+		// parameter l'adapter sur la listview
 		this.listeView.setAdapter(adpt);
 	}
 
 	@Override
 	protected void onProgressUpdate(String... prog) {
-		// À chaque avancement du téléchargement, on met à jour la boîte de dialogue
+		// À chaque avancement du telechargement, on met a jour la boîte de dialogue
 		this.progressDialog.setMessage(prog[0]);
 	}
 

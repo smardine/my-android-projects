@@ -216,8 +216,8 @@ public class MlEpisode implements Serializable {
 	}
 
 	/**
-	 * Positionne le statut de lecture d'une episode {@link EnStatutLecture} Si l'episode est deja connu en base (basé sur la date de
-	 * publication, le titre et la durée) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le statut est
+	 * Positionne le statut de lecture d'une episode {@link EnStatutLecture} Si l'episode est deja connu en base (base sur la date de
+	 * publication, le titre et la duree) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le statut est
 	 * "NonLu"
 	 * @param p_context
 	 */
@@ -230,13 +230,13 @@ public class MlEpisode implements Serializable {
 				return;
 			}
 		}
-		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionné à "NonLu"
+		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionne a "NonLu"
 		this.statutLecture = EnStatutLecture.NonLu;
 	}
 
 	/**
-	 * /** Positionne le statut de telechargement d'une episode {@link EnStatutTelechargement} Si l'episode est deja connu en base (basé sur
-	 * la date de publication, le titre et la durée) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le
+	 * /** Positionne le statut de telechargement d'une episode {@link EnStatutTelechargement} Si l'episode est deja connu en base (base sur
+	 * la date de publication, le titre et la duree) on positionne le statut de l'episode en cours par rappport a celui en base Sinon, le
 	 * statut est "streaming"
 	 * @param p_context
 	 */
@@ -251,7 +251,7 @@ public class MlEpisode implements Serializable {
 				return;
 			}
 		}
-		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionné à "streaming"
+		// on a parcouru tous les episodes sans trouver de reference en base, le statut est positionne a "streaming"
 		this.statutTelechargement = EnStatutTelechargement.Streaming;
 
 	}

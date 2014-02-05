@@ -42,12 +42,12 @@ public class ButtonSupprMediaEpisodeClickListener implements OnClickListener {
 				}
 
 				if (episode.getMediaTelecharge().exists()) {
-					// le fichier est tjrs là
-					// laisse affiché l'icone de la poubelle
+					// le fichier est tjrs la
+					// laisse affiche l'icone de la poubelle
 					viewholder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
 					viewholder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 				} else {
-					// le fichier à bien ete effacé
+					// le fichier a bien ete efface
 					// on reaffiche l'icone de telechargement et on cache celui de la corbeille
 					viewholder.ImdCorbeilleEpisode.setVisibility(EnStatutVisibilite.RETIRE.getCode());
 					viewholder.ImdTelechargeEpisode.setVisibility(EnStatutVisibilite.VISIBLE.getCode());
