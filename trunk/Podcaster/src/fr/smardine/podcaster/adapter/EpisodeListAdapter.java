@@ -86,7 +86,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 
 	/*
 	 * astuce pour fluidifier au mieux l'affichage de la listview memoriser le contenu des composants visuels qui sont presents dans une
-	 * ligne de la listview La classe peut être declaree dans un autre module pour être reutilisee
+	 * ligne de la listview La classe peut etre declaree dans un autre module pour etre reutilisee
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	/**
@@ -111,7 +111,7 @@ public class EpisodeListAdapter extends BaseAdapter implements Filterable, Seria
 		final MlEpisode unEpisode = lstEpisodes.get(position);
 		// EpisodeListCacheView viewCache;
 
-		// convertView peut deja être initialise sinon alors l'initialiser
+		// convertView peut deja etre initialise sinon alors l'initialiser
 		if (convertView == null) {
 			// affecter un linearlayout propre a la ligne a afficher dans le
 			// listview

@@ -18,7 +18,7 @@ import fr.smardine.podcaster.thread.hanlder.HandlerMajFluxProgressDialog;
 /**
  * Boite de dialogue visuelle ouverte a partir d'une vue dont le context est passe en parametre du constructeur. Cette boite presente un
  * composant de progression circulaire. Le processus metier est execute dans un thread, il est interrompable . La boite de dialogue peut
- * être cachee pour que l'utilisateur procede a d'autres manipulations.
+ * etre cachee pour que l'utilisateur procede a d'autres manipulations.
  * @author s.mardine
  */
 public class DownloadEpisodeProgressDialog {
